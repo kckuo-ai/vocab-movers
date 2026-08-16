@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>Movers 單字護照</title>
+<style>
+:root{
+  --blue:#4361EE; --teal:#2EC4B6; --ink:#233047; --sub:#8592A6;
+  --bg:#F6F8FC; --card:#ffffff; --border:#E4E8F0; --track:#EEF1F7;
+  --green:#06D6A0; --amber:#FFB703; --red:#EF476F;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+  color:var(--ink);
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input{font-family:inherit;}
+.wrap{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;position:relative;}
+.header{
+  background:linear-gradient(135deg,#4361EE 0%,#2EC4B6 100%);
+  color:#fff;padding:22px 20px 26px;border-bottom-left-radius:28px;border-bottom-right-radius:28px;
+  box-shadow:0 8px 24px rgba(67,97,238,.25);
+}
+.htag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;background:rgba(255,255,255,.22);padding:4px 10px;border-radius:999px;margin-bottom:8px;}
+.htitle{font-weight:800;font-size:24px;letter-spacing:.3px;}
+.hsub{font-size:13px;opacity:.9;margin-top:3px;font-weight:600;}
+.body{flex:1;overflow-y:auto;padding-bottom:84px;}
+.pad{padding:16px 18px 6px;}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--border);display:flex;padding:8px 6px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -6px 20px rgba(35,48,71,.06);z-index:40;}
+.tabbtn{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 0 2px;position:relative;color:#8592A6;}
+.tabbtn.active{color:var(--blue);}
+.tabbtn .emo{font-size:20px;}
+.tabbtn .lbl{font-size:11px;font-weight:800;margin-top:2px;}
+.tabbtn .dot{position:absolute;bottom:-6px;width:5px;height:5px;border-radius:50%;background:var(--blue);}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:50;max-width:90%;text-align:center;}
+.card{background:#fff;border-radius:16px;}
+.sectionTitle{font-weight:800;font-size:15px;margin:16px 0 10px;}
+.speakBtn{border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:#EEF1FB;color:var(--blue);}
+/* mascot */
+.mascotWrap{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;}
+.owl{width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 6px 14px rgba(35,48,71,.1);}
+.bubble{flex:1;background:#fff;border-radius:16px;padding:10px 14px;font-size:12.5px;font-weight:700;color:#4A5568;box-shadow:0 6px 14px rgba(35,48,71,.06);}
+.streakBadge{position:absolute;top:-8px;right:-4px;background:var(--amber);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;box-shadow:0 4px 10px rgba(255,183,3,.4);}
+/* daily goal */
+.dailyCard{background:#fff;border-radius:16px;padding:12px 14px;margin-bottom:14px;}
+.dailyTop{display:flex;justify-content:space-between;margin-bottom:7px;}
+.barTrack{height:7px;background:var(--track);border-radius:999px;overflow:hidden;}
+.barFill{height:100%;border-radius:999px;transition:width .4s ease;}
+.dailyStreakRow{display:flex;justify-content:space-between;margin-top:9px;font-size:11.5px;font-weight:800;color:var(--sub);}
+/* word of day */
+.wodCard{border-radius:18px;padding:14px 16px;color:#fff;margin-bottom:18px;box-shadow:0 10px 22px rgba(35,48,71,.14);}
+.wodLabel{font-size:11px;font-weight:800;opacity:.9;margin-bottom:6px;}
+.wodRow{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.wodEn{font-weight:800;font-size:24px;word-break:break-word;}
+.wodZh{font-size:12.5px;opacity:.92;margin-top:3px;font-weight:700;}
+.wodFooter{font-size:11px;opacity:.85;margin-top:10px;font-weight:700;}
+/* badges */
+.badgeGrid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.badge{width:78px;background:#fff;border-radius:14px;padding:10px 4px;text-align:center;box-shadow:0 4px 10px rgba(35,48,71,.06);}
+.badge.locked{opacity:.5;}
+.badge .emo{font-size:22px;margin-bottom:3px;}
+.badge .lbl{font-size:9.5px;font-weight:800;color:#5B6779;line-height:1.2;}
+/* ring */
+.ring{position:relative;width:132px;height:132px;margin:6px auto 4px;}
+.ringCenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.statRow{display:flex;gap:10px;margin:16px 0 22px;}
+.chip{flex:1;background:#fff;border:1.5px solid;border-radius:14px;padding:10px 4px;text-align:center;}
+.chip .val{font-weight:800;font-size:18px;}
+.chip .lbl{font-size:10.5px;color:var(--sub);font-weight:700;margin-top:1px;}
+.catRow{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:10px;margin-bottom:10px;}
+.catIcon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.catTop{display:flex;justify-content:space-between;margin-bottom:5px;}
+.ctaRow{display:flex;gap:10px;margin-top:20px;}
+.cta{flex:1;border:none;color:#fff;font-weight:800;font-size:14px;padding:13px 0;border-radius:14px;box-shadow:0 8px 18px rgba(0,0,0,.12);}
+/* browse */
+.search{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--border);font-size:14px;outline:none;margin-bottom:12px;}
+.chipRow{display:flex;flex-wrap:wrap;}
+.catChip{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1.5px solid var(--border);background:#fff;color:#5B6779;font-weight:800;font-size:12.5px;margin-right:7px;margin-bottom:7px;white-space:nowrap;}
+.catChip.active{}
+.rowCard{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:8px;}
+.rowHead{width:100%;display:flex;align-items:center;gap:10px;padding:11px 12px;}
+.rowDot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rowBody{padding:0 12px 12px;}
+.levelBtnRow{display:flex;gap:6px;}
+.levelBtn{flex:1;border:none;border-radius:10px;padding:8px 2px;font-size:11px;font-weight:800;}
+/* study */
+.cardWrap{perspective:1200px;margin-top:8px;}
+.flashcard{position:relative;height:230px;border-radius:22px;box-shadow:0 14px 30px rgba(35,48,71,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;color:#fff;text-align:center;cursor:pointer;}
+.flashcard.back{background:#fff;border:1.5px solid #EEF1F7;color:var(--ink);}
+.fcTab{position:absolute;top:14px;left:14px;font-size:11px;font-weight:800;background:rgba(255,255,255,.25);padding:4px 10px;border-radius:999px;}
+.fcTab.backTab{background:var(--tabbg,#EEE);}
+.fcPos{position:absolute;top:16px;right:16px;font-size:11px;font-weight:800;opacity:.85;}
+.fcEn{font-weight:800;font-size:30px;margin-top:6px;word-break:break-word;}
+.fcZh{font-size:20px;font-weight:800;color:var(--ink);margin-top:10px;}
+.fcHint{position:absolute;bottom:16px;font-size:11px;opacity:.85;font-weight:700;}
+.rateRow{display:flex;gap:8px;margin-top:18px;}
+.rateBtn{flex:1;border:none;border-radius:14px;padding:10px 2px;color:#fff;}
+.emptyWrap{text-align:center;padding:50px 10px;}
+/* quiz */
+.introCard{background:#fff;border-radius:18px;padding:22px 18px;text-align:center;}
+.qzTopRow{display:flex;gap:8px;margin-bottom:14px;}
+.qzPill{flex:1;text-align:center;background:#EEF1FB;color:var(--blue);font-weight:800;font-size:11.5px;padding:7px 4px;border-radius:999px;}
+.qCard{border-radius:20px;padding:22px 18px;text-align:center;box-shadow:0 10px 24px rgba(35,48,71,.15);color:#fff;}
+.qOption{text-align:left;padding:13px 16px;border-radius:14px;border:1.5px solid var(--border);font-size:15px;font-weight:700;background:#fff;width:100%;color:var(--ink);}
+.qOption.correct{background:#E9F7EF;border-color:var(--green);color:#177350;}
+.qOption.wrong{background:#FDECEE;border-color:var(--red);color:#B3223F;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<script>
+/* ============================================================
+   劍橋 Movers 單字資料（同前一版本，來源：Cambridge English
+   Pre A1 Starters / A1 Movers / A2 Flyers Wordlist，僅收錄
+   Movers 等級新增詞彙，依主題分類）
+   ============================================================ */
+const RAW_WORDS = [
+  // 動物 animals
+  ["bat", "n", "蝙蝠", "animals"],
+  ["cage", "n", "籠子", "animals"],
+  ["dolphin", "n", "海豚", "animals"],
+  ["fly", "n", "蒼蠅", "animals"],
+  ["kangaroo", "n", "袋鼠", "animals"],
+  ["kitten", "n", "小貓", "animals"],
+  ["lion", "n", "獅子", "animals"],
+  ["panda", "n", "貓熊", "animals"],
+  ["parrot", "n", "鸚鵡", "animals"],
+  ["penguin", "n", "企鵝", "animals"],
+  ["puppy", "n", "小狗", "animals"],
+  ["rabbit", "n", "兔子", "animals"],
+  ["shark", "n", "鯊魚", "animals"],
+  ["snail", "n", "蝸牛", "animals"],
+  ["whale", "n", "鯨魚", "animals"],
+
+  // 身體與外貌 body
+  ["back", "n", "背部", "body"],
+  ["beard", "n", "鬍子", "body"],
+  ["blond(e)", "adj", "金髮的", "body"],
+  ["curly", "adj", "捲髮的", "body"],
+  ["fair", "adj", "（膚色）白皙的", "body"],
+  ["fat", "adj", "胖的", "body"],
+  ["moustache", "n", "八字鬍", "body"],
+  ["neck", "n", "脖子", "body"],
+  ["shoulder", "n", "肩膀", "body"],
+  ["stomach", "n", "胃；肚子", "body"],
+  ["stomach-ache", "n", "肚子痛", "body"],
+  ["thin", "adj", "瘦的", "body"],
+  ["tooth/teeth", "n", "牙齒", "body"],
+  ["toothache", "n", "牙痛", "body"],
+  ["headache", "n", "頭痛", "body"],
+  ["earache", "n", "耳朵痛", "body"],
+
+  // 衣物 clothes
+  ["coat", "n", "外套", "clothes"],
+  ["helmet", "n", "安全帽", "clothes"],
+  ["scarf", "n", "圍巾", "clothes"],
+  ["sweater", "n", "毛衣", "clothes"],
+  ["swimsuit", "n", "泳衣", "clothes"],
+
+  // 家庭 family
+  ["aunt", "n", "阿姨；姑姑", "family"],
+  ["daughter", "n", "女兒", "family"],
+  ["granddaughter", "n", "孫女", "family"],
+  ["grandparent", "n", "祖父母", "family"],
+  ["grandson", "n", "孫子", "family"],
+  ["grown-up", "n", "大人", "family"],
+  ["parent", "n", "父母", "family"],
+  ["son", "n", "兒子", "family"],
+  ["uncle", "n", "叔叔；舅舅", "family"],
+
+  // 食物與飲品 food
+  ["bottle", "n", "瓶子", "food"],
+  ["bowl", "n", "碗", "food"],
+  ["cheese", "n", "起司", "food"],
+  ["coffee", "n", "咖啡", "food"],
+  ["cup", "n", "杯子", "food"],
+  ["glass", "n", "玻璃杯", "food"],
+  ["hungry", "adj", "飢餓的", "food"],
+  ["milkshake", "n", "奶昔", "food"],
+  ["noodles", "n", "麵條", "food"],
+  ["pancake", "n", "鬆餅", "food"],
+  ["pasta", "n", "義大利麵", "food"],
+  ["picnic", "n", "野餐", "food"],
+  ["plate", "n", "盤子", "food"],
+  ["salad", "n", "沙拉", "food"],
+  ["sandwich", "n", "三明治", "food"],
+  ["sauce", "n", "醬汁", "food"],
+  ["soup", "n", "湯", "food"],
+  ["tea", "n", "茶", "food"],
+  ["thirsty", "adj", "口渴的", "food"],
+  ["vegetable", "n", "蔬菜", "food"],
+
+  // 居家 home
+  ["address", "n", "地址", "home"],
+  ["balcony", "n", "陽台", "home"],
+  ["basement", "n", "地下室", "home"],
+  ["blanket", "n", "毯子", "home"],
+  ["downstairs", "adv", "在樓下", "home"],
+  ["upstairs", "adv", "在樓上", "home"],
+  ["dream", "n/v", "夢；做夢", "home"],
+  ["elevator (lift)", "n", "電梯", "home"],
+  ["floor", "n", "樓層", "home"],
+  ["internet", "n", "網路", "home"],
+  ["message", "n", "訊息", "home"],
+  ["roof", "n", "屋頂", "home"],
+  ["seat", "n", "座位", "home"],
+  ["shower", "n", "淋浴", "home"],
+  ["stair(s)", "n", "樓梯", "home"],
+  ["toothbrush", "n", "牙刷", "home"],
+  ["toothpaste", "n", "牙膏", "home"],
+  ["towel", "n", "毛巾", "home"],
+  ["wash", "n/v", "洗", "home"],
+
+  // 地方 places
+  ["bus station", "n", "公車總站", "places"],
+  ["bus stop", "n", "公車站牌", "places"],
+  ["café", "n", "咖啡廳", "places"],
+  ["car park", "n", "停車場", "places"],
+  ["centre", "n", "中心", "places"],
+  ["cinema", "n", "電影院", "places"],
+  ["circus", "n", "馬戲團", "places"],
+  ["city", "n", "城市", "places"],
+  ["city/town centre", "n", "市中心", "places"],
+  ["countryside", "n", "鄉村", "places"],
+  ["farm", "n", "農場", "places"],
+  ["forest", "n", "森林", "places"],
+  ["funfair", "n", "遊樂園", "places"],
+  ["hospital", "n", "醫院", "places"],
+  ["island", "n", "島", "places"],
+  ["jungle", "n", "叢林", "places"],
+  ["lake", "n", "湖", "places"],
+  ["library", "n", "圖書館", "places"],
+  ["market", "n", "市場", "places"],
+  ["mountain", "n", "山", "places"],
+  ["pool", "n", "水池", "places"],
+  ["river", "n", "河流", "places"],
+  ["road", "n", "道路", "places"],
+  ["shopping centre", "n", "購物中心", "places"],
+  ["sports centre", "n", "運動中心", "places"],
+  ["station", "n", "車站", "places"],
+  ["supermarket", "n", "超市", "places"],
+  ["swimming pool", "n", "游泳池", "places"],
+  ["town", "n", "城鎮", "places"],
+  ["village", "n", "村莊", "places"],
+  ["waterfall", "n", "瀑布", "places"],
+
+  // 學校與科技 school
+  ["comic book", "n", "漫畫書", "school"],
+  ["e-book", "n", "電子書", "school"],
+  ["homework", "n", "家庭作業", "school"],
+  ["laptop", "n", "筆記型電腦", "school"],
+  ["website", "n", "網站", "school"],
+  ["practice/practise", "n/v", "練習", "school"],
+  ["CD", "n", "光碟", "school"],
+  ["DVD", "n", "影音光碟", "school"],
+  ["text", "n/v", "簡訊；傳簡訊", "school"],
+
+  // 職業 jobs
+  ["cook", "n/v", "廚師；烹飪", "jobs"],
+  ["dentist", "n", "牙醫", "jobs"],
+  ["doctor", "n", "醫生", "jobs"],
+  ["driver", "n", "司機", "jobs"],
+  ["farmer", "n", "農夫", "jobs"],
+  ["film star", "n", "電影明星", "jobs"],
+  ["nurse", "n", "護士", "jobs"],
+  ["pirate", "n", "海盜", "jobs"],
+  ["player", "n", "選手", "jobs"],
+  ["pop star", "n", "流行歌手", "jobs"],
+
+  // 運動與休閒 sports
+  ["band (music)", "n", "樂團", "sports"],
+  ["dance", "n/v", "跳舞", "sports"],
+  ["goal", "n", "得分；球門", "sports"],
+  ["holiday", "n", "假期", "sports"],
+  ["ice skates", "n", "溜冰鞋", "sports"],
+  ["ice skating", "n", "溜冰", "sports"],
+  ["kick", "n", "踢", "sports"],
+  ["party", "n", "派對", "sports"],
+  ["present", "n", "禮物", "sports"],
+  ["roller skates", "n", "直排輪鞋", "sports"],
+  ["roller skating", "n", "溜直排輪", "sports"],
+  ["sail", "n/v", "航行", "sports"],
+  ["score", "v", "得分", "sports"],
+  ["skate", "n/v", "溜冰", "sports"],
+  ["skip", "v", "跳繩", "sports"],
+  ["swim", "n", "游泳", "sports"],
+  ["ticket", "n", "票", "sports"],
+  ["trip", "n", "旅行", "sports"],
+  ["video", "n/v", "影片", "sports"],
+
+  // 天氣 weather
+  ["cloud", "n", "雲", "weather"],
+  ["cloudy", "adj", "多雲的", "weather"],
+  ["rain", "n/v", "雨；下雨", "weather"],
+  ["rainbow", "n", "彩虹", "weather"],
+  ["sky", "n", "天空", "weather"],
+  ["snow", "n/v", "雪；下雪", "weather"],
+  ["sunny", "adj", "晴朗的", "weather"],
+  ["weather", "n", "天氣", "weather"],
+  ["wind", "n", "風", "weather"],
+  ["windy", "adj", "有風的", "weather"],
+  ["wet", "adj", "濕的", "weather"],
+
+  // 時間 time
+  ["Monday", "n", "星期一", "time"],
+  ["Tuesday", "n", "星期二", "time"],
+  ["Wednesday", "n", "星期三", "time"],
+  ["Thursday", "n", "星期四", "time"],
+  ["Friday", "n", "星期五", "time"],
+  ["Saturday", "n", "星期六", "time"],
+  ["Sunday", "n", "星期日", "time"],
+  ["o'clock", "adv", "……點鐘", "time"],
+  ["often", "adv", "常常", "time"],
+  ["sometimes", "adv", "有時候", "time"],
+  ["week", "n", "星期；週", "time"],
+  ["weekend", "n", "週末", "time"],
+  ["yesterday", "adv/n", "昨天", "time"],
+
+  // 自然世界 nature
+  ["field", "n", "田野", "nature"],
+  ["grass", "n", "草地", "nature"],
+  ["ground", "n", "地面", "nature"],
+  ["leaf/leaves", "n", "葉子", "nature"],
+  ["moon", "n", "月亮", "nature"],
+  ["rock", "n", "岩石", "nature"],
+  ["star", "n", "星星", "nature"],
+  ["treasure", "n", "寶藏", "nature"],
+  ["world", "n", "世界", "nature"],
+
+  // 常用形容詞 adjectives
+  ["afraid", "adj", "害怕的", "adjectives"],
+  ["boring", "adj", "無聊的", "adjectives"],
+  ["brave", "adj", "勇敢的", "adjectives"],
+  ["brilliant", "adj", "極好的", "adjectives"],
+  ["busy", "adj", "忙碌的", "adjectives"],
+  ["careful", "adj", "小心的", "adjectives"],
+  ["clever", "adj", "聰明的", "adjectives"],
+  ["dangerous", "adj", "危險的", "adjectives"],
+  ["different", "adj", "不同的", "adjectives"],
+  ["difficult", "adj", "困難的", "adjectives"],
+  ["easy", "adj", "容易的", "adjectives"],
+  ["exciting", "adj", "刺激的", "adjectives"],
+  ["famous", "adj", "有名的", "adjectives"],
+  ["fine", "adj", "良好的", "adjectives"],
+  ["frightened", "adj", "害怕的", "adjectives"],
+  ["hot", "adj", "熱的", "adjectives"],
+  ["huge", "adj", "巨大的", "adjectives"],
+  ["ill", "adj", "生病的", "adjectives"],
+  ["last", "adj", "最後的", "adjectives"],
+  ["little", "adj", "小的", "adjectives"],
+  ["loud", "adj", "大聲的", "adjectives"],
+  ["naughty", "adj", "頑皮的", "adjectives"],
+  ["pretty", "adj", "漂亮的", "adjectives"],
+  ["quick", "adj", "快的", "adjectives"],
+  ["quiet", "adj", "安靜的", "adjectives"],
+  ["round", "adj", "圓的", "adjectives"],
+  ["safe", "adj", "安全的", "adjectives"],
+  ["sick", "adj", "生病的", "adjectives"],
+  ["slow", "adj", "慢的", "adjectives"],
+  ["square", "adj", "正方形的", "adjectives"],
+  ["straight", "adj", "直的", "adjectives"],
+  ["strong", "adj", "強壯的", "adjectives"],
+  ["surprised", "adj", "驚訝的", "adjectives"],
+  ["sweet", "adj", "甜的", "adjectives"],
+  ["tall", "adj", "高的", "adjectives"],
+  ["terrible", "adj", "糟糕的", "adjectives"],
+  ["tired", "adj", "疲累的", "adjectives"],
+  ["weak", "adj", "虛弱的", "adjectives"],
+  ["worse", "adj", "更糟的", "adjectives"],
+  ["worst", "adj", "最糟的", "adjectives"],
+  ["wrong", "adj", "錯誤的", "adjectives"],
+
+  // 常用動詞 verbs
+  ["be called", "v", "名叫……", "verbs"],
+  ["bring", "v", "帶來", "verbs"],
+  ["build", "v", "建造", "verbs"],
+  ["buy", "v", "買", "verbs"],
+  ["call", "v", "打電話；稱呼", "verbs"],
+  ["carry", "v", "攜帶", "verbs"],
+  ["catch (a bus)", "v", "搭乘", "verbs"],
+  ["change", "v", "改變", "verbs"],
+  ["climb", "v", "爬", "verbs"],
+  ["cry", "v", "哭", "verbs"],
+  ["drop", "v", "掉落", "verbs"],
+  ["dry", "v", "使乾", "verbs"],
+  ["feed", "v", "餵食", "verbs"],
+  ["fish", "v", "釣魚", "verbs"],
+  ["fix", "v", "修理", "verbs"],
+  ["get dressed", "v", "穿衣服", "verbs"],
+  ["get off", "v", "下車", "verbs"],
+  ["get on", "v", "上車", "verbs"],
+  ["get undressed", "v", "脫衣服", "verbs"],
+  ["get up", "v", "起床", "verbs"],
+  ["go shopping", "v", "去購物", "verbs"],
+  ["grow", "v", "成長", "verbs"],
+  ["have to", "v", "必須", "verbs"],
+  ["help", "v", "幫忙", "verbs"],
+  ["hide", "v", "躲藏", "verbs"],
+  ["hop", "v", "單腳跳", "verbs"],
+  ["hurt", "v", "弄傷", "verbs"],
+  ["invite", "v", "邀請", "verbs"],
+  ["laugh", "v", "笑", "verbs"],
+  ["look for", "v", "尋找", "verbs"],
+  ["lose", "v", "遺失；輸", "verbs"],
+  ["mean", "v", "意指", "verbs"],
+  ["move", "v", "移動", "verbs"],
+  ["need", "v", "需要", "verbs"],
+  ["plant", "v", "種植", "verbs"],
+  ["put on", "v", "穿上", "verbs"],
+  ["send", "v", "傳送", "verbs"],
+  ["shop", "v", "購物", "verbs"],
+  ["shout", "v", "大喊", "verbs"],
+  ["take", "v", "拿；搭乘", "verbs"],
+  ["take off", "v", "脫掉", "verbs"],
+  ["teach", "v", "教", "verbs"],
+  ["think", "v", "想", "verbs"],
+  ["travel", "v", "旅行", "verbs"],
+  ["wait", "v", "等待", "verbs"],
+  ["wake up", "v", "醒來", "verbs"],
+  ["walk", "v", "走路", "verbs"],
+  ["water", "v", "澆水", "verbs"],
+  ["work", "v", "工作", "verbs"],
+
+  // 常見人名 names
+  ["Jack", "n", "傑克（男名）", "names"],
+  ["Jane", "n", "珍（女名）", "names"],
+  ["Jim", "n", "吉姆（男名）", "names"],
+  ["Julia", "n", "茱莉亞（女名）", "names"],
+  ["Fred", "n", "佛瑞德（男名）", "names"],
+  ["Lily", "n", "莉莉（女名）", "names"],
+  ["Mary", "n", "瑪莉（女名）", "names"],
+  ["Paul", "n", "保羅（男名）", "names"],
+  ["Peter", "n", "彼得（男名）", "names"],
+  ["Sally", "n", "莎莉（女名）", "names"],
+  ["Vicky", "n", "維琪（女名）", "names"],
+  ["Zoe", "n", "柔伊（女名）", "names"],
+  ["Daisy", "n", "黛西（女名）", "names"],
+  ["Clare", "n", "克萊爾（女名）", "names"],
+  ["Charlie", "n", "查理（男名）", "names"],
+
+  // 功能詞 grammar
+  ["above", "prep", "在……上方", "grammar"],
+  ["after", "prep", "在……之後", "grammar"],
+  ["along", "prep", "沿著", "grammar"],
+  ["always", "adv", "總是", "grammar"],
+  ["another", "det", "另一個", "grammar"],
+  ["any", "det", "任何的", "grammar"],
+  ["around", "prep", "環繞", "grammar"],
+  ["because", "conj", "因為", "grammar"],
+  ["before", "prep", "在……之前", "grammar"],
+  ["below", "prep", "在……下方", "grammar"],
+  ["best", "adj/adv", "最好的", "grammar"],
+  ["better", "adj/adv", "較好的", "grammar"],
+  ["both", "det", "兩者都", "grammar"],
+  ["by", "prep", "藉由；在……旁邊", "grammar"],
+  ["down", "adv/prep", "向下", "grammar"],
+  ["into", "prep", "進入", "grammar"],
+  ["near", "prep", "在附近", "grammar"],
+  ["off", "adv/prep", "離開；關掉", "grammar"],
+  ["only", "adv", "只", "grammar"],
+  ["opposite", "prep", "在對面", "grammar"],
+  ["out", "adv", "向外", "grammar"],
+  ["out of", "prep", "從……出來", "grammar"],
+  ["outside", "adv/prep", "在外面", "grammar"],
+  ["than", "conj", "比", "grammar"],
+  ["then", "adv", "然後", "grammar"],
+  ["up", "adv/prep", "向上", "grammar"],
+  ["when", "adv/conj", "何時", "grammar"],
+  ["where", "int", "哪裡", "grammar"],
+  ["which", "int", "哪一個", "grammar"],
+  ["who", "int", "誰", "grammar"],
+  ["why", "int", "為什麼", "grammar"],
+];
+
+const WORDS = RAW_WORDS.map(([en, pos, zh, cat], i) => ({ id: "w" + i, en, pos, zh, cat }));
+
+const CATEGORIES = [
+  { key: "animals", label: "動物", emoji: "🐨", color: "#06D6A0" },
+  { key: "body", label: "身體外貌", emoji: "🙋", color: "#FF6FB5" },
+  { key: "clothes", label: "衣物", emoji: "🧣", color: "#7B61FF" },
+  { key: "family", label: "家庭", emoji: "👪", color: "#F78C6B" },
+  { key: "food", label: "食物飲品", emoji: "🥪", color: "#FFB703" },
+  { key: "home", label: "居家", emoji: "🏠", color: "#4361EE" },
+  { key: "places", label: "地方", emoji: "🏙️", color: "#2EC4B6" },
+  { key: "school", label: "學校科技", emoji: "💻", color: "#EF476F" },
+  { key: "jobs", label: "職業", emoji: "👩‍⚕️", color: "#8D6748" },
+  { key: "sports", label: "運動休閒", emoji: "🎉", color: "#118AB2" },
+  { key: "weather", label: "天氣", emoji: "🌦️", color: "#5AA9E6" },
+  { key: "time", label: "時間", emoji: "🕒", color: "#FF9F1C" },
+  { key: "nature", label: "自然世界", emoji: "🌍", color: "#40916C" },
+  { key: "adjectives", label: "形容詞", emoji: "✨", color: "#9D4EDD" },
+  { key: "verbs", label: "動詞", emoji: "🏃", color: "#E63946" },
+  { key: "names", label: "人名", emoji: "🧑", color: "#6C757D" },
+  { key: "grammar", label: "功能詞", emoji: "🔤", color: "#495057" },
+];
+const CAT_MAP = Object.fromEntries(CATEGORIES.map((c) => [c.key, c]));
+
+const LEVELS = [
+  { level: 0, label: "尚未學習", emoji: "⚪", color: "#CBD5E1" },
+  { level: 1, label: "不熟悉", emoji: "😵", color: "#EF476F" },
+  { level: 2, label: "普通", emoji: "😐", color: "#FFB703" },
+  { level: 3, label: "熟悉", emoji: "🙂", color: "#06D6A0" },
+  { level: 4, label: "精通", emoji: "🌟", color: "#118AB2" },
+];
+const levelInfo = (lv) => LEVELS[Math.max(0, Math.min(4, lv || 0))];
+
+const BADGES = [
+  { id: "first5", label: "初次見面", emoji: "🌱", desc: "學習 5 個單字", test: (s) => s.studiedCount >= 5 },
+  { id: "words25", label: "字彙新手", emoji: "🐣", desc: "學習 25 個單字", test: (s) => s.studiedCount >= 25 },
+  { id: "words100", label: "字彙高手", emoji: "🦉", desc: "學習 100 個單字", test: (s) => s.studiedCount >= 100 },
+  { id: "master10", label: "精通新星", emoji: "⭐", desc: "精通 10 個單字", test: (s) => s.masteredCount >= 10 },
+  { id: "master50", label: "單字大師", emoji: "👑", desc: "精通 50 個單字", test: (s) => s.masteredCount >= 50 },
+  { id: "streak3", label: "連續三天", emoji: "🔥", desc: "連續打卡 3 天", test: (s, d) => (d.streak || 0) >= 3 },
+  { id: "streak7", label: "一週不間斷", emoji: "🏅", desc: "連續打卡 7 天", test: (s, d) => (d.streak || 0) >= 7 },
+  { id: "streak30", label: "月度冠軍", emoji: "🏆", desc: "連續打卡 30 天", test: (s, d) => (d.streak || 0) >= 30 },
+];
+
+const DAILY_GOAL = 10;
+const QUIZ_LEN = 10;
+
+/* ---------- storage (plain localStorage — fully offline, no login needed) ---------- */
+const PKEY = "movers-vocab-progress-v1";
+const HKEY = "movers-vocab-hiscore-v1";
+const DKEY = "movers-vocab-daily-v1";
+function lget(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+function lset(key, val) {
+  try {
+    localStorage.setItem(key, JSON.stringify(val));
+  } catch (e) {
+    console.error("save failed", e);
+  }
+}
+
+/* ---------- date / streak helpers ---------- */
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+function daysBetween(a, b) {
+  return Math.round((new Date(b + "T00:00:00") - new Date(a + "T00:00:00")) / 86400000);
+}
+function rollDaily(d) {
+  const today = todayStr();
+  if (d.date === today) return d;
+  const gap = daysBetween(d.date, today);
+  const keepStreak = gap === 1 && d.countedToday;
+  return { ...d, date: today, todayCount: 0, countedToday: false, streak: keepStreak ? d.streak : 0 };
+}
+function getWordOfDay() {
+  const key = todayStr();
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  return WORDS[hash % WORDS.length];
+}
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+/* ---------- pronunciation (built into iOS/Safari, no internet needed) ---------- */
+function speak(rawText) {
+  try {
+    if (!("speechSynthesis" in window)) return;
+    const clean = rawText.replace(/\(.*?\)/g, "").replace(/\/.*/g, "").trim();
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(clean);
+    utter.lang = "en-US";
+    utter.rate = 0.82;
+    utter.pitch = 1.05;
+    const voices = window.speechSynthesis.getVoices();
+    const enVoice = voices.find((v) => v.lang === "en-US") || voices.find((v) => v.lang && v.lang.startsWith("en"));
+    if (enVoice) utter.voice = enVoice;
+    window.speechSynthesis.speak(utter);
+  } catch (e) {
+    console.error("speak failed", e);
+  }
+}
+function speakBtnHtml(text, size, tone, bg) {
+  size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();speak('${escapeHtml(text).replace(/'/g,"\\'")}')" aria-label="播放發音">🔊</button>`;
+}
+
+/* ---------- global state ---------- */
+let STATE = {
+  progress: lget(PKEY, {}),
+  hiScore: lget(HKEY, { best: 0 }),
+  daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [] })),
+  tab: "home",
+  toast: null,
+  toastTimer: null,
+  browse: { query: "", cat: "all" },
+  study: { cat: "all", queue: [], idx: 0, flipped: false },
+  quiz: { cat: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
+};
+lset(DKEY, STATE.daily);
+
+function saveProgress() { lset(PKEY, STATE.progress); }
+function saveDaily() { lset(DKEY, STATE.daily); }
+function saveHiScore() { lset(HKEY, STATE.hiScore); }
+
+function showToast(msg) {
+  STATE.toast = msg;
+  renderToastOnly();
+  if (STATE.toastTimer) clearTimeout(STATE.toastTimer);
+  STATE.toastTimer = setTimeout(() => { STATE.toast = null; renderToastOnly(); }, 1700);
+}
+function renderToastOnly() {
+  const el = document.getElementById("toastHost");
+  if (el) el.innerHTML = STATE.toast ? `<div class="toast">${escapeHtml(STATE.toast)}</div>` : "";
+}
+
+function updateWord(id, patch) {
+  const cur = STATE.progress[id] || { level: 0, seen: 0, correct: 0, wrong: 0 };
+  STATE.progress[id] = { ...cur, ...patch };
+  saveProgress();
+  checkBadges();
+}
+
+function recordActivity(n) {
+  n = n || 1;
+  STATE.daily = rollDaily(STATE.daily);
+  const newCount = STATE.daily.todayCount + n;
+  let streak = STATE.daily.streak, countedToday = STATE.daily.countedToday, hit = false;
+  if (!countedToday && newCount >= DAILY_GOAL) { streak++; countedToday = true; hit = true; }
+  STATE.daily = { ...STATE.daily, todayCount: newCount, streak, countedToday, bestStreak: Math.max(STATE.daily.bestStreak || 0, streak) };
+  saveDaily();
+  if (hit) showToast(`🎉 完成今日目標！連續 ${streak} 天`);
+  checkBadges();
+}
+
+function checkBadges() {
+  const stats = computeStats();
+  const earned = BADGES.filter((b) => !STATE.daily.badges.includes(b.id) && b.test(stats, STATE.daily));
+  if (earned.length) {
+    STATE.daily = { ...STATE.daily, badges: [...STATE.daily.badges, ...earned.map((b) => b.id)] };
+    saveDaily();
+    showToast(`${earned[0].emoji} 獲得新貼紙：${earned[0].label}！`);
+  }
+}
+
+function computeStats() {
+  const byCat = {};
+  CATEGORIES.forEach((c) => (byCat[c.key] = { total: 0, mastered: 0, weighted: 0, studied: 0 }));
+  let masteredCount = 0, studiedCount = 0, weightedSum = 0;
+  WORDS.forEach((w) => {
+    const lv = (STATE.progress[w.id] || {}).level || 0;
+    byCat[w.cat].total++;
+    byCat[w.cat].weighted += lv;
+    if (lv >= 4) { masteredCount++; byCat[w.cat].mastered++; }
+    if (lv > 0) { studiedCount++; byCat[w.cat].studied++; }
+    weightedSum += lv;
+  });
+  return {
+    total: WORDS.length, masteredCount, masteredPct: WORDS.length ? masteredCount / WORDS.length : 0,
+    studiedCount, avgLevel: WORDS.length ? weightedSum / WORDS.length : 0, byCat,
+  };
+}
+
+function setTab(tab) { STATE.tab = tab; render(); }
+
+/* ============================================================
+   render: header + tabbar
+   ============================================================ */
+const TITLES = {
+  home: ["單字護照", "追蹤你的 Movers 學習進度"],
+  browse: ["單字瀏覽", "搜尋、篩選、標記熟悉度"],
+  study: ["學習卡", "翻卡複習並自評熟悉度"],
+  quiz: ["小測驗", "選出正確意思，累積分數"],
+};
+function headerHtml() {
+  const [title, sub] = TITLES[STATE.tab];
+  return `<div class="header">
+    <div class="htag">MOVERS · A1</div>
+    <div class="htitle">${title}</div>
+    <div class="hsub">${sub}</div>
+  </div>`;
+}
+function tabBarHtml() {
+  const items = [
+    { key: "home", label: "首頁", emoji: "🏡" },
+    { key: "browse", label: "單字表", emoji: "📖" },
+    { key: "study", label: "學習卡", emoji: "🃏" },
+    { key: "quiz", label: "測驗", emoji: "🎯" },
+  ];
+  return `<div class="tabbar">${items.map((it) => {
+    const active = STATE.tab === it.key;
+    return `<button class="tabbtn ${active ? "active" : ""}" onclick="setTab('${it.key}')">
+      <div class="emo">${it.emoji}</div>
+      <div class="lbl">${it.label}</div>
+      ${active ? '<div class="dot"></div>' : ""}
+    </button>`;
+  }).join("")}</div>`;
+}
+function catChipHtml(active, label, emoji, color, onclick) {
+  return `<button class="catChip" style="border-color:${active ? color : "#E4E8F0"};background:${active ? color + "1A" : "#fff"};color:${active ? color : "#5B6779"};" onclick="${onclick}">${emoji} ${label}</button>`;
+}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+function mascotMessage() {
+  const remaining = DAILY_GOAL - STATE.daily.todayCount;
+  if (STATE.daily.todayCount === 0) return "嗨！我是貓頭鷹老師 Ollie🦉，今天也一起學單字吧！";
+  if (remaining > 0) return `再學 ${remaining} 個字，今天就能打卡囉，加油！`;
+  if (STATE.daily.streak > 0 && STATE.daily.streak % 7 === 0) return `太厲害了！已經連續 ${STATE.daily.streak} 天沒有間斷！`;
+  return "今天的目標已經達成了！明天再來挑戰更多單字吧 🎉";
+}
+function renderHome() {
+  const stats = computeStats();
+  const wod = getWordOfDay();
+  const wodLv = (STATE.progress[wod.id] || {}).level || 0;
+  const wc = CAT_MAP[wod.cat];
+  const earned = BADGES.filter((b) => STATE.daily.badges.includes(b.id));
+  const next = BADGES.find((b) => !STATE.daily.badges.includes(b.id));
+  const pct = Math.min(1, STATE.daily.todayCount / DAILY_GOAL);
+  const complete = STATE.daily.todayCount >= DAILY_GOAL;
+  const circumference = 2 * Math.PI * 56;
+
+  return `<div class="pad">
+    <div class="mascotWrap">
+      <div class="owl">🦉</div>
+      <div class="bubble">${escapeHtml(mascotMessage())}</div>
+      ${STATE.daily.streak > 0 ? `<div class="streakBadge">🔥 ${STATE.daily.streak}</div>` : ""}
+    </div>
+
+    <div class="dailyCard">
+      <div class="dailyTop">
+        <div style="font-weight:800;font-size:13.5px;">📅 今日練習目標</div>
+        <div style="font-size:12px;font-weight:800;color:${complete ? "#06D6A0" : "#8592A6"};">${Math.min(STATE.daily.todayCount, DAILY_GOAL)}/${DAILY_GOAL}</div>
+      </div>
+      <div class="barTrack"><div class="barFill" style="width:${Math.round(pct*100)}%;background:${complete ? "#06D6A0" : "#FFB703"};"></div></div>
+      <div class="dailyStreakRow"><span>🔥 連續 ${STATE.daily.streak} 天</span><span>🏆 最佳 ${STATE.daily.bestStreak || 0} 天</span></div>
+    </div>
+
+    <div class="wodCard" style="background:linear-gradient(135deg, ${wc.color}, ${wc.color}CC);">
+      <div class="wodLabel">⭐ 今日單字 · ${wc.emoji} ${wc.label}</div>
+      <div class="wodRow">
+        <div style="min-width:0;">
+          <div class="wodEn">${wod.en}</div>
+          <div class="wodZh">${wod.pos} · ${wod.zh}</div>
+        </div>
+        ${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}
+      </div>
+      <div class="wodFooter">目前熟悉度：${levelInfo(wodLv).emoji} ${levelInfo(wodLv).label}</div>
+    </div>
+
+    <div class="ring">
+      <svg width="132" height="132" viewBox="0 0 132 132">
+        <circle cx="66" cy="66" r="56" fill="none" stroke="#EDF1F8" stroke-width="14"/>
+        <circle cx="66" cy="66" r="56" fill="none" stroke="#4361EE" stroke-width="14" stroke-linecap="round"
+          stroke-dasharray="${circumference}" stroke-dashoffset="${circumference * (1 - stats.masteredPct)}"
+          transform="rotate(-90 66 66)"/>
+      </svg>
+      <div class="ringCenter">
+        <div style="font-weight:800;font-size:26px;">${stats.masteredCount}</div>
+        <div style="font-size:11px;color:#8592A6;font-weight:700;">/ ${stats.total} 精通</div>
+      </div>
+    </div>
+
+    <div class="statRow">
+      <div class="chip" style="border-color:#2EC4B655;"><div class="val" style="color:#2EC4B6;">${stats.studiedCount}</div><div class="lbl">已學習</div></div>
+      <div class="chip" style="border-color:#FFB70355;"><div class="val" style="color:#FFB703;">${stats.avgLevel.toFixed(1)}</div><div class="lbl">平均熟悉度</div></div>
+      <div class="chip" style="border-color:#EF476F55;"><div class="val" style="color:#EF476F;">${STATE.hiScore.best || 0}</div><div class="lbl">測驗最高分</div></div>
+    </div>
+
+    <div class="sectionTitle">我的貼紙收藏</div>
+    <div class="badgeGrid">
+      ${earned.map((b) => `<div class="badge" title="${b.desc}"><div class="emo">${b.emoji}</div><div class="lbl">${b.label}</div></div>`).join("")}
+      ${next ? `<div class="badge locked" title="${next.desc}"><div class="emo">🔒</div><div class="lbl">${next.desc}</div></div>` : ""}
+      ${earned.length === 0 && !next ? `<div style="font-size:12px;color:#8592A6;">持續練習來收集貼紙吧！</div>` : ""}
+    </div>
+
+    <div class="sectionTitle">依主題進度</div>
+    ${CATEGORIES.map((c) => {
+      const cs = stats.byCat[c.key];
+      const p = cs.total ? cs.weighted / (cs.total * 4) : 0;
+      return `<div class="catRow">
+        <div class="catIcon" style="background:${c.color}22;">${c.emoji}</div>
+        <div style="flex:1;">
+          <div class="catTop"><span style="font-weight:800;font-size:13.5px;">${c.label}</span><span style="font-size:11.5px;color:#8592A6;font-weight:700;">${cs.mastered}/${cs.total}</span></div>
+          <div class="barTrack"><div class="barFill" style="width:${Math.round(p*100)}%;background:${c.color};"></div></div>
+        </div>
+      </div>`;
+    }).join("")}
+
+    <div class="ctaRow">
+      <button class="cta" style="background:#4361EE;" onclick="setTab('study')">🃏 開始複習</button>
+      <button class="cta" style="background:#EF476F;" onclick="setTab('quiz')">🎯 挑戰測驗</button>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   BROWSE
+   ============================================================ */
+function browseFiltered() {
+  const q = STATE.browse.query.trim().toLowerCase();
+  return WORDS.filter((w) => {
+    if (STATE.browse.cat !== "all" && w.cat !== STATE.browse.cat) return false;
+    if (!q) return true;
+    return w.en.toLowerCase().includes(q) || w.zh.includes(q);
+  });
+}
+function renderBrowse() {
+  return `<div class="pad">
+    <input id="searchInput" value="${escapeHtml(STATE.browse.query)}" oninput="onSearchInput(this.value)" placeholder="搜尋英文或中文…" class="search"/>
+    <div class="chipRow">
+      ${catChipHtml(STATE.browse.cat === "all", "全部", "🔍", "#233047", `onBrowseCat('all')`)}
+      ${CATEGORIES.map((c) => catChipHtml(STATE.browse.cat === c.key, c.label, c.emoji, c.color, `onBrowseCat('${c.key}')`)).join("")}
+    </div>
+    <div id="browseList"></div>
+  </div>`;
+}
+function browseListHtml() {
+  const filtered = browseFiltered();
+  let html = `<div style="font-size:12px;color:#8592A6;font-weight:700;margin:12px 2px;">共 ${filtered.length} 個單字</div>`;
+  if (filtered.length === 0) {
+    html += `<div style="text-align:center;color:#8592A6;padding:30px 0;font-size:14px;">找不到符合的單字</div>`;
+    return html;
+  }
+  html += filtered.map((w) => {
+    const lv = (STATE.progress[w.id] || {}).level || 0;
+    const li = levelInfo(lv);
+    const c = CAT_MAP[w.cat];
+    return `<div class="rowCard">
+      <div class="rowHead" onclick="toggleWordId('${w.id}')">
+        <div class="rowDot" style="background:${c.color};"></div>
+        <div style="flex:1;text-align:left;min-width:0;">
+          <div style="font-weight:800;font-size:15px;">${w.en}</div>
+          <div style="font-size:12px;color:#8592A6;">${w.pos} · ${w.zh}</div>
+        </div>
+        ${speakBtnHtml(w.en, 30)}
+        <div style="font-size:18px;">${li.emoji}</div>
+      </div>
+      <div id="rowBody-${w.id}" class="rowBody" style="display:none;">
+        <div style="font-size:12px;font-weight:700;color:#8592A6;margin-bottom:6px;">設定熟悉度</div>
+        <div class="levelBtnRow">
+          ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="levelBtn" style="background:${lv===l.level?l.color:"#F3F5FA"};color:${lv===l.level?"#fff":"#4A5568"};" onclick="onRateWord('${w.id}', ${l.level})">${l.emoji} ${l.label}</button>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+  return html;
+}
+function updateBrowseList() {
+  const el = document.getElementById("browseList");
+  if (el) el.innerHTML = browseListHtml();
+}
+function onSearchInput(val) {
+  STATE.browse.query = val;
+  updateBrowseList();
+}
+function onBrowseCat(cat) {
+  STATE.browse.cat = cat;
+  render();
+}
+let openRowId = null;
+function toggleWordId(id) {
+  const wasOpen = openRowId === id;
+  if (openRowId) {
+    const prevEl = document.getElementById("rowBody-" + openRowId);
+    if (prevEl) prevEl.style.display = "none";
+  }
+  openRowId = wasOpen ? null : id;
+  if (!wasOpen) {
+    const el = document.getElementById("rowBody-" + id);
+    if (el) el.style.display = "block";
+  }
+}
+function onRateWord(id, level) {
+  const w = WORDS.find((x) => x.id === id);
+  updateWord(id, { level, seen: ((STATE.progress[id] || {}).seen || 0) + 1 });
+  recordActivity(1);
+  showToast(`${w.en} → ${levelInfo(level).label}`);
+  updateBrowseList();
+  openRowId = id;
+  const el = document.getElementById("rowBody-" + id);
+  if (el) el.style.display = "block";
+}
+
+/* ============================================================
+   STUDY (FLASHCARDS)
+   ============================================================ */
+function buildStudyQueue(cat) {
+  let pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+  pool = shuffle(pool).sort((a, b) => {
+    const la = (STATE.progress[a.id] || {}).level || 0;
+    const lb = (STATE.progress[b.id] || {}).level || 0;
+    return la - lb;
+  });
+  return pool.slice(0, Math.min(20, pool.length));
+}
+if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue("all");
+
+function restartStudy(cat) {
+  STATE.study.cat = cat;
+  STATE.study.queue = buildStudyQueue(cat);
+  STATE.study.idx = 0;
+  STATE.study.flipped = false;
+  render();
+}
+function flipStudyCard() {
+  STATE.study.flipped = !STATE.study.flipped;
+  render();
+}
+function skipStudyCard() {
+  STATE.study.idx++;
+  STATE.study.flipped = false;
+  render();
+}
+function rateStudyCard(level) {
+  const word = STATE.study.queue[STATE.study.idx];
+  updateWord(word.id, { level, seen: ((STATE.progress[word.id] || {}).seen || 0) + 1 });
+  recordActivity(1);
+  STATE.study.flipped = false;
+  STATE.study.idx++;
+  render();
+}
+function renderStudy() {
+  const s = STATE.study;
+  const done = s.idx >= s.queue.length;
+  let inner = `<div class="pad">
+    <div class="chipRow">
+      ${catChipHtml(s.cat === "all", "全部", "🔀", "#233047", `restartStudy('all')`)}
+      ${CATEGORIES.map((c) => catChipHtml(s.cat === c.key, c.label, c.emoji, c.color, `restartStudy('${c.key}')`)).join("")}
+    </div>`;
+
+  if (!done) {
+    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 由不熟悉優先出題</div>`;
+  }
+
+  if (done) {
+    inner += `<div class="emptyWrap">
+      <div style="font-size:44px;margin-bottom:8px;">🎉</div>
+      <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組單字複習完成！</div>
+      <div style="font-size:13px;color:#8592A6;margin-bottom:18px;">再抽一組卡片繼續加強熟悉度</div>
+      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.cat}')">🔄 再來一組</button>
+    </div>`;
+  } else {
+    const word = s.queue[s.idx];
+    const c = CAT_MAP[word.cat];
+    const lv = (STATE.progress[word.id] || {}).level || 0;
+    if (!s.flipped) {
+      inner += `<div class="cardWrap"><div class="flashcard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);" onclick="flipStudyCard()">
+        <div class="fcTab">${c.emoji} ${c.label}</div>
+        <div class="fcPos">${word.pos}</div>
+        <div class="fcEn">${word.en}</div>
+        ${speakBtnHtml(word.en, 40, "#fff", "rgba(255,255,255,.28)")}
+        <div class="fcHint">點卡片查看意思</div>
+      </div></div>`;
+      inner += `<div style="text-align:center;margin-top:18px;"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>`;
+    } else {
+      inner += `<div class="cardWrap"><div class="flashcard back" onclick="flipStudyCard()">
+        <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
+        <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
+          ${speakBtnHtml(word.en, 34)}
+        </div>
+        <div class="fcZh">${word.zh}</div>
+        <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
+      </div></div>`;
+      inner += `<div class="rateRow">
+        ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("")}
+      </div>`;
+    }
+  }
+  inner += `</div>`;
+  return inner;
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+function buildQuizQuestions(cat) {
+  let pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+  if (pool.length < 4) pool = WORDS;
+  const weak = shuffle(pool).sort((a, b) => {
+    const la = (STATE.progress[a.id] || {}).level || 0;
+    const lb = (STATE.progress[b.id] || {}).level || 0;
+    return la - lb;
+  });
+  const chosen = weak.slice(0, Math.min(QUIZ_LEN, weak.length));
+  return chosen.map((w) => {
+    const distractors = shuffle(pool.filter((x) => x.id !== w.id)).slice(0, 3);
+    const options = shuffle([w, ...distractors]);
+    return { word: w, options };
+  });
+}
+function startQuiz(cat) {
+  STATE.quiz = { cat, phase: "playing", questions: buildQuizQuestions(cat), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
+  render();
+}
+function chooseQuizOption(optId) {
+  const qz = STATE.quiz;
+  if (qz.picked) return;
+  const q = qz.questions[qz.qi];
+  const isCorrect = optId === q.word.id;
+  qz.picked = optId;
+  const curLv = (STATE.progress[q.word.id] || {}).level || 0;
+  if (isCorrect) {
+    const bonus = Math.min(qz.streak * 2, 10);
+    qz.score += 10 + bonus;
+    qz.streak += 1;
+    qz.correctCount += 1;
+    updateWord(q.word.id, { level: Math.min(4, curLv + 1), correct: ((STATE.progress[q.word.id] || {}).correct || 0) + 1 });
+  } else {
+    qz.streak = 0;
+    updateWord(q.word.id, { level: Math.max(1, curLv - 1), wrong: ((STATE.progress[q.word.id] || {}).wrong || 0) + 1 });
+  }
+  recordActivity(1);
+  render();
+  setTimeout(() => {
+    if (qz.qi + 1 >= qz.questions.length) {
+      qz.phase = "done";
+      if (qz.score > (STATE.hiScore.best || 0)) { STATE.hiScore = { best: qz.score }; saveHiScore(); }
+    } else {
+      qz.qi += 1;
+      qz.picked = null;
+    }
+    render();
+  }, 900);
+}
+function renderQuiz() {
+  const qz = STATE.quiz;
+  if (qz.phase === "setup") {
+    return `<div class="pad">
+      <div class="introCard">
+        <div style="font-size:38px;">🎯</div>
+        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">選出正確的中文意思</div>
+        <div style="font-size:13px;color:#8592A6;">每題答對 +10 分，連續答對有額外加分。答錯會降低該單字熟悉度，答對則提升熟悉度。</div>
+        <div style="font-size:12px;color:#8592A6;margin-top:10px;font-weight:700;">歷史最高分：${STATE.hiScore.best || 0}</div>
+      </div>
+      <div class="sectionTitle">選擇範圍</div>
+      <div class="chipRow">
+        ${catChipHtml(false, "全部", "🔀", "#233047", `startQuiz('all')`)}
+        ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startQuiz('${c.key}')`)).join("")}
+      </div>
+    </div>`;
+  }
+  if (qz.phase === "done") {
+    const pct = Math.round((qz.correctCount / qz.questions.length) * 100);
+    return `<div class="pad" style="text-align:center;">
+      <div class="introCard">
+        <div style="font-size:44px;">${pct >= 80 ? "🏆" : pct >= 50 ? "👍" : "💪"}</div>
+        <div style="font-weight:800;font-size:22px;margin:8px 0 4px;">得分 ${qz.score}</div>
+        <div style="font-size:13px;color:#8592A6;">答對 ${qz.correctCount} / ${qz.questions.length}（${pct}%）</div>
+        ${qz.score >= (STATE.hiScore.best || 0) && qz.score > 0 ? `<div style="margin-top:8px;color:#EF476F;font-weight:800;font-size:13px;">🎉 締造新紀錄！</div>` : ""}
+      </div>
+      <div class="ctaRow">
+        <button class="cta" style="background:#4361EE;" onclick="startQuiz('${qz.cat}')">🔁 再測一次</button>
+        <button class="cta" style="background:#8592A6;" onclick="STATE.quiz.phase='setup';render();">選擇其他範圍</button>
+      </div>
+    </div>`;
+  }
+  const q = qz.questions[qz.qi];
+  const c = CAT_MAP[q.word.cat];
+  return `<div class="pad">
+    <div class="qzTopRow">
+      <div class="qzPill">題目 ${qz.qi+1}/${qz.questions.length}</div>
+      <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${qz.streak}</div>
+      <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${qz.score} 分</div>
+    </div>
+    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+      <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${q.word.pos}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;">
+        <div style="font-weight:800;font-size:30px;">${q.word.en}</div>
+        ${speakBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.28)")}
+      </div>
+      <div style="font-size:12px;opacity:.85;margin-top:6px;">這個字的中文意思是？</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;">
+      ${q.options.map((opt) => {
+        let cls = "";
+        if (qz.picked) {
+          if (opt.id === q.word.id) cls = "correct";
+          else if (qz.picked === opt.id) cls = "wrong";
+        }
+        return `<button class="qOption ${cls}" ${qz.picked ? "disabled" : ""} onclick="chooseQuizOption('${opt.id}')">${opt.zh}</button>`;
+      }).join("")}
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   render dispatcher + init
+   ============================================================ */
+function bodyHtml() {
+  if (STATE.tab === "home") return renderHome();
+  if (STATE.tab === "browse") return renderBrowse();
+  if (STATE.tab === "study") return renderStudy();
+  if (STATE.tab === "quiz") return renderQuiz();
+  return "";
+}
+function render() {
+  const root = document.getElementById("app");
+  root.innerHTML = `
+    ${headerHtml()}
+    <div class="body">${bodyHtml()}</div>
+    ${tabBarHtml()}
+    <div id="toastHost">${STATE.toast ? `<div class="toast">${escapeHtml(STATE.toast)}</div>` : ""}</div>
+  `;
+  if (STATE.tab === "browse") updateBrowseList();
+}
+
+// load voices ahead of time (some browsers populate this list async)
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+render();
+</script>
+</body>
+</html>
