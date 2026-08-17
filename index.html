@@ -523,7 +523,7 @@ const BADGES = [
   { id: "streak30", label: "月度冠軍", emoji: "🏆", desc: "連續打卡 30 天", test: (s, d) => (d.streak || 0) >= 30 },
 ];
 
-const DAILY_GOAL = 10;
+const DAILY_GOAL = 30;
 const QUIZ_LEN = 10;
 
 /* ---------- storage (plain localStorage — fully offline, no login needed) ---------- */
@@ -578,19 +578,59 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-/* ---------- pronunciation (built into iOS/Safari, no internet needed) ---------- */
+/* ---------- pronunciation (built into iOS/Safari, no internet needed) ----------
+   No manual picker — automatically choose the most natural-sounding available
+   voice using a quality heuristic, and cache it so selection stays consistent. */
+const PREFERRED_VOICE_NAMES = [
+  "Samantha", "Ava", "Allison", "Susan", "Nicky", "Zoe", "Evan",
+  "Karen", "Moira", "Tessa", "Daniel", "Serena", "Kate", "Stephanie", "Aaron",
+];
+let cachedVoice = null;
+function pickBestVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return null;
+  const en = voices.filter((v) => v.lang && v.lang.startsWith("en"));
+  if (!en.length) return null;
+  // 1) explicit high-quality hints exposed by some platforms
+  let v = en.find((v) => /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI));
+  if (v) return v;
+  // 2) known natural-sounding default voices (macOS/iOS), en-US preferred
+  for (const name of PREFERRED_VOICE_NAMES) {
+    v = en.find((vv) => vv.name === name && vv.lang === "en-US");
+    if (v) return v;
+  }
+  for (const name of PREFERRED_VOICE_NAMES) {
+    v = en.find((vv) => vv.name.includes(name));
+    if (v) return v;
+  }
+  // 3) fall back to any en-US / en-GB voice, then any English voice
+  return en.find((v) => v.lang === "en-US") || en.find((v) => v.lang === "en-GB") || en[0];
+}
+function canonicalWord(raw) {
+  return raw.replace(/\(.*?\)/g, "").replace(/\/.*/g, "").trim();
+}
+// manual respelling overrides for words a device's TTS voice mispronounces —
+// add more here (lowercase key) if other words still sound wrong after testing
+const PRONOUNCE_OVERRIDES = {
+  cook: "kuk",
+};
+function speakTextFor(rawText) {
+  const base = canonicalWord(rawText);
+  const override = PRONOUNCE_OVERRIDES[base.toLowerCase()];
+  const text = override || base;
+  // ending punctuation gives many TTS engines natural sentence-final
+  // intonation instead of a clipped/odd reading of an isolated short word
+  return /[.!?]$/.test(text) ? text : text + ".";
+}
 function speak(rawText) {
   try {
     if (!("speechSynthesis" in window)) return;
-    const clean = rawText.replace(/\(.*?\)/g, "").replace(/\/.*/g, "").trim();
     window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(clean);
-    utter.lang = "en-US";
-    utter.rate = 0.82;
-    utter.pitch = 1.05;
-    const voices = window.speechSynthesis.getVoices();
-    const enVoice = voices.find((v) => v.lang === "en-US") || voices.find((v) => v.lang && v.lang.startsWith("en"));
-    if (enVoice) utter.voice = enVoice;
+    const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
+    utter.rate = 0.93; // natural-ish pace, still clear enough for kids
+    utter.pitch = 1.0;
+    if (!cachedVoice) cachedVoice = pickBestVoice();
+    if (cachedVoice) { utter.voice = cachedVoice; utter.lang = cachedVoice.lang; } else { utter.lang = "en-US"; }
     window.speechSynthesis.speak(utter);
   } catch (e) {
     console.error("speak failed", e);
@@ -605,19 +645,27 @@ function speakBtnHtml(text, size, tone, bg) {
 let STATE = {
   progress: lget(PKEY, {}),
   hiScore: lget(HKEY, { best: 0 }),
-  daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [] })),
+  daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [], history: {} })),
+  voiceTipDismissed: lget("movers-vocab-voicetip-v1", false),
   tab: "home",
   toast: null,
   toastTimer: null,
   browse: { query: "", cat: "all" },
   study: { cat: "all", queue: [], idx: 0, flipped: false },
   quiz: { cat: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
+  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, score: 0, streak: 0, correctCount: 0 },
 };
+if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
 
 function saveProgress() { lset(PKEY, STATE.progress); }
 function saveDaily() { lset(DKEY, STATE.daily); }
 function saveHiScore() { lset(HKEY, STATE.hiScore); }
+function dismissVoiceTip() {
+  STATE.voiceTipDismissed = true;
+  lset("movers-vocab-voicetip-v1", true);
+  render();
+}
 
 function showToast(msg) {
   STATE.toast = msg;
@@ -640,10 +688,13 @@ function updateWord(id, patch) {
 function recordActivity(n) {
   n = n || 1;
   STATE.daily = rollDaily(STATE.daily);
+  const today = todayStr();
   const newCount = STATE.daily.todayCount + n;
+  const history = { ...(STATE.daily.history || {}) };
+  history[today] = (history[today] || 0) + n;
   let streak = STATE.daily.streak, countedToday = STATE.daily.countedToday, hit = false;
   if (!countedToday && newCount >= DAILY_GOAL) { streak++; countedToday = true; hit = true; }
-  STATE.daily = { ...STATE.daily, todayCount: newCount, streak, countedToday, bestStreak: Math.max(STATE.daily.bestStreak || 0, streak) };
+  STATE.daily = { ...STATE.daily, todayCount: newCount, streak, countedToday, bestStreak: Math.max(STATE.daily.bestStreak || 0, streak), history };
   saveDaily();
   if (hit) showToast(`🎉 完成今日目標！連續 ${streak} 天`);
   checkBadges();
@@ -701,13 +752,14 @@ function tabBarHtml() {
     { key: "home", label: "首頁", emoji: "🏡" },
     { key: "browse", label: "單字表", emoji: "📖" },
     { key: "study", label: "學習卡", emoji: "🃏" },
+    { key: "spell", label: "拼字", emoji: "✏️" },
     { key: "quiz", label: "測驗", emoji: "🎯" },
   ];
   return `<div class="tabbar">${items.map((it) => {
     const active = STATE.tab === it.key;
     return `<button class="tabbtn ${active ? "active" : ""}" onclick="setTab('${it.key}')">
-      <div class="emo">${it.emoji}</div>
-      <div class="lbl">${it.label}</div>
+      <div class="emo" style="font-size:18px;">${it.emoji}</div>
+      <div class="lbl" style="font-size:10px;">${it.label}</div>
       ${active ? '<div class="dot"></div>' : ""}
     </button>`;
   }).join("")}</div>`;
@@ -725,6 +777,59 @@ function mascotMessage() {
   if (remaining > 0) return `再學 ${remaining} 個字，今天就能打卡囉，加油！`;
   if (STATE.daily.streak > 0 && STATE.daily.streak % 7 === 0) return `太厲害了！已經連續 ${STATE.daily.streak} 天沒有間斷！`;
   return "今天的目標已經達成了！明天再來挑戰更多單字吧 🎉";
+}
+function voiceTipHtml() {
+  if (STATE.voiceTipDismissed) return "";
+  return `<div class="dailyCard" style="display:flex;align-items:flex-start;gap:8px;background:#FFF8E8;">
+    <div style="font-size:18px;line-height:1;">💡</div>
+    <div style="flex:1;font-size:11.5px;color:#8A6D1F;line-height:1.5;">
+      發音已自動選擇裝置上較自然的語音。想要更好聽，可以到 iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」下載 <b>Enhanced／Premium</b> 高音質語音，效果會明顯提升。
+    </div>
+    <button onclick="dismissVoiceTip()" style="font-size:16px;color:#8A6D1F;padding:2px 4px;flex-shrink:0;">✕</button>
+  </div>`;
+}
+function weekHistoryHtml() {
+  const days = [];
+  const dowLabels = ["日", "一", "二", "三", "四", "五", "六"];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    const count = (STATE.daily.history || {})[key] || 0;
+    days.push({ key, count, label: dowLabels[d.getDay()], isToday: i === 0 });
+  }
+  const max = Math.max(DAILY_GOAL, ...days.map((d) => d.count));
+  return `<div class="dailyCard">
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:12px;">📊 最近 7 天學習紀錄</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;height:86px;gap:6px;">
+      ${days.map((d) => {
+        const h = d.count > 0 ? Math.max(6, Math.round((d.count / max) * 60)) : 3;
+        const met = d.count >= DAILY_GOAL;
+        const barColor = met ? "#06D6A0" : d.count > 0 ? "#FFB703" : "#EEF1F7";
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
+          <div style="font-size:9.5px;font-weight:800;color:${met ? "#06D6A0" : "#8592A6"};margin-bottom:3px;">${d.count > 0 ? d.count : ""}</div>
+          <div style="width:100%;max-width:22px;height:${h}px;border-radius:6px;background:${barColor};"></div>
+          <div style="font-size:10.5px;font-weight:800;color:${d.isToday ? "#4361EE" : "#8592A6"};margin-top:5px;">${d.label}</div>
+        </div>`;
+      }).join("")}
+    </div>
+  </div>`;
+}
+function listCompletionHtml(stats) {
+  const total = stats.total;
+  const studiedPct = total ? stats.studiedCount / total : 0;
+  const masteredPct = total ? stats.masteredCount / total : 0;
+  return `<div class="dailyCard">
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:10px;">📚 單字表完成度（共 ${total} 字）</div>
+    <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#8592A6;margin-bottom:4px;">
+      <span>已學習</span><span>${stats.studiedCount}/${total}（${Math.round(studiedPct*100)}%）</span>
+    </div>
+    <div class="barTrack"><div class="barFill" style="width:${Math.round(studiedPct*100)}%;background:#2EC4B6;"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#8592A6;margin:12px 0 4px;">
+      <span>精通</span><span>${stats.masteredCount}/${total}（${Math.round(masteredPct*100)}%）</span>
+    </div>
+    <div class="barTrack"><div class="barFill" style="width:${Math.round(masteredPct*100)}%;background:#4361EE;"></div></div>
+  </div>`;
 }
 function renderHome() {
   const stats = computeStats();
@@ -744,6 +849,8 @@ function renderHome() {
       ${STATE.daily.streak > 0 ? `<div class="streakBadge">🔥 ${STATE.daily.streak}</div>` : ""}
     </div>
 
+    ${voiceTipHtml()}
+
     <div class="dailyCard">
       <div class="dailyTop">
         <div style="font-weight:800;font-size:13.5px;">📅 今日練習目標</div>
@@ -752,6 +859,8 @@ function renderHome() {
       <div class="barTrack"><div class="barFill" style="width:${Math.round(pct*100)}%;background:${complete ? "#06D6A0" : "#FFB703"};"></div></div>
       <div class="dailyStreakRow"><span>🔥 連續 ${STATE.daily.streak} 天</span><span>🏆 最佳 ${STATE.daily.bestStreak || 0} 天</span></div>
     </div>
+
+    ${weekHistoryHtml()}
 
     <div class="wodCard" style="background:linear-gradient(135deg, ${wc.color}, ${wc.color}CC);">
       <div class="wodLabel">⭐ 今日單字 · ${wc.emoji} ${wc.label}</div>
@@ -777,6 +886,8 @@ function renderHome() {
         <div style="font-size:11px;color:#8592A6;font-weight:700;">/ ${stats.total} 精通</div>
       </div>
     </div>
+
+    ${listCompletionHtml(stats)}
 
     <div class="statRow">
       <div class="chip" style="border-color:#2EC4B655;"><div class="val" style="color:#2EC4B6;">${stats.studiedCount}</div><div class="lbl">已學習</div></div>
@@ -899,17 +1010,35 @@ function onRateWord(id, level) {
   if (el) el.style.display = "block";
 }
 
+/* ---------- shared: build a session queue that mixes unseen + weak + strong
+   words, so a session never ends up only cycling "not familiar" repeats ---------- */
+function buildWeightedQueue(pool, target) {
+  target = Math.min(target, pool.length);
+  const withLevel = pool.map((w) => ({ w, lv: (STATE.progress[w.id] || {}).level || 0 }));
+  const unseen = shuffle(withLevel.filter((x) => x.lv === 0).map((x) => x.w));
+  const weak = shuffle(withLevel.filter((x) => x.lv === 1 || x.lv === 2).map((x) => x.w));
+  const strong = shuffle(withLevel.filter((x) => x.lv >= 3).map((x) => x.w));
+  let queue = [];
+  const take = (arr, n) => { const t = arr.splice(0, n); queue = queue.concat(t); };
+  // roughly 60% of the session introduces new/unseen words, the rest reinforces weak ones
+  take(unseen, Math.ceil(target * 0.6));
+  take(weak, target - queue.length);
+  take(unseen, target - queue.length);
+  take(strong, target - queue.length);
+  if (queue.length < target) {
+    const used = new Set(queue.map((w) => w.id));
+    const rest = shuffle(pool.filter((w) => !used.has(w.id)));
+    queue = queue.concat(rest.slice(0, target - queue.length));
+  }
+  return shuffle(queue);
+}
+
 /* ============================================================
    STUDY (FLASHCARDS)
    ============================================================ */
 function buildStudyQueue(cat) {
-  let pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
-  pool = shuffle(pool).sort((a, b) => {
-    const la = (STATE.progress[a.id] || {}).level || 0;
-    const lb = (STATE.progress[b.id] || {}).level || 0;
-    return la - lb;
-  });
-  return pool.slice(0, Math.min(20, pool.length));
+  const pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+  return buildWeightedQueue(pool, 20);
 }
 if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue("all");
 
@@ -947,7 +1076,7 @@ function renderStudy() {
     </div>`;
 
   if (!done) {
-    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 由不熟悉優先出題</div>`;
+    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 新單字與待加強單字混合出題</div>`;
   }
 
   if (done) {
@@ -996,12 +1125,7 @@ function renderStudy() {
 function buildQuizQuestions(cat) {
   let pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
   if (pool.length < 4) pool = WORDS;
-  const weak = shuffle(pool).sort((a, b) => {
-    const la = (STATE.progress[a.id] || {}).level || 0;
-    const lb = (STATE.progress[b.id] || {}).level || 0;
-    return la - lb;
-  });
-  const chosen = weak.slice(0, Math.min(QUIZ_LEN, weak.length));
+  const chosen = buildWeightedQueue(pool, QUIZ_LEN);
   return chosen.map((w) => {
     const distractors = shuffle(pool.filter((x) => x.id !== w.id)).slice(0, 3);
     const options = shuffle([w, ...distractors]);
@@ -1104,12 +1228,153 @@ function renderQuiz() {
 }
 
 /* ============================================================
-   render dispatcher + init
+   SPELL (listen and type the word)
    ============================================================ */
+const SPELL_LEN = 10;
+function buildSpellQueue(cat) {
+  const pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+  return buildWeightedQueue(pool, SPELL_LEN);
+}
+function startSpell(cat) {
+  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, score: 0, streak: 0, correctCount: 0 };
+  render();
+  const w = STATE.spell.queue[0];
+  if (w) setTimeout(() => speak(w.en), 350);
+}
+function onSpellInput(val) {
+  STATE.spell.input = val;
+}
+function onSpellKeydown(e) {
+  if (e.key === "Enter") submitSpell();
+}
+function replaySpellWord() {
+  const w = STATE.spell.queue[STATE.spell.idx];
+  if (w) speak(w.en);
+}
+function submitSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return; // already answered, waiting to advance
+  const w = sp.queue[sp.idx];
+  const answer = canonicalWord(w.en).toLowerCase();
+  const given = (sp.input || "").trim().toLowerCase();
+  const isCorrect = given.length > 0 && given === answer;
+  sp.feedback = isCorrect ? "correct" : "wrong";
+  const curLv = (STATE.progress[w.id] || {}).level || 0;
+  if (isCorrect) {
+    const bonus = Math.min(sp.streak * 2, 10);
+    sp.score += 10 + bonus;
+    sp.streak += 1;
+    sp.correctCount += 1;
+    updateWord(w.id, { level: Math.min(4, curLv + 1), correct: ((STATE.progress[w.id] || {}).correct || 0) + 1 });
+  } else {
+    sp.streak = 0;
+    updateWord(w.id, { level: Math.max(1, curLv - 1), wrong: ((STATE.progress[w.id] || {}).wrong || 0) + 1 });
+  }
+  recordActivity(1);
+  render();
+  setTimeout(() => {
+    if (sp.idx + 1 >= sp.queue.length) {
+      sp.phase = "done";
+    } else {
+      sp.idx += 1;
+      sp.input = "";
+      sp.feedback = null;
+      const nextW = sp.queue[sp.idx];
+      if (nextW) setTimeout(() => speak(nextW.en), 300);
+    }
+    render();
+    if (sp.phase === "playing") {
+      const el = document.getElementById("spellInput");
+      if (el) el.focus();
+    }
+  }, isCorrect ? 1100 : 2000);
+}
+function skipSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return;
+  sp.streak = 0;
+  if (sp.idx + 1 >= sp.queue.length) {
+    sp.phase = "done";
+  } else {
+    sp.idx += 1;
+    sp.input = "";
+    const nextW = sp.queue[sp.idx];
+    if (nextW) setTimeout(() => speak(nextW.en), 300);
+  }
+  render();
+}
+function renderSpell() {
+  const sp = STATE.spell;
+  if (sp.phase === "setup") {
+    return `<div class="pad">
+      <div class="introCard">
+        <div style="font-size:38px;">✏️</div>
+        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，拼出這個字</div>
+        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。</div>
+      </div>
+      <div class="sectionTitle">選擇範圍</div>
+      <div class="chipRow">
+        ${catChipHtml(false, "全部", "🔀", "#233047", `startSpell('all')`)}
+        ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startSpell('${c.key}')`)).join("")}
+      </div>
+    </div>`;
+  }
+  if (sp.phase === "done") {
+    const pct = Math.round((sp.correctCount / sp.queue.length) * 100);
+    return `<div class="pad" style="text-align:center;">
+      <div class="introCard">
+        <div style="font-size:44px;">${pct >= 80 ? "🏆" : pct >= 50 ? "👍" : "💪"}</div>
+        <div style="font-weight:800;font-size:22px;margin:8px 0 4px;">得分 ${sp.score}</div>
+        <div style="font-size:13px;color:#8592A6;">拼對 ${sp.correctCount} / ${sp.queue.length}（${pct}%）</div>
+      </div>
+      <div class="ctaRow">
+        <button class="cta" style="background:#4361EE;" onclick="startSpell('${sp.cat}')">🔁 再拼一次</button>
+        <button class="cta" style="background:#8592A6;" onclick="STATE.spell.phase='setup';render();">選擇其他範圍</button>
+      </div>
+    </div>`;
+  }
+  const w = sp.queue[sp.idx];
+  const c = CAT_MAP[w.cat];
+  const answer = canonicalWord(w.en);
+  const blanks = answer.replace(/[a-zA-Z]/g, "＿").split("").join(" ");
+  const fb = sp.feedback;
+  return `<div class="pad">
+    <div class="qzTopRow">
+      <div class="qzPill">題目 ${sp.idx+1}/${sp.queue.length}</div>
+      <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${sp.streak}</div>
+      <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${sp.score} 分</div>
+    </div>
+    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+      <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${w.pos} · ${w.zh}</div>
+      <div style="margin-top:10px;">
+        <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:30px;" onclick="replaySpellWord()" aria-label="重播發音">🔊</button>
+      </div>
+      <div style="font-size:20px;letter-spacing:3px;margin-top:12px;font-weight:800;opacity:.85;">${fb ? answer : blanks}</div>
+      <div style="font-size:11px;opacity:.8;margin-top:4px;">點喇叭聽發音，再輸入拼法</div>
+    </div>
+
+    <input id="spellInput" autocapitalize="off" autocorrect="off" spellcheck="false"
+      value="${escapeHtml(sp.input)}"
+      oninput="onSpellInput(this.value)" onkeydown="onSpellKeydown(event)"
+      placeholder="輸入英文拼法…" class="search"
+      style="text-align:center;font-size:18px;font-weight:800;margin-top:16px;${fb === "correct" ? "border-color:#06D6A0;color:#177350;" : fb === "wrong" ? "border-color:#EF476F;color:#B3223F;" : ""}"
+      ${fb ? "disabled" : ""}/>
+
+    ${fb === "correct" ? `<div style="text-align:center;color:#06D6A0;font-weight:800;font-size:14px;margin-top:8px;">✅ 答對了！</div>` : ""}
+    ${fb === "wrong" ? `<div style="text-align:center;color:#EF476F;font-weight:800;font-size:14px;margin-top:8px;">❌ 正確答案是：${answer}</div>` : ""}
+
+    ${!fb ? `<div style="display:flex;gap:10px;margin-top:14px;">
+      <button class="cta" style="background:#4361EE;" onclick="submitSpell()">✓ 送出答案</button>
+      <button class="cta" style="background:#8592A6;flex:none;padding:13px 18px;" onclick="skipSpell()">跳過</button>
+    </div>` : ""}
+  </div>`;
+}
+
 function bodyHtml() {
   if (STATE.tab === "home") return renderHome();
   if (STATE.tab === "browse") return renderBrowse();
   if (STATE.tab === "study") return renderStudy();
+  if (STATE.tab === "spell") return renderSpell();
   if (STATE.tab === "quiz") return renderQuiz();
   return "";
 }
@@ -1124,10 +1389,14 @@ function render() {
   if (STATE.tab === "browse") updateBrowseList();
 }
 
-// load voices ahead of time (some browsers populate this list async)
+// load voices ahead of time (some browsers populate this list async);
+// clear the cached choice so pickBestVoice() re-evaluates once the full list is in
 if ("speechSynthesis" in window) {
   window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => {
+    cachedVoice = null;
+    window.speechSynthesis.getVoices();
+  };
 }
 
 render();
