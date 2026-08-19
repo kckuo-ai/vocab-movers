@@ -667,15 +667,25 @@ function pronounce(rawText) {
   const base = canonicalWord(rawText);
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
   let fellBack = false;
-  const fallback = () => { if (!fellBack) { fellBack = true; speak(rawText); } };
+  const fallback = (reason) => {
+    if (fellBack) return;
+    fellBack = true;
+    console.warn(`pronounce: "${base}" fell back to device voice — ${reason}`);
+    showToast(`🔈 系統語音（${reason}）`);
+    speak(rawText);
+  };
   try {
     const audioEl = new Audio(ttsAudioUrl(base));
     currentAudioEl = audioEl;
-    audioEl.addEventListener("error", fallback);
+    audioEl.addEventListener("error", () => {
+      const codes = { 1: "已中止", 2: "網路錯誤", 3: "解碼失敗", 4: "來源不支援/被拒絕" };
+      const code = audioEl.error && audioEl.error.code;
+      fallback(codes[code] || "音訊載入錯誤");
+    });
     const p = audioEl.play();
-    if (p && p.catch) p.catch(fallback);
+    if (p && p.catch) p.catch((e) => fallback("播放被擋：" + (e && e.name ? e.name : "未知")));
   } catch (e) {
-    fallback();
+    fallback("例外：" + (e && e.message ? e.message : "未知"));
   }
 }
 function speakBtnHtml(text, size, tone, bg) {
