@@ -664,7 +664,7 @@ let STATE = {
   browse: { query: "", cat: "all" },
   study: { cat: "all", queue: [], idx: 0, flipped: false },
   quiz: { cat: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
-  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, score: 0, streak: 0, correctCount: 0 },
+  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -1249,7 +1249,7 @@ function buildSpellQueue(cat) {
   return buildWeightedQueue(pool, SPELL_LEN);
 }
 function startSpell(cat) {
-  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, score: 0, streak: 0, correctCount: 0 };
+  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 };
   render();
   const w = STATE.spell.queue[0];
   if (w) setTimeout(() => speak(w.en), 350);
@@ -1272,13 +1272,23 @@ function normalizeSpelling(s) {
     .trim()
     .toLowerCase();
 }
-function submitSpell() {
+function hintedBlanks(answer, hintLevel) {
+  const totalLetters = (answer.match(/[a-zA-Z]/g) || []).length;
+  const revealCount = hintLevel === 0 ? 0 : hintLevel === 1 ? 1 : Math.min(3, totalLetters);
+  let count = 0, out = "";
+  for (const ch of answer) {
+    if (/[a-zA-Z]/.test(ch)) {
+      count++;
+      out += count <= revealCount ? ch : "＿";
+    } else {
+      out += ch;
+    }
+  }
+  return out.split("").join(" ");
+}
+function resolveSpell(isCorrect) {
   const sp = STATE.spell;
-  if (sp.feedback) return; // already answered, waiting to advance
   const w = sp.queue[sp.idx];
-  const answer = normalizeSpelling(canonicalWord(w.en));
-  const given = normalizeSpelling(sp.input || "");
-  const isCorrect = given.length > 0 && given === answer;
   sp.feedback = isCorrect ? "correct" : "wrong";
   const curLv = (STATE.progress[w.id] || {}).level || 0;
   if (isCorrect) {
@@ -1300,6 +1310,7 @@ function submitSpell() {
       sp.idx += 1;
       sp.input = "";
       sp.feedback = null;
+      sp.hintLevel = 0;
       const nextW = sp.queue[sp.idx];
       if (nextW) setTimeout(() => speak(nextW.en), 300);
     }
@@ -1310,6 +1321,32 @@ function submitSpell() {
     }
   }, isCorrect ? 1100 : 2000);
 }
+function submitSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return; // already answered, waiting to advance
+  const w = sp.queue[sp.idx];
+  const answer = normalizeSpelling(canonicalWord(w.en));
+  const given = normalizeSpelling(sp.input || "");
+  const isCorrect = given.length > 0 && given === answer;
+  resolveSpell(isCorrect);
+}
+function hintSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return;
+  if (sp.hintLevel === 0) {
+    sp.hintLevel = 1;
+    render();
+  } else if (sp.hintLevel === 1) {
+    sp.hintLevel = 2;
+    render();
+  } else {
+    // asked for a hint a 3rd time — treat as "I don't know" and mark it wrong
+    resolveSpell(false);
+    return;
+  }
+  const el = document.getElementById("spellInput");
+  if (el) el.focus();
+}
 function skipSpell() {
   const sp = STATE.spell;
   if (sp.feedback) return;
@@ -1319,6 +1356,7 @@ function skipSpell() {
   } else {
     sp.idx += 1;
     sp.input = "";
+    sp.hintLevel = 0;
     const nextW = sp.queue[sp.idx];
     if (nextW) setTimeout(() => speak(nextW.en), 300);
   }
@@ -1331,7 +1369,7 @@ function renderSpell() {
       <div class="introCard">
         <div style="font-size:38px;">✏️</div>
         <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，拼出這個字</div>
-        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。</div>
+        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次（第一次提示 1 個字母，第二次提示前面幾個字母）；第三次按提示會直接視為不會，記為答錯。</div>
       </div>
       <div class="sectionTitle">選擇範圍</div>
       <div class="chipRow">
@@ -1357,7 +1395,7 @@ function renderSpell() {
   const w = sp.queue[sp.idx];
   const c = CAT_MAP[w.cat];
   const answer = canonicalWord(w.en);
-  const blanks = answer.replace(/[a-zA-Z]/g, "＿").split("").join(" ");
+  const blanks = hintedBlanks(answer, sp.hintLevel || 0);
   const fb = sp.feedback;
   return `<div class="pad">
     <div class="qzTopRow">
@@ -1387,6 +1425,9 @@ function renderSpell() {
     ${!fb ? `<div style="display:flex;gap:10px;margin-top:14px;">
       <button class="cta" style="background:#4361EE;" onclick="submitSpell()">✓ 送出答案</button>
       <button class="cta" style="background:#8592A6;flex:none;padding:13px 18px;" onclick="skipSpell()">跳過</button>
+    </div>
+    <div style="margin-top:10px;">
+      <button class="cta" style="background:#FFB703;width:100%;" onclick="hintSpell()">💡 提示${sp.hintLevel > 0 ? `（已用 ${sp.hintLevel}/2，再按一次視為不會）` : ""}</button>
     </div>` : ""}
   </div>`;
 }
