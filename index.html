@@ -687,18 +687,33 @@ async function fetchDictAudio(word) {
 async function pronounce(rawText) {
   const base = canonicalWord(rawText);
   const isSingleWord = /^[A-Za-z'-]+$/.test(base);
+  let audioEl = null;
   if (isSingleWord && !(base.toLowerCase() in PRONOUNCE_OVERRIDES)) {
+    // Safari only allows audio.play() when it's tied to a user gesture.
+    // An `await` (our network lookup) breaks that link by the time we'd
+    // normally call play(), so instead we create + "prime" this element
+    // and call play() on it synchronously right now, inside the click
+    // handler, before any awaiting happens. Once the real URL is ready we
+    // reuse this SAME element and call play() again — Safari continues to
+    // allow that because the element itself was already gesture-activated.
+    if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
+    // a tiny silent WAV, not an empty src — Safari needs an actual
+    // decodable resource for the primer play() to register as valid
+    audioEl = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=");
+    audioEl.play().catch(() => {});
+    currentAudioEl = audioEl;
+  }
+  if (audioEl) {
     try {
       const url = await fetchDictAudio(base);
       if (url) {
-        if (currentAudioEl) { currentAudioEl.pause(); }
-        const audioEl = new Audio(url);
-        currentAudioEl = audioEl;
+        audioEl.src = url;
+        audioEl.load();
         await audioEl.play();
         return;
       }
     } catch (e) {
-      // network unavailable, blocked, or playback failed — fall through to TTS
+      // network unavailable, blocked, no audio found, or playback failed — fall through to TTS
     }
   }
   speak(rawText);
