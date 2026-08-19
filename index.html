@@ -648,133 +648,39 @@ function speak(rawText) {
   }
 }
 
-/* ---------- real recorded-audio pronunciation (much more natural than
-   device TTS), with automatic fallback to speech synthesis ----------
-   Uses the free, public dictionaryapi.dev, which serves real human
-   pronunciation recordings for most common English words. Only attempted
-   for plain single words (no spaces) — multi-word phrases go straight to
-   TTS. Resolved audio URLs are cached locally so repeat taps don't need
-   another lookup, and a missing/failed lookup is cached too so it isn't
-   retried every time. */
-const AKEY = "movers-vocab-audiocache-v1";
-let audioCache = lget(AKEY, {});
-function saveAudioCache() { lset(AKEY, audioCache); }
+/* ---------- natural-sounding pronunciation, with automatic fallback to
+   the device's own speech synthesis ----------
+   Earlier this used dictionaryapi.dev's audio links, but that service's
+   audio hosting turns out to have known, ongoing reliability problems
+   (broken/dead links reported by many other developers) — so results were
+   inconsistent. This uses Google Translate's TTS endpoint instead: the
+   audio URL is built directly from the text with no network lookup step
+   first, so playback can start fully synchronously inside the tap handler
+   (exactly what Safari's autoplay-needs-a-gesture rule requires — no more
+   racing an async request against the gesture window), and it also works
+   for whole phrases, not just single dictionary words. */
 let currentAudioEl = null;
-const pendingAudioFetches = {}; // word -> in-flight Promise, dedupes overlapping lookups
-function fetchDictAudio(word) {
-  const key = word.toLowerCase();
-  if (Object.prototype.hasOwnProperty.call(audioCache, key)) return Promise.resolve(audioCache[key]);
-  if (pendingAudioFetches[key]) return pendingAudioFetches[key];
-  const p = (async () => {
-    try {
-      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}`);
-      if (!res.ok) throw new Error("not found");
-      const data = await res.json();
-      let url = null;
-      for (const entry of data) {
-        if (!entry.phonetics) continue;
-        for (const ph of entry.phonetics) {
-          if (ph.audio) { url = ph.audio.startsWith("//") ? "https:" + ph.audio : ph.audio; break; }
-        }
-        if (url) break;
-      }
-      audioCache[key] = url;
-      saveAudioCache();
-      return url;
-    } catch (e) {
-      audioCache[key] = null;
-      saveAudioCache();
-      return null;
-    } finally {
-      delete pendingAudioFetches[key];
-    }
-  })();
-  pendingAudioFetches[key] = p;
-  return p;
+function ttsAudioUrl(text) {
+  return `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(text)}`;
 }
-async function pronounce(rawText) {
+function pronounce(rawText) {
   const base = canonicalWord(rawText);
-  const isSingleWord = /^[A-Za-z'-]+$/.test(base);
-  if (!isSingleWord || base.toLowerCase() in PRONOUNCE_OVERRIDES) {
-    speak(rawText);
-    return;
-  }
-  const key = base.toLowerCase();
-
-  // Fast, reliable path: the URL was already resolved (usually by the
-  // background prefetch scoped to whatever screen you're on — see prefetchWords).
-  // We can call play() fully synchronously right here inside the click
-  // handler with no `await` beforehand at all, which is exactly what
-  // Safari's autoplay-needs-a-user-gesture rule allows.
-  if (Object.prototype.hasOwnProperty.call(audioCache, key)) {
-    const cachedUrl = audioCache[key];
-    if (cachedUrl) {
-      if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
-      const audioEl = new Audio(cachedUrl);
-      currentAudioEl = audioEl;
-      audioEl.play().catch(() => speak(rawText));
-      return;
-    }
-    speak(rawText); // cached as "no recording available" for this word
-    return;
-  }
-
-  // Slower fallback path: not prefetched yet (e.g. tapped right after page
-  // load before the background prefetch reached this word). Safari only
-  // allows audio.play() tied to a user gesture, and the network lookup
-  // below breaks that link by the time we'd normally call play() — so we
-  // "prime" an element with a real (silent) resource synchronously first,
-  // then reuse that SAME element once the real URL is ready. This is less
-  // reliable than the cached path above, but better than nothing.
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
-  const audioEl = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=");
-  audioEl.play().catch(() => {});
-  currentAudioEl = audioEl;
+  let fellBack = false;
+  const fallback = () => { if (!fellBack) { fellBack = true; speak(rawText); } };
   try {
-    const url = await fetchDictAudio(base);
-    if (url) {
-      audioEl.src = url;
-      audioEl.load();
-      await audioEl.play();
-      return;
-    }
+    const audioEl = new Audio(ttsAudioUrl(base));
+    currentAudioEl = audioEl;
+    audioEl.addEventListener("error", fallback);
+    const p = audioEl.play();
+    if (p && p.catch) p.catch(fallback);
   } catch (e) {
-    // network unavailable, blocked, no audio found, or playback failed — fall through to TTS
+    fallback();
   }
-  speak(rawText);
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${escapeHtml(text).replace(/'/g,"\\'")}')" aria-label="播放發音">🔊</button>`;
-}
-// Resolve audio URLs for a specific, small set of words in the background
-// (limited concurrency), so that by the time the person actually taps a
-// speaker icon, pronounce() can play it fully synchronously — which is
-// what makes Safari reliably allow real playback. Called with only the
-// words relevant to what's currently on screen (e.g. the active study/
-// quiz/spell queue, the visible browse results, today's word) rather than
-// the whole wordlist at once, so a single page visit doesn't trigger a
-// burst of hundreds of lookups — most words are only ever looked up once
-// they're actually about to be shown to the person.
-function prefetchWords(wordList, concurrency) {
-  concurrency = concurrency || 4;
-  const seen = new Set();
-  const candidates = [];
-  for (const raw of wordList) {
-    const base = canonicalWord(raw);
-    if (!/^[A-Za-z'-]+$/.test(base)) continue;
-    const key = base.toLowerCase();
-    if (seen.has(key) || key in PRONOUNCE_OVERRIDES) continue;
-    seen.add(key);
-    if (!(key in audioCache)) candidates.push(key);
-  }
-  let i = 0;
-  function worker() {
-    if (i >= candidates.length) return Promise.resolve();
-    const w = candidates[i++];
-    return fetchDictAudio(w).catch(() => {}).then(worker);
-  }
-  for (let k = 0; k < concurrency; k++) worker();
 }
 
 /* ---------- global state ---------- */
@@ -972,7 +878,6 @@ function listCompletionHtml(stats) {
 function renderHome() {
   const stats = computeStats();
   const wod = getWordOfDay();
-  prefetchWords([wod.en]);
   const wodLv = (STATE.progress[wod.id] || {}).level || 0;
   const wc = CAT_MAP[wod.cat];
   const earned = BADGES.filter((b) => STATE.daily.badges.includes(b.id));
@@ -1084,12 +989,6 @@ function renderBrowse() {
 }
 function browseListHtml() {
   const filtered = browseFiltered();
-  // only prefetch when the list has been narrowed down (category or search)
-  // — avoids re-creating the "fetch everything at once" burst when browsing
-  // the full unfiltered list; those words still resolve fine on tap
-  if (filtered.length > 0 && filtered.length <= 60) {
-    prefetchWords(filtered.map((w) => w.en));
-  }
   let html = `<div style="font-size:12px;color:#8592A6;font-weight:700;margin:12px 2px;">共 ${filtered.length} 個單字</div>`;
   if (filtered.length === 0) {
     html += `<div style="text-align:center;color:#8592A6;padding:30px 0;font-size:14px;">找不到符合的單字</div>`;
@@ -1186,14 +1085,12 @@ function buildStudyQueue(cat) {
   return buildWeightedQueue(pool, 20);
 }
 if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue("all");
-prefetchWords(STATE.study.queue.map((w) => w.en));
 
 function restartStudy(cat) {
   STATE.study.cat = cat;
   STATE.study.queue = buildStudyQueue(cat);
   STATE.study.idx = 0;
   STATE.study.flipped = false;
-  prefetchWords(STATE.study.queue.map((w) => w.en));
   render();
 }
 function flipStudyCard() {
@@ -1281,7 +1178,6 @@ function buildQuizQuestions(cat) {
 }
 function startQuiz(cat) {
   STATE.quiz = { cat, phase: "playing", questions: buildQuizQuestions(cat), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
-  prefetchWords(STATE.quiz.questions.map((q) => q.word.en));
   render();
 }
 function chooseQuizOption(optId) {
@@ -1385,7 +1281,6 @@ function buildSpellQueue(cat) {
 }
 function startSpell(cat) {
   STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 };
-  prefetchWords(STATE.spell.queue.map((w) => w.en));
   render();
   const w = STATE.spell.queue[0];
   if (w) setTimeout(() => pronounce(w.en), 350);
