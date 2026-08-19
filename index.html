@@ -648,45 +648,22 @@ function speak(rawText) {
   }
 }
 
-/* ---------- natural-sounding pronunciation, with automatic fallback to
-   the device's own speech synthesis ----------
-   Earlier this used dictionaryapi.dev's audio links, but that service's
-   audio hosting turns out to have known, ongoing reliability problems
-   (broken/dead links reported by many other developers) — so results were
-   inconsistent. This uses Google Translate's TTS endpoint instead: the
-   audio URL is built directly from the text with no network lookup step
-   first, so playback can start fully synchronously inside the tap handler
-   (exactly what Safari's autoplay-needs-a-gesture rule requires — no more
-   racing an async request against the gesture window), and it also works
-   for whole phrases, not just single dictionary words. */
-let currentAudioEl = null;
-function ttsAudioUrl(text) {
-  return `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(text)}`;
-}
+/* ---------- pronunciation ----------
+   Two network-based "more natural" approaches were tried and both proved
+   unreliable in practice: dictionaryapi.dev's audio hosting has known,
+   ongoing broken-link problems reported by many developers, and Google
+   Translate's unofficial TTS endpoint blocks third-party origins (confirmed
+   via NotSupportedError on this exact deployment — it returns something
+   that isn't playable audio, not a real recording). Both failure modes are
+   outside anything fixable from our side, so pronunciation now goes
+   straight to the device's own speech synthesis, which is the one option
+   that doesn't depend on a third-party server being reachable/cooperative.
+   See speak() above for the voice-quality tuning (auto-picks a natural
+   voice, tuned rate, punctuation trick) — and see the tip in voiceTipHtml()
+   about downloading an Enhanced/Premium system voice, which is the biggest
+   lever for better quality from here. */
 function pronounce(rawText) {
-  const base = canonicalWord(rawText);
-  if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
-  let fellBack = false;
-  const fallback = (reason) => {
-    if (fellBack) return;
-    fellBack = true;
-    console.warn(`pronounce: "${base}" fell back to device voice — ${reason}`);
-    showToast(`🔈 系統語音（${reason}）`);
-    speak(rawText);
-  };
-  try {
-    const audioEl = new Audio(ttsAudioUrl(base));
-    currentAudioEl = audioEl;
-    audioEl.addEventListener("error", () => {
-      const codes = { 1: "已中止", 2: "網路錯誤", 3: "解碼失敗", 4: "來源不支援/被拒絕" };
-      const code = audioEl.error && audioEl.error.code;
-      fallback(codes[code] || "音訊載入錯誤");
-    });
-    const p = audioEl.play();
-    if (p && p.catch) p.catch((e) => fallback("播放被擋：" + (e && e.name ? e.name : "未知")));
-  } catch (e) {
-    fallback("例外：" + (e && e.message ? e.message : "未知"));
-  }
+  speak(rawText);
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
