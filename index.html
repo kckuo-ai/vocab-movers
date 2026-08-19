@@ -647,9 +647,65 @@ function speak(rawText) {
     console.error("speak failed", e);
   }
 }
+
+/* ---------- real recorded-audio pronunciation (much more natural than
+   device TTS), with automatic fallback to speech synthesis ----------
+   Uses the free, public dictionaryapi.dev, which serves real human
+   pronunciation recordings for most common English words. Only attempted
+   for plain single words (no spaces) — multi-word phrases go straight to
+   TTS. Resolved audio URLs are cached locally so repeat taps don't need
+   another lookup, and a missing/failed lookup is cached too so it isn't
+   retried every time. */
+const AKEY = "movers-vocab-audiocache-v1";
+let audioCache = lget(AKEY, {});
+function saveAudioCache() { lset(AKEY, audioCache); }
+let currentAudioEl = null;
+async function fetchDictAudio(word) {
+  const key = word.toLowerCase();
+  if (Object.prototype.hasOwnProperty.call(audioCache, key)) return audioCache[key];
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}`);
+    if (!res.ok) throw new Error("not found");
+    const data = await res.json();
+    let url = null;
+    for (const entry of data) {
+      if (!entry.phonetics) continue;
+      for (const p of entry.phonetics) {
+        if (p.audio) { url = p.audio.startsWith("//") ? "https:" + p.audio : p.audio; break; }
+      }
+      if (url) break;
+    }
+    audioCache[key] = url;
+    saveAudioCache();
+    return url;
+  } catch (e) {
+    audioCache[key] = null;
+    saveAudioCache();
+    return null;
+  }
+}
+async function pronounce(rawText) {
+  const base = canonicalWord(rawText);
+  const isSingleWord = /^[A-Za-z'-]+$/.test(base);
+  if (isSingleWord && !(base.toLowerCase() in PRONOUNCE_OVERRIDES)) {
+    try {
+      const url = await fetchDictAudio(base);
+      if (url) {
+        if (currentAudioEl) { currentAudioEl.pause(); }
+        const audioEl = new Audio(url);
+        currentAudioEl = audioEl;
+        await audioEl.play();
+        return;
+      }
+    } catch (e) {
+      // network unavailable, blocked, or playback failed — fall through to TTS
+    }
+  }
+  speak(rawText);
+}
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
-  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();speak('${escapeHtml(text).replace(/'/g,"\\'")}')" aria-label="播放發音">🔊</button>`;
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${escapeHtml(text).replace(/'/g,"\\'")}')" aria-label="播放發音">🔊</button>`;
 }
 
 /* ---------- global state ---------- */
@@ -1252,7 +1308,7 @@ function startSpell(cat) {
   STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 };
   render();
   const w = STATE.spell.queue[0];
-  if (w) setTimeout(() => speak(w.en), 350);
+  if (w) setTimeout(() => pronounce(w.en), 350);
 }
 function onSpellInput(val) {
   STATE.spell.input = val;
@@ -1262,7 +1318,7 @@ function onSpellKeydown(e) {
 }
 function replaySpellWord() {
   const w = STATE.spell.queue[STATE.spell.idx];
-  if (w) speak(w.en);
+  if (w) pronounce(w.en);
 }
 function normalizeSpelling(s) {
   return s
@@ -1312,7 +1368,7 @@ function resolveSpell(isCorrect) {
       sp.feedback = null;
       sp.hintLevel = 0;
       const nextW = sp.queue[sp.idx];
-      if (nextW) setTimeout(() => speak(nextW.en), 300);
+      if (nextW) setTimeout(() => pronounce(nextW.en), 300);
     }
     render();
     if (sp.phase === "playing") {
@@ -1358,7 +1414,7 @@ function skipSpell() {
     sp.input = "";
     sp.hintLevel = 0;
     const nextW = sp.queue[sp.idx];
-    if (nextW) setTimeout(() => speak(nextW.en), 300);
+    if (nextW) setTimeout(() => pronounce(nextW.en), 300);
   }
   render();
 }
