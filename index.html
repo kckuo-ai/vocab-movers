@@ -514,6 +514,32 @@ const LEVELS = [
 ];
 const levelInfo = (lv) => LEVELS[Math.max(0, Math.min(4, lv || 0))];
 
+/* ---------- starting-letter filtering (shared by Browse/Study/Spell/Quiz) ---------- */
+function startingLetter(w) {
+  const c = canonicalWord(w.en);
+  const m = c.match(/[A-Za-z]/);
+  return m ? m[0].toUpperCase() : "#";
+}
+const LETTERS = Array.from(new Set(WORDS.map(startingLetter))).sort();
+function poolForSelection(sel) {
+  if (sel && sel.mode === "letter") return WORDS.filter((w) => startingLetter(w) === sel.letter);
+  const cat = sel ? sel.cat : "all";
+  return cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+}
+function letterChipHtml(active, letter, onclick) {
+  return `<button class="catChip" style="min-width:34px;text-align:center;border-color:${active ? "#4361EE" : "#E4E8F0"};background:${active ? "#4361EE1A" : "#fff"};color:${active ? "#4361EE" : "#5B6779"};" onclick="${onclick}">${letter}</button>`;
+}
+function modeToggleHtml(screen, mode) {
+  return `<div style="display:flex;gap:8px;margin-bottom:10px;">
+    <button style="flex:1;padding:8px 0;border-radius:10px;font-weight:800;font-size:12.5px;background:${mode === "cat" ? "#4361EE" : "#EEF1F7"};color:${mode === "cat" ? "#fff" : "#5B6779"};" onclick="setPickerMode('${screen}','cat')">📁 依分類</button>
+    <button style="flex:1;padding:8px 0;border-radius:10px;font-weight:800;font-size:12.5px;background:${mode === "letter" ? "#4361EE" : "#EEF1F7"};color:${mode === "letter" ? "#fff" : "#5B6779"};" onclick="setPickerMode('${screen}','letter')">🔤 依字母</button>
+  </div>`;
+}
+function setPickerMode(screen, mode) {
+  STATE[screen].mode = mode;
+  render();
+}
+
 const BADGES = [
   { id: "first5", label: "初次見面", emoji: "🌱", desc: "學習 5 個單字", test: (s) => s.studiedCount >= 5 },
   { id: "words25", label: "字彙新手", emoji: "🐣", desc: "學習 25 個單字", test: (s) => s.studiedCount >= 25 },
@@ -675,9 +701,11 @@ function speakTextFor(rawText) {
   // intonation instead of a clipped/odd reading of an isolated short word
   return /[.!?]$/.test(text) ? text : text + ".";
 }
-function speak(rawText) {
+function speak(rawText, attempt, onSettle) {
+  attempt = attempt || 0;
+  const settle = () => { if (onSettle) onSettle(); };
   try {
-    if (!("speechSynthesis" in window)) return;
+    if (!("speechSynthesis" in window)) { settle(); return; }
     const doSpeak = () => {
       try {
         const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
@@ -686,29 +714,39 @@ function speak(rawText) {
         const voice = getSelectedVoice();
         if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
         let started = false;
-        utter.onstart = () => { started = true; };
+        utter.onstart = () => { started = true; settle(); };
         utter.onerror = (ev) => {
           console.error("TTS utterance error for", JSON.stringify(rawText), ev.error);
           showToast(`❌ 系統語音錯誤：${ev.error || "未知"}`);
+          settle();
         };
         window.speechSynthesis.speak(utter);
-        // Diagnostic: if the utterance never actually starts, the browser
-        // accepted the speak() call but the engine itself did nothing —
-        // this surfaces that silently-stuck case instead of leaving it
-        // looking identical to a normal successful call.
+        // The iOS speech engine occasionally accepts a speak() call and then
+        // just... doesn't. Retrying automatically a couple of times clears
+        // it almost every time (this mirrors "kept tapping until it worked"
+        // — just automated instead of needing repeated manual taps), and
+        // only surfaces a toast if it's still stuck after those retries.
         setTimeout(() => {
-          if (!started) {
+          if (started) return;
+          if (attempt < 2) {
+            console.warn(`TTS no response for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
+            try { window.speechSynthesis.cancel(); } catch (e) {}
+            setTimeout(() => speak(rawText, attempt + 1, onSettle), 100);
+          } else {
             console.warn(
               "TTS never started for", JSON.stringify(rawText),
+              "after", attempt + 1, "attempts",
               "| speaking:", window.speechSynthesis.speaking,
               "| pending:", window.speechSynthesis.pending,
               "| paused:", window.speechSynthesis.paused
             );
             showToast("⚠️ 系統語音無回應");
+            settle();
           }
-        }, 1200);
+        }, 900);
       } catch (e) {
         console.error("speak (queued) failed", e);
+        settle();
       }
     };
     // iOS Safari's speech engine has a known bug where calling cancel()
@@ -725,6 +763,7 @@ function speak(rawText) {
     }
   } catch (e) {
     console.error("speak failed", e);
+    settle();
   }
 }
 
@@ -846,20 +885,22 @@ function warmAudioSession() {
     warm.play().catch(() => {});
   } catch (e) {}
 }
-let lastPronounceAt = 0;
+let pronounceBusy = false;
 function pronounce(rawText) {
-  // Debounce: ignore rapid repeat taps on the speaker button so multiple
-  // overlapping sounds can't stack up if someone taps several times quickly.
-  const now = Date.now();
-  if (now - lastPronounceAt < 500) return;
-  lastPronounceAt = now;
+  // Ignore taps while a previous pronunciation attempt is still in flight —
+  // covers the whole attempt (real-audio candidates, any TTS retries), not
+  // just a fixed short window, so repeated taps can never queue up multiple
+  // overlapping sounds no matter how long an attempt takes to settle.
+  if (pronounceBusy) return;
+  pronounceBusy = true;
+  const release = () => { pronounceBusy = false; };
 
   try {
     warmAudioSession();
     const base = canonicalWord(rawText);
     if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
     const candidates = commonsAudioCandidates(base);
-    if (!candidates.length) { speak(rawText); return; }
+    if (!candidates.length) { speak(rawText, 0, release); return; }
 
     // Walk the candidate list; each failure advances to the next, and
     // running out falls back to the device voice. The first play() happens
@@ -874,7 +915,7 @@ function pronounce(rawText) {
       settled = true;
       console.warn(`pronounce("${base}") → device voice (${reason})`);
       showToast("🔈 系統語音");
-      speak(rawText);
+      speak(rawText, 0, release);
     };
     const tryNext = () => {
       if (settled) return;
@@ -891,6 +932,7 @@ function pronounce(rawText) {
     audioEl.addEventListener("playing", () => {
       settled = true;
       showToast("🎙️ 真人發音");
+      release();
     });
     // Safety net: some failure modes (blocked/hung requests, wrong content
     // type, etc.) never fire an 'error' event at all, which would otherwise
@@ -902,7 +944,7 @@ function pronounce(rawText) {
     // Absolute last resort: whatever went wrong above, still make sure the
     // word isn't left completely silent.
     console.error("pronounce top-level failure", e);
-    speak(rawText);
+    speak(rawText, 0, release);
   }
 }
 function speakBtnHtml(text, size, tone, bg) {
@@ -920,10 +962,10 @@ let STATE = {
   tab: "home",
   toast: null,
   toastTimer: null,
-  browse: { query: "", cat: "all" },
-  study: { cat: "all", queue: [], idx: 0, flipped: false },
-  quiz: { cat: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
-  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
+  browse: { query: "", cat: "all", letter: "all" },
+  study: { mode: "cat", cat: "all", letter: "A", queue: [], idx: 0, flipped: false },
+  quiz: { mode: "cat", cat: "all", letter: "A", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
+  spell: { mode: "cat", cat: "all", letter: "A", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -1247,6 +1289,7 @@ function browseFiltered() {
   const q = STATE.browse.query.trim().toLowerCase();
   return WORDS.filter((w) => {
     if (STATE.browse.cat !== "all" && w.cat !== STATE.browse.cat) return false;
+    if (STATE.browse.letter !== "all" && startingLetter(w) !== STATE.browse.letter) return false;
     if (!q) return true;
     return w.en.toLowerCase().includes(q) || w.zh.includes(q);
   }).sort((a, b) => canonicalWord(a.en).toLowerCase().localeCompare(canonicalWord(b.en).toLowerCase()));
@@ -1254,9 +1297,15 @@ function browseFiltered() {
 function renderBrowse() {
   return `<div class="pad">
     <input id="searchInput" value="${escapeHtml(STATE.browse.query)}" oninput="onSearchInput(this.value)" placeholder="搜尋英文或中文…" class="search"/>
+    <div style="font-size:11.5px;font-weight:800;color:#8592A6;margin:2px 2px 6px;">依分類</div>
     <div class="chipRow">
       ${catChipHtml(STATE.browse.cat === "all", "全部", "🔍", "#233047", `onBrowseCat('all')`)}
       ${CATEGORIES.map((c) => catChipHtml(STATE.browse.cat === c.key, c.label, c.emoji, c.color, `onBrowseCat('${c.key}')`)).join("")}
+    </div>
+    <div style="font-size:11.5px;font-weight:800;color:#8592A6;margin:10px 2px 6px;">依字母開頭</div>
+    <div class="chipRow">
+      ${letterChipHtml(STATE.browse.letter === "all", "全部", `onBrowseLetter('all')`)}
+      ${LETTERS.map((l) => letterChipHtml(STATE.browse.letter === l, l, `onBrowseLetter('${l}')`)).join("")}
     </div>
     <div id="browseList"></div>
   </div>`;
@@ -1302,6 +1351,10 @@ function onSearchInput(val) {
 }
 function onBrowseCat(cat) {
   STATE.browse.cat = cat;
+  render();
+}
+function onBrowseLetter(letter) {
+  STATE.browse.letter = letter;
   render();
 }
 let openRowId = null;
@@ -1354,15 +1407,15 @@ function buildWeightedQueue(pool, target) {
 /* ============================================================
    STUDY (FLASHCARDS)
    ============================================================ */
-function buildStudyQueue(cat) {
-  const pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
-  return buildWeightedQueue(pool, 20);
+function buildStudyQueue(sel) {
+  return buildWeightedQueue(poolForSelection(sel), 20);
 }
-if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue("all");
+if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.study);
 
-function restartStudy(cat) {
-  STATE.study.cat = cat;
-  STATE.study.queue = buildStudyQueue(cat);
+function restartStudy(mode, value) {
+  STATE.study.mode = mode;
+  if (mode === "letter") STATE.study.letter = value; else STATE.study.cat = value;
+  STATE.study.queue = buildStudyQueue(STATE.study);
   STATE.study.idx = 0;
   STATE.study.flipped = false;
   render();
@@ -1388,9 +1441,14 @@ function renderStudy() {
   const s = STATE.study;
   const done = s.idx >= s.queue.length;
   let inner = `<div class="pad">
+    ${modeToggleHtml("study", s.mode)}
     <div class="chipRow">
-      ${catChipHtml(s.cat === "all", "全部", "🔀", "#233047", `restartStudy('all')`)}
-      ${CATEGORIES.map((c) => catChipHtml(s.cat === c.key, c.label, c.emoji, c.color, `restartStudy('${c.key}')`)).join("")}
+      ${s.mode === "cat" ? `
+        ${catChipHtml(s.cat === "all", "全部", "🔀", "#233047", `restartStudy('cat','all')`)}
+        ${CATEGORIES.map((c) => catChipHtml(s.cat === c.key, c.label, c.emoji, c.color, `restartStudy('cat','${c.key}')`)).join("")}
+      ` : `
+        ${LETTERS.map((l) => letterChipHtml(s.letter === l, l, `restartStudy('letter','${l}')`)).join("")}
+      `}
     </div>`;
 
   if (!done) {
@@ -1402,7 +1460,7 @@ function renderStudy() {
       <div style="font-size:44px;margin-bottom:8px;">🎉</div>
       <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組單字複習完成！</div>
       <div style="font-size:13px;color:#8592A6;margin-bottom:18px;">再抽一組卡片繼續加強熟悉度</div>
-      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.cat}')">🔄 再來一組</button>
+      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.mode}','${s.mode === "letter" ? s.letter : s.cat}')">🔄 再來一組</button>
     </div>`;
   } else {
     const word = s.queue[s.idx];
@@ -1442,8 +1500,8 @@ function renderStudy() {
 /* ============================================================
    QUIZ
    ============================================================ */
-function buildQuizQuestions(cat) {
-  let pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+function buildQuizQuestions(sel) {
+  let pool = poolForSelection(sel);
   if (pool.length < 4) pool = WORDS;
   const chosen = buildWeightedQueue(pool, QUIZ_LEN);
   return chosen.map((w) => {
@@ -1452,8 +1510,9 @@ function buildQuizQuestions(cat) {
     return { word: w, options };
   });
 }
-function startQuiz(cat) {
-  STATE.quiz = { cat, phase: "playing", questions: buildQuizQuestions(cat), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
+function startQuiz(mode, value) {
+  const sel = { mode, cat: mode === "cat" ? value : "all", letter: mode === "letter" ? value : "A" };
+  STATE.quiz = { ...sel, phase: "playing", questions: buildQuizQuestions(sel), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
   render();
 }
 function chooseQuizOption(optId) {
@@ -1497,9 +1556,14 @@ function renderQuiz() {
         <div style="font-size:12px;color:#8592A6;margin-top:10px;font-weight:700;">歷史最高分：${STATE.hiScore.best || 0}</div>
       </div>
       <div class="sectionTitle">選擇範圍</div>
+      ${modeToggleHtml("quiz", qz.mode)}
       <div class="chipRow">
-        ${catChipHtml(false, "全部", "🔀", "#233047", `startQuiz('all')`)}
-        ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startQuiz('${c.key}')`)).join("")}
+        ${qz.mode === "cat" ? `
+          ${catChipHtml(false, "全部", "🔀", "#233047", `startQuiz('cat','all')`)}
+          ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startQuiz('cat','${c.key}')`)).join("")}
+        ` : `
+          ${LETTERS.map((l) => letterChipHtml(false, l, `startQuiz('letter','${l}')`)).join("")}
+        `}
       </div>
     </div>`;
   }
@@ -1513,7 +1577,7 @@ function renderQuiz() {
         ${qz.score >= (STATE.hiScore.best || 0) && qz.score > 0 ? `<div style="margin-top:8px;color:#EF476F;font-weight:800;font-size:13px;">🎉 締造新紀錄！</div>` : ""}
       </div>
       <div class="ctaRow">
-        <button class="cta" style="background:#4361EE;" onclick="startQuiz('${qz.cat}')">🔁 再測一次</button>
+        <button class="cta" style="background:#4361EE;" onclick="startQuiz('${qz.mode}','${qz.mode === "letter" ? qz.letter : qz.cat}')">🔁 再測一次</button>
         <button class="cta" style="background:#8592A6;" onclick="STATE.quiz.phase='setup';render();">選擇其他範圍</button>
       </div>
     </div>`;
@@ -1551,12 +1615,12 @@ function renderQuiz() {
    SPELL (listen and type the word)
    ============================================================ */
 const SPELL_LEN = 10;
-function buildSpellQueue(cat) {
-  const pool = cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
-  return buildWeightedQueue(pool, SPELL_LEN);
+function buildSpellQueue(sel) {
+  return buildWeightedQueue(poolForSelection(sel), SPELL_LEN);
 }
-function startSpell(cat) {
-  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 };
+function startSpell(mode, value) {
+  const sel = { mode, cat: mode === "cat" ? value : "all", letter: mode === "letter" ? value : "A" };
+  STATE.spell = { ...sel, phase: "playing", queue: buildSpellQueue(sel), idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 };
   render();
   const w = STATE.spell.queue[0];
   if (w) setTimeout(() => pronounce(w.en), 350);
@@ -1688,9 +1752,14 @@ function renderSpell() {
         <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次，每次隨機透露 1~2 個字母；第三次按提示會直接視為不會，記為答錯。</div>
       </div>
       <div class="sectionTitle">選擇範圍</div>
+      ${modeToggleHtml("spell", sp.mode)}
       <div class="chipRow">
-        ${catChipHtml(false, "全部", "🔀", "#233047", `startSpell('all')`)}
-        ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startSpell('${c.key}')`)).join("")}
+        ${sp.mode === "cat" ? `
+          ${catChipHtml(false, "全部", "🔀", "#233047", `startSpell('cat','all')`)}
+          ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startSpell('cat','${c.key}')`)).join("")}
+        ` : `
+          ${LETTERS.map((l) => letterChipHtml(false, l, `startSpell('letter','${l}')`)).join("")}
+        `}
       </div>
     </div>`;
   }
@@ -1703,7 +1772,7 @@ function renderSpell() {
         <div style="font-size:13px;color:#8592A6;">拼對 ${sp.correctCount} / ${sp.queue.length}（${pct}%）</div>
       </div>
       <div class="ctaRow">
-        <button class="cta" style="background:#4361EE;" onclick="startSpell('${sp.cat}')">🔁 再拼一次</button>
+        <button class="cta" style="background:#4361EE;" onclick="startSpell('${sp.mode}','${sp.mode === "letter" ? sp.letter : sp.cat}')">🔁 再拼一次</button>
         <button class="cta" style="background:#8592A6;" onclick="STATE.spell.phase='setup';render();">選擇其他範圍</button>
       </div>
     </div>`;
