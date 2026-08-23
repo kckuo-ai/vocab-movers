@@ -782,13 +782,14 @@ function pronounce(rawText) {
   const audioEl = new Audio();
   currentAudioEl = audioEl;
   let settled = false;
+  const fallbackNow = () => {
+    if (settled) return;
+    settled = true;
+    speak(rawText); // no recording found (or a request just hung) — device voice
+  };
   const tryNext = () => {
     if (settled) return;
-    if (i >= candidates.length) {
-      settled = true;
-      speak(rawText); // no recording found for this word — device voice
-      return;
-    }
+    if (i >= candidates.length) { fallbackNow(); return; }
     audioEl.src = candidates[i++];
     const p = audioEl.play();
     if (p && p.catch) p.catch(() => tryNext());
@@ -798,6 +799,11 @@ function pronounce(rawText) {
     settled = true;
     showToast("🎙️ 真人發音");
   });
+  // Safety net: some failure modes (blocked/hung requests, wrong content
+  // type, etc.) never fire an 'error' event at all, which would otherwise
+  // leave a word completely silent forever. This guarantees every word ends
+  // up with at least the device voice within a few seconds no matter what.
+  setTimeout(fallbackNow, 2500);
   tryNext();
 }
 function speakBtnHtml(text, size, tone, bg) {
