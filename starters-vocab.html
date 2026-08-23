@@ -837,13 +837,51 @@ function speakTextFor(rawText) {
 function speak(rawText) {
   try {
     if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
-    utter.rate = 0.93; // natural-ish pace, still clear enough for kids
-    utter.pitch = 1.0;
-    const voice = getSelectedVoice();
-    if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
-    window.speechSynthesis.speak(utter);
+    const doSpeak = () => {
+      try {
+        const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
+        utter.rate = 0.93; // natural-ish pace, still clear enough for kids
+        utter.pitch = 1.0;
+        const voice = getSelectedVoice();
+        if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
+        let started = false;
+        utter.onstart = () => { started = true; };
+        utter.onerror = (ev) => {
+          console.error("TTS utterance error for", JSON.stringify(rawText), ev.error);
+          showToast(`❌ 系統語音錯誤：${ev.error || "未知"}`);
+        };
+        window.speechSynthesis.speak(utter);
+        // Diagnostic: if the utterance never actually starts, the browser
+        // accepted the speak() call but the engine itself did nothing —
+        // this surfaces that silently-stuck case instead of leaving it
+        // looking identical to a normal successful call.
+        setTimeout(() => {
+          if (!started) {
+            console.warn(
+              "TTS never started for", JSON.stringify(rawText),
+              "| speaking:", window.speechSynthesis.speaking,
+              "| pending:", window.speechSynthesis.pending,
+              "| paused:", window.speechSynthesis.paused
+            );
+            showToast("⚠️ 系統語音無回應");
+          }
+        }, 1200);
+      } catch (e) {
+        console.error("speak (queued) failed", e);
+      }
+    };
+    // iOS Safari's speech engine has a known bug where calling cancel()
+    // immediately followed by speak() repeatedly can lock the whole engine
+    // up silently — no error, but it never produces audio again until the
+    // page is reloaded. Only cancel when something is actually mid-speech,
+    // and give it a brief moment to actually stop before queuing the next
+    // utterance, rather than cancelling unconditionally on every tap.
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+      setTimeout(doSpeak, 60);
+    } else {
+      doSpeak();
+    }
   } catch (e) {
     console.error("speak failed", e);
   }
@@ -967,46 +1005,64 @@ function warmAudioSession() {
     warm.play().catch(() => {});
   } catch (e) {}
 }
+let lastPronounceAt = 0;
 function pronounce(rawText) {
-  warmAudioSession();
-  const base = canonicalWord(rawText);
-  if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
-  const candidates = commonsAudioCandidates(base);
-  if (!candidates.length) { speak(rawText); return; }
+  // Debounce: ignore rapid repeat taps on the speaker button so multiple
+  // overlapping sounds can't stack up if someone taps several times quickly.
+  const now = Date.now();
+  if (now - lastPronounceAt < 500) return;
+  lastPronounceAt = now;
 
-  // Walk the candidate list; each failure advances to the next, and running
-  // out falls back to the device voice. The first play() happens
-  // synchronously here so Safari accepts it as gesture-initiated.
-  let i = 0;
-  const audioEl = new Audio();
-  audioEl.volume = 1;
-  currentAudioEl = audioEl;
-  let settled = false;
-  const fallbackNow = (reason) => {
-    if (settled) return;
-    settled = true;
-    console.warn(`pronounce("${base}") → device voice (${reason})`);
-    showToast("🔈 系統語音");
+  try {
+    warmAudioSession();
+    const base = canonicalWord(rawText);
+    if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
+    const candidates = commonsAudioCandidates(base);
+    if (!candidates.length) { speak(rawText); return; }
+
+    // Walk the candidate list; each failure advances to the next, and
+    // running out falls back to the device voice. The first play() happens
+    // synchronously here so Safari accepts it as gesture-initiated.
+    let i = 0;
+    const audioEl = new Audio();
+    audioEl.volume = 1;
+    currentAudioEl = audioEl;
+    let settled = false;
+    const fallbackNow = (reason) => {
+      if (settled) return;
+      settled = true;
+      console.warn(`pronounce("${base}") → device voice (${reason})`);
+      showToast("🔈 系統語音");
+      speak(rawText);
+    };
+    const tryNext = () => {
+      if (settled) return;
+      if (i >= candidates.length) { fallbackNow("no recording found"); return; }
+      try {
+        audioEl.src = candidates[i++];
+        const p = audioEl.play();
+        if (p && p.catch) p.catch(() => tryNext());
+      } catch (e) {
+        tryNext(); // a synchronous failure here just advances immediately
+      }
+    };
+    audioEl.addEventListener("error", () => tryNext());
+    audioEl.addEventListener("playing", () => {
+      settled = true;
+      showToast("🎙️ 真人發音");
+    });
+    // Safety net: some failure modes (blocked/hung requests, wrong content
+    // type, etc.) never fire an 'error' event at all, which would otherwise
+    // leave a word completely silent forever. This guarantees every word
+    // ends up with at least the device voice quickly no matter what.
+    setTimeout(() => fallbackNow("timed out"), 1500);
+    tryNext();
+  } catch (e) {
+    // Absolute last resort: whatever went wrong above, still make sure the
+    // word isn't left completely silent.
+    console.error("pronounce top-level failure", e);
     speak(rawText);
-  };
-  const tryNext = () => {
-    if (settled) return;
-    if (i >= candidates.length) { fallbackNow("no recording found"); return; }
-    audioEl.src = candidates[i++];
-    const p = audioEl.play();
-    if (p && p.catch) p.catch(() => tryNext());
-  };
-  audioEl.addEventListener("error", () => tryNext());
-  audioEl.addEventListener("playing", () => {
-    settled = true;
-    showToast("🎙️ 真人發音");
-  });
-  // Safety net: some failure modes (blocked/hung requests, wrong content
-  // type, etc.) never fire an 'error' event at all, which would otherwise
-  // leave a word completely silent forever. This guarantees every word ends
-  // up with at least the device voice quickly no matter what.
-  setTimeout(() => fallbackNow("timed out"), 1500);
-  tryNext();
+  }
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
