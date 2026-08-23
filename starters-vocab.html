@@ -738,6 +738,21 @@ function shuffle(arr) {
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
+// Safely embeds `text` as a single-quoted JS string literal inside an
+// onclick="..." (double-quoted) HTML attribute. Order matters: JS-escape
+// first (backslash, then quote), THEN HTML-escape only the characters that
+// would break the attribute itself (& and "). Escaping HTML first (as an
+// earlier version of this file did) turns ' into the entity &#39; before
+// the JS-escape step ever runs, so the JS-escape regex finds nothing to
+// escape — the browser then HTML-decodes &#39; back into a raw, unescaped
+// ' when parsing the attribute, which terminates the JS string early and
+// throws a syntax error. That silently broke every word containing an
+// apostrophe (o'clock, let's, ...): tapping did nothing at all, not even
+// falling back to the device voice, because pronounce() was never called.
+function jsAttrString(text) {
+  const jsEscaped = String(text).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  return jsEscaped.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 /* ---------- pronunciation (built into iOS/Safari, no internet needed) ---------- */
 const PREFERRED_VOICE_NAMES = [
@@ -914,8 +929,14 @@ function commonsMp3Url(filename) {
 }
 function commonsAudioCandidates(word) {
   const w = word.trim();
-  if (!/^[A-Za-z'-]+$/.test(w)) return []; // phrases → TTS only
+  // Only plain single words attempt a real recording — phrases (spaces) and
+  // hyphenated compounds (grown-up, T-shirt...) essentially never have an
+  // exact-match file on Commons, so skipping them saves the multi-candidate
+  // network round trip entirely and goes straight to the always-available
+  // device voice.
+  if (!/^[A-Za-z']+$/.test(w)) return [];
   const lower = w.toLowerCase();
+  if (FORCE_DEVICE_VOICE_WORDS.has(lower)) return [];
   const cap = lower.charAt(0).toUpperCase() + lower.slice(1);
   // Common Commons naming variants, most likely first. en-us preferred for
   // this app's audience, then en-gb as a backup.
@@ -927,8 +948,27 @@ function commonsAudioCandidates(word) {
     `En-${lower}.ogg`,
   ].map(commonsMp3Url);
 }
+// Words where the Commons recording turned out to sound wrong/off after
+// listening — force these straight to the device voice instead. Add more
+// lowercase entries here as they're found.
+const FORCE_DEVICE_VOICE_WORDS = new Set(["friday"]);
 let currentAudioEl = null;
+let audioSessionWarmed = false;
+function warmAudioSession() {
+  // The very first audio.play() in a browser session is sometimes noticeably
+  // quieter on iOS while the audio output route/session finishes activating.
+  // Priming it once with a near-silent clip (fire-and-forget, ignored if it
+  // fails) gets that activation out of the way before the first real word.
+  if (audioSessionWarmed) return;
+  audioSessionWarmed = true;
+  try {
+    const warm = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=");
+    warm.volume = 1;
+    warm.play().catch(() => {});
+  } catch (e) {}
+}
 function pronounce(rawText) {
+  warmAudioSession();
   const base = canonicalWord(rawText);
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
   const candidates = commonsAudioCandidates(base);
@@ -939,16 +979,19 @@ function pronounce(rawText) {
   // synchronously here so Safari accepts it as gesture-initiated.
   let i = 0;
   const audioEl = new Audio();
+  audioEl.volume = 1;
   currentAudioEl = audioEl;
   let settled = false;
-  const fallbackNow = () => {
+  const fallbackNow = (reason) => {
     if (settled) return;
     settled = true;
-    speak(rawText); // no recording found (or a request just hung) — device voice
+    console.warn(`pronounce("${base}") → device voice (${reason})`);
+    showToast("🔈 系統語音");
+    speak(rawText);
   };
   const tryNext = () => {
     if (settled) return;
-    if (i >= candidates.length) { fallbackNow(); return; }
+    if (i >= candidates.length) { fallbackNow("no recording found"); return; }
     audioEl.src = candidates[i++];
     const p = audioEl.play();
     if (p && p.catch) p.catch(() => tryNext());
@@ -961,13 +1004,13 @@ function pronounce(rawText) {
   // Safety net: some failure modes (blocked/hung requests, wrong content
   // type, etc.) never fire an 'error' event at all, which would otherwise
   // leave a word completely silent forever. This guarantees every word ends
-  // up with at least the device voice within a few seconds no matter what.
-  setTimeout(fallbackNow, 2500);
+  // up with at least the device voice quickly no matter what.
+  setTimeout(() => fallbackNow("timed out"), 1500);
   tryNext();
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
-  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${escapeHtml(text).replace(/'/g,"\\'")}')" aria-label="播放發音">🔊</button>`;
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
 }
 
 /* ---------- global state ---------- */
