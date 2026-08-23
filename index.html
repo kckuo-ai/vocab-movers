@@ -782,14 +782,16 @@ function pronounce(rawText) {
   const audioEl = new Audio();
   currentAudioEl = audioEl;
   let settled = false;
-  const fallbackNow = () => {
+  const fallbackNow = (reason) => {
     if (settled) return;
     settled = true;
-    speak(rawText); // no recording found (or a request just hung) — device voice
+    console.warn(`pronounce("${base}") → device voice (${reason})`);
+    showToast("🔈 系統語音");
+    speak(rawText);
   };
   const tryNext = () => {
     if (settled) return;
-    if (i >= candidates.length) { fallbackNow(); return; }
+    if (i >= candidates.length) { fallbackNow("no recording found"); return; }
     audioEl.src = candidates[i++];
     const p = audioEl.play();
     if (p && p.catch) p.catch(() => tryNext());
@@ -802,8 +804,8 @@ function pronounce(rawText) {
   // Safety net: some failure modes (blocked/hung requests, wrong content
   // type, etc.) never fire an 'error' event at all, which would otherwise
   // leave a word completely silent forever. This guarantees every word ends
-  // up with at least the device voice within a few seconds no matter what.
-  setTimeout(fallbackNow, 2500);
+  // up with at least the device voice quickly no matter what.
+  setTimeout(() => fallbackNow("timed out"), 1500);
   tryNext();
 }
 function speakBtnHtml(text, size, tone, bg) {
