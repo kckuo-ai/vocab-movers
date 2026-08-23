@@ -810,7 +810,6 @@ let STATE = {
   progress: lget(PKEY, {}),
   hiScore: lget(HKEY, { best: 0 }),
   daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [], history: {} })),
-  voiceTipDismissed: lget("movers-vocab-voicetip-v1", false),
   voicePref: lget(VKEY, { voiceURI: null }),
   showVoicePicker: false,
   tab: "home",
@@ -827,11 +826,6 @@ lset(DKEY, STATE.daily);
 function saveProgress() { lset(PKEY, STATE.progress); }
 function saveDaily() { lset(DKEY, STATE.daily); }
 function saveHiScore() { lset(HKEY, STATE.hiScore); }
-function dismissVoiceTip() {
-  STATE.voiceTipDismissed = true;
-  lset("movers-vocab-voicetip-v1", true);
-  render();
-}
 
 function showToast(msg) {
   STATE.toast = msg;
@@ -945,35 +939,6 @@ function mascotMessage() {
   if (remaining > 0) return `再學 ${remaining} 個字，今天就能打卡囉，加油！`;
   if (STATE.daily.streak > 0 && STATE.daily.streak % 7 === 0) return `太厲害了！已經連續 ${STATE.daily.streak} 天沒有間斷！`;
   return "今天的目標已經達成了！明天再來挑戰更多單字吧 🎉";
-}
-function detectOS() {
-  const ua = (navigator.userAgent || navigator.vendor || "") + "";
-  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  if (isIOS) return "ios";
-  if (/Android/i.test(ua)) return "android";
-  if (/Mac OS X|Macintosh/i.test(ua)) return "mac";
-  if (/Windows/i.test(ua)) return "windows";
-  return "other";
-}
-function voiceTipHtml() {
-  if (STATE.voiceTipDismissed) return "";
-  const os = detectOS();
-  const isApple = os === "ios" || os === "mac";
-  const instructions = {
-    ios: "iPhone／iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」下載 <b>Enhanced／Premium</b> 語音",
-    android: "Android「設定 → 系統 → 語言與輸入法 → 文字轉語音輸出」，選擇引擎（通常是 Google 文字轉語音）→ 安裝或更新<b>語音資料</b>",
-    mac: "Mac「系統設定 → 輔助使用 → 朗讀內容 → 系統語音 → 管理聲音」下載 <b>Enhanced／Premium</b> 語音",
-    windows: "Windows「設定 → 時間與語言 → 語音」，在「管理語音」中新增或下載更自然的語音包",
-    other: "系統的「語音／文字轉語音」設定裡，看看有沒有可以下載的高音質語音包",
-  };
-  const appleCaveat = `<br/><br/>⚠️ 但要老實說：在 Safari 上，下載 Enhanced／Premium <b>不一定有用</b>——這是已知的 Safari 限制，網頁能用到的語音跟系統下載的語音是分開兩套系統，很多時候網頁完全用不到你下載的那組。這不是這個網頁能修正的問題。下面「選擇發音聲音」還是可以試試看，但效果因裝置而異。`;
-  return `<div class="dailyCard" style="display:flex;align-items:flex-start;gap:8px;background:#FFF8E8;">
-    <div style="font-size:18px;line-height:1;">💡</div>
-    <div style="flex:1;font-size:11.5px;color:#8A6D1F;line-height:1.5;">
-      想要更自然的發音，可以到 ${instructions[os]}。${isApple ? appleCaveat : "下載後記得到下面「選擇發音聲音」手動選那個聲音，才能確保真的有用上。"}
-    </div>
-    <button onclick="dismissVoiceTip()" style="font-size:16px;color:#8A6D1F;padding:2px 4px;flex-shrink:0;">✕</button>
-  </div>`;
 }
 function testVoice(uri) {
   try {
@@ -1097,8 +1062,6 @@ function renderHome() {
       <div class="bubble">${escapeHtml(mascotMessage())}</div>
       ${STATE.daily.streak > 0 ? `<div class="streakBadge">🔥 ${STATE.daily.streak}</div>` : ""}
     </div>
-
-    ${voiceTipHtml()}
     ${voicePickerHtml()}
 
     <div class="dailyCard">
