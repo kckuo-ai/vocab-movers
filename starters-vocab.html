@@ -147,7 +147,7 @@ const RAW_WORDS = [
   ["jellyfish", "n", "水母", "animals"],
   ["lizard", "n", "蜥蜴", "animals"],
   ["monkey", "n", "猴子", "animals"],
-  ["mouse/mice", "n", "老鼠", "animals"],
+  ["mouse / mice", "n", "老鼠", "animals"],
   ["pet", "n", "寵物", "animals"],
   ["polar bear", "n", "北極熊", "animals"],
   ["sheep", "n", "綿羊", "animals"],
@@ -164,7 +164,7 @@ const RAW_WORDS = [
   ["ear", "n", "耳朵", "body"],
   ["eye", "n", "眼睛", "body"],
   ["face", "n", "臉", "body"],
-  ["foot/feet", "n", "腳", "body"],
+  ["foot / feet", "n", "腳", "body"],
   ["hair", "n", "頭髮", "body"],
   ["hand", "n", "手", "body"],
   ["head", "n", "頭", "body"],
@@ -198,7 +198,7 @@ const RAW_WORDS = [
   ["blue", "adj", "藍色的", "colours"],
   ["brown", "adj", "棕色的", "colours"],
   ["colour", "n/v", "顏色；上色", "colours"],
-  ["gray/grey", "adj", "灰色的", "colours"],
+  ["gray / grey", "adj", "灰色的", "colours"],
   ["green", "adj", "綠色的", "colours"],
   ["orange", "adj", "橘色的", "colours"],
   ["pink", "adj", "粉紅色的", "colours"],
@@ -211,7 +211,7 @@ const RAW_WORDS = [
   ["baby", "n", "嬰兒", "family"],
   ["boy", "n", "男孩", "family"],
   ["brother", "n", "兄弟", "family"],
-  ["child/children", "n", "小孩", "family"],
+  ["child / children", "n", "小孩", "family"],
   ["classmate", "n", "同學", "family"],
   ["cousin", "n", "表（堂）兄弟姊妹", "family"],
   ["dad", "n", "爸爸", "family"],
@@ -225,13 +225,13 @@ const RAW_WORDS = [
   ["grandpa", "n", "爺爺", "family"],
   ["kid", "n", "小孩", "family"],
   ["live", "v", "居住", "family"],
-  ["man/men", "n", "男人", "family"],
+  ["man / men", "n", "男人", "family"],
   ["mother", "n", "母親", "family"],
   ["mum", "n", "媽媽", "family"],
   ["old", "adj", "年老的", "family"],
-  ["person/people", "n", "人", "family"],
+  ["person / people", "n", "人", "family"],
   ["sister", "n", "姊妹", "family"],
-  ["woman/women", "n", "女人", "family"],
+  ["woman / women", "n", "女人", "family"],
   ["young", "adj", "年輕的", "family"],
 
   // 食物飲品 food
@@ -332,7 +332,7 @@ const RAW_WORDS = [
   ["sleep", "v", "睡覺", "home"],
   ["sofa", "n", "沙發", "home"],
   ["table", "n", "桌子", "home"],
-  ["television/TV", "n", "電視", "home"],
+  ["television / TV", "n", "電視", "home"],
   ["tree", "n", "樹", "home"],
   ["wall", "n", "牆壁", "home"],
   ["watch", "n/v", "手錶；看", "home"],
@@ -341,7 +341,7 @@ const RAW_WORDS = [
   // 人名 names
   ["Alex", "n", "艾力克斯（男子名）", "names"],
   ["Alice", "n", "愛麗絲（女子名）", "names"],
-  ["Ann/Anna", "n", "安/安娜（女子名）", "names"],
+  ["Ann / Anna", "n", "安/安娜（女子名）", "names"],
   ["Ben", "n", "班（男子名）", "names"],
   ["Bill", "n", "比爾（男子名）", "names"],
   ["Dan", "n", "丹（男子名）", "names"],
@@ -459,7 +459,7 @@ const RAW_WORDS = [
   ["song", "n", "歌曲", "sports"],
   ["sport", "n", "運動", "sports"],
   ["table tennis", "n", "桌球", "sports"],
-  ["take a photo/picture", "v", "拍照", "sports"],
+  ["take a photo / picture", "v", "拍照", "sports"],
   ["tennis", "n", "網球", "sports"],
   ["tennis racket", "n", "網球拍", "sports"],
   ["throw", "v", "丟", "sports"],
@@ -835,21 +835,129 @@ function speak(rawText) {
 }
 
 /* ---------- pronunciation ----------
-   Two network-based "more natural" approaches were tried and both proved
-   unreliable in practice: dictionaryapi.dev's audio hosting has known,
-   ongoing broken-link problems reported by many developers, and Google
-   Translate's unofficial TTS endpoint blocks third-party origins (confirmed
-   via NotSupportedError on this exact deployment — it returns something
-   that isn't playable audio, not a real recording). Both failure modes are
-   outside anything fixable from our side, so pronunciation now goes
-   straight to the device's own speech synthesis, which is the one option
-   that doesn't depend on a third-party server being reachable/cooperative.
-   See speak() above for the voice-quality tuning (auto-picks a natural
-   voice, tuned rate, punctuation trick) — and see the tip in voiceTipHtml()
-   about downloading an Enhanced/Premium system voice, which is the biggest
-   lever for better quality from here. */
+   Primary source: Wikimedia Commons' volunteer-recorded pronunciation files
+   (real human voices, CC-licensed, free, no API key). Their filenames follow
+   a predictable pattern — En-us-{word}.ogg — so the URL can be built directly
+   from the word with NO lookup request first. That matters a lot here: it
+   keeps audio.play() fully synchronous inside the tap handler, which is what
+   Safari's autoplay rule requires. (The two earlier attempts both failed on
+   exactly this kind of issue: dictionaryapi.dev needed an async lookup and
+   has widely-reported broken audio links, and Google Translate's unofficial
+   TTS endpoint rejects third-party origins outright.)
+
+   Important: we request Wikimedia's auto-generated **MP3 transcode** rather
+   than the source .ogg, because Safari only gained native Ogg playback in
+   18.4 — MP3 works on every Safari version. Wikimedia generates these
+   transcodes automatically for uploaded audio and serves them from
+   upload.wikimedia.org under /transcoded/.
+
+   Not every word has a recording, and different contributors used different
+   naming, so we try a few candidate URLs in order and fall back to the
+   device's own speech synthesis if none load. Phrases with spaces skip
+   straight to TTS. */
+function md5Hex(s) {
+  // Wikimedia's upload paths are sharded by the MD5 of the filename, so a
+  // small MD5 implementation is needed to build direct file URLs.
+  function rl(n, c) { return (n << c) | (n >>> (32 - c)); }
+  function au(x, y) {
+    const l = (x & 0xFFFF) + (y & 0xFFFF);
+    return (((x >> 16) + (y >> 16) + (l >> 16)) << 16) | (l & 0xFFFF);
+  }
+  function cmn(q, a, b, x, s, t) { return au(rl(au(au(a, q), au(x, t)), s), b); }
+  function ff(a,b,c,d,x,s,t){return cmn((b&c)|(~b&d),a,b,x,s,t);}
+  function gg(a,b,c,d,x,s,t){return cmn((b&d)|(c&~d),a,b,x,s,t);}
+  function hh(a,b,c,d,x,s,t){return cmn(b^c^d,a,b,x,s,t);}
+  function ii(a,b,c,d,x,s,t){return cmn(c^(b|~d),a,b,x,s,t);}
+  function sb(str) {
+    const nb = ((str.length + 8) >> 6) + 1, blks = new Array(nb * 16).fill(0);
+    for (let i = 0; i < str.length; i++) blks[i >> 2] |= str.charCodeAt(i) << ((i % 4) * 8);
+    blks[str.length >> 2] |= 0x80 << ((str.length % 4) * 8);
+    blks[nb * 16 - 2] = str.length * 8;
+    return blks;
+  }
+  const x = sb(unescape(encodeURIComponent(s)));
+  let a = 1732584193, b = -271733879, c = -1732584194, d = 271733878;
+  for (let i = 0; i < x.length; i += 16) {
+    const oa=a, ob=b, oc=c, od=d;
+    a=ff(a,b,c,d,x[i],7,-680876936);d=ff(d,a,b,c,x[i+1],12,-389564586);c=ff(c,d,a,b,x[i+2],17,606105819);b=ff(b,c,d,a,x[i+3],22,-1044525330);
+    a=ff(a,b,c,d,x[i+4],7,-176418897);d=ff(d,a,b,c,x[i+5],12,1200080426);c=ff(c,d,a,b,x[i+6],17,-1473231341);b=ff(b,c,d,a,x[i+7],22,-45705983);
+    a=ff(a,b,c,d,x[i+8],7,1770035416);d=ff(d,a,b,c,x[i+9],12,-1958414417);c=ff(c,d,a,b,x[i+10],17,-42063);b=ff(b,c,d,a,x[i+11],22,-1990404162);
+    a=ff(a,b,c,d,x[i+12],7,1804603682);d=ff(d,a,b,c,x[i+13],12,-40341101);c=ff(c,d,a,b,x[i+14],17,-1502002290);b=ff(b,c,d,a,x[i+15],22,1236535329);
+    a=gg(a,b,c,d,x[i+1],5,-165796510);d=gg(d,a,b,c,x[i+6],9,-1069501632);c=gg(c,d,a,b,x[i+11],14,643717713);b=gg(b,c,d,a,x[i],20,-373897302);
+    a=gg(a,b,c,d,x[i+5],5,-701558691);d=gg(d,a,b,c,x[i+10],9,38016083);c=gg(c,d,a,b,x[i+15],14,-660478335);b=gg(b,c,d,a,x[i+4],20,-405537848);
+    a=gg(a,b,c,d,x[i+9],5,568446438);d=gg(d,a,b,c,x[i+14],9,-1019803690);c=gg(c,d,a,b,x[i+3],14,-187363961);b=gg(b,c,d,a,x[i+8],20,1163531501);
+    a=gg(a,b,c,d,x[i+13],5,-1444681467);d=gg(d,a,b,c,x[i+2],9,-51403784);c=gg(c,d,a,b,x[i+7],14,1735328473);b=gg(b,c,d,a,x[i+12],20,-1926607734);
+    a=hh(a,b,c,d,x[i+5],4,-378558);d=hh(d,a,b,c,x[i+8],11,-2022574463);c=hh(c,d,a,b,x[i+11],16,1839030562);b=hh(b,c,d,a,x[i+14],23,-35309556);
+    a=hh(a,b,c,d,x[i+1],4,-1530992060);d=hh(d,a,b,c,x[i+4],11,1272893353);c=hh(c,d,a,b,x[i+7],16,-155497632);b=hh(b,c,d,a,x[i+10],23,-1094730640);
+    a=hh(a,b,c,d,x[i+13],4,681279174);d=hh(d,a,b,c,x[i],11,-358537222);c=hh(c,d,a,b,x[i+3],16,-722521979);b=hh(b,c,d,a,x[i+6],23,76029189);
+    a=hh(a,b,c,d,x[i+9],4,-640364487);d=hh(d,a,b,c,x[i+12],11,-421815835);c=hh(c,d,a,b,x[i+15],16,530742520);b=hh(b,c,d,a,x[i+2],23,-995338651);
+    a=ii(a,b,c,d,x[i],6,-198630844);d=ii(d,a,b,c,x[i+7],10,1126891415);c=ii(c,d,a,b,x[i+14],15,-1416354905);b=ii(b,c,d,a,x[i+5],21,-57434055);
+    a=ii(a,b,c,d,x[i+12],6,1700485571);d=ii(d,a,b,c,x[i+3],10,-1894986606);c=ii(c,d,a,b,x[i+10],15,-1051523);b=ii(b,c,d,a,x[i+1],21,-2054922799);
+    a=ii(a,b,c,d,x[i+8],6,1873313359);d=ii(d,a,b,c,x[i+15],10,-30611744);c=ii(c,d,a,b,x[i+6],15,-1560198380);b=ii(b,c,d,a,x[i+13],21,1309151649);
+    a=ii(a,b,c,d,x[i+4],6,-145523070);d=ii(d,a,b,c,x[i+11],10,-1120210379);c=ii(c,d,a,b,x[i+2],15,718787259);b=ii(b,c,d,a,x[i+9],21,-343485551);
+    a=au(a,oa);b=au(b,ob);c=au(c,oc);d=au(d,od);
+  }
+  const hex = "0123456789abcdef";
+  return [a,b,c,d].map((n) => {
+    let out = "";
+    for (let i = 0; i < 4; i++) out += hex.charAt((n >> (i*8+4)) & 0x0F) + hex.charAt((n >> (i*8)) & 0x0F);
+    return out;
+  }).join("");
+}
+function commonsMp3Url(filename) {
+  // Wikimedia stores files at /<a>/<ab>/<name> where a/ab come from the MD5
+  // of the filename, and auto-generated MP3 transcodes live under
+  // /transcoded/<same path>/<name>.mp3
+  const name = filename.replace(/ /g, "_");
+  const h = md5Hex(name);
+  return `https://upload.wikimedia.org/wikipedia/commons/transcoded/${h[0]}/${h[0]}${h[1]}/${encodeURIComponent(name)}/${encodeURIComponent(name)}.mp3`;
+}
+function commonsAudioCandidates(word) {
+  const w = word.trim();
+  if (!/^[A-Za-z'-]+$/.test(w)) return []; // phrases → TTS only
+  const lower = w.toLowerCase();
+  const cap = lower.charAt(0).toUpperCase() + lower.slice(1);
+  // Common Commons naming variants, most likely first. en-us preferred for
+  // this app's audience, then en-gb as a backup.
+  return [
+    `En-us-${lower}.ogg`,
+    `En-us-${cap}.ogg`,
+    `En-uk-${lower}.ogg`,
+    `En-gb-${lower}.ogg`,
+    `En-${lower}.ogg`,
+  ].map(commonsMp3Url);
+}
+let currentAudioEl = null;
 function pronounce(rawText) {
-  speak(rawText);
+  const base = canonicalWord(rawText);
+  if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
+  const candidates = commonsAudioCandidates(base);
+  if (!candidates.length) { speak(rawText); return; }
+
+  // Walk the candidate list; each failure advances to the next, and running
+  // out falls back to the device voice. The first play() happens
+  // synchronously here so Safari accepts it as gesture-initiated.
+  let i = 0;
+  const audioEl = new Audio();
+  currentAudioEl = audioEl;
+  let settled = false;
+  const tryNext = () => {
+    if (settled) return;
+    if (i >= candidates.length) {
+      settled = true;
+      speak(rawText); // no recording found for this word — device voice
+      return;
+    }
+    audioEl.src = candidates[i++];
+    const p = audioEl.play();
+    if (p && p.catch) p.catch(() => tryNext());
+  };
+  audioEl.addEventListener("error", () => tryNext());
+  audioEl.addEventListener("playing", () => {
+    settled = true;
+    showToast("🎙️ 真人發音");
+  });
+  tryNext();
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
@@ -1009,17 +1117,19 @@ function detectOS() {
 function voiceTipHtml() {
   if (STATE.voiceTipDismissed) return "";
   const os = detectOS();
+  const isApple = os === "ios" || os === "mac";
   const instructions = {
-    ios: "iPhone／iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」，點語音名字右邊的 ⓘ，下載 <b>Enhanced／Premium</b> 高音質語音",
+    ios: "iPhone／iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」下載 <b>Enhanced／Premium</b> 語音",
     android: "Android「設定 → 系統 → 語言與輸入法 → 文字轉語音輸出」，選擇引擎（通常是 Google 文字轉語音）→ 安裝或更新<b>語音資料</b>",
-    mac: "Mac「系統設定 → 輔助使用 → 朗讀內容 → 系統語音 → 管理聲音」，下載 <b>Enhanced／Premium</b> 高音質語音",
+    mac: "Mac「系統設定 → 輔助使用 → 朗讀內容 → 系統語音 → 管理聲音」下載 <b>Enhanced／Premium</b> 語音",
     windows: "Windows「設定 → 時間與語言 → 語音」，在「管理語音」中新增或下載更自然的語音包",
     other: "系統的「語音／文字轉語音」設定裡，看看有沒有可以下載的高音質語音包",
   };
+  const appleCaveat = `<br/><br/>⚠️ 但要老實說：在 Safari 上，下載 Enhanced／Premium <b>不一定有用</b>——這是已知的 Safari 限制，網頁能用到的語音跟系統下載的語音是分開兩套系統，很多時候網頁完全用不到你下載的那組。這不是這個網頁能修正的問題。下面「選擇發音聲音」還是可以試試看，但效果因裝置而異。`;
   return `<div class="dailyCard" style="display:flex;align-items:flex-start;gap:8px;background:#FFF8E8;">
     <div style="font-size:18px;line-height:1;">💡</div>
     <div style="flex:1;font-size:11.5px;color:#8A6D1F;line-height:1.5;">
-      想要更自然的發音，可以到 ${instructions[os]}，效果會明顯提升。下載後記得到下面「選擇發音聲音」手動選那個聲音，才能確保真的有用上。
+      想要更自然的發音，可以到 ${instructions[os]}。${isApple ? appleCaveat : "下載後記得到下面「選擇發音聲音」手動選那個聲音，才能確保真的有用上。"}
     </div>
     <button onclick="dismissVoiceTip()" style="font-size:16px;color:#8A6D1F;padding:2px 4px;flex-shrink:0;">✕</button>
   </div>`;
