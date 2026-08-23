@@ -78,7 +78,7 @@ input{font-family:inherit;}
 .catRow{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:10px;margin-bottom:10px;}
 .catIcon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
 .catTop{display:flex;justify-content:space-between;margin-bottom:5px;}
-.ctaRow{display:flex;gap:10px;margin-top:20px;}
+.ctaRow{display:flex;gap:10px;margin-top:20px;margin-bottom:20px;}
 .cta{flex:1;border:none;color:#fff;font-weight:800;font-size:14px;padding:13px 0;border-radius:14px;box-shadow:0 8px 18px rgba(0,0,0,.12);}
 /* browse */
 .search{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--border);font-size:14px;outline:none;margin-bottom:12px;}
@@ -92,7 +92,7 @@ input{font-family:inherit;}
 .levelBtnRow{display:flex;gap:6px;}
 .levelBtn{flex:1;border:none;border-radius:10px;padding:8px 2px;font-size:11px;font-weight:800;}
 /* study */
-.cardWrap{perspective:1200px;margin-top:8px;}
+.cardWrap{perspective:1200px;margin-top:8px;position:relative;}
 .flashcard{position:relative;height:230px;border-radius:22px;box-shadow:0 14px 30px rgba(35,48,71,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;color:#fff;text-align:center;cursor:pointer;}
 .flashcard.back{background:#fff;border:1.5px solid #EEF1F7;color:var(--ink);}
 .fcTab{position:absolute;top:14px;left:14px;font-size:11px;font-weight:800;background:rgba(255,255,255,.25);padding:4px 10px;border-radius:999px;}
@@ -580,18 +580,31 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-/* ---------- pronunciation (built into iOS/Safari, no internet needed) ----------
-   No manual picker — automatically choose the most natural-sounding available
-   voice using a quality heuristic, and cache it so selection stays consistent. */
+/* ---------- pronunciation (built into iOS/Safari, no internet needed) ---------- */
 const PREFERRED_VOICE_NAMES = [
   "Samantha", "Ava", "Allison", "Susan", "Nicky", "Zoe", "Evan",
   "Karen", "Moira", "Tessa", "Daniel", "Serena", "Kate", "Stephanie", "Aaron",
 ];
+// Apple's "novelty" voices (Albert, Bad News, Zarvox, etc.) register under
+// en-US/en-GB too but are joke sound-effect voices, not useful for a
+// vocabulary app — filtered out everywhere voices are listed or picked.
+const NOVELTY_VOICE_NAMES = [
+  "albert", "bad news", "bahh", "bells", "boing", "bubbles", "cellos",
+  "good news", "jester", "organ", "pipe organ", "superstar", "trinoids",
+  "whisper", "wobble", "zarvox", "deranged", "hysterical", "junior",
+  "ralph", "princess", "kathy", "fred", "bruce", "rocko", "sandy", "shelley",
+];
+function isNoveltyVoice(v) {
+  const n = v.name.toLowerCase();
+  return NOVELTY_VOICE_NAMES.some((bad) => n.includes(bad));
+}
+function usableEnglishVoices() {
+  const all = ("speechSynthesis" in window) ? window.speechSynthesis.getVoices() : [];
+  return all.filter((v) => (v.lang === "en-US" || v.lang === "en-GB") && !isNoveltyVoice(v));
+}
 let cachedVoice = null;
 function pickBestVoice() {
-  const voices = window.speechSynthesis.getVoices();
-  if (!voices.length) return null;
-  const en = voices.filter((v) => v.lang && v.lang.startsWith("en"));
+  const en = usableEnglishVoices();
   if (!en.length) return null;
   // 1) explicit high-quality hints exposed by some platforms
   let v = en.find((v) => /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI));
@@ -605,8 +618,22 @@ function pickBestVoice() {
     v = en.find((vv) => vv.name.includes(name));
     if (v) return v;
   }
-  // 3) fall back to any en-US / en-GB voice, then any English voice
-  return en.find((v) => v.lang === "en-US") || en.find((v) => v.lang === "en-GB") || en[0];
+  // 3) fall back to any en-US voice, then en-GB
+  return en.find((v) => v.lang === "en-US") || en[0];
+}
+const VKEY = "movers-vocab-voice-v1";
+function getSelectedVoice() {
+  // a manually-picked voice (see the voice picker on Home) always wins —
+  // this is what makes downloading an Enhanced/Premium system voice
+  // actually take effect, since the auto heuristic below might otherwise
+  // settle on a different voice than the one that was upgraded
+  const pref = STATE.voicePref && STATE.voicePref.voiceURI;
+  if (pref && "speechSynthesis" in window) {
+    const v = window.speechSynthesis.getVoices().find((vv) => vv.voiceURI === pref);
+    if (v) return v;
+  }
+  if (!cachedVoice) cachedVoice = pickBestVoice();
+  return cachedVoice;
 }
 function canonicalWord(raw) {
   // strip parenthetical content with proper depth-tracking so nested
@@ -640,8 +667,8 @@ function speak(rawText) {
     const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
     utter.rate = 0.93; // natural-ish pace, still clear enough for kids
     utter.pitch = 1.0;
-    if (!cachedVoice) cachedVoice = pickBestVoice();
-    if (cachedVoice) { utter.voice = cachedVoice; utter.lang = cachedVoice.lang; } else { utter.lang = "en-US"; }
+    const voice = getSelectedVoice();
+    if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
     window.speechSynthesis.speak(utter);
   } catch (e) {
     console.error("speak failed", e);
@@ -676,13 +703,15 @@ let STATE = {
   hiScore: lget(HKEY, { best: 0 }),
   daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [], history: {} })),
   voiceTipDismissed: lget("movers-vocab-voicetip-v1", false),
+  voicePref: lget(VKEY, { voiceURI: null }),
+  showVoicePicker: false,
   tab: "home",
   toast: null,
   toastTimer: null,
   browse: { query: "", cat: "all" },
   study: { cat: "all", queue: [], idx: 0, flipped: false },
   quiz: { cat: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
-  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 },
+  spell: { cat: "all", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -809,15 +838,94 @@ function mascotMessage() {
   if (STATE.daily.streak > 0 && STATE.daily.streak % 7 === 0) return `太厲害了！已經連續 ${STATE.daily.streak} 天沒有間斷！`;
   return "今天的目標已經達成了！明天再來挑戰更多單字吧 🎉";
 }
+function detectOS() {
+  const ua = (navigator.userAgent || navigator.vendor || "") + "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (isIOS) return "ios";
+  if (/Android/i.test(ua)) return "android";
+  if (/Mac OS X|Macintosh/i.test(ua)) return "mac";
+  if (/Windows/i.test(ua)) return "windows";
+  return "other";
+}
 function voiceTipHtml() {
   if (STATE.voiceTipDismissed) return "";
+  const os = detectOS();
+  const instructions = {
+    ios: "iPhone／iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」，點語音名字右邊的 ⓘ，下載 <b>Enhanced／Premium</b> 高音質語音",
+    android: "Android「設定 → 系統 → 語言與輸入法 → 文字轉語音輸出」，選擇引擎（通常是 Google 文字轉語音）→ 安裝或更新<b>語音資料</b>",
+    mac: "Mac「系統設定 → 輔助使用 → 朗讀內容 → 系統語音 → 管理聲音」，下載 <b>Enhanced／Premium</b> 高音質語音",
+    windows: "Windows「設定 → 時間與語言 → 語音」，在「管理語音」中新增或下載更自然的語音包",
+    other: "系統的「語音／文字轉語音」設定裡，看看有沒有可以下載的高音質語音包",
+  };
   return `<div class="dailyCard" style="display:flex;align-items:flex-start;gap:8px;background:#FFF8E8;">
     <div style="font-size:18px;line-height:1;">💡</div>
     <div style="flex:1;font-size:11.5px;color:#8A6D1F;line-height:1.5;">
-      發音已自動選擇裝置上較自然的語音。想要更好聽，可以到 iPad「設定 → 輔助使用 → 朗讀內容 → 聲音 → English」下載 <b>Enhanced／Premium</b> 高音質語音，效果會明顯提升。
+      想要更自然的發音，可以到 ${instructions[os]}，效果會明顯提升。下載後記得到下面「選擇發音聲音」手動選那個聲音，才能確保真的有用上。
     </div>
     <button onclick="dismissVoiceTip()" style="font-size:16px;color:#8A6D1F;padding:2px 4px;flex-shrink:0;">✕</button>
   </div>`;
+}
+function testVoice(uri) {
+  try {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance("Hello, this is a test.");
+    utter.rate = 0.93;
+    utter.pitch = 1.0;
+    const voice = uri ? window.speechSynthesis.getVoices().find((v) => v.voiceURI === uri) : getSelectedVoice();
+    if (voice) { utter.voice = voice; utter.lang = voice.lang; }
+    window.speechSynthesis.speak(utter);
+  } catch (e) {
+    console.error("testVoice failed", e);
+  }
+}
+function voicePickerHtml() {
+  const open = STATE.showVoicePicker;
+  const voices = usableEnglishVoices();
+  const currentURI = (STATE.voicePref && STATE.voicePref.voiceURI) || "";
+  return `<div class="dailyCard">
+    <div class="dailyTop" style="cursor:pointer;margin-bottom:${open ? "8px" : "0"};" onclick="toggleVoicePicker()">
+      <div style="font-weight:800;font-size:13.5px;">🔊 選擇發音聲音</div>
+      <div style="font-size:12px;color:#8592A6;font-weight:700;">${open ? "隱藏 ▲" : "顯示 ▼"}</div>
+    </div>
+    ${open ? `
+      <div style="font-size:11px;color:#8592A6;margin-bottom:10px;line-height:1.5;">
+        瀏覽器不會告訴網頁哪個是 Enhanced／Premium（在 iPhone/iPad 上，下載 Enhanced 是「原地升級」同一個名字，清單上外觀不會改變）。最準的方法是<b>逐一點🔊試聽比較</b>，選你覺得最自然的那個；如果知道自己升級的是哪個名字（例如 Samantha），直接選那個就一定有用上。
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;margin-bottom:4px;">
+        <div style="display:flex;align-items:center;gap:8px;background:${!currentURI ? "#EEF1FB" : "#F8F9FC"};border:1.5px solid ${!currentURI ? "#4361EE" : "transparent"};border-radius:12px;padding:8px 10px;">
+          <div style="flex:1;font-size:13px;font-weight:800;">自動選擇（預設）</div>
+          <button class="speakBtn" style="width:30px;height:30px;background:#fff;color:#4361EE;font-size:14px;" onclick="testVoice('')" aria-label="試聽">🔊</button>
+          <button style="font-size:11px;font-weight:800;color:${!currentURI ? "#4361EE" : "#8592A6"};padding:6px 10px;border-radius:8px;background:${!currentURI ? "#fff" : "none"};white-space:nowrap;" onclick="onVoiceSelect('')">${!currentURI ? "✓ 使用中" : "選這個"}</button>
+        </div>
+        ${voices.map((v) => {
+          const selected = v.voiceURI === currentURI;
+          const hint = /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI);
+          const safeURI = v.voiceURI.replace(/'/g, "\\'");
+          return `<div style="display:flex;align-items:center;gap:8px;background:${selected ? "#EEF1FB" : "#F8F9FC"};border:1.5px solid ${selected ? "#4361EE" : "transparent"};border-radius:12px;padding:8px 10px;">
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(v.name)}${hint ? ` <span style="color:#06D6A0;">✨</span>` : ""}</div>
+              <div style="font-size:10.5px;color:#8592A6;">${v.lang}</div>
+            </div>
+            <button class="speakBtn" style="width:30px;height:30px;background:#fff;color:#4361EE;font-size:14px;" onclick="testVoice('${safeURI}')" aria-label="試聽">🔊</button>
+            <button style="font-size:11px;font-weight:800;color:${selected ? "#4361EE" : "#8592A6"};padding:6px 10px;border-radius:8px;background:${selected ? "#fff" : "none"};white-space:nowrap;" onclick="onVoiceSelect('${safeURI}')">${selected ? "✓ 使用中" : "選這個"}</button>
+          </div>`;
+        }).join("")}
+      </div>
+      <div style="font-size:10.5px;color:#8592A6;">✨ = 名字裡看得出較高音質的提示（不是每個裝置都會顯示）</div>
+      ${voices.length === 0 ? `<div style="font-size:11px;color:#8592A6;margin-top:8px;">正在載入可用聲音，請稍後重新展開這頁…</div>` : ""}
+    ` : ""}
+  </div>`;
+}
+function toggleVoicePicker() {
+  STATE.showVoicePicker = !STATE.showVoicePicker;
+  render();
+}
+function onVoiceSelect(uri) {
+  STATE.voicePref = { voiceURI: uri || null };
+  lset(VKEY, STATE.voicePref);
+  showToast(uri ? "✅ 已設定發音聲音" : "已改回自動選擇");
+  render();
 }
 function weekHistoryHtml() {
   const days = [];
@@ -881,6 +989,7 @@ function renderHome() {
     </div>
 
     ${voiceTipHtml()}
+    ${voicePickerHtml()}
 
     <div class="dailyCard">
       <div class="dailyTop">
@@ -903,6 +1012,11 @@ function renderHome() {
         ${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}
       </div>
       <div class="wodFooter">目前熟悉度：${levelInfo(wodLv).emoji} ${levelInfo(wodLv).label}</div>
+    </div>
+
+    <div class="ctaRow">
+      <button class="cta" style="background:#4361EE;" onclick="setTab('study')">🃏 開始複習</button>
+      <button class="cta" style="background:#EF476F;" onclick="setTab('quiz')">🎯 挑戰測驗</button>
     </div>
 
     <div class="ring">
@@ -945,11 +1059,6 @@ function renderHome() {
         </div>
       </div>`;
     }).join("")}
-
-    <div class="ctaRow">
-      <button class="cta" style="background:#4361EE;" onclick="setTab('study')">🃏 開始複習</button>
-      <button class="cta" style="background:#EF476F;" onclick="setTab('quiz')">🎯 挑戰測驗</button>
-    </div>
   </div>`;
 }
 
@@ -1122,25 +1231,27 @@ function renderStudy() {
     const c = CAT_MAP[word.cat];
     const lv = (STATE.progress[word.id] || {}).level || 0;
     if (!s.flipped) {
-      inner += `<div class="cardWrap"><div class="flashcard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);" onclick="flipStudyCard()">
-        <div class="fcTab">${c.emoji} ${c.label}</div>
-        <div class="fcPos">${word.pos}</div>
-        <div class="fcEn">${word.en}</div>
-        ${speakBtnHtml(word.en, 40, "#fff", "rgba(255,255,255,.28)")}
-        <div class="fcHint">點卡片查看意思</div>
-      </div></div>`;
+      inner += `<div class="cardWrap">
+        <div class="flashcard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);" onclick="flipStudyCard()">
+          <div class="fcTab">${c.emoji} ${c.label}</div>
+          <div class="fcPos">${word.pos}</div>
+          <div class="fcEn">${word.en}</div>
+          <div class="fcHint">點卡片查看意思</div>
+        </div>
+        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 44, "#fff", "rgba(255,255,255,.32)")}</div>
+      </div>`;
       inner += `<div style="text-align:center;margin-top:18px;"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>`;
     } else {
-      inner += `<div class="cardWrap"><div class="flashcard back" onclick="flipStudyCard()">
-        <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
-        <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
-        <div style="display:flex;align-items:center;gap:10px;">
+      inner += `<div class="cardWrap">
+        <div class="flashcard back" onclick="flipStudyCard()">
+          <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
+          <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
           <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
-          ${speakBtnHtml(word.en, 34)}
+          <div class="fcZh">${word.zh}</div>
+          <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
         </div>
-        <div class="fcZh">${word.zh}</div>
-        <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
-      </div></div>`;
+        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 40, c.color, "#fff")}</div>
+      </div>`;
       inner += `<div class="rateRow">
         ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("")}
       </div>`;
@@ -1267,7 +1378,7 @@ function buildSpellQueue(cat) {
   return buildWeightedQueue(pool, SPELL_LEN);
 }
 function startSpell(cat) {
-  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, score: 0, streak: 0, correctCount: 0 };
+  STATE.spell = { cat, phase: "playing", queue: buildSpellQueue(cat), idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 };
   render();
   const w = STATE.spell.queue[0];
   if (w) setTimeout(() => pronounce(w.en), 350);
@@ -1290,14 +1401,20 @@ function normalizeSpelling(s) {
     .trim()
     .toLowerCase();
 }
-function hintedBlanks(answer, hintLevel) {
-  const totalLetters = (answer.match(/[a-zA-Z]/g) || []).length;
-  const revealCount = hintLevel === 0 ? 0 : hintLevel === 1 ? 1 : Math.min(3, totalLetters);
-  let count = 0, out = "";
-  for (const ch of answer) {
+function pickRandomHintPositions(answer, alreadyRevealed, count) {
+  const candidates = [];
+  for (let i = 0; i < answer.length; i++) {
+    if (/[a-zA-Z]/.test(answer[i]) && !alreadyRevealed.includes(i)) candidates.push(i);
+  }
+  const picked = shuffle(candidates).slice(0, count);
+  return picked;
+}
+function hintedBlanksFromPositions(answer, revealedPositions) {
+  let out = "";
+  for (let i = 0; i < answer.length; i++) {
+    const ch = answer[i];
     if (/[a-zA-Z]/.test(ch)) {
-      count++;
-      out += count <= revealCount ? ch : "＿";
+      out += revealedPositions.includes(i) ? ch : "＿";
     } else {
       out += ch;
     }
@@ -1329,6 +1446,7 @@ function resolveSpell(isCorrect) {
       sp.input = "";
       sp.feedback = null;
       sp.hintLevel = 0;
+      sp.revealedPositions = [];
       const nextW = sp.queue[sp.idx];
       if (nextW) setTimeout(() => pronounce(nextW.en), 300);
     }
@@ -1351,17 +1469,18 @@ function submitSpell() {
 function hintSpell() {
   const sp = STATE.spell;
   if (sp.feedback) return;
-  if (sp.hintLevel === 0) {
-    sp.hintLevel = 1;
-    render();
-  } else if (sp.hintLevel === 1) {
-    sp.hintLevel = 2;
-    render();
-  } else {
+  if (sp.hintLevel >= 2) {
     // asked for a hint a 3rd time — treat as "I don't know" and mark it wrong
     resolveSpell(false);
     return;
   }
+  const w = sp.queue[sp.idx];
+  const answer = canonicalWord(w.en);
+  const count = 1 + Math.floor(Math.random() * 2); // reveal 1 or 2 random letters
+  const newPositions = pickRandomHintPositions(answer, sp.revealedPositions || [], count);
+  sp.revealedPositions = (sp.revealedPositions || []).concat(newPositions);
+  sp.hintLevel += 1;
+  render();
   const el = document.getElementById("spellInput");
   if (el) el.focus();
 }
@@ -1375,6 +1494,7 @@ function skipSpell() {
     sp.idx += 1;
     sp.input = "";
     sp.hintLevel = 0;
+    sp.revealedPositions = [];
     const nextW = sp.queue[sp.idx];
     if (nextW) setTimeout(() => pronounce(nextW.en), 300);
   }
@@ -1387,7 +1507,7 @@ function renderSpell() {
       <div class="introCard">
         <div style="font-size:38px;">✏️</div>
         <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，拼出這個字</div>
-        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次（第一次提示 1 個字母，第二次提示前面幾個字母）；第三次按提示會直接視為不會，記為答錯。</div>
+        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次，每次隨機透露 1~2 個字母；第三次按提示會直接視為不會，記為答錯。</div>
       </div>
       <div class="sectionTitle">選擇範圍</div>
       <div class="chipRow">
@@ -1413,7 +1533,7 @@ function renderSpell() {
   const w = sp.queue[sp.idx];
   const c = CAT_MAP[w.cat];
   const answer = canonicalWord(w.en);
-  const blanks = hintedBlanks(answer, sp.hintLevel || 0);
+  const blanks = hintedBlanksFromPositions(answer, sp.revealedPositions || []);
   const fb = sp.feedback;
   return `<div class="pad">
     <div class="qzTopRow">
@@ -1476,6 +1596,7 @@ if ("speechSynthesis" in window) {
   window.speechSynthesis.onvoiceschanged = () => {
     cachedVoice = null;
     window.speechSynthesis.getVoices();
+    if (STATE.tab === "home") render();
   };
 }
 
