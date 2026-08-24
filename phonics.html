@@ -624,6 +624,19 @@ function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
 }
+// For a whole sound (not one specific example word): each tap picks a
+// random word from that sound's example list, so it's not always the same
+// first word — the id lookup + random pick happens fresh at click time.
+function pronounceSound(id) {
+  const p = PHONICS.find((x) => x.id === id);
+  if (!p) return;
+  const w = p.words[Math.floor(Math.random() * p.words.length)];
+  pronounce(w);
+}
+function speakSoundBtnHtml(soundId, size, tone, bg) {
+  size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounceSound('${soundId}')" aria-label="播放發音">🔊</button>`;
+}
 
 /* ---------- global state ---------- */
 let STATE = {
@@ -902,7 +915,7 @@ function renderHome() {
           <div class="wodEn">${sod.grapheme}</div>
           <div class="wodZh">範例：${sod.words.join(" · ")}</div>
         </div>
-        ${speakBtnHtml(sod.words[0], 46, "#fff", "rgba(255,255,255,.28)")}
+        ${speakSoundBtnHtml(sod.id, 46, "#fff", "rgba(255,255,255,.28)")}
       </div>
       <div class="wodFooter">目前熟悉度：${levelInfo(sodLv).emoji} ${levelInfo(sodLv).label}</div>
     </div>
@@ -990,7 +1003,7 @@ function browseListHtml() {
           <div style="font-weight:800;font-size:15px;">${p.grapheme}</div>
           <div style="font-size:12px;color:#8592A6;">第 ${p.group} 組 · ${p.words.join(" / ")}</div>
         </div>
-        ${speakBtnHtml(p.words[0], 30)}
+        ${speakSoundBtnHtml(p.id, 30)}
         <div style="font-size:18px;">${li.emoji}</div>
       </div>
       <div id="rowBody-${p.id}" class="rowBody" style="display:none;">
@@ -1124,7 +1137,7 @@ function renderStudy() {
           <div class="fcEn" style="font-size:44px;">${p.grapheme}</div>
           <div class="fcHint">點卡片查看範例字</div>
         </div>
-        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(p.words[0], 44, "#fff", "rgba(255,255,255,.32)")}</div>
+        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakSoundBtnHtml(p.id, 44, "#fff", "rgba(255,255,255,.32)")}</div>
       </div>`;
       inner += `<div style="text-align:center;margin-top:18px;"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>`;
     } else {
@@ -1150,14 +1163,36 @@ function renderStudy() {
 /* ============================================================
    QUIZ
    ============================================================ */
+// Reduces "c k" / "th (voiced)" / "oo (short)" etc. down to just the letters
+// to search for (so "c k" checks for either c or k, "th (voiced)" checks for "th").
+function graphemeLetters(g) {
+  return g.replace(/\s*\([^)]*\)/g, "").trim().split(/\s+/).filter(Boolean);
+}
+function soundAppearsInWord(sound, word) {
+  const w = word.toLowerCase();
+  return graphemeLetters(sound.grapheme).some((g) => w.includes(g.toLowerCase()));
+}
 function buildQuizQuestions(group) {
   let pool = poolForGroup(group);
   if (pool.length < 4) pool = PHONICS;
   const chosen = buildWeightedQueue(pool, QUIZ_LEN);
   return chosen.map((p) => {
-    const distractors = shuffle(pool.filter((x) => x.id !== p.id)).slice(0, 3);
-    const options = shuffle([p, ...distractors]);
     const promptWord = p.words[Math.floor(Math.random() * p.words.length)];
+    // A prompt word often legitimately contains other taught sounds too
+    // (e.g. "sun" contains s, u, AND n) — offering one of those as a wrong
+    // option would make the question ambiguous, since it'd also technically
+    // be "in" the word. Exclude any distractor whose grapheme is spelled
+    // inside the prompt word at all.
+    const safePool = shuffle(pool.filter((x) => x.id !== p.id && !soundAppearsInWord(x, promptWord)));
+    let distractors = safePool.slice(0, 3);
+    if (distractors.length < 3) {
+      // this group's pool didn't have enough non-overlapping options —
+      // widen the search to the full 42-sound set, same rule applied
+      const used = new Set(distractors.map((d) => d.id));
+      const extra = shuffle(PHONICS.filter((x) => x.id !== p.id && !used.has(x.id) && !soundAppearsInWord(x, promptWord)));
+      distractors = distractors.concat(extra).slice(0, 3);
+    }
+    const options = shuffle([p, ...distractors]);
     return { sound: p, promptWord, options };
   });
 }
