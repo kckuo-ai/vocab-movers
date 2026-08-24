@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
-<title>自然發音護照</title>
+<title>Flyers 單字護照</title>
 <style>
 :root{
   --blue:#4361EE; --teal:#2EC4B6; --ink:#233047; --sub:#8592A6;
@@ -121,78 +121,556 @@ input{font-family:inherit;}
 <div id="app" class="wrap"></div>
 <script>
 /* ============================================================
-   劍橋 Movers 單字資料（同前一版本，來源：Cambridge English
+   劍橋 Flyers 單字資料（來源：Cambridge English
    Pre A1 Starters / A1 Movers / A2 Flyers Wordlist，僅收錄
-   Movers 等級新增詞彙，依主題分類）
+   A2 Flyers 等級新增詞彙，依主題分類）
    ============================================================ */
-const PHONICS_GROUPS = [
-  { group: 1, sounds: [
-    { grapheme: "s", words: ["sun", "sit", "six"] },
-    { grapheme: "a", words: ["ant", "apple", "cat"] },
-    { grapheme: "t", words: ["tap", "ten", "top"] },
-    { grapheme: "i", words: ["ink", "pig", "six"] },
-    { grapheme: "p", words: ["pen", "pig", "cup"] },
-    { grapheme: "n", words: ["net", "sun", "pin"] },
-  ]},
-  { group: 2, sounds: [
-    { grapheme: "c k", words: ["cat", "kite", "duck"] },
-    { grapheme: "e", words: ["egg", "pen", "ten"] },
-    { grapheme: "h", words: ["hat", "hen", "hot"] },
-    { grapheme: "r", words: ["run", "red", "rat"] },
-    { grapheme: "m", words: ["map", "mum", "man"] },
-    { grapheme: "d", words: ["dog", "dad", "doll"] },
-  ]},
-  { group: 3, sounds: [
-    { grapheme: "g", words: ["go", "get", "dog"] },
-    { grapheme: "o", words: ["dog", "hot", "box"] },
-    { grapheme: "u", words: ["up", "sun", "cup"] },
-    { grapheme: "l", words: ["leg", "log", "lip"] },
-    { grapheme: "f", words: ["fan", "fish", "fox"] },
-    { grapheme: "b", words: ["bat", "big", "bus"] },
-  ]},
-  { group: 4, sounds: [
-    { grapheme: "ai", words: ["rain", "tail", "snail"] },
-    { grapheme: "j", words: ["jam", "jug", "jump"] },
-    { grapheme: "oa", words: ["boat", "coat", "goat"] },
-    { grapheme: "ie", words: ["pie", "tie", "cried"] },
-    { grapheme: "ee", words: ["bee", "tree", "feet"] },
-    { grapheme: "or", words: ["fork", "corn", "horn"] },
-  ]},
-  { group: 5, sounds: [
-    { grapheme: "z", words: ["zip", "zebra", "zoo"] },
-    { grapheme: "w", words: ["web", "wet", "win"] },
-    { grapheme: "ng", words: ["king", "ring", "song"] },
-    { grapheme: "v", words: ["van", "vet", "violin"] },
-    { grapheme: "oo (short)", words: ["book", "look", "foot"] },
-    { grapheme: "oo (long)", words: ["moon", "spoon", "food"] },
-  ]},
-  { group: 6, sounds: [
-    { grapheme: "y", words: ["yes", "yellow", "yo-yo"] },
-    { grapheme: "x", words: ["box", "fox", "six"] },
-    { grapheme: "ch", words: ["chip", "chin", "cheese"] },
-    { grapheme: "sh", words: ["ship", "shop", "fish"] },
-    { grapheme: "th (voiced)", words: ["this", "that", "mother"] },
-    { grapheme: "th (unvoiced)", words: ["thumb", "three", "bath"] },
-  ]},
-  { group: 7, sounds: [
-    { grapheme: "qu", words: ["queen", "quiz", "quick"] },
-    { grapheme: "ou", words: ["out", "cloud", "mouth"] },
-    { grapheme: "oi", words: ["coin", "boil", "oil"] },
-    { grapheme: "ue", words: ["blue", "glue", "true"] },
-    { grapheme: "er", words: ["her", "fern", "sister"] },
-    { grapheme: "ar", words: ["car", "star", "arm"] },
-  ]},
-];
-const PHONICS = PHONICS_GROUPS.flatMap((g) =>
-  g.sounds.map((s, i) => ({
-    id: `p${g.group}_${i}`,
-    group: g.group,
-    grapheme: s.grapheme,
-    words: s.words,
-  }))
-);
+const RAW_WORDS = [
+  // 動物 animals
+  ["beetle", "n", "甲蟲", "animals"],
+  ["butterfly", "n", "蝴蝶", "animals"],
+  ["camel", "n", "駱駝", "animals"],
+  ["creature", "n", "生物", "animals"],
+  ["dinosaur", "n", "恐龍", "animals"],
+  ["eagle", "n", "老鷹", "animals"],
+  ["extinct", "adj", "絕種的", "animals"],
+  ["fur", "n", "毛皮", "animals"],
+  ["furry", "adj", "有毛皮的", "animals"],
+  ["insect", "n", "昆蟲", "animals"],
+  ["nest", "n", "巢", "animals"],
+  ["octopus", "n", "章魚", "animals"],
+  ["swan", "n", "天鵝", "animals"],
+  ["tortoise", "n", "陸龜", "animals"],
+  ["wild", "adj", "野生的", "animals"],
+  ["wing", "n", "翅膀", "animals"],
 
-const GROUP_COLORS = { 1:"#06D6A0", 2:"#FF6FB5", 3:"#7B61FF", 4:"#F78C6B", 5:"#FFB703", 6:"#118AB2", 7:"#E63946" };
+  // 身體外貌 body
+  ["elbow", "n", "手肘", "body"],
+  ["finger", "n", "手指", "body"],
+  ["knee", "n", "膝蓋", "body"],
+  ["toe", "n", "腳趾", "body"],
+
+  // 衣物 clothes
+  ["belt", "n", "皮帶", "clothes"],
+  ["bracelet", "n", "手鍊", "clothes"],
+  ["costume", "n", "服裝；戲服", "clothes"],
+  ["crown", "n", "皇冠", "clothes"],
+  ["glove", "n", "手套", "clothes"],
+  ["necklace", "n", "項鍊", "clothes"],
+  ["pajamas (pyjamas)", "n", "睡衣", "clothes"],
+  ["pocket", "n", "口袋", "clothes"],
+  ["ring", "n", "戒指", "clothes"],
+  ["sunglasses", "n", "太陽眼鏡", "clothes"],
+  ["trainers", "n", "運動鞋", "clothes"],
+  ["umbrella", "n", "雨傘", "clothes"],
+  ["uniform", "n", "制服", "clothes"],
+
+  // 顏色 colours
+  ["gold", "adj", "金色的", "colours"],
+  ["silver", "adj", "銀色的", "colours"],
+  ["spot", "n", "斑點", "colours"],
+  ["spotted", "adj", "有斑點的", "colours"],
+  ["stripe", "n", "條紋", "colours"],
+  ["striped", "adj", "有條紋的", "colours"],
+
+  // 家庭 family
+  ["husband", "n", "丈夫", "family"],
+  ["married", "adj", "已婚的", "family"],
+  ["surname", "n", "姓氏", "family"],
+  ["wife", "n", "妻子", "family"],
+
+  // 食物飲品 food
+  ["biscuit (cookie)", "n", "餅乾", "food"],
+  ["butter", "n", "奶油", "food"],
+  ["cereal", "n", "穀片", "food"],
+  ["chopsticks", "n", "筷子", "food"],
+  ["flour", "n", "麵粉", "food"],
+  ["fork", "n", "叉子", "food"],
+  ["honey", "n", "蜂蜜", "food"],
+  ["jam", "n", "果醬", "food"],
+  ["knife", "n", "刀子", "food"],
+  ["meal", "n", "一餐", "food"],
+  ["olives", "n", "橄欖", "food"],
+  ["pepper", "n", "胡椒", "food"],
+  ["piece", "n", "一塊；一片", "food"],
+  ["pizza", "n", "披薩", "food"],
+  ["salt", "n", "鹽", "food"],
+  ["smell", "n/v", "味道；聞", "food"],
+  ["snack", "n", "點心", "food"],
+  ["spoon", "n", "湯匙", "food"],
+  ["strawberry", "n", "草莓", "food"],
+  ["sugar", "n", "糖", "food"],
+  ["taste", "n/v", "味道；嚐", "food"],
+  ["yoghurt", "n", "優格", "food"],
+
+  // 健康 health
+  ["bandage", "n", "繃帶", "health"],
+  ["chemist's", "n", "藥局", "health"],
+  ["cut", "n/v", "傷口；切", "health"],
+  ["fall over", "v", "跌倒", "health"],
+  ["medicine", "n", "藥", "health"],
+  ["x-ray", "n", "X 光", "health"],
+
+  // 居家 home
+  ["brush", "n/v", "刷子；刷", "home"],
+  ["comb", "n/v", "梳子；梳", "home"],
+  ["cooker", "n", "爐子", "home"],
+  ["cushion", "n", "抱枕", "home"],
+  ["diary", "n", "日記", "home"],
+  ["entrance", "n", "入口", "home"],
+  ["envelope", "n", "信封", "home"],
+  ["fridge", "n", "冰箱", "home"],
+  ["gate", "n", "大門", "home"],
+  ["key", "n", "鑰匙", "home"],
+  ["letter (mail)", "n", "信件", "home"],
+  ["oven", "n", "烤箱", "home"],
+  ["screen", "n", "螢幕", "home"],
+  ["shampoo", "n", "洗髮精", "home"],
+  ["shelf", "n", "架子", "home"],
+  ["soap", "n", "肥皂", "home"],
+  ["stamp", "n", "郵票", "home"],
+  ["step", "n", "階梯", "home"],
+  ["swing", "n/v", "鞦韆；擺盪", "home"],
+  ["telephone", "n", "電話", "home"],
+
+  // 人名 names
+  ["Betty", "n", "貝蒂（女子名）", "names"],
+  ["David", "n", "大衛（男子名）", "names"],
+  ["Emma", "n", "艾瑪（女子名）", "names"],
+  ["Frank", "n", "法蘭克（男子名）", "names"],
+  ["George", "n", "喬治（男子名）", "names"],
+  ["Harry", "n", "哈利（男子名）", "names"],
+  ["Helen", "n", "海倫（女子名）", "names"],
+  ["Holly", "n", "荷莉（女子名）", "names"],
+  ["Katy", "n", "凱蒂（女子名）", "names"],
+  ["Michael", "n", "麥可（男子名）", "names"],
+  ["Oliver", "n", "奧利佛（男子名）", "names"],
+  ["Richard", "n", "理查（男子名）", "names"],
+  ["Robert", "n", "羅伯特（男子名）", "names"],
+  ["Sarah", "n", "莎拉（女子名）", "names"],
+  ["Sophia", "n", "蘇菲亞（女子名）", "names"],
+  ["William", "n", "威廉（男子名）", "names"],
+
+  // 地方與方向 places
+  ["airport", "n", "機場", "places"],
+  ["bank", "n", "銀行", "places"],
+  ["bridge", "n", "橋", "places"],
+  ["castle", "n", "城堡", "places"],
+  ["club", "n", "社團；俱樂部", "places"],
+  ["college", "n", "學院", "places"],
+  ["corner", "n", "角落", "places"],
+  ["east", "n", "東方", "places"],
+  ["factory", "n", "工廠", "places"],
+  ["fire station", "n", "消防局", "places"],
+  ["front", "n", "前面", "places"],
+  ["get to", "v", "到達", "places"],
+  ["hotel", "n", "飯店", "places"],
+  ["kilometre (kilometer)", "n", "公里", "places"],
+  ["left (direction)", "n", "左邊", "places"],
+  ["London", "n", "倫敦", "places"],
+  ["middle", "n", "中間", "places"],
+  ["museum", "n", "博物館", "places"],
+  ["north", "n", "北方", "places"],
+  ["path", "n", "小徑", "places"],
+  ["police station", "n", "警察局", "places"],
+  ["post office", "n", "郵局", "places"],
+  ["restaurant", "n", "餐廳", "places"],
+  ["right (direction)", "n", "右邊", "places"],
+  ["skyscraper", "n", "摩天大樓", "places"],
+  ["south", "n", "南方", "places"],
+  ["stadium", "n", "體育場", "places"],
+  ["straight on", "adv", "直走", "places"],
+  ["theatre (theater)", "n", "劇院", "places"],
+  ["university", "n", "大學", "places"],
+  ["way", "n", "路；方式", "places"],
+  ["west", "n", "西方", "places"],
+
+  // 學校 school
+  ["art", "n", "美術", "school"],
+  ["backpack (rucksack)", "n", "背包", "school"],
+  ["bin", "n", "垃圾桶", "school"],
+  ["competition", "n", "比賽", "school"],
+  ["dictionary", "n", "字典", "school"],
+  ["flag", "n", "旗子", "school"],
+  ["geography", "n", "地理", "school"],
+  ["glue", "n/v", "膠水；黏", "school"],
+  ["group", "n", "小組", "school"],
+  ["gym", "n", "體育館", "school"],
+  ["history", "n", "歷史", "school"],
+  ["language", "n", "語言", "school"],
+  ["maths (math)", "n", "數學", "school"],
+  ["online", "adj", "線上的", "school"],
+  ["project", "n", "專題；計畫", "school"],
+  ["science", "n", "科學", "school"],
+  ["scissors", "n", "剪刀", "school"],
+  ["student", "n", "學生", "school"],
+  ["study", "v", "讀書；研究", "school"],
+  ["subject", "n", "科目", "school"],
+  ["timetable", "n", "課表", "school"],
+
+  // 運動休閒 sports
+  ["cartoon", "n", "卡通", "sports"],
+  ["channel", "n", "頻道", "sports"],
+  ["chess", "n", "西洋棋", "sports"],
+  ["collect", "v", "蒐集", "sports"],
+  ["concert", "n", "演唱會", "sports"],
+  ["drum", "n", "鼓", "sports"],
+  ["festival", "n", "節慶", "sports"],
+  ["flashlight (torch)", "n", "手電筒", "sports"],
+  ["golf", "n", "高爾夫球", "sports"],
+  ["instrument", "n", "樂器", "sports"],
+  ["invitation", "n", "邀請函", "sports"],
+  ["join (a club)", "v", "加入（社團）", "sports"],
+  ["magazine", "n", "雜誌", "sports"],
+  ["match (football)", "n", "比賽（足球）", "sports"],
+  ["meet", "v", "見面", "sports"],
+  ["member", "n", "成員", "sports"],
+  ["pop music", "n", "流行音樂", "sports"],
+  ["prize", "n", "獎品", "sports"],
+  ["programme (program)", "n", "節目；計畫", "sports"],
+  ["puzzle", "n", "拼圖；謎題", "sports"],
+  ["pyramid", "n", "金字塔", "sports"],
+  ["quiz", "n", "小測驗", "sports"],
+  ["race", "n/v", "比賽；賽跑", "sports"],
+  ["rock music", "n", "搖滾音樂", "sports"],
+  ["score", "n", "分數", "sports"],
+  ["ski", "n/v", "滑雪板；滑雪", "sports"],
+  ["sledge", "n/v", "雪橇；坐雪橇", "sports"],
+  ["snowball", "n", "雪球", "sports"],
+  ["snowboard", "n", "滑雪板", "sports"],
+  ["snowboarding", "n", "滑雪板運動", "sports"],
+  ["snowman", "n", "雪人", "sports"],
+  ["stage (theatre)", "n", "舞台", "sports"],
+  ["suitcase", "n", "行李箱", "sports"],
+  ["team", "n", "隊伍", "sports"],
+  ["tent", "n", "帳篷", "sports"],
+  ["tune", "n", "曲調", "sports"],
+  ["tyre (tire)", "n", "輪胎", "sports"],
+  ["violin", "n", "小提琴", "sports"],
+  ["volleyball", "n", "排球", "sports"],
+  ["winner", "n", "贏家", "sports"],
+
+  // 時間 time
+  ["a.m.", "adv", "上午（時間）", "time"],
+  ["ago", "adv", "以前", "time"],
+  ["autumn (fall)", "n", "秋天", "time"],
+  ["calendar", "n", "日曆", "time"],
+  ["century", "n", "世紀", "time"],
+  ["date (time)", "n", "日期", "time"],
+  ["early", "adj/adv", "早的；早", "time"],
+  ["hour", "n", "小時", "time"],
+  ["how long", "adv", "多久", "time"],
+  ["late", "adj/adv", "遲的；遲", "time"],
+  ["later", "adv", "之後", "time"],
+  ["midday", "n", "中午", "time"],
+  ["midnight", "n", "午夜", "time"],
+  ["minute", "n", "分鐘", "time"],
+  ["month", "n", "月份", "time"],
+  ["p.m.", "adv", "下午（時間）", "time"],
+  ["past", "n/prep", "過去；……之後", "time"],
+  ["quarter", "n", "四分之一；一刻鐘", "time"],
+  ["spring", "n", "春天", "time"],
+  ["summer", "n", "夏天", "time"],
+  ["time", "n", "時間", "time"],
+  ["tomorrow", "adv/n", "明天", "time"],
+  ["tonight", "adv/n", "今晚", "time"],
+  ["winter", "n", "冬天", "time"],
+  ["January", "n", "一月", "time"],
+  ["February", "n", "二月", "time"],
+  ["March", "n", "三月", "time"],
+  ["April", "n", "四月", "time"],
+  ["June", "n", "六月", "time"],
+  ["July", "n", "七月", "time"],
+  ["August", "n", "八月", "time"],
+  ["September", "n", "九月", "time"],
+  ["October", "n", "十月", "time"],
+  ["November", "n", "十一月", "time"],
+  ["December", "n", "十二月", "time"],
+
+  // 交通 transport
+  ["ambulance", "n", "救護車", "transport"],
+  ["bicycle", "n", "腳踏車", "transport"],
+  ["fire engine (fire truck)", "n", "消防車", "transport"],
+  ["journey", "n", "旅程", "transport"],
+  ["lift (ride)", "n", "搭便車", "transport"],
+  ["motorway", "n", "高速公路", "transport"],
+  ["passenger", "n", "乘客", "transport"],
+  ["platform", "n", "月台", "transport"],
+  ["racing", "adj", "競速的", "transport"],
+  ["railway", "n", "鐵路", "transport"],
+  ["rocket", "n", "火箭", "transport"],
+  ["spaceship", "n", "太空船", "transport"],
+  ["taxi", "n", "計程車", "transport"],
+  ["tour", "n", "旅遊；行程", "transport"],
+  ["traffic", "n", "交通", "transport"],
+  ["wheel", "n", "輪子", "transport"],
+
+  // 天氣 weather
+  ["fog", "n", "霧", "weather"],
+  ["foggy", "adj", "有霧的", "weather"],
+  ["storm", "n", "暴風雨", "weather"],
+
+  // 職業 work
+  ["actor", "n", "演員", "work"],
+  ["artist", "n", "藝術家", "work"],
+  ["astronaut", "n", "太空人", "work"],
+  ["business", "n", "商業；生意", "work"],
+  ["businessman/woman", "n", "商人", "work"],
+  ["designer", "n", "設計師", "work"],
+  ["engineer", "n", "工程師", "work"],
+  ["fire fighter", "n", "消防員", "work"],
+  ["job", "n", "工作", "work"],
+  ["journalist", "n", "記者", "work"],
+  ["manager", "n", "經理", "work"],
+  ["mechanic", "n", "技工", "work"],
+  ["meeting", "n", "會議", "work"],
+  ["news", "n", "新聞", "work"],
+  ["newspaper", "n", "報紙", "work"],
+  ["office", "n", "辦公室", "work"],
+  ["photographer", "n", "攝影師", "work"],
+  ["pilot", "n", "飛行員", "work"],
+  ["police officer", "n", "警察", "work"],
+  ["queen", "n", "皇后；女王", "work"],
+  ["singer", "n", "歌手", "work"],
+  ["waiter", "n", "服務生", "work"],
+
+  // 自然世界 world
+  ["air", "n", "空氣", "world"],
+  ["cave", "n", "洞穴", "world"],
+  ["desert", "n", "沙漠", "world"],
+  ["Earth", "n", "地球", "world"],
+  ["environment", "n", "環境", "world"],
+  ["exit", "n", "出口", "world"],
+  ["fire", "n", "火", "world"],
+  ["future", "n", "未來", "world"],
+  ["hill", "n", "小山", "world"],
+  ["land", "n/v", "陸地；降落", "world"],
+  ["ocean", "n", "海洋", "world"],
+  ["planet", "n", "行星", "world"],
+  ["pond", "n", "池塘", "world"],
+  ["space", "n", "太空", "world"],
+  ["stone", "n", "石頭", "world"],
+  ["stream", "n", "小溪", "world"],
+  ["view", "n", "景色", "world"],
+  ["wood", "n", "木頭", "world"],
+
+  // 常用形容詞 adjectives
+  ["alone", "adj", "獨自的", "adjectives"],
+  ["amazing", "adj", "驚人的", "adjectives"],
+  ["bored", "adj", "感到無聊的", "adjectives"],
+  ["broken", "adj", "壞掉的", "adjectives"],
+  ["cheap", "adj", "便宜的", "adjectives"],
+  ["dark", "adj", "黑暗的", "adjectives"],
+  ["deep", "adj", "深的", "adjectives"],
+  ["delicious", "adj", "美味的", "adjectives"],
+  ["empty", "adj", "空的", "adjectives"],
+  ["enormous", "adj", "巨大的", "adjectives"],
+  ["enough", "adj", "足夠的", "adjectives"],
+  ["excellent", "adj", "極好的", "adjectives"],
+  ["excited", "adj", "興奮的", "adjectives"],
+  ["expensive", "adj", "昂貴的", "adjectives"],
+  ["far", "adj/adv", "遠的；遠", "adjectives"],
+  ["fast", "adj/adv", "快的；快", "adjectives"],
+  ["friendly", "adj", "友善的", "adjectives"],
+  ["frightening", "adj", "嚇人的", "adjectives"],
+  ["full", "adj", "滿的", "adjectives"],
+  ["hard", "adj/adv", "困難的；努力地", "adjectives"],
+  ["heavy", "adj", "重的", "adjectives"],
+  ["high", "adj", "高的", "adjectives"],
+  ["horrible", "adj", "可怕的", "adjectives"],
+  ["important", "adj", "重要的", "adjectives"],
+  ["interested", "adj", "感興趣的", "adjectives"],
+  ["interesting", "adj", "有趣的", "adjectives"],
+  ["kind", "adj", "親切的", "adjectives"],
+  ["large", "adj", "大的", "adjectives"],
+  ["lazy", "adj", "懶惰的", "adjectives"],
+  ["light", "adj", "輕的；明亮的", "adjectives"],
+  ["lovely", "adj", "可愛的；美好的", "adjectives"],
+  ["low", "adj", "低的", "adjectives"],
+  ["lucky", "adj", "幸運的", "adjectives"],
+  ["missing", "adj", "遺失的", "adjectives"],
+  ["next", "adj", "下一個的", "adjectives"],
+  ["noisy", "adj", "吵鬧的", "adjectives"],
+  ["pleased", "adj", "高興的", "adjectives"],
+  ["poor", "adj", "貧窮的", "adjectives"],
+  ["popular", "adj", "受歡迎的", "adjectives"],
+  ["ready", "adj", "準備好的", "adjectives"],
+  ["rich", "adj", "富有的", "adjectives"],
+  ["same", "adj", "相同的", "adjectives"],
+  ["several", "adj", "幾個的", "adjectives"],
+  ["soft", "adj", "柔軟的", "adjectives"],
+  ["sore", "adj", "疼痛的", "adjectives"],
+  ["special", "adj", "特別的", "adjectives"],
+  ["strange", "adj", "奇怪的", "adjectives"],
+  ["sure", "adj", "確定的", "adjectives"],
+  ["tidy", "adj", "整齊的", "adjectives"],
+  ["unfriendly", "adj", "不友善的", "adjectives"],
+  ["unhappy", "adj", "不快樂的", "adjectives"],
+  ["unkind", "adj", "不親切的", "adjectives"],
+  ["untidy", "adj", "不整齊的", "adjectives"],
+  ["unusual", "adj", "不尋常的", "adjectives"],
+  ["warm", "adj", "溫暖的", "adjectives"],
+  ["wonderful", "adj", "很棒的", "adjectives"],
+  ["worried", "adj", "擔心的", "adjectives"],
+
+  // 常用動詞 verbs
+  ["act", "v", "表演", "verbs"],
+  ["agree", "v", "同意", "verbs"],
+  ["appear", "v", "出現", "verbs"],
+  ["arrive", "v", "抵達", "verbs"],
+  ["begin", "v", "開始", "verbs"],
+  ["believe", "v", "相信", "verbs"],
+  ["borrow", "v", "借（入）", "verbs"],
+  ["break", "v", "打破", "verbs"],
+  ["burn", "v", "燃燒", "verbs"],
+  ["camp", "v", "露營", "verbs"],
+  ["chat", "v", "聊天", "verbs"],
+  ["cut", "v", "切", "verbs"],
+  ["cycle", "v", "騎腳踏車", "verbs"],
+  ["decide", "v", "決定", "verbs"],
+  ["design", "v", "設計", "verbs"],
+  ["disappear", "v", "消失", "verbs"],
+  ["end", "v", "結束", "verbs"],
+  ["enter", "v", "參加；進入", "verbs"],
+  ["explain", "v", "解釋", "verbs"],
+  ["explore", "v", "探索", "verbs"],
+  ["fall over", "v", "跌倒", "verbs"],
+  ["feel", "v", "感覺", "verbs"],
+  ["fetch", "v", "去拿；取回", "verbs"],
+  ["find out", "v", "發現；查出", "verbs"],
+  ["finish", "v", "完成", "verbs"],
+  ["follow", "v", "跟隨", "verbs"],
+  ["forget", "v", "忘記", "verbs"],
+  ["happen", "v", "發生", "verbs"],
+  ["hate", "v", "討厭", "verbs"],
+  ["hear", "v", "聽見", "verbs"],
+  ["hope", "v", "希望", "verbs"],
+  ["hurry", "v", "趕快", "verbs"],
+  ["improve", "v", "改善", "verbs"],
+  ["invent", "v", "發明", "verbs"],
+  ["keep", "v", "保留；持續", "verbs"],
+  ["land", "v", "降落", "verbs"],
+  ["leave", "v", "離開", "verbs"],
+  ["let", "v", "讓；允許", "verbs"],
+  ["lie", "v", "躺下", "verbs"],
+  ["lift", "v", "舉起", "verbs"],
+  ["look after", "v", "照顧", "verbs"],
+  ["look like", "v", "看起來像", "verbs"],
+  ["make sure", "v", "確認", "verbs"],
+  ["mind", "v", "介意", "verbs"],
+  ["mix", "v", "混合", "verbs"],
+  ["post", "v", "郵寄", "verbs"],
+  ["prefer", "v", "比較喜歡", "verbs"],
+  ["prepare", "v", "準備", "verbs"],
+  ["pull", "v", "拉", "verbs"],
+  ["push", "v", "推", "verbs"],
+  ["remember", "v", "記得", "verbs"],
+  ["repair", "v", "修理", "verbs"],
+  ["repeat", "v", "重複", "verbs"],
+  ["save", "v", "拯救；儲存", "verbs"],
+  ["sell", "v", "賣", "verbs"],
+  ["speak", "v", "說話", "verbs"],
+  ["spend", "v", "花費", "verbs"],
+  ["stay", "v", "停留", "verbs"],
+  ["study", "v", "學習；研究", "verbs"],
+  ["take", "v", "花費（時間）", "verbs"],
+  ["thank", "v", "感謝", "verbs"],
+  ["touch", "v", "碰觸", "verbs"],
+  ["turn", "v", "轉；輪到", "verbs"],
+  ["turn off", "v", "關掉", "verbs"],
+  ["turn on", "v", "打開", "verbs"],
+  ["use", "v", "使用", "verbs"],
+  ["visit", "v", "拜訪", "verbs"],
+  ["whisper", "v", "低語", "verbs"],
+  ["whistle", "v", "吹口哨", "verbs"],
+  ["win", "v", "贏", "verbs"],
+  ["wish", "v", "希望", "verbs"],
+
+  // 功能詞 grammar
+  ["across", "prep", "橫越", "grammar"],
+  ["actually", "adv", "事實上", "grammar"],
+  ["after", "adv/conj", "之後", "grammar"],
+  ["already", "adv", "已經", "grammar"],
+  ["also", "adv", "也", "grammar"],
+  ["anyone", "pron", "任何人", "grammar"],
+  ["anything", "pron", "任何事物", "grammar"],
+  ["anywhere", "adv", "任何地方", "grammar"],
+  ["as", "adv", "像；當……時", "grammar"],
+  ["as … as", "adv", "跟……一樣", "grammar"],
+  ["at the moment", "adv", "此刻", "grammar"],
+  ["away", "adv", "離開", "grammar"],
+  ["before", "adv/conj", "之前", "grammar"],
+  ["by myself", "adv", "我自己", "grammar"],
+  ["by yourself", "adv", "你自己", "grammar"],
+  ["during", "prep", "在……期間", "grammar"],
+  ["each", "det", "每一個", "grammar"],
+  ["else", "adv", "其他", "grammar"],
+  ["ever", "adv", "曾經", "grammar"],
+  ["everywhere", "adv", "到處", "grammar"],
+  ["a few", "det", "一些", "grammar"],
+  ["for (time)", "prep", "持續（時間）", "grammar"],
+  ["how long", "adv", "多久", "grammar"],
+  ["if", "conj", "如果", "grammar"],
+  ["instead", "adv", "取而代之", "grammar"],
+  ["just", "adv", "剛剛；只是", "grammar"],
+  ["a little", "adv", "一點點", "grammar"],
+  ["may", "v", "可以（許可）", "grammar"],
+  ["might", "v", "可能", "grammar"],
+  ["much", "adv/det", "很多", "grammar"],
+  ["no-one", "pron", "沒有人", "grammar"],
+  ["nowhere", "adv", "任何地方都不", "grammar"],
+  ["of course", "adv", "當然", "grammar"],
+  ["once", "adv", "一次", "grammar"],
+  ["other", "det/pron", "其他的", "grammar"],
+  ["over", "prep", "在……上方", "grammar"],
+  ["past (prep)", "prep", "經過", "grammar"],
+  ["perhaps", "adv", "也許", "grammar"],
+  ["quite", "adv", "相當", "grammar"],
+  ["should", "v", "應該", "grammar"],
+  ["since", "prep", "自從", "grammar"],
+  ["so", "adv/conj", "所以；如此", "grammar"],
+  ["somewhere", "adv", "某個地方", "grammar"],
+  ["soon", "adv", "很快", "grammar"],
+  ["still", "adv", "仍然", "grammar"],
+  ["such", "det", "如此的", "grammar"],
+  ["suddenly", "adv", "突然", "grammar"],
+  ["through", "prep", "穿過", "grammar"],
+  ["together", "adv", "一起", "grammar"],
+  ["twice", "adv", "兩次", "grammar"],
+  ["until", "prep", "直到", "grammar"],
+  ["usually", "adv", "通常", "grammar"],
+  ["while", "conj", "當……的時候", "grammar"],
+  ["will", "v", "將會", "grammar"],
+  ["without", "prep", "沒有", "grammar"],
+  ["yet", "adv", "還（沒）", "grammar"],
+];
+
+
+const WORDS = RAW_WORDS.map(([en, pos, zh, cat], i) => ({ id: "w" + i, en, pos, zh, cat }));
+
+const CATEGORIES = [
+  { key: "animals", label: "動物", emoji: "🦋", color: "#06D6A0" },
+  { key: "body", label: "身體外貌", emoji: "🙋", color: "#FF6FB5" },
+  { key: "clothes", label: "衣物", emoji: "👑", color: "#7B61FF" },
+  { key: "colours", label: "顏色", emoji: "🎨", color: "#F94144" },
+  { key: "family", label: "家庭", emoji: "👪", color: "#F78C6B" },
+  { key: "food", label: "食物飲品", emoji: "🍕", color: "#FFB703" },
+  { key: "health", label: "健康", emoji: "🏥", color: "#E63946" },
+  { key: "home", label: "居家", emoji: "🏠", color: "#4361EE" },
+  { key: "names", label: "人名", emoji: "🧑", color: "#6C757D" },
+  { key: "places", label: "地方", emoji: "🏙️", color: "#2EC4B6" },
+  { key: "school", label: "學校", emoji: "💻", color: "#EF476F" },
+  { key: "sports", label: "運動休閒", emoji: "🎉", color: "#118AB2" },
+  { key: "time", label: "時間", emoji: "🕒", color: "#FF9F1C" },
+  { key: "transport", label: "交通", emoji: "🚕", color: "#457B9D" },
+  { key: "weather", label: "天氣", emoji: "🌦️", color: "#5AA9E6" },
+  { key: "work", label: "職業", emoji: "👩‍⚕️", color: "#8D6748" },
+  { key: "world", label: "自然世界", emoji: "🌍", color: "#40916C" },
+  { key: "adjectives", label: "形容詞", emoji: "✨", color: "#9D4EDD" },
+  { key: "verbs", label: "動詞", emoji: "🏃", color: "#B5179E" },
+  { key: "grammar", label: "功能詞", emoji: "🔤", color: "#495057" },
+];
+const CAT_MAP = Object.fromEntries(CATEGORIES.map((c) => [c.key, c]));
 
 const LEVELS = [
   { level: 0, label: "尚未學習", emoji: "⚪", color: "#CBD5E1" },
@@ -203,34 +681,50 @@ const LEVELS = [
 ];
 const levelInfo = (lv) => LEVELS[Math.max(0, Math.min(4, lv || 0))];
 
-/* ---------- group filtering (7 phonics groups, simpler than the word-app's category+letter system) ---------- */
-function poolForGroup(g) {
-  return g === "all" ? PHONICS : PHONICS.filter((p) => String(p.group) === String(g));
+/* ---------- starting-letter filtering (shared by Browse/Study/Spell/Quiz) ---------- */
+function startingLetter(w) {
+  const c = canonicalWord(w.en);
+  const m = c.match(/[A-Za-z]/);
+  return m ? m[0].toUpperCase() : "#";
 }
-function groupChipHtml(active, group, onclick) {
-  const label = group === "all" ? "全部" : `第 ${group} 組`;
-  const color = group === "all" ? "#233047" : GROUP_COLORS[group];
-  return `<button class="catChip" style="border-color:${active ? color : "#E4E8F0"};background:${active ? color + "1A" : "#fff"};color:${active ? color : "#5B6779"};" onclick="${onclick}">${label}</button>`;
+const LETTERS = Array.from(new Set(WORDS.map(startingLetter))).sort();
+function poolForSelection(sel) {
+  if (sel && sel.mode === "letter") return WORDS.filter((w) => startingLetter(w) === sel.letter);
+  const cat = sel ? sel.cat : "all";
+  return cat === "all" ? WORDS : WORDS.filter((w) => w.cat === cat);
+}
+function letterChipHtml(active, letter, onclick) {
+  return `<button class="catChip" style="min-width:34px;text-align:center;border-color:${active ? "#4361EE" : "#E4E8F0"};background:${active ? "#4361EE1A" : "#fff"};color:${active ? "#4361EE" : "#5B6779"};" onclick="${onclick}">${letter}</button>`;
+}
+function modeToggleHtml(screen, mode) {
+  return `<div style="display:flex;gap:8px;margin-bottom:10px;">
+    <button style="flex:1;padding:8px 0;border-radius:10px;font-weight:800;font-size:12.5px;background:${mode === "cat" ? "#4361EE" : "#EEF1F7"};color:${mode === "cat" ? "#fff" : "#5B6779"};" onclick="setPickerMode('${screen}','cat')">📁 依分類</button>
+    <button style="flex:1;padding:8px 0;border-radius:10px;font-weight:800;font-size:12.5px;background:${mode === "letter" ? "#4361EE" : "#EEF1F7"};color:${mode === "letter" ? "#fff" : "#5B6779"};" onclick="setPickerMode('${screen}','letter')">🔤 依字母</button>
+  </div>`;
+}
+function setPickerMode(screen, mode) {
+  STATE[screen].mode = mode;
+  render();
 }
 
 const BADGES = [
-  { id: "first5", label: "初次見面", emoji: "🌱", desc: "學習 5 個發音", test: (s) => s.studiedCount >= 5 },
-  { id: "halfway", label: "過半達成", emoji: "🐣", desc: "學習 21 個發音（過半）", test: (s) => s.studiedCount >= 21 },
-  { id: "allLearned", label: "42 音全通", emoji: "🦉", desc: "學習全部 42 個發音", test: (s) => s.studiedCount >= 42 },
-  { id: "master10", label: "精通新星", emoji: "⭐", desc: "精通 10 個發音", test: (s) => s.masteredCount >= 10 },
-  { id: "masterAll", label: "自然發音大師", emoji: "👑", desc: "精通全部 42 個發音", test: (s) => s.masteredCount >= 42 },
+  { id: "first5", label: "初次見面", emoji: "🌱", desc: "學習 5 個單字", test: (s) => s.studiedCount >= 5 },
+  { id: "words25", label: "字彙新手", emoji: "🐣", desc: "學習 25 個單字", test: (s) => s.studiedCount >= 25 },
+  { id: "words100", label: "字彙高手", emoji: "🦉", desc: "學習 100 個單字", test: (s) => s.studiedCount >= 100 },
+  { id: "master10", label: "精通新星", emoji: "⭐", desc: "精通 10 個單字", test: (s) => s.masteredCount >= 10 },
+  { id: "master50", label: "單字大師", emoji: "👑", desc: "精通 50 個單字", test: (s) => s.masteredCount >= 50 },
   { id: "streak3", label: "連續三天", emoji: "🔥", desc: "連續打卡 3 天", test: (s, d) => (d.streak || 0) >= 3 },
   { id: "streak7", label: "一週不間斷", emoji: "🏅", desc: "連續打卡 7 天", test: (s, d) => (d.streak || 0) >= 7 },
   { id: "streak30", label: "月度冠軍", emoji: "🏆", desc: "連續打卡 30 天", test: (s, d) => (d.streak || 0) >= 30 },
 ];
 
-const DAILY_GOAL = 15;
+const DAILY_GOAL = 30;
 const QUIZ_LEN = 10;
 
 /* ---------- storage (plain localStorage — fully offline, no login needed) ---------- */
-const PKEY = "phonics-progress-v1";
-const HKEY = "phonics-hiscore-v1";
-const DKEY = "phonics-daily-v1";
+const PKEY = "flyers-vocab-progress-v1";
+const HKEY = "flyers-vocab-hiscore-v1";
+const DKEY = "flyers-vocab-daily-v1";
 function lget(key, fallback) {
   try {
     const v = localStorage.getItem(key);
@@ -261,11 +755,11 @@ function rollDaily(d) {
   const keepStreak = gap === 1 && d.countedToday;
   return { ...d, date: today, todayCount: 0, countedToday: false, streak: keepStreak ? d.streak : 0 };
 }
-function getSoundOfDay() {
+function getWordOfDay() {
   const key = todayStr();
   let hash = 0;
   for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
-  return PHONICS[hash % PHONICS.length];
+  return WORDS[hash % WORDS.length];
 }
 function shuffle(arr) {
   const a = arr.slice();
@@ -335,7 +829,7 @@ function pickBestVoice() {
   // 3) fall back to any en-US voice, then en-GB
   return en.find((v) => v.lang === "en-US") || en[0];
 }
-const VKEY = "phonics-voice-v1";
+const VKEY = "flyers-vocab-voice-v1";
 function getSelectedVoice() {
   // a manually-picked voice (see the voice picker on Home) always wins —
   // this is what makes downloading an Enhanced/Premium system voice
@@ -624,19 +1118,6 @@ function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
 }
-// For a whole sound (not one specific example word): each tap picks a
-// random word from that sound's example list, so it's not always the same
-// first word — the id lookup + random pick happens fresh at click time.
-function pronounceSound(id) {
-  const p = PHONICS.find((x) => x.id === id);
-  if (!p) return;
-  const w = p.words[Math.floor(Math.random() * p.words.length)];
-  pronounce(w);
-}
-function speakSoundBtnHtml(soundId, size, tone, bg) {
-  size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
-  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounceSound('${soundId}')" aria-label="播放發音">🔊</button>`;
-}
 
 /* ---------- global state ---------- */
 let STATE = {
@@ -648,9 +1129,10 @@ let STATE = {
   tab: "home",
   toast: null,
   toastTimer: null,
-  browse: { group: "all" },
-  study: { group: "all", queue: [], idx: 0, flipped: false },
-  quiz: { group: "all", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
+  browse: { query: "", cat: "all", letter: "all" },
+  study: { mode: "cat", cat: "all", letter: "A", queue: [], idx: 0, flipped: false },
+  quiz: { mode: "cat", cat: "all", letter: "A", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
+  spell: { mode: "cat", cat: "all", letter: "A", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -670,7 +1152,7 @@ function renderToastOnly() {
   if (el) el.innerHTML = STATE.toast ? `<div class="toast">${escapeHtml(STATE.toast)}</div>` : "";
 }
 
-function updateSound(id, patch) {
+function updateWord(id, patch) {
   const cur = STATE.progress[id] || { level: 0, seen: 0, correct: 0, wrong: 0 };
   STATE.progress[id] = { ...cur, ...patch };
   saveProgress();
@@ -703,20 +1185,20 @@ function checkBadges() {
 }
 
 function computeStats() {
-  const byGroup = {};
-  for (let g = 1; g <= 7; g++) byGroup[g] = { total: 0, mastered: 0, weighted: 0, studied: 0 };
+  const byCat = {};
+  CATEGORIES.forEach((c) => (byCat[c.key] = { total: 0, mastered: 0, weighted: 0, studied: 0 }));
   let masteredCount = 0, studiedCount = 0, weightedSum = 0;
-  PHONICS.forEach((p) => {
-    const lv = (STATE.progress[p.id] || {}).level || 0;
-    byGroup[p.group].total++;
-    byGroup[p.group].weighted += lv;
-    if (lv >= 4) { masteredCount++; byGroup[p.group].mastered++; }
-    if (lv > 0) { studiedCount++; byGroup[p.group].studied++; }
+  WORDS.forEach((w) => {
+    const lv = (STATE.progress[w.id] || {}).level || 0;
+    byCat[w.cat].total++;
+    byCat[w.cat].weighted += lv;
+    if (lv >= 4) { masteredCount++; byCat[w.cat].mastered++; }
+    if (lv > 0) { studiedCount++; byCat[w.cat].studied++; }
     weightedSum += lv;
   });
   return {
-    total: PHONICS.length, masteredCount, masteredPct: PHONICS.length ? masteredCount / PHONICS.length : 0,
-    studiedCount, avgLevel: PHONICS.length ? weightedSum / PHONICS.length : 0, byGroup,
+    total: WORDS.length, masteredCount, masteredPct: WORDS.length ? masteredCount / WORDS.length : 0,
+    studiedCount, avgLevel: WORDS.length ? weightedSum / WORDS.length : 0, byCat,
   };
 }
 
@@ -726,10 +1208,11 @@ function setTab(tab) { STATE.tab = tab; render(); }
    render: header + tabbar
    ============================================================ */
 const TITLES = {
-  home: ["發音護照", "追蹤你的自然發音學習進度"],
-  browse: ["音標瀏覽", "42 個自然發音一覽"],
+  home: ["單字護照", "追蹤你的 Flyers 學習進度"],
+  browse: ["單字瀏覽", "搜尋、篩選、標記熟悉度"],
   study: ["學習卡", "翻卡複習並自評熟悉度"],
-  quiz: ["小測驗", "聽發音選出正確字母組合"],
+  spell: ["拼字", "聽發音，拼出正確單字"],
+  quiz: ["小測驗", "選出正確意思，累積分數"],
 };
 function headerHtml() {
   const [title, sub] = TITLES[STATE.tab];
@@ -737,9 +1220,9 @@ function headerHtml() {
     <div class="appSwitchGroup">
       <a class="appSwitch" href="index.html">📘 Movers</a>
       <a class="appSwitch" href="starters-vocab.html">🐣 Starters</a>
-      <a class="appSwitch" href="flyers-vocab.html">🚀 Flyers</a>
+      <a class="appSwitch" href="phonics.html">🔤 自然發音</a>
     </div>
-    <div class="htag">自然發音 · PHONICS</div>
+    <div class="htag">FLYERS · A2</div>
     <div class="htitle">${title}</div>
     <div class="hsub">${sub}</div>
   </div>`;
@@ -747,8 +1230,9 @@ function headerHtml() {
 function tabBarHtml() {
   const items = [
     { key: "home", label: "首頁", emoji: "🏡" },
-    { key: "browse", label: "音標表", emoji: "📖" },
+    { key: "browse", label: "單字表", emoji: "📖" },
     { key: "study", label: "學習卡", emoji: "🃏" },
+    { key: "spell", label: "拼字", emoji: "✏️" },
     { key: "quiz", label: "測驗", emoji: "🎯" },
   ];
   return `<div class="tabbar">${items.map((it) => {
@@ -769,10 +1253,10 @@ function catChipHtml(active, label, emoji, color, onclick) {
    ============================================================ */
 function mascotMessage() {
   const remaining = DAILY_GOAL - STATE.daily.todayCount;
-  if (STATE.daily.todayCount === 0) return "嗨！我是貓頭鷹老師 Ollie🦉，今天也一起練自然發音吧！";
-  if (remaining > 0) return `再練 ${remaining} 個發音，今天就能打卡囉，加油！`;
+  if (STATE.daily.todayCount === 0) return "嗨！我是貓頭鷹老師 Ollie🦉，今天也一起學單字吧！";
+  if (remaining > 0) return `再學 ${remaining} 個字，今天就能打卡囉，加油！`;
   if (STATE.daily.streak > 0 && STATE.daily.streak % 7 === 0) return `太厲害了！已經連續 ${STATE.daily.streak} 天沒有間斷！`;
-  return "今天的目標已經達成了！明天再來挑戰更多發音吧 🎉";
+  return "今天的目標已經達成了！明天再來挑戰更多單字吧 🎉";
 }
 function testVoice(uri) {
   try {
@@ -868,7 +1352,7 @@ function listCompletionHtml(stats) {
   const studiedPct = total ? stats.studiedCount / total : 0;
   const masteredPct = total ? stats.masteredCount / total : 0;
   return `<div class="dailyCard">
-    <div style="font-weight:800;font-size:13.5px;margin-bottom:10px;">📚 42 音完成度</div>
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:10px;">📚 單字表完成度（共 ${total} 字）</div>
     <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#8592A6;margin-bottom:4px;">
       <span>已學習</span><span>${stats.studiedCount}/${total}（${Math.round(studiedPct*100)}%）</span>
     </div>
@@ -881,9 +1365,9 @@ function listCompletionHtml(stats) {
 }
 function renderHome() {
   const stats = computeStats();
-  const sod = getSoundOfDay();
-  const sodLv = (STATE.progress[sod.id] || {}).level || 0;
-  const gc = GROUP_COLORS[sod.group];
+  const wod = getWordOfDay();
+  const wodLv = (STATE.progress[wod.id] || {}).level || 0;
+  const wc = CAT_MAP[wod.cat];
   const earned = BADGES.filter((b) => STATE.daily.badges.includes(b.id));
   const next = BADGES.find((b) => !STATE.daily.badges.includes(b.id));
   const pct = Math.min(1, STATE.daily.todayCount / DAILY_GOAL);
@@ -909,16 +1393,16 @@ function renderHome() {
 
     ${weekHistoryHtml()}
 
-    <div class="wodCard" style="background:linear-gradient(135deg, ${gc}, ${gc}CC);">
-      <div class="wodLabel">⭐ 今日發音 · 第 ${sod.group} 組</div>
+    <div class="wodCard" style="background:linear-gradient(135deg, ${wc.color}, ${wc.color}CC);">
+      <div class="wodLabel">⭐ 今日單字 · ${wc.emoji} ${wc.label}</div>
       <div class="wodRow">
         <div style="min-width:0;">
-          <div class="wodEn">${sod.grapheme}</div>
-          <div class="wodZh">範例：${sod.words.join(" · ")}</div>
+          <div class="wodEn">${wod.en}</div>
+          <div class="wodZh">${wod.pos} · ${wod.zh}</div>
         </div>
-        ${speakSoundBtnHtml(sod.id, 46, "#fff", "rgba(255,255,255,.28)")}
+        ${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}
       </div>
-      <div class="wodFooter">目前熟悉度：${levelInfo(sodLv).emoji} ${levelInfo(sodLv).label}</div>
+      <div class="wodFooter">目前熟悉度：${levelInfo(wodLv).emoji} ${levelInfo(wodLv).label}</div>
     </div>
 
     <div class="ctaRow">
@@ -954,16 +1438,15 @@ function renderHome() {
       ${earned.length === 0 && !next ? `<div style="font-size:12px;color:#8592A6;">持續練習來收集貼紙吧！</div>` : ""}
     </div>
 
-    <div class="sectionTitle">依組別進度</div>
-    ${[1,2,3,4,5,6,7].map((g) => {
-      const cs = stats.byGroup[g];
+    <div class="sectionTitle">依主題進度</div>
+    ${CATEGORIES.map((c) => {
+      const cs = stats.byCat[c.key];
       const p = cs.total ? cs.weighted / (cs.total * 4) : 0;
-      const color = GROUP_COLORS[g];
       return `<div class="catRow">
-        <div class="catIcon" style="background:${color}22;">${g}</div>
+        <div class="catIcon" style="background:${c.color}22;">${c.emoji}</div>
         <div style="flex:1;">
-          <div class="catTop"><span style="font-weight:800;font-size:13.5px;">第 ${g} 組</span><span style="font-size:11.5px;color:#8592A6;font-weight:700;">${cs.mastered}/${cs.total}</span></div>
-          <div class="barTrack"><div class="barFill" style="width:${Math.round(p*100)}%;background:${color};"></div></div>
+          <div class="catTop"><span style="font-weight:800;font-size:13.5px;">${c.label}</span><span style="font-size:11.5px;color:#8592A6;font-weight:700;">${cs.mastered}/${cs.total}</span></div>
+          <div class="barTrack"><div class="barFill" style="width:${Math.round(p*100)}%;background:${c.color};"></div></div>
         </div>
       </div>`;
     }).join("")}
@@ -974,46 +1457,55 @@ function renderHome() {
    BROWSE
    ============================================================ */
 function browseFiltered() {
-  return poolForGroup(STATE.browse.group);
+  const q = STATE.browse.query.trim().toLowerCase();
+  return WORDS.filter((w) => {
+    if (STATE.browse.cat !== "all" && w.cat !== STATE.browse.cat) return false;
+    if (STATE.browse.letter !== "all" && startingLetter(w) !== STATE.browse.letter) return false;
+    if (!q) return true;
+    return w.en.toLowerCase().includes(q) || w.zh.includes(q);
+  }).sort((a, b) => canonicalWord(a.en).toLowerCase().localeCompare(canonicalWord(b.en).toLowerCase()));
 }
 function renderBrowse() {
   return `<div class="pad">
-    <div style="font-size:11.5px;font-weight:800;color:#8592A6;margin:2px 2px 6px;">依組別</div>
+    <input id="searchInput" value="${escapeHtml(STATE.browse.query)}" oninput="onSearchInput(this.value)" placeholder="搜尋英文或中文…" class="search"/>
+    <div style="font-size:11.5px;font-weight:800;color:#8592A6;margin:2px 2px 6px;">依分類</div>
     <div class="chipRow">
-      ${groupChipHtml(STATE.browse.group === "all", "all", `onBrowseGroup('all')`)}
-      ${[1,2,3,4,5,6,7].map((g) => groupChipHtml(STATE.browse.group === g || STATE.browse.group === String(g), g, `onBrowseGroup(${g})`)).join("")}
+      ${catChipHtml(STATE.browse.cat === "all", "全部", "🔍", "#233047", `onBrowseCat('all')`)}
+      ${CATEGORIES.map((c) => catChipHtml(STATE.browse.cat === c.key, c.label, c.emoji, c.color, `onBrowseCat('${c.key}')`)).join("")}
+    </div>
+    <div style="font-size:11.5px;font-weight:800;color:#8592A6;margin:10px 2px 6px;">依字母開頭</div>
+    <div class="chipRow">
+      ${letterChipHtml(STATE.browse.letter === "all", "全部", `onBrowseLetter('all')`)}
+      ${LETTERS.map((l) => letterChipHtml(STATE.browse.letter === l, l, `onBrowseLetter('${l}')`)).join("")}
     </div>
     <div id="browseList"></div>
   </div>`;
 }
 function browseListHtml() {
   const filtered = browseFiltered();
-  let html = `<div style="font-size:12px;color:#8592A6;font-weight:700;margin:12px 2px;">共 ${filtered.length} 個發音</div>`;
+  let html = `<div style="font-size:12px;color:#8592A6;font-weight:700;margin:12px 2px;">共 ${filtered.length} 個單字</div>`;
   if (filtered.length === 0) {
-    html += `<div style="text-align:center;color:#8592A6;padding:30px 0;font-size:14px;">找不到符合的發音</div>`;
+    html += `<div style="text-align:center;color:#8592A6;padding:30px 0;font-size:14px;">找不到符合的單字</div>`;
     return html;
   }
-  html += filtered.map((p) => {
-    const lv = (STATE.progress[p.id] || {}).level || 0;
+  html += filtered.map((w) => {
+    const lv = (STATE.progress[w.id] || {}).level || 0;
     const li = levelInfo(lv);
-    const color = GROUP_COLORS[p.group];
+    const c = CAT_MAP[w.cat];
     return `<div class="rowCard">
-      <div class="rowHead" onclick="toggleSoundId('${p.id}')">
-        <div class="rowDot" style="background:${color};"></div>
+      <div class="rowHead" onclick="toggleWordId('${w.id}')">
+        <div class="rowDot" style="background:${c.color};"></div>
         <div style="flex:1;text-align:left;min-width:0;">
-          <div style="font-weight:800;font-size:15px;">${p.grapheme}</div>
-          <div style="font-size:12px;color:#8592A6;">第 ${p.group} 組 · ${p.words.join(" / ")}</div>
+          <div style="font-weight:800;font-size:15px;">${w.en}</div>
+          <div style="font-size:12px;color:#8592A6;">${w.pos} · ${w.zh}</div>
         </div>
-        ${speakSoundBtnHtml(p.id, 30)}
+        ${speakBtnHtml(w.en, 30)}
         <div style="font-size:18px;">${li.emoji}</div>
       </div>
-      <div id="rowBody-${p.id}" class="rowBody" style="display:none;">
-        <div style="display:flex;gap:8px;margin-bottom:10px;">
-          ${p.words.map((w) => `<div style="display:flex;align-items:center;gap:4px;background:#F3F5FA;border-radius:10px;padding:5px 9px;font-size:12px;font-weight:700;">${w}${speakBtnHtml(w, 22)}</div>`).join("")}
-        </div>
+      <div id="rowBody-${w.id}" class="rowBody" style="display:none;">
         <div style="font-size:12px;font-weight:700;color:#8592A6;margin-bottom:6px;">設定熟悉度</div>
         <div class="levelBtnRow">
-          ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="levelBtn" style="background:${lv===l.level?l.color:"#F3F5FA"};color:${lv===l.level?"#fff":"#4A5568"};" onclick="onRateSound('${p.id}', ${l.level})">${l.emoji} ${l.label}</button>`).join("")}
+          ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="levelBtn" style="background:${lv===l.level?l.color:"#F3F5FA"};color:${lv===l.level?"#fff":"#4A5568"};" onclick="onRateWord('${w.id}', ${l.level})">${l.emoji} ${l.label}</button>`).join("")}
         </div>
       </div>
     </div>`;
@@ -1024,12 +1516,20 @@ function updateBrowseList() {
   const el = document.getElementById("browseList");
   if (el) el.innerHTML = browseListHtml();
 }
-function onBrowseGroup(group) {
-  STATE.browse.group = group;
+function onSearchInput(val) {
+  STATE.browse.query = val;
+  updateBrowseList();
+}
+function onBrowseCat(cat) {
+  STATE.browse.cat = cat;
+  render();
+}
+function onBrowseLetter(letter) {
+  STATE.browse.letter = letter;
   render();
 }
 let openRowId = null;
-function toggleSoundId(id) {
+function toggleWordId(id) {
   const wasOpen = openRowId === id;
   if (openRowId) {
     const prevEl = document.getElementById("rowBody-" + openRowId);
@@ -1041,11 +1541,11 @@ function toggleSoundId(id) {
     if (el) el.style.display = "block";
   }
 }
-function onRateSound(id, level) {
-  const p = PHONICS.find((x) => x.id === id);
-  updateSound(id, { level, seen: ((STATE.progress[id] || {}).seen || 0) + 1 });
+function onRateWord(id, level) {
+  const w = WORDS.find((x) => x.id === id);
+  updateWord(id, { level, seen: ((STATE.progress[id] || {}).seen || 0) + 1 });
   recordActivity(1);
-  showToast(`${p.grapheme} → ${levelInfo(level).label}`);
+  showToast(`${w.en} → ${levelInfo(level).label}`);
   updateBrowseList();
   openRowId = id;
   const el = document.getElementById("rowBody-" + id);
@@ -1078,14 +1578,15 @@ function buildWeightedQueue(pool, target) {
 /* ============================================================
    STUDY (FLASHCARDS)
    ============================================================ */
-function buildStudyQueue(group) {
-  return buildWeightedQueue(poolForGroup(group), 20);
+function buildStudyQueue(sel) {
+  return buildWeightedQueue(poolForSelection(sel), 20);
 }
-if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.study.group);
+if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.study);
 
-function restartStudy(group) {
-  STATE.study.group = group;
-  STATE.study.queue = buildStudyQueue(group);
+function restartStudy(mode, value) {
+  STATE.study.mode = mode;
+  if (mode === "letter") STATE.study.letter = value; else STATE.study.cat = value;
+  STATE.study.queue = buildStudyQueue(STATE.study);
   STATE.study.idx = 0;
   STATE.study.flipped = false;
   render();
@@ -1100,8 +1601,8 @@ function skipStudyCard() {
   render();
 }
 function rateStudyCard(level) {
-  const p = STATE.study.queue[STATE.study.idx];
-  updateSound(p.id, { level, seen: ((STATE.progress[p.id] || {}).seen || 0) + 1 });
+  const word = STATE.study.queue[STATE.study.idx];
+  updateWord(word.id, { level, seen: ((STATE.progress[word.id] || {}).seen || 0) + 1 });
   recordActivity(1);
   STATE.study.flipped = false;
   STATE.study.idx++;
@@ -1111,46 +1612,52 @@ function renderStudy() {
   const s = STATE.study;
   const done = s.idx >= s.queue.length;
   let inner = `<div class="pad">
+    ${modeToggleHtml("study", s.mode)}
     <div class="chipRow">
-      ${groupChipHtml(s.group === "all", "all", `restartStudy('all')`)}
-      ${[1,2,3,4,5,6,7].map((g) => groupChipHtml(s.group === g || s.group === String(g), g, `restartStudy(${g})`)).join("")}
+      ${s.mode === "cat" ? `
+        ${catChipHtml(s.cat === "all", "全部", "🔀", "#233047", `restartStudy('cat','all')`)}
+        ${CATEGORIES.map((c) => catChipHtml(s.cat === c.key, c.label, c.emoji, c.color, `restartStudy('cat','${c.key}')`)).join("")}
+      ` : `
+        ${LETTERS.map((l) => letterChipHtml(s.letter === l, l, `restartStudy('letter','${l}')`)).join("")}
+      `}
     </div>`;
 
   if (!done) {
-    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 新發音與待加強發音混合出題</div>`;
+    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 新單字與待加強單字混合出題</div>`;
   }
 
   if (done) {
     inner += `<div class="emptyWrap">
       <div style="font-size:44px;margin-bottom:8px;">🎉</div>
-      <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組發音複習完成！</div>
+      <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組單字複習完成！</div>
       <div style="font-size:13px;color:#8592A6;margin-bottom:18px;">再抽一組卡片繼續加強熟悉度</div>
-      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.group}')">🔄 再來一組</button>
+      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.mode}','${s.mode === "letter" ? s.letter : s.cat}')">🔄 再來一組</button>
     </div>`;
   } else {
-    const p = s.queue[s.idx];
-    const color = GROUP_COLORS[p.group];
-    const lv = (STATE.progress[p.id] || {}).level || 0;
+    const word = s.queue[s.idx];
+    const c = CAT_MAP[word.cat];
+    const lv = (STATE.progress[word.id] || {}).level || 0;
     if (!s.flipped) {
       inner += `<div class="cardWrap">
-        <div class="flashcard" style="background:linear-gradient(150deg, ${color}, ${color}CC);" onclick="flipStudyCard()">
-          <div class="fcTab">第 ${p.group} 組</div>
-          <div class="fcEn" style="font-size:44px;">${p.grapheme}</div>
-          <div class="fcHint">點卡片查看範例字</div>
+        <div class="flashcard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);" onclick="flipStudyCard()">
+          <div class="fcTab">${c.emoji} ${c.label}</div>
+          <div class="fcPos">${word.pos}</div>
+          <div class="fcEn">${word.en}</div>
+          <div class="fcHint">點卡片查看意思</div>
         </div>
-        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakSoundBtnHtml(p.id, 44, "#fff", "rgba(255,255,255,.32)")}</div>
+        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 44, "#fff", "rgba(255,255,255,.32)")}</div>
       </div>`;
       inner += `<div style="text-align:center;margin-top:18px;"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>`;
     } else {
       inner += `<div class="cardWrap">
         <div class="flashcard back" onclick="flipStudyCard()">
-          <div class="fcTab" style="color:${color};background:${color}18;">第 ${p.group} 組</div>
-          <div class="fcEn" style="color:#233047;font-size:32px;">${p.grapheme}</div>
-          <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
-            ${p.words.map((w) => `<div style="display:flex;align-items:center;gap:4px;background:#F3F5FA;border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700;" onclick="event.stopPropagation();">${w}${speakBtnHtml(w, 22)}</div>`).join("")}
-          </div>
+          <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
+          <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
+          <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
+          <div class="fcZh">${word.zh}</div>
           <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
         </div>
+        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 40, c.color, "#fff")}</div>
       </div>`;
       inner += `<div class="rateRow">
         ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("")}
@@ -1164,66 +1671,37 @@ function renderStudy() {
 /* ============================================================
    QUIZ
    ============================================================ */
-// Reduces "c k" / "th (voiced)" / "oo (short)" etc. down to just the letters
-// to search for (so "c k" checks for either c or k, "th (voiced)" checks for "th").
-function graphemeLetters(g) {
-  return g.replace(/\s*\([^)]*\)/g, "").trim().split(/\s+/).filter(Boolean);
-}
-function soundAppearsInWord(sound, word) {
-  const w = word.toLowerCase();
-  return graphemeLetters(sound.grapheme).some((g) => w.includes(g.toLowerCase()));
-}
-function buildQuizQuestions(group) {
-  let pool = poolForGroup(group);
-  if (pool.length < 4) pool = PHONICS;
+function buildQuizQuestions(sel) {
+  let pool = poolForSelection(sel);
+  if (pool.length < 4) pool = WORDS;
   const chosen = buildWeightedQueue(pool, QUIZ_LEN);
-  return chosen.map((p) => {
-    const promptWord = p.words[Math.floor(Math.random() * p.words.length)];
-    // A prompt word often legitimately contains other taught sounds too
-    // (e.g. "sun" contains s, u, AND n) — offering one of those as a wrong
-    // option would make the question ambiguous, since it'd also technically
-    // be "in" the word. Exclude any distractor whose grapheme is spelled
-    // inside the prompt word at all.
-    const safePool = shuffle(pool.filter((x) => x.id !== p.id && !soundAppearsInWord(x, promptWord)));
-    let distractors = safePool.slice(0, 3);
-    if (distractors.length < 3) {
-      // this group's pool didn't have enough non-overlapping options —
-      // widen the search to the full 42-sound set, same rule applied
-      const used = new Set(distractors.map((d) => d.id));
-      const extra = shuffle(PHONICS.filter((x) => x.id !== p.id && !used.has(x.id) && !soundAppearsInWord(x, promptWord)));
-      distractors = distractors.concat(extra).slice(0, 3);
-    }
-    const options = shuffle([p, ...distractors]);
-    return { sound: p, promptWord, options };
+  return chosen.map((w) => {
+    const distractors = shuffle(pool.filter((x) => x.id !== w.id)).slice(0, 3);
+    const options = shuffle([w, ...distractors]);
+    return { word: w, options };
   });
 }
-function startQuiz(group) {
-  STATE.quiz = { group, phase: "playing", questions: buildQuizQuestions(group), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
+function startQuiz(mode, value) {
+  const sel = { mode, cat: mode === "cat" ? value : "all", letter: mode === "letter" ? value : "A" };
+  STATE.quiz = { ...sel, phase: "playing", questions: buildQuizQuestions(sel), qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 };
   render();
-  const q = STATE.quiz.questions[0];
-  if (q) setTimeout(() => pronounce(q.promptWord), 350);
-}
-function replayQuizWord() {
-  const qz = STATE.quiz;
-  const q = qz.questions[qz.qi];
-  if (q) pronounce(q.promptWord);
 }
 function chooseQuizOption(optId) {
   const qz = STATE.quiz;
   if (qz.picked) return;
   const q = qz.questions[qz.qi];
-  const isCorrect = optId === q.sound.id;
+  const isCorrect = optId === q.word.id;
   qz.picked = optId;
-  const curLv = (STATE.progress[q.sound.id] || {}).level || 0;
+  const curLv = (STATE.progress[q.word.id] || {}).level || 0;
   if (isCorrect) {
     const bonus = Math.min(qz.streak * 2, 10);
     qz.score += 10 + bonus;
     qz.streak += 1;
     qz.correctCount += 1;
-    updateSound(q.sound.id, { level: Math.min(4, curLv + 1), correct: ((STATE.progress[q.sound.id] || {}).correct || 0) + 1 });
+    updateWord(q.word.id, { level: Math.min(4, curLv + 1), correct: ((STATE.progress[q.word.id] || {}).correct || 0) + 1 });
   } else {
     qz.streak = 0;
-    updateSound(q.sound.id, { level: Math.max(1, curLv - 1), wrong: ((STATE.progress[q.sound.id] || {}).wrong || 0) + 1 });
+    updateWord(q.word.id, { level: Math.max(1, curLv - 1), wrong: ((STATE.progress[q.word.id] || {}).wrong || 0) + 1 });
   }
   recordActivity(1);
   render();
@@ -1234,8 +1712,6 @@ function chooseQuizOption(optId) {
     } else {
       qz.qi += 1;
       qz.picked = null;
-      const nextQ = qz.questions[qz.qi];
-      if (nextQ) setTimeout(() => pronounce(nextQ.promptWord), 300);
     }
     render();
   }, 900);
@@ -1246,14 +1722,19 @@ function renderQuiz() {
     return `<div class="pad">
       <div class="introCard">
         <div style="font-size:38px;">🎯</div>
-        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，選出正確的自然發音</div>
-        <div style="font-size:13px;color:#8592A6;">會先唸出一個範例字，選出這個字裡包含的自然發音。每題答對 +10 分，連續答對有額外加分。</div>
+        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">選出正確的中文意思</div>
+        <div style="font-size:13px;color:#8592A6;">每題答對 +10 分，連續答對有額外加分。答錯會降低該單字熟悉度，答對則提升熟悉度。</div>
         <div style="font-size:12px;color:#8592A6;margin-top:10px;font-weight:700;">歷史最高分：${STATE.hiScore.best || 0}</div>
       </div>
       <div class="sectionTitle">選擇範圍</div>
+      ${modeToggleHtml("quiz", qz.mode)}
       <div class="chipRow">
-        ${groupChipHtml(false, "all", `startQuiz('all')`)}
-        ${[1,2,3,4,5,6,7].map((g) => groupChipHtml(false, g, `startQuiz(${g})`)).join("")}
+        ${qz.mode === "cat" ? `
+          ${catChipHtml(false, "全部", "🔀", "#233047", `startQuiz('cat','all')`)}
+          ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startQuiz('cat','${c.key}')`)).join("")}
+        ` : `
+          ${LETTERS.map((l) => letterChipHtml(false, l, `startQuiz('letter','${l}')`)).join("")}
+        `}
       </div>
     </div>`;
   }
@@ -1267,44 +1748,251 @@ function renderQuiz() {
         ${qz.score >= (STATE.hiScore.best || 0) && qz.score > 0 ? `<div style="margin-top:8px;color:#EF476F;font-weight:800;font-size:13px;">🎉 締造新紀錄！</div>` : ""}
       </div>
       <div class="ctaRow">
-        <button class="cta" style="background:#4361EE;" onclick="startQuiz('${qz.group}')">🔁 再測一次</button>
+        <button class="cta" style="background:#4361EE;" onclick="startQuiz('${qz.mode}','${qz.mode === "letter" ? qz.letter : qz.cat}')">🔁 再測一次</button>
         <button class="cta" style="background:#8592A6;" onclick="STATE.quiz.phase='setup';render();">選擇其他範圍</button>
       </div>
     </div>`;
   }
   const q = qz.questions[qz.qi];
-  const color = GROUP_COLORS[q.sound.group];
+  const c = CAT_MAP[q.word.cat];
   return `<div class="pad">
     <div class="qzTopRow">
       <div class="qzPill">題目 ${qz.qi+1}/${qz.questions.length}</div>
       <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${qz.streak}</div>
       <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${qz.score} 分</div>
     </div>
-    <div class="qCard" style="background:linear-gradient(150deg, ${color}, ${color}CC);">
-      <div style="font-size:11px;font-weight:800;opacity:.85;">🔊 聽發音</div>
-      <div style="margin-top:8px;">
-        <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:30px;" onclick="replayQuizWord()" aria-label="重播發音">🔊</button>
+    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+      <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${q.word.pos}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;">
+        <div style="font-weight:800;font-size:30px;">${q.word.en}</div>
+        ${speakBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.28)")}
       </div>
-      <div style="font-size:12px;opacity:.85;margin-top:10px;">這個字裡包含哪一個自然發音？</div>
+      <div style="font-size:12px;opacity:.85;margin-top:6px;">這個字的中文意思是？</div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:14px;">
+    <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;">
       ${q.options.map((opt) => {
         let cls = "";
         if (qz.picked) {
-          if (opt.id === q.sound.id) cls = "correct";
+          if (opt.id === q.word.id) cls = "correct";
           else if (qz.picked === opt.id) cls = "wrong";
         }
-        return `<button class="qOption ${cls}" style="flex:1;min-width:40%;text-align:center;font-size:22px;font-weight:800;" ${qz.picked ? "disabled" : ""} onclick="chooseQuizOption('${opt.id}')">${opt.grapheme}</button>`;
+        return `<button class="qOption ${cls}" ${qz.picked ? "disabled" : ""} onclick="chooseQuizOption('${opt.id}')">${opt.zh}</button>`;
       }).join("")}
     </div>
   </div>`;
 }
 
+/* ============================================================
+   SPELL (listen and type the word)
+   ============================================================ */
+const SPELL_LEN = 10;
+function buildSpellQueue(sel) {
+  return buildWeightedQueue(poolForSelection(sel), SPELL_LEN);
+}
+function startSpell(mode, value) {
+  const sel = { mode, cat: mode === "cat" ? value : "all", letter: mode === "letter" ? value : "A" };
+  STATE.spell = { ...sel, phase: "playing", queue: buildSpellQueue(sel), idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 };
+  render();
+  const w = STATE.spell.queue[0];
+  if (w) setTimeout(() => pronounce(w.en), 350);
+}
+function onSpellInput(val) {
+  STATE.spell.input = val;
+}
+function onSpellKeydown(e) {
+  if (e.key === "Enter") submitSpell();
+}
+function replaySpellWord() {
+  const w = STATE.spell.queue[STATE.spell.idx];
+  if (w) pronounce(w.en);
+}
+function normalizeSpelling(s) {
+  return s
+    .normalize("NFKC")
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+function pickRandomHintPositions(answer, alreadyRevealed, count) {
+  const candidates = [];
+  for (let i = 0; i < answer.length; i++) {
+    if (/[a-zA-Z]/.test(answer[i]) && !alreadyRevealed.includes(i)) candidates.push(i);
+  }
+  const picked = shuffle(candidates).slice(0, count);
+  return picked;
+}
+function hintedBlanksFromPositions(answer, revealedPositions) {
+  let out = "";
+  for (let i = 0; i < answer.length; i++) {
+    const ch = answer[i];
+    if (/[a-zA-Z]/.test(ch)) {
+      out += revealedPositions.includes(i) ? ch : "＿";
+    } else {
+      out += ch;
+    }
+  }
+  return out.split("").join(" ");
+}
+function resolveSpell(isCorrect) {
+  const sp = STATE.spell;
+  const w = sp.queue[sp.idx];
+  sp.feedback = isCorrect ? "correct" : "wrong";
+  const curLv = (STATE.progress[w.id] || {}).level || 0;
+  if (isCorrect) {
+    const bonus = Math.min(sp.streak * 2, 10);
+    sp.score += 10 + bonus;
+    sp.streak += 1;
+    sp.correctCount += 1;
+    updateWord(w.id, { level: Math.min(4, curLv + 1), correct: ((STATE.progress[w.id] || {}).correct || 0) + 1 });
+  } else {
+    sp.streak = 0;
+    updateWord(w.id, { level: Math.max(1, curLv - 1), wrong: ((STATE.progress[w.id] || {}).wrong || 0) + 1 });
+  }
+  recordActivity(1);
+  render();
+  setTimeout(() => {
+    if (sp.idx + 1 >= sp.queue.length) {
+      sp.phase = "done";
+    } else {
+      sp.idx += 1;
+      sp.input = "";
+      sp.feedback = null;
+      sp.hintLevel = 0;
+      sp.revealedPositions = [];
+      const nextW = sp.queue[sp.idx];
+      if (nextW) setTimeout(() => pronounce(nextW.en), 300);
+    }
+    render();
+    if (sp.phase === "playing") {
+      const el = document.getElementById("spellInput");
+      if (el) el.focus();
+    }
+  }, isCorrect ? 1100 : 2000);
+}
+function submitSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return; // already answered, waiting to advance
+  const w = sp.queue[sp.idx];
+  const answer = normalizeSpelling(canonicalWord(w.en));
+  const given = normalizeSpelling(sp.input || "");
+  const isCorrect = given.length > 0 && given === answer;
+  resolveSpell(isCorrect);
+}
+function hintSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return;
+  if (sp.hintLevel >= 2) {
+    // asked for a hint a 3rd time — treat as "I don't know" and mark it wrong
+    resolveSpell(false);
+    return;
+  }
+  const w = sp.queue[sp.idx];
+  const answer = canonicalWord(w.en);
+  const count = 1 + Math.floor(Math.random() * 2); // reveal 1 or 2 random letters
+  const newPositions = pickRandomHintPositions(answer, sp.revealedPositions || [], count);
+  sp.revealedPositions = (sp.revealedPositions || []).concat(newPositions);
+  sp.hintLevel += 1;
+  render();
+  const el = document.getElementById("spellInput");
+  if (el) el.focus();
+}
+function skipSpell() {
+  const sp = STATE.spell;
+  if (sp.feedback) return;
+  sp.streak = 0;
+  if (sp.idx + 1 >= sp.queue.length) {
+    sp.phase = "done";
+  } else {
+    sp.idx += 1;
+    sp.input = "";
+    sp.hintLevel = 0;
+    sp.revealedPositions = [];
+    const nextW = sp.queue[sp.idx];
+    if (nextW) setTimeout(() => pronounce(nextW.en), 300);
+  }
+  render();
+}
+function renderSpell() {
+  const sp = STATE.spell;
+  if (sp.phase === "setup") {
+    return `<div class="pad">
+      <div class="introCard">
+        <div style="font-size:38px;">✏️</div>
+        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，拼出這個字</div>
+        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次，每次隨機透露 1~2 個字母；第三次按提示會直接視為不會，記為答錯。</div>
+      </div>
+      <div class="sectionTitle">選擇範圍</div>
+      ${modeToggleHtml("spell", sp.mode)}
+      <div class="chipRow">
+        ${sp.mode === "cat" ? `
+          ${catChipHtml(false, "全部", "🔀", "#233047", `startSpell('cat','all')`)}
+          ${CATEGORIES.map((c) => catChipHtml(false, c.label, c.emoji, c.color, `startSpell('cat','${c.key}')`)).join("")}
+        ` : `
+          ${LETTERS.map((l) => letterChipHtml(false, l, `startSpell('letter','${l}')`)).join("")}
+        `}
+      </div>
+    </div>`;
+  }
+  if (sp.phase === "done") {
+    const pct = Math.round((sp.correctCount / sp.queue.length) * 100);
+    return `<div class="pad" style="text-align:center;">
+      <div class="introCard">
+        <div style="font-size:44px;">${pct >= 80 ? "🏆" : pct >= 50 ? "👍" : "💪"}</div>
+        <div style="font-weight:800;font-size:22px;margin:8px 0 4px;">得分 ${sp.score}</div>
+        <div style="font-size:13px;color:#8592A6;">拼對 ${sp.correctCount} / ${sp.queue.length}（${pct}%）</div>
+      </div>
+      <div class="ctaRow">
+        <button class="cta" style="background:#4361EE;" onclick="startSpell('${sp.mode}','${sp.mode === "letter" ? sp.letter : sp.cat}')">🔁 再拼一次</button>
+        <button class="cta" style="background:#8592A6;" onclick="STATE.spell.phase='setup';render();">選擇其他範圍</button>
+      </div>
+    </div>`;
+  }
+  const w = sp.queue[sp.idx];
+  const c = CAT_MAP[w.cat];
+  const answer = canonicalWord(w.en);
+  const blanks = hintedBlanksFromPositions(answer, sp.revealedPositions || []);
+  const fb = sp.feedback;
+  return `<div class="pad">
+    <div class="qzTopRow">
+      <div class="qzPill">題目 ${sp.idx+1}/${sp.queue.length}</div>
+      <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${sp.streak}</div>
+      <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${sp.score} 分</div>
+    </div>
+    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+      <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${w.pos} · ${w.zh}</div>
+      <div style="margin-top:10px;">
+        <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:30px;" onclick="replaySpellWord()" aria-label="重播發音">🔊</button>
+      </div>
+      <div style="font-size:20px;letter-spacing:3px;margin-top:12px;font-weight:800;opacity:.85;">${fb ? answer : blanks}</div>
+      <div style="font-size:11px;opacity:.8;margin-top:4px;">點喇叭聽發音，再輸入拼法</div>
+    </div>
+
+    <input id="spellInput" autocapitalize="off" autocorrect="off" spellcheck="false"
+      value="${escapeHtml(sp.input)}"
+      oninput="onSpellInput(this.value)" onkeydown="onSpellKeydown(event)"
+      placeholder="輸入英文拼法…" class="search"
+      style="text-align:center;font-size:18px;font-weight:800;margin-top:16px;${fb === "correct" ? "border-color:#06D6A0;color:#177350;" : fb === "wrong" ? "border-color:#EF476F;color:#B3223F;" : ""}"
+      ${fb ? "disabled" : ""}/>
+
+    ${fb === "correct" ? `<div style="text-align:center;color:#06D6A0;font-weight:800;font-size:14px;margin-top:8px;">✅ 答對了！</div>` : ""}
+    ${fb === "wrong" ? `<div style="text-align:center;color:#EF476F;font-weight:800;font-size:14px;margin-top:8px;">❌ 正確答案是：${answer}</div>` : ""}
+
+    ${!fb ? `<div style="display:flex;gap:10px;margin-top:14px;">
+      <button class="cta" style="background:#4361EE;" onclick="submitSpell()">✓ 送出答案</button>
+      <button class="cta" style="background:#8592A6;flex:none;padding:13px 18px;" onclick="skipSpell()">跳過</button>
+    </div>
+    <div style="margin-top:10px;">
+      <button class="cta" style="background:#FFB703;width:100%;" onclick="hintSpell()">💡 提示${sp.hintLevel > 0 ? `（已用 ${sp.hintLevel}/2，再按一次視為不會）` : ""}</button>
+    </div>` : ""}
+  </div>`;
+}
 
 function bodyHtml() {
   if (STATE.tab === "home") return renderHome();
   if (STATE.tab === "browse") return renderBrowse();
   if (STATE.tab === "study") return renderStudy();
+  if (STATE.tab === "spell") return renderSpell();
   if (STATE.tab === "quiz") return renderQuiz();
   return "";
 }
