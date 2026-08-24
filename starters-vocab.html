@@ -28,7 +28,8 @@ input{font-family:inherit;}
   box-shadow:0 8px 24px rgba(67,97,238,.25);
   position:relative;
 }
-.appSwitch{position:absolute;top:20px;right:18px;background:rgba(255,255,255,.22);color:#fff;text-decoration:none;font-size:11px;font-weight:800;padding:6px 11px;border-radius:999px;white-space:nowrap;}
+.appSwitchGroup{position:absolute;top:16px;right:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.appSwitch{background:rgba(255,255,255,.22);color:#fff;text-decoration:none;font-size:10.5px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap;}
 .htag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;background:rgba(255,255,255,.22);padding:4px 10px;border-radius:999px;margin-bottom:8px;}
 .htitle{font-weight:800;font-size:24px;letter-spacing:.3px;}
 .hsub{font-size:13px;opacity:.9;margin-top:3px;font-weight:600;}
@@ -1209,7 +1210,10 @@ const TITLES = {
 function headerHtml() {
   const [title, sub] = TITLES[STATE.tab];
   return `<div class="header">
-    <a class="appSwitch" href="index.html">🦋 切換到 Movers</a>
+    <div class="appSwitchGroup">
+      <a class="appSwitch" href="index.html">🦋 Movers</a>
+      <a class="appSwitch" href="phonics.html">🔤 自然發音</a>
+    </div>
     <div class="htag">STARTERS · Pre-A1</div>
     <div class="htitle">${title}</div>
     <div class="hsub">${sub}</div>
