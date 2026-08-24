@@ -874,6 +874,13 @@ function speak(rawText, attempt, onSettle) {
   const settle = () => { if (settledAlready) return; settledAlready = true; if (onSettle) onSettle(); };
   try {
     if (!("speechSynthesis" in window)) { settle(); return; }
+    // Known WebKit quirk: the speech queue can get silently stuck in a
+    // "paused" state that has nothing to do with the OS-level voice engine
+    // (Notes/Speak Selection can work fine while this is stuck) and never
+    // clears itself. resume() is a safe no-op when nothing is paused, so
+    // calling it defensively before every attempt costs nothing but can
+    // unstick this exact failure mode.
+    try { window.speechSynthesis.resume(); } catch (e) {}
     const doSpeak = () => {
       try {
         const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
@@ -913,16 +920,12 @@ function speak(rawText, attempt, onSettle) {
           if (attempt < 2) {
             console.warn(`TTS no response for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
             try { window.speechSynthesis.cancel(); } catch (e) {}
+            try { window.speechSynthesis.resume(); } catch (e) {}
             setTimeout(() => speak(rawText, attempt + 1, onSettle), 100);
           } else {
-            console.warn(
-              "TTS never started for", JSON.stringify(rawText),
-              "after", attempt + 1, "attempts",
-              "| speaking:", window.speechSynthesis.speaking,
-              "| pending:", window.speechSynthesis.pending,
-              "| paused:", window.speechSynthesis.paused
-            );
-            showToast("⚠️ 系統語音無回應");
+            const diag = `speaking:${window.speechSynthesis.speaking}/pending:${window.speechSynthesis.pending}/paused:${window.speechSynthesis.paused}`;
+            console.warn("TTS never started for", JSON.stringify(rawText), "after", attempt + 1, "attempts |", diag);
+            showToast(`⚠️ 系統語音無回應（${diag}）`);
             settle();
           }
         }, 900);
