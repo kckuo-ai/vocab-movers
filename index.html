@@ -704,7 +704,8 @@ function speakTextFor(rawText) {
 }
 function speak(rawText, attempt, onSettle) {
   attempt = attempt || 0;
-  const settle = () => { if (onSettle) onSettle(); };
+  let settledAlready = false;
+  const settle = () => { if (settledAlready) return; settledAlready = true; if (onSettle) onSettle(); };
   try {
     if (!("speechSynthesis" in window)) { settle(); return; }
     const doSpeak = () => {
@@ -715,7 +716,21 @@ function speak(rawText, attempt, onSettle) {
         const voice = getSelectedVoice();
         if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
         let started = false;
-        utter.onstart = () => { started = true; settle(); };
+        let startedAt = 0;
+        utter.onstart = () => { started = true; startedAt = Date.now(); };
+        utter.onend = () => {
+          // Some engines report a full start→end cycle in a handful of
+          // milliseconds with no audio actually reaching the speaker — a
+          // "phantom" completion. No real spoken word finishes that fast,
+          // so treat it the same as never starting and retry automatically.
+          const duration = Date.now() - startedAt;
+          if (duration < 120 && attempt < 2) {
+            console.warn(`TTS phantom-completed (${duration}ms) for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
+            setTimeout(() => speak(rawText, attempt + 1, onSettle), 100);
+            return;
+          }
+          settle();
+        };
         utter.onerror = (ev) => {
           console.error("TTS utterance error for", JSON.stringify(rawText), ev.error);
           showToast(`❌ 系統語音錯誤：${ev.error || "未知"}`);
@@ -728,7 +743,7 @@ function speak(rawText, attempt, onSettle) {
         // — just automated instead of needing repeated manual taps), and
         // only surfaces a toast if it's still stuck after those retries.
         setTimeout(() => {
-          if (started) return;
+          if (started) return; // onend (with the phantom-completion check above) takes over from here
           if (attempt < 2) {
             console.warn(`TTS no response for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
             try { window.speechSynthesis.cancel(); } catch (e) {}
