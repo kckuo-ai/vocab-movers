@@ -1110,23 +1110,97 @@ function commonsMp3Url(filename) {
   const h = md5Hex(name);
   return `https://upload.wikimedia.org/wikipedia/commons/transcoded/${h[0]}/${h[0]}${h[1]}/${encodeURIComponent(name)}/${encodeURIComponent(name)}.mp3`;
 }
-function commonsAudioCandidates(word) {
-  const w = word.trim();
-  // Only plain single words attempt a real recording — phrases (spaces) and
-  // hyphenated compounds (grown-up, T-shirt...) essentially never have an
-  // exact-match file on Commons, so skipping them saves the multi-candidate
-  // network round trip entirely and goes straight to the always-available
-  // device voice.
-  if (!/^[A-Za-z']+$/.test(w)) return [];
-  const lower = w.toLowerCase();
-  if (FORCE_DEVICE_VOICE_WORDS.has(lower)) return [];
+/* ---------- recording index ----------
+   Which words actually have a Commons recording is looked up once, in the
+   background, through the Commons API (50 file names per request, CORS-enabled
+   with origin=*), and remembered in this browser. With that known:
+   - a word WITHOUT a recording goes straight to the system voice, inside the
+     tap — no failed audio loads first (those 5 failed loads were followed by a
+     system voice that "ran" but made no sound on iPhone, and cost ~2 s);
+   - a word WITH a recording plays the right file on the first try.
+   Words not looked up yet keep the old try-each-name behaviour. */
+const REC_KEY = "yle-rec-index-v1"; // shared by all four apps (same site)
+let REC_INDEX = (() => { try { return JSON.parse(localStorage.getItem(REC_KEY) || "{}") || {}; } catch (e) { return {}; } })();
+function saveRecIndex() { try { localStorage.setItem(REC_KEY, JSON.stringify(REC_INDEX)); } catch (e) {} }
+function candidateNames(lower) {
   const cap = lower.charAt(0).toUpperCase() + lower.slice(1);
-  // Common Commons naming variants, most likely first. en-us preferred for
-  // this app's audience, then en-gb as a backup.
-  // order follows the 🇬🇧/🇺🇸 accent toggle; the other accent is the backup
-  const uk = [`En-uk-${lower}.ogg`, `En-gb-${lower}.ogg`];
-  const us = [`En-us-${lower}.ogg`, `En-us-${cap}.ogg`];
-  return [...(ACCENT === "uk" ? uk.concat(us) : us.concat(uk)), `En-${lower}.ogg`].map(commonsMp3Url);
+  return [["uk", `En-uk-${lower}.ogg`], ["uk", `En-gb-${lower}.ogg`], ["us", `En-us-${lower}.ogg`], ["us", `En-us-${cap}.ogg`], ["gen", `En-${lower}.ogg`]];
+}
+// Only plain single words attempt a real recording — phrases and hyphenated
+// compounds essentially never have an exact-match file, so they go straight
+// to the system voice.
+function recordableWord(word) {
+  const w = String(word).trim();
+  if (!/^[A-Za-z']+$/.test(w)) return null;
+  const lower = w.toLowerCase();
+  if (FORCE_DEVICE_VOICE_WORDS.has(lower)) return null;
+  return lower;
+}
+function orderByAccent(pairs) {
+  // the 🇬🇧/🇺🇸 toggle decides which accent is tried first; the other is the backup
+  const pri = ACCENT === "uk" ? { uk: 0, us: 1, gen: 2 } : { us: 0, uk: 1, gen: 2 };
+  return pairs.map((p, i) => [p, i]).sort((a, b) => (pri[a[0][0]] - pri[b[0][0]]) || (a[1] - b[1])).map((x) => x[0]);
+}
+function recIndexStatus(word) {
+  const lower = recordableWord(word);
+  if (!lower) return "不適用";
+  const k = REC_INDEX[lower];
+  return !Array.isArray(k) ? "未查" : k.length ? `有錄音(${k.map((p) => p[1]).join(",")})` : "沒有錄音";
+}
+function commonsAudioCandidates(word) {
+  const lower = recordableWord(word);
+  if (!lower) return [];
+  const known = REC_INDEX[lower];
+  const pairs = Array.isArray(known) ? known : candidateNames(lower);
+  return orderByAccent(pairs).map((p) => commonsMp3Url(p[1]));
+}
+let recIndexRunning = false;
+async function buildRecordingIndex() {
+  if (recIndexRunning || !("fetch" in window)) return;
+  recIndexRunning = true;
+  try {
+    const raw = (typeof WORDS !== "undefined" && WORDS.length) ? WORDS.map((w) => w.en) : PHONICS.flatMap((p) => p.words);
+    const todo = [...new Set(raw.map((r) => recordableWord(canonicalWord(r))).filter(Boolean))].filter((w) => !Array.isArray(REC_INDEX[w]));
+    if (todo.length) dbg(`錄音索引：背景查詢 ${todo.length} 個字…`);
+    for (let i = 0; i < todo.length; i += 10) {
+      const batch = todo.slice(i, i + 10);
+      const titleInfo = {};
+      batch.forEach((w) => candidateNames(w).forEach((p) => { titleInfo["File:" + p[1]] = { w, kind: p[0] }; }));
+      const url = "https://commons.wikimedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=1&origin=*&titles="
+        + encodeURIComponent(Object.keys(titleInfo).join("|"));
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const q = (await res.json()).query || {};
+      const fromNorm = {};
+      (q.normalized || []).forEach((n) => { fromNorm[n.to] = n.from; });
+      const redirFrom = {};
+      (q.redirects || []).forEach((r) => { (redirFrom[r.to] = redirFrom[r.to] || []).push(r.from); });
+      const found = {};
+      batch.forEach((w) => { found[w] = []; });
+      (q.pages || []).forEach((pg) => {
+        if (pg.missing || pg.invalid || !pg.title) return;
+        const file = pg.title.replace(/^File:/, "");
+        [pg.title].concat(redirFrom[pg.title] || []).forEach((t) => {
+          const info = titleInfo[fromNorm[t] || t];
+          if (info && !found[info.w].some((x) => x[1] === file)) found[info.w].push([info.kind, file]);
+        });
+      });
+      batch.forEach((w) => { REC_INDEX[w] = found[w]; });
+      saveRecIndex();
+      await new Promise((r) => setTimeout(r, 120));
+    }
+    if (todo.length) dbg(`錄音索引完成：${recIndexSummary()}`);
+  } catch (e) {
+    dbg(`錄音索引中斷（下次開啟再繼續）：${e && e.message}`);
+  }
+  recIndexRunning = false;
+}
+function recIndexSummary() {
+  const raw = (typeof WORDS !== "undefined" && WORDS.length) ? WORDS.map((w) => w.en) : PHONICS.flatMap((p) => p.words);
+  const words = [...new Set(raw.map((r) => recordableWord(canonicalWord(r))).filter(Boolean))];
+  let has = 0, none = 0, unknown = 0;
+  words.forEach((w) => { const k = REC_INDEX[w]; if (!Array.isArray(k)) unknown++; else if (k.length) has++; else none++; });
+  return `有錄音 ${has}、沒有錄音 ${none}、未查 ${unknown}（共 ${words.length} 個單字）`;
 }
 // Words where the Commons recording turned out to sound wrong/off after
 // listening — force these straight to the device voice instead. Add more
@@ -1192,7 +1266,7 @@ function pronounce(rawText, slow) {
     const base = canonicalWord(rawText);
     if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
     const candidates = commonsAudioCandidates(base);
-    dbg(`── 點擊 "${base}" 口音=${ACCENT} 錄音候選=${candidates.length} 慢速=${!!slow}`);
+    dbg(`── 點擊 "${base}" 口音=${ACCENT} 索引=${recIndexStatus(base)} 錄音候選=${candidates.length} 慢速=${!!slow}`);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
     if (!candidates.length) { ttsUnlocked = true; speak(rawText, 0, release, speakOpts); return; }
@@ -1225,11 +1299,14 @@ function pronounce(rawText, slow) {
       if (i >= candidates.length) { fallbackNow("no recording found"); return; }
       try {
         audioEl.src = candidates[i++];
+        const attemptNo = i;
         dbg(`試錄音 ${i}/${candidates.length} ${decodeURIComponent(audioEl.src.split("/").pop())}`);
         audioEl.defaultPlaybackRate = rate;
         audioEl.playbackRate = rate;
         const p = audioEl.play();
-        if (p && p.catch) p.catch((err) => { dbg(`play() 被拒: ${err && err.name}`); tryNext(); });
+        // a stale rejection from an earlier file (AbortError when the source
+        // changes) must not advance the list again and skip a candidate
+        if (p && p.catch) p.catch((err) => { if (attemptNo !== i) return; dbg(`play() 被拒: ${err && err.name}`); tryNext(); });
       } catch (e) {
         tryNext(); // a synchronous failure here just advances immediately
       }
@@ -2217,6 +2294,8 @@ if ("speechSynthesis" in window) {
 
 render();
 dbg(`除錯模式 ${navigator.userAgent.replace(/^Mozilla\/5.0 /, "")}`);
+dbg(`錄音索引：${recIndexSummary()}`);
+setTimeout(buildRecordingIndex, 1500);
 dbg(`英文聲音 ${usableEnglishVoices().length} 個，自動選 ${voiceDesc(pickBestVoice())}，手動選 ${(STATE.voicePref && STATE.voicePref.voiceURI) || "無"}`);
 </script>
 </body>
