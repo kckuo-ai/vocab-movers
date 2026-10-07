@@ -619,6 +619,30 @@ function warmAudioSession() {
     warm.play().catch(() => {});
   } catch (e) {}
 }
+/* ---------- iOS speech unlock ----------
+   iOS Safari only lets a page START using speechSynthesis from code that runs
+   directly inside a tap. pronounce() first tries a real recording and only
+   falls back to the system voice a moment later (from a timer / network
+   callback), which iOS rejects silently if the voice was never unlocked —
+   that is the "first tap: 系統語音無回應" case. Speaking a silent utterance
+   synchronously inside the first tap unlocks it for the rest of the visit. */
+let ttsUnlocked = false;
+function unlockSpeech() {
+  if (ttsUnlocked || !("speechSynthesis" in window)) return;
+  ttsUnlocked = true;
+  try {
+    const u = new SpeechSynthesisUtterance(" ");
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+}
+// Any tap anywhere (tab, chip, start button...) unlocks it, so automatic
+// pronunciations (spelling / phonics quiz) work too. Speaker buttons are
+// skipped here because pronounce() handles them itself.
+["touchend", "click"].forEach((evt) => document.addEventListener(evt, (e) => {
+  try { if (e.target && e.target.closest && e.target.closest(".speakBtn")) return; } catch (err) {}
+  unlockSpeech();
+}, true));
 let pronounceBusy = false;
 function pronounce(rawText, slow) {
   // Ignore taps while a previous pronunciation attempt is still in flight —
@@ -636,7 +660,9 @@ function pronounce(rawText, slow) {
     const candidates = commonsAudioCandidates(base);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
-    if (!candidates.length) { speak(rawText, 0, release, speakOpts); return; }
+    if (!candidates.length) { ttsUnlocked = true; speak(rawText, 0, release, speakOpts); return; }
+    // the system voice may be needed later (async) — unlock it now, inside the tap
+    unlockSpeech();
 
     // Walk the candidate list; each failure advances to the next, and
     // running out falls back to the device voice. The first play() happens
@@ -682,7 +708,14 @@ function pronounce(rawText, slow) {
     // type, etc.) never fire an 'error' event at all, which would otherwise
     // leave a word completely silent forever. This guarantees every word
     // ends up with at least the device voice quickly no matter what.
-    setTimeout(() => fallbackNow("timed out"), 2000);
+    // 2.5 s to find a recording; once one is found (metadata loaded) give
+    // it extra time to start, since a first, uncached load can be slow
+    let deadline = setTimeout(() => fallbackNow("timed out"), 2500);
+    audioEl.addEventListener("loadedmetadata", () => {
+      if (settled) return;
+      clearTimeout(deadline);
+      deadline = setTimeout(() => fallbackNow("found but slow to start"), 4000);
+    });
     tryNext();
   } catch (e) {
     // Absolute last resort: whatever went wrong above, still make sure the
