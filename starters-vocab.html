@@ -6,12 +6,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#FF5E7E" />
 <title>Starters 單字護照</title>
 <style>
 :root{
   --blue:#4361EE; --teal:#2EC4B6; --ink:#233047; --sub:#8592A6;
   --bg:#F6F8FC; --card:#ffffff; --border:#E4E8F0; --track:#EEF1F7;
   --green:#06D6A0; --amber:#FFB703; --red:#EF476F;
+  --hdrA:#FF5E7E; --hdrB:#FF9F43; --hdrShadow:rgba(255,94,126,.30); --accent:#F2545B;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;background:var(--bg);}
@@ -113,6 +115,46 @@ input{font-family:inherit;}
 .qOption{text-align:left;padding:13px 16px;border-radius:14px;border:1.5px solid var(--border);font-size:15px;font-weight:700;background:#fff;width:100%;color:var(--ink);}
 .qOption.correct{background:#E9F7EF;border-color:var(--green);color:#177350;}
 .qOption.wrong{background:#FDECEE;border-color:var(--red);color:#B3223F;}
+/* ---------- theme + lively motion ---------- */
+.header{background:linear-gradient(135deg,var(--hdrA) 0%,var(--hdrB) 100%);box-shadow:0 8px 24px var(--hdrShadow);overflow:hidden;}
+.header::before,.header::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14);pointer-events:none;z-index:0;}
+.header::before{width:150px;height:150px;right:-46px;bottom:-70px;animation:floaty 6s ease-in-out infinite;}
+.header::after{width:72px;height:72px;left:44%;top:-34px;animation:floaty 7.5s ease-in-out infinite reverse;}
+.htagRow,.htitle,.hsub{position:relative;z-index:1;}
+.appSwitchGroup{z-index:2;}
+.htagRow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px;max-width:calc(100% - 112px);}
+.htagRow .htag{margin-bottom:0;}
+.accentBtn{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;color:#fff;background:rgba(255,255,255,.28);padding:4px 10px;border-radius:999px;white-space:nowrap;}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.tabbtn.active{color:var(--accent);}
+.tabbtn .dot{background:var(--accent);}
+.tabbtn.active .emo{animation:tabPop .35s ease;}
+@keyframes tabPop{0%{transform:scale(.7)}60%{transform:scale(1.22)}100%{transform:scale(1)}}
+.owl{animation:owlBob 3.2s ease-in-out infinite;}
+@keyframes owlBob{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-3px) rotate(-6deg)}75%{transform:translateY(-3px) rotate(6deg)}}
+.cta,.rateBtn,.qOption,.speakBtn,.levelBtn,.catChip,.accentBtn{transition:transform .12s ease;}
+.cta:active,.rateBtn:active,.qOption:active,.speakBtn:active,.levelBtn:active,.catChip:active,.accentBtn:active{transform:scale(.93);}
+/* 3D flip card */
+.flipInner{position:relative;height:230px;cursor:pointer;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;}
+.flipInner.flipped{transform:rotateY(180deg);}
+.flipInner .flashcard{position:absolute;top:0;left:0;right:0;bottom:0;height:auto;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.flipInner .flashcard.back{transform:rotateY(180deg);}
+.flipInner:not(.flipped) .flashcard.back,.flipInner.flipped .flashcard.front{pointer-events:none;}
+.cardCtrls{position:absolute;bottom:14px;right:14px;z-index:5;display:flex;gap:8px;align-items:center;}
+.cardCtrls .speakBtn{box-shadow:0 4px 12px rgba(35,48,71,.18);}
+.cardEnter{animation:cardIn .35s ease-out;}
+@keyframes cardIn{from{opacity:0;transform:translateX(36px) rotate(2deg)}to{opacity:1;transform:none}}
+/* right / wrong feedback */
+.qOption.correct,.pop{animation:pop .45s ease;}
+.qOption.wrong,.shake{animation:shake .45s ease;}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.fxLayer{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:60;overflow:hidden;}
+.fxBit{position:absolute;font-size:22px;left:50%;top:42%;opacity:0;animation:burst .9s ease-out forwards;}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot));opacity:0}}
+.fxText{position:absolute;left:50%;top:36%;font-size:28px;font-weight:900;color:var(--accent);text-shadow:0 2px 0 #fff,0 4px 14px rgba(0,0,0,.18);white-space:nowrap;animation:floatUp 1.1s ease-out forwards;}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-150%) scale(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;}}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -804,23 +846,27 @@ function usableEnglishVoices() {
   return all.filter((v) => (v.lang === "en-US" || v.lang === "en-GB") && !isNoveltyVoice(v));
 }
 let cachedVoice = null;
+const PREFERRED_GB_VOICE_NAMES = ["Daniel", "Kate", "Serena", "Arthur", "Martha", "Stephanie", "Oliver"];
 function pickBestVoice() {
   const en = usableEnglishVoices();
   if (!en.length) return null;
-  // 1) explicit high-quality hints exposed by some platforms
-  let v = en.find((v) => /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI));
+  // follow the 🇬🇧/🇺🇸 accent toggle; fall back to the other accent only if
+  // the device has no voice at all for the chosen one
+  const wantLang = ACCENT === "uk" ? "en-GB" : "en-US";
+  const same = en.filter((v) => v.lang === wantLang);
+  const pool = same.length ? same : en;
+  let v = pool.find((v) => /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI));
   if (v) return v;
-  // 2) known natural-sounding default voices (macOS/iOS), en-US preferred
-  for (const name of PREFERRED_VOICE_NAMES) {
-    v = en.find((vv) => vv.name === name && vv.lang === "en-US");
+  const names = ACCENT === "uk" ? PREFERRED_GB_VOICE_NAMES : PREFERRED_VOICE_NAMES;
+  for (const name of names) {
+    v = pool.find((vv) => vv.name === name);
     if (v) return v;
   }
-  for (const name of PREFERRED_VOICE_NAMES) {
-    v = en.find((vv) => vv.name.includes(name));
+  for (const name of names) {
+    v = pool.find((vv) => vv.name.includes(name));
     if (v) return v;
   }
-  // 3) fall back to any en-US voice, then en-GB
-  return en.find((v) => v.lang === "en-US") || en[0];
+  return pool[0];
 }
 const VKEY = "starters-vocab-voice-v1";
 function getSelectedVoice() {
@@ -861,7 +907,7 @@ function speakTextFor(rawText) {
   // intonation instead of a clipped/odd reading of an isolated short word
   return /[.!?]$/.test(text) ? text : text + ".";
 }
-function speak(rawText, attempt, onSettle) {
+function speak(rawText, attempt, onSettle, opts) {
   attempt = attempt || 0;
   let settledAlready = false;
   const settle = () => { if (settledAlready) return; settledAlready = true; if (onSettle) onSettle(); };
@@ -877,10 +923,10 @@ function speak(rawText, attempt, onSettle) {
     const doSpeak = () => {
       try {
         const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
-        utter.rate = 0.93; // natural-ish pace, still clear enough for kids
+        utter.rate = opts && opts.slow ? 0.6 : 0.93; // natural-ish pace; 🐢 slow replay uses 0.6
         utter.pitch = 1.0;
         const voice = getSelectedVoice();
-        if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = "en-US"; }
+        if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = ACCENT === "uk" ? "en-GB" : "en-US"; }
         let started = false;
         let startedAt = 0;
         utter.onstart = () => { started = true; startedAt = Date.now(); };
@@ -892,7 +938,7 @@ function speak(rawText, attempt, onSettle) {
           const duration = Date.now() - startedAt;
           if (duration < 120 && attempt < 2) {
             console.warn(`TTS phantom-completed (${duration}ms) for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
-            setTimeout(() => speak(rawText, attempt + 1, onSettle), 100);
+            setTimeout(() => speak(rawText, attempt + 1, onSettle, opts), 100);
             return;
           }
           settle();
@@ -914,7 +960,7 @@ function speak(rawText, attempt, onSettle) {
             console.warn(`TTS no response for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
             try { window.speechSynthesis.cancel(); } catch (e) {}
             try { window.speechSynthesis.resume(); } catch (e) {}
-            setTimeout(() => speak(rawText, attempt + 1, onSettle), 100);
+            setTimeout(() => speak(rawText, attempt + 1, onSettle, opts), 100);
           } else {
             const diag = `speaking:${window.speechSynthesis.speaking}/pending:${window.speechSynthesis.pending}/paused:${window.speechSynthesis.paused}`;
             console.warn("TTS never started for", JSON.stringify(rawText), "after", attempt + 1, "attempts |", diag);
@@ -1036,13 +1082,10 @@ function commonsAudioCandidates(word) {
   const cap = lower.charAt(0).toUpperCase() + lower.slice(1);
   // Common Commons naming variants, most likely first. en-us preferred for
   // this app's audience, then en-gb as a backup.
-  return [
-    `En-us-${lower}.ogg`,
-    `En-us-${cap}.ogg`,
-    `En-uk-${lower}.ogg`,
-    `En-gb-${lower}.ogg`,
-    `En-${lower}.ogg`,
-  ].map(commonsMp3Url);
+  // order follows the 🇬🇧/🇺🇸 accent toggle; the other accent is the backup
+  const uk = [`En-uk-${lower}.ogg`, `En-gb-${lower}.ogg`];
+  const us = [`En-us-${lower}.ogg`, `En-us-${cap}.ogg`];
+  return [...(ACCENT === "uk" ? uk.concat(us) : us.concat(uk)), `En-${lower}.ogg`].map(commonsMp3Url);
 }
 // Words where the Commons recording turned out to sound wrong/off after
 // listening — force these straight to the device voice instead. Add more
@@ -1064,7 +1107,7 @@ function warmAudioSession() {
   } catch (e) {}
 }
 let pronounceBusy = false;
-function pronounce(rawText) {
+function pronounce(rawText, slow) {
   // Ignore taps while a previous pronunciation attempt is still in flight —
   // covers the whole attempt (real-audio candidates, any TTS retries), not
   // just a fixed short window, so repeated taps can never queue up multiple
@@ -1078,7 +1121,9 @@ function pronounce(rawText) {
     const base = canonicalWord(rawText);
     if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
     const candidates = commonsAudioCandidates(base);
-    if (!candidates.length) { speak(rawText, 0, release); return; }
+    const speakOpts = slow ? { slow: true } : null;
+    const rate = slow ? 0.7 : 1;
+    if (!candidates.length) { speak(rawText, 0, release, speakOpts); return; }
 
     // Walk the candidate list; each failure advances to the next, and
     // running out falls back to the device voice. The first play() happens
@@ -1088,18 +1133,25 @@ function pronounce(rawText) {
     audioEl.volume = 1;
     currentAudioEl = audioEl;
     let settled = false;
+    let fellBack = false;
     const fallbackNow = (reason) => {
       if (settled) return;
       settled = true;
+      fellBack = true;
+      // a recording that finishes loading after this point must stay silent,
+      // otherwise it would play on top of the device voice
+      try { audioEl.pause(); } catch (e) {}
       console.warn(`pronounce("${base}") → device voice (${reason})`);
-      showToast("🔈 系統語音");
-      speak(rawText, 0, release);
+      showToast(slow ? "🐢 慢速 · 系統語音" : "🔈 系統語音");
+      speak(rawText, 0, release, speakOpts);
     };
     const tryNext = () => {
       if (settled) return;
       if (i >= candidates.length) { fallbackNow("no recording found"); return; }
       try {
         audioEl.src = candidates[i++];
+        audioEl.defaultPlaybackRate = rate;
+        audioEl.playbackRate = rate;
         const p = audioEl.play();
         if (p && p.catch) p.catch(() => tryNext());
       } catch (e) {
@@ -1108,26 +1160,69 @@ function pronounce(rawText) {
     };
     audioEl.addEventListener("error", () => tryNext());
     audioEl.addEventListener("playing", () => {
+      if (fellBack) { try { audioEl.pause(); } catch (e) {} return; }
       settled = true;
-      showToast("🎙️ 真人發音");
+      showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
       release();
     });
     // Safety net: some failure modes (blocked/hung requests, wrong content
     // type, etc.) never fire an 'error' event at all, which would otherwise
     // leave a word completely silent forever. This guarantees every word
     // ends up with at least the device voice quickly no matter what.
-    setTimeout(() => fallbackNow("timed out"), 1500);
+    setTimeout(() => fallbackNow("timed out"), 2000);
     tryNext();
   } catch (e) {
     // Absolute last resort: whatever went wrong above, still make sure the
     // word isn't left completely silent.
     console.error("pronounce top-level failure", e);
-    speak(rawText, 0, release);
+    speak(rawText, 0, release, slow ? { slow: true } : null);
   }
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
+}
+
+/* ---------- accent (British / American), shared by all four apps ---------- */
+const ACCENT_KEY = "yle-accent-v1";
+let ACCENT = (() => { try { return localStorage.getItem(ACCENT_KEY) === "us" ? "us" : "uk"; } catch (e) { return "uk"; } })();
+function toggleAccent() {
+  ACCENT = ACCENT === "uk" ? "us" : "uk";
+  try { localStorage.setItem(ACCENT_KEY, ACCENT); } catch (e) {}
+  cachedVoice = null;
+  render();
+  showToast(ACCENT === "uk" ? "🇬🇧 已切換為英式發音" : "🇺🇸 已切換為美式發音");
+}
+function accentBtnHtml() {
+  return `<button class="accentBtn" onclick="toggleAccent()" aria-label="切換英式或美式發音">${ACCENT === "uk" ? "🇬🇧 英式" : "🇺🇸 美式"} ⇄</button>`;
+}
+function slowBtnHtml(text, size, tone, bg) {
+  size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}', true)" aria-label="慢速播放">🐢</button>`;
+}
+/* ---------- celebration effects ---------- */
+function celebrate(text) {
+  try {
+    const layer = document.createElement("div");
+    layer.className = "fxLayer";
+    const bits = ["⭐", "🎉", "✨", "🌟", "💫", "🎊"];
+    let html = "";
+    for (let i = 0; i < 14; i++) {
+      const ang = (Math.PI * 2 * i) / 14 + Math.random() * 0.4;
+      const dist = 90 + Math.random() * 80;
+      html += `<div class="fxBit" style="--dx:${Math.round(Math.cos(ang) * dist)}px;--dy:${Math.round(Math.sin(ang) * dist)}px;--rot:${Math.round(Math.random() * 360 - 180)}deg;animation-delay:${Math.round(Math.random() * 80)}ms;">${bits[i % bits.length]}</div>`;
+    }
+    if (text) html += `<div class="fxText">${escapeHtml(text)}</div>`;
+    layer.innerHTML = html;
+    document.body.appendChild(layer);
+    setTimeout(() => { try { layer.remove(); } catch (e) {} }, 1300);
+  } catch (e) {}
+}
+function praiseFor(streak) {
+  if (streak >= 5) return `🔥 ${streak} 連對！`;
+  if (streak >= 3) return `${streak} 連對！`;
+  const words = ["Great!", "Nice!", "Super!", "Well done!", "Awesome!"];
+  return words[Math.floor(Math.random() * words.length)];
 }
 
 /* ---------- global state ---------- */
@@ -1181,7 +1276,7 @@ function recordActivity(n) {
   if (!countedToday && newCount >= DAILY_GOAL) { streak++; countedToday = true; hit = true; }
   STATE.daily = { ...STATE.daily, todayCount: newCount, streak, countedToday, bestStreak: Math.max(STATE.daily.bestStreak || 0, streak), history };
   saveDaily();
-  if (hit) showToast(`🎉 完成今日目標！連續 ${streak} 天`);
+  if (hit) { showToast(`🎉 完成今日目標！連續 ${streak} 天`); setTimeout(() => celebrate("🎯 今日目標達成！"), 450); }
   checkBadges();
 }
 
@@ -1233,7 +1328,7 @@ function headerHtml() {
       <a class="appSwitch" href="flyers-vocab.html">🚀 Flyers</a>
       <a class="appSwitch" href="phonics.html">🔤 自然發音</a>
     </div>
-    <div class="htag">STARTERS · Pre-A1</div>
+    <div class="htagRow"><div class="htag">STARTERS · Pre-A1</div>${accentBtnHtml()}</div>
     <div class="htitle">${title}</div>
     <div class="hsub">${sub}</div>
   </div>`;
@@ -1411,7 +1506,7 @@ function renderHome() {
           <div class="wodEn">${wod.en}</div>
           <div class="wodZh">${wod.pos} · ${wod.zh}</div>
         </div>
-        ${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}
+        <div style="display:flex;gap:8px;flex-shrink:0;">${slowBtnHtml(wod.en, 38, "#fff", "rgba(255,255,255,.22)")}${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}</div>
       </div>
       <div class="wodFooter">目前熟悉度：${levelInfo(wodLv).emoji} ${levelInfo(wodLv).label}</div>
     </div>
@@ -1604,7 +1699,13 @@ function restartStudy(mode, value) {
 }
 function flipStudyCard() {
   STATE.study.flipped = !STATE.study.flipped;
-  render();
+  const inner = document.getElementById("fcInner");
+  if (!inner) { render(); return; }
+  inner.classList.toggle("flipped", STATE.study.flipped);
+  const rateEl = document.getElementById("rateRow");
+  const skipEl = document.getElementById("skipRow");
+  if (rateEl) rateEl.style.display = STATE.study.flipped ? "" : "none";
+  if (skipEl) skipEl.style.display = STATE.study.flipped ? "none" : "";
 }
 function skipStudyCard() {
   STATE.study.idx++;
@@ -1618,6 +1719,8 @@ function rateStudyCard(level) {
   STATE.study.flipped = false;
   STATE.study.idx++;
   render();
+  if (STATE.study.idx >= STATE.study.queue.length) celebrate("🎉 完成一組！");
+  else if (level >= 4) celebrate("精通！");
 }
 function renderStudy() {
   const s = STATE.study;
@@ -1648,32 +1751,27 @@ function renderStudy() {
     const word = s.queue[s.idx];
     const c = CAT_MAP[word.cat];
     const lv = (STATE.progress[word.id] || {}).level || 0;
-    if (!s.flipped) {
-      inner += `<div class="cardWrap">
-        <div class="flashcard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);" onclick="flipStudyCard()">
+    const rateRowHtml = LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("");
+    inner += `<div class="cardWrap cardEnter">
+      <div id="fcInner" class="flipInner ${s.flipped ? "flipped" : ""}" onclick="flipStudyCard()">
+        <div class="flashcard front" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
           <div class="fcTab">${c.emoji} ${c.label}</div>
           <div class="fcPos">${word.pos}</div>
           <div class="fcEn">${word.en}</div>
-          <div class="fcHint">點卡片查看意思</div>
+          <div class="fcHint">點卡片翻面看意思</div>
         </div>
-        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 44, "#fff", "rgba(255,255,255,.32)")}</div>
-      </div>`;
-      inner += `<div style="text-align:center;margin-top:18px;"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>`;
-    } else {
-      inner += `<div class="cardWrap">
-        <div class="flashcard back" onclick="flipStudyCard()">
+        <div class="flashcard back">
           <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
           <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
           <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
           <div class="fcZh">${word.zh}</div>
           <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
         </div>
-        <div style="position:absolute;bottom:16px;right:16px;z-index:5;" onclick="event.stopPropagation();">${speakBtnHtml(word.en, 40, c.color, "#fff")}</div>
-      </div>`;
-      inner += `<div class="rateRow">
-        ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("")}
-      </div>`;
-    }
+      </div>
+      <div class="cardCtrls" onclick="event.stopPropagation();">${slowBtnHtml(word.en, 38, c.color, "#fff")}${speakBtnHtml(word.en, 44, c.color, "#fff")}</div>
+    </div>
+    <div id="skipRow" style="text-align:center;margin-top:18px;${s.flipped ? "display:none;" : ""}"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>
+    <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>`;
   }
   inner += `</div>`;
   return inner;
@@ -1716,6 +1814,7 @@ function chooseQuizOption(optId) {
   }
   recordActivity(1);
   render();
+  if (isCorrect) celebrate(praiseFor(qz.streak));
   setTimeout(() => {
     if (qz.qi + 1 >= qz.questions.length) {
       qz.phase = "done";
@@ -1772,11 +1871,11 @@ function renderQuiz() {
       <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${qz.streak}</div>
       <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${qz.score} 分</div>
     </div>
-    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+    <div class="qCard ${qz.picked ? (qz.picked === q.word.id ? "pop" : "shake") : "cardEnter"}" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
       <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${q.word.pos}</div>
       <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;">
         <div style="font-weight:800;font-size:30px;">${q.word.en}</div>
-        ${speakBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.28)")}
+        ${speakBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.28)")}${slowBtnHtml(q.word.en, 32, "#fff", "rgba(255,255,255,.2)")}
       </div>
       <div style="font-size:12px;opacity:.85;margin-top:6px;">這個字的中文意思是？</div>
     </div>
@@ -1813,9 +1912,9 @@ function onSpellInput(val) {
 function onSpellKeydown(e) {
   if (e.key === "Enter") submitSpell();
 }
-function replaySpellWord() {
+function replaySpellWord(slow) {
   const w = STATE.spell.queue[STATE.spell.idx];
-  if (w) pronounce(w.en);
+  if (w) pronounce(w.en, slow);
 }
 function normalizeSpelling(s) {
   return s
@@ -1862,6 +1961,7 @@ function resolveSpell(isCorrect) {
   }
   recordActivity(1);
   render();
+  if (isCorrect) celebrate(praiseFor(sp.streak));
   setTimeout(() => {
     if (sp.idx + 1 >= sp.queue.length) {
       sp.phase = "done";
@@ -1970,19 +2070,20 @@ function renderSpell() {
       <div class="qzPill" style="background:#FFF4DA;color:#B7791F;">🔥 連續 ${sp.streak}</div>
       <div class="qzPill" style="background:#E9F7EF;color:#2E7D4F;">⭐ ${sp.score} 分</div>
     </div>
-    <div class="qCard" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
+    <div class="qCard ${fb === "correct" ? "pop" : (!fb && sp.hintLevel === 0 ? "cardEnter" : "")}" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
       <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${w.pos} · ${w.zh}</div>
-      <div style="margin-top:10px;">
+      <div style="margin-top:10px;display:flex;justify-content:center;align-items:center;gap:12px;">
         <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:30px;" onclick="replaySpellWord()" aria-label="重播發音">🔊</button>
+        <button class="speakBtn" style="width:46px;height:46px;background:rgba(255,255,255,.2);color:#fff;font-size:22px;" onclick="replaySpellWord(true)" aria-label="慢速重播">🐢</button>
       </div>
       <div style="font-size:20px;letter-spacing:3px;margin-top:12px;font-weight:800;opacity:.85;">${fb ? answer : blanks}</div>
-      <div style="font-size:11px;opacity:.8;margin-top:4px;">點喇叭聽發音，再輸入拼法</div>
+      <div style="font-size:11px;opacity:.8;margin-top:4px;">點 🔊 聽發音，🐢 慢速再聽一次</div>
     </div>
 
     <input id="spellInput" autocapitalize="off" autocorrect="off" spellcheck="false"
       value="${escapeHtml(sp.input)}"
       oninput="onSpellInput(this.value)" onkeydown="onSpellKeydown(event)"
-      placeholder="輸入英文拼法…" class="search"
+      placeholder="輸入英文拼法…" class="search ${fb === "wrong" ? "shake" : ""}"
       style="text-align:center;font-size:18px;font-weight:800;margin-top:16px;${fb === "correct" ? "border-color:#06D6A0;color:#177350;" : fb === "wrong" ? "border-color:#EF476F;color:#B3223F;" : ""}"
       ${fb ? "disabled" : ""}/>
 
