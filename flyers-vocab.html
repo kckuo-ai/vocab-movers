@@ -914,6 +914,30 @@ function speakTextFor(rawText) {
   // intonation instead of a clipped/odd reading of an isolated short word
   return /[.!?]$/.test(text) ? text : text + ".";
 }
+/* ---------- on-device debug log (only with ?debug=1 in the URL) ---------- */
+const DEBUG = /[?&]debug=1/.test(location.search);
+const __dbgLines = [];
+const __dbgT0 = Date.now();
+function dbg(msg) {
+  if (!DEBUG) return;
+  try {
+    __dbgLines.push(((Date.now() - __dbgT0) / 1000).toFixed(2) + "s " + msg);
+    if (__dbgLines.length > 60) __dbgLines.shift();
+    let el = document.getElementById("dbgPanel");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "dbgPanel";
+      el.style.cssText = "position:fixed;top:0;left:0;right:0;max-height:38vh;overflow-y:auto;background:rgba(0,0,0,.82);color:#9EF59E;font:11px/1.35 Menlo,monospace;padding:6px 8px;z-index:99;white-space:pre-wrap;word-break:break-all;";
+      document.body.appendChild(el);
+    }
+    el.textContent = __dbgLines.join("\n");
+    el.scrollTop = el.scrollHeight;
+  } catch (e) {}
+}
+function voiceDesc(v) { return v ? `${v.name}|${v.lang}|local:${v.localService}` : "(未指定)"; }
+function ssState() {
+  try { const s = window.speechSynthesis; return `speaking:${s.speaking}/pending:${s.pending}/paused:${s.paused}`; } catch (e) { return "?"; }
+}
 function speak(rawText, attempt, onSettle, opts) {
   attempt = attempt || 0;
   let settledAlready = false;
@@ -932,17 +956,22 @@ function speak(rawText, attempt, onSettle, opts) {
         const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
         utter.rate = opts && opts.slow ? 0.6 : 0.93; // natural-ish pace; 🐢 slow replay uses 0.6
         utter.pitch = 1.0;
-        const voice = getSelectedVoice();
-        if (voice) { utter.voice = voice; utter.lang = voice.lang; } else { utter.lang = ACCENT === "uk" ? "en-GB" : "en-US"; }
+        // attempt 0 uses the chosen voice; retries let iOS pick its own default
+        // voice for the language, in case the chosen one is the problem
+        const voice = attempt === 0 ? getSelectedVoice() : null;
+        utter.lang = attempt >= 2 ? "en-US" : (ACCENT === "uk" ? "en-GB" : "en-US");
+        if (voice) { try { utter.voice = voice; utter.lang = voice.lang; } catch (e) { dbg(`指定聲音失敗：${e && e.message}`); } }
+        dbg(`TTS 第${attempt + 1}次 "${utter.text}" 聲音=${voiceDesc(voice)} lang=${utter.lang} rate=${utter.rate} ${ssState()} unlocked=${ttsUnlocked}`);
         let started = false;
         let startedAt = 0;
-        utter.onstart = () => { started = true; startedAt = Date.now(); };
+        utter.onstart = () => { started = true; startedAt = Date.now(); dbg("TTS onstart ✓"); };
         utter.onend = () => {
           // Some engines report a full start→end cycle in a handful of
           // milliseconds with no audio actually reaching the speaker — a
           // "phantom" completion. No real spoken word finishes that fast,
           // so treat it the same as never starting and retry automatically.
           const duration = Date.now() - startedAt;
+          dbg(`TTS onend (${duration}ms)`);
           if (duration < 120 && attempt < 2) {
             console.warn(`TTS phantom-completed (${duration}ms) for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
             setTimeout(() => speak(rawText, attempt + 1, onSettle, opts), 100);
@@ -952,6 +981,7 @@ function speak(rawText, attempt, onSettle, opts) {
         };
         utter.onerror = (ev) => {
           console.error("TTS utterance error for", JSON.stringify(rawText), ev.error);
+          dbg(`TTS onerror: ${ev.error}`);
           showToast(`❌ 系統語音錯誤：${ev.error || "未知"}`);
           settle();
         };
@@ -965,19 +995,23 @@ function speak(rawText, attempt, onSettle, opts) {
           if (started) return; // onend (with the phantom-completion check above) takes over from here
           if (attempt < 2) {
             console.warn(`TTS no response for ${JSON.stringify(rawText)}, retrying (attempt ${attempt + 1})`);
+            dbg(`TTS 0.9秒內沒開始 ${ssState()} → 重試`);
             try { window.speechSynthesis.cancel(); } catch (e) {}
             try { window.speechSynthesis.resume(); } catch (e) {}
             setTimeout(() => speak(rawText, attempt + 1, onSettle, opts), 100);
           } else {
             const diag = `speaking:${window.speechSynthesis.speaking}/pending:${window.speechSynthesis.pending}/paused:${window.speechSynthesis.paused}`;
             console.warn("TTS never started for", JSON.stringify(rawText), "after", attempt + 1, "attempts |", diag);
+            dbg(`TTS 放棄 ${diag}`);
             showToast(`⚠️ 系統語音無回應（${diag}）`);
             settle();
           }
         }, 900);
       } catch (e) {
         console.error("speak (queued) failed", e);
-        settle();
+        dbg(`TTS 例外：${e && e.message}`);
+        if (attempt < 2) setTimeout(() => speak(rawText, attempt + 1, onSettle, opts), 100);
+        else settle();
       }
     };
     // iOS Safari's speech engine has a known bug where calling cancel()
@@ -1099,6 +1133,12 @@ function commonsAudioCandidates(word) {
 // lowercase entries here as they're found.
 const FORCE_DEVICE_VOICE_WORDS = new Set(["friday"]);
 let currentAudioEl = null;
+// Fully detach a media element: a paused element that still holds a
+// (failed or half-loaded) source can keep iOS's audio session busy,
+// which can stop the system voice from starting afterwards.
+function releaseAudio(el) {
+  try { el.pause(); el.removeAttribute("src"); el.load(); } catch (e) {}
+}
 let audioSessionWarmed = false;
 function warmAudioSession() {
   // The very first audio.play() in a browser session is sometimes noticeably
@@ -1150,8 +1190,9 @@ function pronounce(rawText, slow) {
   try {
     warmAudioSession();
     const base = canonicalWord(rawText);
-    if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
+    if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
     const candidates = commonsAudioCandidates(base);
+    dbg(`── 點擊 "${base}" 口音=${ACCENT} 錄音候選=${candidates.length} 慢速=${!!slow}`);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
     if (!candidates.length) { ttsUnlocked = true; speak(rawText, 0, release, speakOpts); return; }
@@ -1173,7 +1214,8 @@ function pronounce(rawText, slow) {
       fellBack = true;
       // a recording that finishes loading after this point must stay silent,
       // otherwise it would play on top of the device voice
-      try { audioEl.pause(); } catch (e) {}
+      releaseAudio(audioEl);
+      dbg(`改用系統語音（${reason}）`);
       console.warn(`pronounce("${base}") → device voice (${reason})`);
       showToast(slow ? "🐢 慢速 · 系統語音" : "🔈 系統語音");
       speak(rawText, 0, release, speakOpts);
@@ -1183,17 +1225,19 @@ function pronounce(rawText, slow) {
       if (i >= candidates.length) { fallbackNow("no recording found"); return; }
       try {
         audioEl.src = candidates[i++];
+        dbg(`試錄音 ${i}/${candidates.length} ${decodeURIComponent(audioEl.src.split("/").pop())}`);
         audioEl.defaultPlaybackRate = rate;
         audioEl.playbackRate = rate;
         const p = audioEl.play();
-        if (p && p.catch) p.catch(() => tryNext());
+        if (p && p.catch) p.catch((err) => { dbg(`play() 被拒: ${err && err.name}`); tryNext(); });
       } catch (e) {
         tryNext(); // a synchronous failure here just advances immediately
       }
     };
-    audioEl.addEventListener("error", () => tryNext());
+    audioEl.addEventListener("error", () => { if (settled) return; dbg(`錄音載入失敗 code=${audioEl.error && audioEl.error.code}`); tryNext(); });
     audioEl.addEventListener("playing", () => {
       if (fellBack) { try { audioEl.pause(); } catch (e) {} return; }
+      dbg("真人錄音播放中 ✓");
       settled = true;
       showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
       release();
@@ -2165,12 +2209,15 @@ if ("speechSynthesis" in window) {
   window.speechSynthesis.getVoices();
   window.speechSynthesis.onvoiceschanged = () => {
     cachedVoice = null;
+    dbg(`聲音清單更新：英文可用 ${usableEnglishVoices().length} 個，自動選 ${voiceDesc(pickBestVoice())}`);
     window.speechSynthesis.getVoices();
     if (STATE.tab === "home") render();
   };
 }
 
 render();
+dbg(`除錯模式 ${navigator.userAgent.replace(/^Mozilla\/5.0 /, "")}`);
+dbg(`英文聲音 ${usableEnglishVoices().length} 個，自動選 ${voiceDesc(pickBestVoice())}，手動選 ${(STATE.voicePref && STATE.voicePref.voiceURI) || "無"}`);
 </script>
 </body>
 </html>
