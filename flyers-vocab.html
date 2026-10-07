@@ -956,6 +956,7 @@ function speak(rawText, attempt, onSettle, opts) {
         const utter = new SpeechSynthesisUtterance(speakTextFor(rawText));
         utter.rate = opts && opts.slow ? 0.6 : 0.93; // natural-ish pace; 🐢 slow replay uses 0.6
         utter.pitch = 1.0;
+        utter.volume = 1;
         // attempt 0 uses the chosen voice; retries let iOS pick its own default
         // voice for the language, in case the chosen one is the problem
         const voice = attempt === 0 ? getSelectedVoice() : null;
@@ -964,8 +965,19 @@ function speak(rawText, attempt, onSettle, opts) {
         dbg(`TTS 第${attempt + 1}次 "${utter.text}" 聲音=${voiceDesc(voice)} lang=${utter.lang} rate=${utter.rate} ${ssState()} unlocked=${ttsUnlocked}`);
         let started = false;
         let startedAt = 0;
-        utter.onstart = () => { started = true; startedAt = Date.now(); dbg("TTS onstart ✓"); };
+        let endWatchdog = null;
+        utter.onstart = () => {
+          started = true; startedAt = Date.now(); dbg("TTS onstart ✓");
+          // iOS sometimes starts an utterance and never reports the end; without
+          // a limit every later tap would be ignored while we keep waiting
+          endWatchdog = setTimeout(() => {
+            dbg("TTS 開始後一直沒結束 → 強制停止");
+            try { window.speechSynthesis.cancel(); } catch (e) {}
+            settle();
+          }, Math.min(6000, 2500 + 120 * utter.text.length));
+        };
         utter.onend = () => {
+          if (endWatchdog) clearTimeout(endWatchdog);
           // Some engines report a full start→end cycle in a handful of
           // milliseconds with no audio actually reaching the speaker — a
           // "phantom" completion. No real spoken word finishes that fast,
@@ -980,6 +992,7 @@ function speak(rawText, attempt, onSettle, opts) {
           settle();
         };
         utter.onerror = (ev) => {
+          if (endWatchdog) clearTimeout(endWatchdog);
           console.error("TTS utterance error for", JSON.stringify(rawText), ev.error);
           dbg(`TTS onerror: ${ev.error}`);
           showToast(`❌ 系統語音錯誤：${ev.error || "未知"}`);
@@ -1239,8 +1252,10 @@ function unlockSpeech() {
   if (ttsUnlocked || !("speechSynthesis" in window)) return;
   ttsUnlocked = true;
   try {
-    const u = new SpeechSynthesisUtterance(" ");
-    u.volume = 0;
+    // An EMPTY utterance at normal volume: nothing is heard, but it unlocks.
+    // (An earlier version used volume 0 — iOS appears to keep that volume
+    // for the following utterances, so words "spoke" with no sound.)
+    const u = new SpeechSynthesisUtterance("");
     window.speechSynthesis.speak(u);
   } catch (e) {}
 }
@@ -1252,6 +1267,7 @@ function unlockSpeech() {
   unlockSpeech();
 }, true));
 let pronounceBusy = false;
+let pronounceToken = 0;
 function pronounce(rawText, slow) {
   // Ignore taps while a previous pronunciation attempt is still in flight —
   // covers the whole attempt (real-audio candidates, any TTS retries), not
@@ -1259,7 +1275,12 @@ function pronounce(rawText, slow) {
   // overlapping sounds no matter how long an attempt takes to settle.
   if (pronounceBusy) return;
   pronounceBusy = true;
-  const release = () => { pronounceBusy = false; };
+  // each tap gets its own token so a late callback or timer from an earlier
+  // tap can never clear the busy flag of the current one
+  const myToken = ++pronounceToken;
+  const release = () => { if (pronounceToken === myToken) pronounceBusy = false; };
+  // absolute cap: never ignore taps for more than 10 s, whatever happens
+  setTimeout(release, 10000);
 
   try {
     warmAudioSession();
