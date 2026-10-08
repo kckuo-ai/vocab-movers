@@ -16,3 +16,4 @@ Cambridge YLE（Starters / Movers / Flyers）單字與 42 個自然發音的練�
 ## 圖片來源
 
 `img/` 中的單字圖片取自 Google [Noto Emoji](https://github.com/googlefonts/noto-emoji) 的 SVG 檔（Apache License 2.0），檔名 `e_<Unicode 編碼>.svg`。
+`img/c_*.svg` 是為本專案另外繪製的圖（介系詞、星期、月份、時鐘、方位、身體部位等），與專案一同提供。
