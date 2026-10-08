@@ -1212,6 +1212,7 @@ function unlockSpeech() {
 // pronunciations (spelling / phonics quiz) work too. Speaker buttons are
 // skipped here because pronounce() handles them itself.
 ["touchend", "click"].forEach((evt) => document.addEventListener(evt, (e) => {
+  unlockAutoAudio();
   try { if (e.target && e.target.closest && e.target.closest(".speakBtn")) return; } catch (err) {}
   unlockSpeech();
 }, true));
@@ -1223,6 +1224,44 @@ let pronounceToken = 0;
 let PRONOUNCE_AUTO = false;
 let pronounceIsAuto = false;
 let cancelCurrentPronounce = null;
+/* ---------- automatic pronunciation on a new flashcard ----------
+   iPhone only lets an <audio> element start from inside a tap. A swipe often
+   does not count as one, so the next card stayed silent at random. Instead,
+   ONE audio element is kept for automatic pronunciations: once it has played
+   inside any tap, iPhone lets that same element play again later without a
+   tap, so every new card can speak. Only this site's MP3 is used here, and if
+   it cannot play the card simply stays quiet (the play button still works). */
+const SILENT_WAV = "data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==";
+const autoAudioEl = (() => { try { const a = new Audio(); a.preload = "auto"; return a; } catch (e) { return null; } })();
+let autoAudioReady = false;
+if (autoAudioEl) autoAudioEl.addEventListener("playing", () => { autoAudioReady = true; });
+function unlockAutoAudio() {
+  if (!autoAudioEl || autoAudioReady) return;
+  try {
+    autoAudioEl.src = SILENT_WAV;
+    const p = autoAudioEl.play();
+    if (p && p.catch) p.catch(() => {});
+  } catch (e) {}
+}
+function stopAutoAudio() { try { if (autoAudioEl && !autoAudioEl.paused) autoAudioEl.pause(); } catch (e) {} }
+function playAuto(rawText) {
+  if (!autoAudioEl) return;
+  try {
+    // stop whatever is still sounding or loading from the previous card
+    if (cancelCurrentPronounce) cancelCurrentPronounce();
+    pronounceBusy = false;
+    if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
+    try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
+    const multi = spokenForms(rawText).length > 1;
+    const base = multi ? spokenText(rawText) : canonicalWord(rawText);
+    autoAudioEl.pause();
+    autoAudioEl.src = generatedAudioUrl(base);
+    autoAudioEl.defaultPlaybackRate = 1; autoAudioEl.playbackRate = 1;
+    dbg(`── 自動發音 "${base}"（已解鎖=${autoAudioReady}）`);
+    const p = autoAudioEl.play();
+    if (p && p.then) p.then(() => dbg("自動發音播放中 ✓"), (err) => dbg(`自動發音沒播放: ${err && err.name}`));
+  } catch (e) {}
+}
 function pronounce(rawText, slow) {
   // Ignore taps while a previous pronunciation attempt is still in flight —
   // covers the whole attempt (real-audio candidates, any TTS retries), not
@@ -1236,6 +1275,7 @@ function pronounce(rawText, slow) {
   }
   pronounceBusy = true;
   pronounceIsAuto = auto;
+  if (!auto) stopAutoAudio();
   // each tap gets its own token so a late callback or timer from an earlier
   // tap can never clear the busy flag of the current one
   const myToken = ++pronounceToken;
@@ -2055,8 +2095,7 @@ function autoPlayStudy() {
   if (!AUTOPLAY || STATE.tab !== "study") return;
   const it = STATE.study.queue[STATE.study.idx];
   if (!it) return;
-  PRONOUNCE_AUTO = true;
-  try { pronounce(it.en); } finally { PRONOUNCE_AUTO = false; }
+  playAuto(it.en);
 }
 /* ---------- swipe a flashcard: right = 會了, left = 再練練 ---------- */
 let swipeSuppressClick = false;
