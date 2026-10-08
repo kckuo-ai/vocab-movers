@@ -889,13 +889,25 @@ function unlockSpeech() {
 }, true));
 let pronounceBusy = false;
 let pronounceToken = 0;
+// automatic pronunciation (a new flashcard appearing) vs. a tap on a play button.
+// An automatic one must never fall back to the system voice (iPhone plays that
+// late, outside the tap) and must never block the play button the child taps next.
+let PRONOUNCE_AUTO = false;
+let pronounceIsAuto = false;
+let cancelCurrentPronounce = null;
 function pronounce(rawText, slow) {
   // Ignore taps while a previous pronunciation attempt is still in flight —
   // covers the whole attempt (real-audio candidates, any TTS retries), not
   // just a fixed short window, so repeated taps can never queue up multiple
   // overlapping sounds no matter how long an attempt takes to settle.
-  if (pronounceBusy) return;
+  const auto = PRONOUNCE_AUTO;
+  if (pronounceBusy) {
+    // a tap on the play button cuts off an automatic pronunciation still starting up
+    if (auto || !pronounceIsAuto) return;
+    if (cancelCurrentPronounce) cancelCurrentPronounce();
+  }
   pronounceBusy = true;
+  pronounceIsAuto = auto;
   // each tap gets its own token so a late callback or timer from an earlier
   // tap can never clear the busy flag of the current one
   const myToken = ++pronounceToken;
@@ -916,7 +928,7 @@ function pronounce(rawText, slow) {
     dbg(`── 點擊 "${base}" 口音=${ACCENT} 索引=${recIndexStatus(base)} 錄音候選=${candidates.length} 慢速=${!!slow}`);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
-    if (!candidates.length) { ttsUnlocked = true; speak(rawText, 0, release, speakOpts); return; }
+    if (!candidates.length) { if (auto) { release(); return; } ttsUnlocked = true; speak(rawText, 0, release, speakOpts); return; }
     // the system voice may be needed later (async) — unlock it now, inside the tap
     unlockSpeech();
 
@@ -929,6 +941,14 @@ function pronounce(rawText, slow) {
     currentAudioEl = audioEl;
     let settled = false;
     let fellBack = false;
+    let deadline = null;
+    cancelCurrentPronounce = () => {
+      if (settled) return;
+      settled = true; fellBack = true;
+      clearTimeout(deadline);
+      releaseAudio(audioEl);
+      dbg("自動發音被點擊取代");
+    };
     const fallbackNow = (reason) => {
       if (settled) return;
       settled = true;
@@ -936,6 +956,8 @@ function pronounce(rawText, slow) {
       // a recording that finishes loading after this point must stay silent,
       // otherwise it would play on top of the device voice
       releaseAudio(audioEl);
+      clearTimeout(deadline);
+      if (auto) { dbg(`自動發音略過（${reason}）`); release(); return; }
       dbg(`改用系統語音（${reason}）`);
       console.warn(`pronounce("${base}") → device voice (${reason})`);
       showToast(slow ? "0.7× 慢速 · 系統語音" : "🔈 系統語音");
@@ -953,7 +975,13 @@ function pronounce(rawText, slow) {
         const p = audioEl.play();
         // a stale rejection from an earlier file (AbortError when the source
         // changes) must not advance the list again and skip a candidate
-        if (p && p.catch) p.catch((err) => { if (attemptNo !== i) return; dbg(`play() 被拒: ${err && err.name}`); tryNext(); });
+        if (p && p.catch) p.catch((err) => {
+          if (attemptNo !== i) return;
+          dbg(`play() 被拒: ${err && err.name}`);
+          // the browser refused to play without a tap: the other files would be refused too
+          if (auto && err && err.name === "NotAllowedError") { fallbackNow("autoplay blocked"); return; }
+          tryNext();
+        });
       } catch (e) {
         tryNext(); // a synchronous failure here just advances immediately
       }
@@ -978,7 +1006,7 @@ function pronounce(rawText, slow) {
     // 2.5 s to find a recording; once one is found (metadata loaded) give
     // it extra time to start, since a first, uncached load can be slow
     // room for a few missing-file checks plus the site's own MP3
-    let deadline = setTimeout(() => fallbackNow("timed out"), 4000);
+    deadline = setTimeout(() => fallbackNow("timed out"), 4000);
     audioEl.addEventListener("loadedmetadata", () => {
       if (settled) return;
       clearTimeout(deadline);
@@ -1692,7 +1720,9 @@ function setAutoplay(on) {
 function autoPlayStudy() {
   if (!AUTOPLAY || STATE.tab !== "study") return;
   const it = STATE.study.queue[STATE.study.idx];
-  if (it) pronounceSound(it.id);
+  if (!it) return;
+  PRONOUNCE_AUTO = true;
+  try { pronounceSound(it.id); } finally { PRONOUNCE_AUTO = false; }
 }
 /* ---------- swipe a flashcard: right = 會了, left = 再練練 ---------- */
 let swipeSuppressClick = false;
@@ -1730,7 +1760,10 @@ function attachSwipe() {
     wrap.style.opacity = "0";
     rateStudyCard(right ? 3 : 1, true);
   };
-  el.addEventListener("pointerup", end);
+  // On a touch screen finish the swipe on touchend: iPhone only lets the next
+  // card's sound start inside touchend / click, not inside pointerup.
+  el.addEventListener("pointerup", (e) => { if (e.pointerType === "touch" && "ontouchend" in window) return; end(); });
+  el.addEventListener("touchend", end);
   el.addEventListener("pointercancel", () => { if (down && moving) { down = false; reset(); } down = false; });
 }
 function studySessionBarHtml(s) {
