@@ -138,7 +138,7 @@ input{font-family:inherit;}
 /* 3D flip card */
 .flipInner{position:relative;height:230px;cursor:pointer;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;}
 .flipInner.flipped{transform:rotateY(180deg);}
-.flipInner .flashcard{position:absolute;top:0;left:0;right:0;bottom:0;height:auto;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.flipInner .flashcard{position:absolute;top:0;left:0;right:0;bottom:0;height:auto;padding-bottom:64px;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
 .flipInner .flashcard.back{transform:rotateY(180deg);}
 .flipInner:not(.flipped) .flashcard.back,.flipInner.flipped .flashcard.front{pointer-events:none;}
 .cardCtrls{position:absolute;bottom:14px;right:14px;z-index:5;display:flex;gap:20px;align-items:center;}
@@ -184,6 +184,31 @@ input{font-family:inherit;}
 .appLink{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;margin-bottom:8px;}
 .appLink span{color:var(--sub);}
 .sheetLabel{font-size:13px;font-weight:800;color:var(--sub);margin:18px 2px 8px;}
+/* ---------- flashcards: pictures, swipe, session progress ---------- */
+.flipInner{height:304px;touch-action:pan-y;-webkit-user-select:none;user-select:none;}
+.fcPic{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.12);margin-top:6px;}
+.fcPic img{width:70px;height:70px;pointer-events:none;}
+.fcPicSm{width:58px;height:58px;margin-bottom:2px;}
+.fcPicSm img{width:58px;height:58px;pointer-events:none;}
+.swipeTag{position:absolute;top:20px;z-index:6;padding:5px 12px;border-radius:12px;font-weight:900;font-size:17px;border:3px solid;background:#fff;opacity:0;pointer-events:none;}
+.swipeTag.yes{left:20px;color:#06A77D;border-color:#06D6A0;transform:rotate(-12deg);}
+.swipeTag.no{right:20px;color:#D63B5F;border-color:#EF476F;transform:rotate(12deg);}
+.sessBar{display:flex;align-items:center;gap:10px;margin:12px 2px 10px;}
+.sessTrack{flex:1;height:8px;background:var(--track);border-radius:999px;overflow:hidden;}
+.sessFill{height:100%;background:var(--accent);border-radius:999px;transition:width .35s ease;}
+.sessTxt{font-size:12.5px;font-weight:800;color:var(--sub);white-space:nowrap;}
+.swipeHint{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);font-weight:800;margin:10px 6px 0;}
+.sumCard{background:#fff;border-radius:20px;padding:20px 18px;text-align:center;box-shadow:0 6px 18px rgba(35,48,71,.06);margin-top:12px;}
+.sumStars{font-size:34px;letter-spacing:4px;margin:4px 0 6px;}
+.sumStats{display:flex;gap:10px;margin:14px 0 4px;}
+.sumStat{flex:1;border-radius:14px;padding:10px 4px;}
+.sumStat .v{font-weight:900;font-size:22px;}
+.sumStat .l{font-size:12px;font-weight:800;margin-top:2px;}
+.weakList{display:flex;flex-direction:column;gap:8px;margin-top:12px;text-align:left;}
+.weakItem{display:flex;align-items:center;gap:10px;background:#F6F8FC;border-radius:12px;padding:8px 10px;}
+.weakItem img{width:30px;height:30px;flex-shrink:0;}
+.hl{color:var(--accent);font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+.rowPic{width:30px;height:30px;flex-shrink:0;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -1134,7 +1159,7 @@ function computeStats() {
   };
 }
 
-function setTab(tab) { STATE.tab = tab; render(); }
+function setTab(tab) { STATE.tab = tab; render(); if (tab === "study") autoPlayStudy(); }
 
 /* ============================================================
    render: header + tabbar
@@ -1308,6 +1333,8 @@ function creditsHtml() {
       ${last}
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">🔊 預錄發音（預設）</div>
       <div>所有單字與片語都有預錄檔，使用開源語音合成模型 <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener" style="color:var(--accent);">Kokoro-82M</a>（hexgrad，Apache License 2.0）產生：英式聲音 Emma（bf_emma）、美式聲音 Heart（af_heart）。合成語音為電腦產生，並非真人朗讀。</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">🖼️ 圖片</div>
+      <div>單字圖片使用 Google <a href="https://github.com/googlefonts/noto-emoji" target="_blank" rel="noopener" style="color:var(--accent);">Noto Emoji</a> 的向量圖（Apache License 2.0）。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📱 裝置語音</div>
       <div>以上都無法播放時，才使用手機或電腦內建的語音。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📚 內容</div>
@@ -1324,7 +1351,7 @@ const BACKUP_APPS = [
   ["movers-vocab", "Movers"], ["starters-vocab", "Starters"], ["flyers-vocab", "Flyers"], ["phonics", "自然發音"],
 ];
 const BACKUP_KEYS = BACKUP_APPS.flatMap(([p]) => [`${p}-progress-v1`, `${p}-hiscore-v1`, `${p}-daily-v1`])
-  .concat(["yle-accent-v1", "yle-sound-source-v1"]);
+  .concat(["yle-accent-v1", "yle-sound-source-v1", "yle-autoplay-v1"]);
 function exportProgressCode() {
   const d = {};
   BACKUP_KEYS.forEach((k) => { try { const v = localStorage.getItem(k); if (v !== null) d[k] = v; } catch (e) {} });
@@ -1437,6 +1464,11 @@ function settingsSheetHtml() {
       <button class="${SOUND_SOURCE === "real" ? "on" : ""}" onclick="setSoundSource('real')">🎙️ 真人錄音優先</button>
     </div>
     <div class="segNote">${SOUND_SOURCE === "gen" ? "每個字都用同一個預錄聲音，速度快、音量一致。" : "有志工真人錄音的字先播真人錄音，沒有的再用預錄聲音。"}</div>
+    <div class="sheetLabel">翻到新卡時自動發音</div>
+    <div class="seg">
+      <button class="${AUTOPLAY ? "on" : ""}" onclick="setAutoplay(true)">開</button>
+      <button class="${!AUTOPLAY ? "on" : ""}" onclick="setAutoplay(false)">關</button>
+    </div>
     <div class="sheetLabel">切換程度</div>
     <a class="appLink" href="index.html">🐱 Movers · A1 <span>›</span></a>
     <a class="appLink" href="starters-vocab.html">🐣 Starters · Pre-A1 <span>›</span></a>
@@ -1518,7 +1550,7 @@ function renderHome() {
       <div class="wodRow">
         <div style="min-width:0;">
           <div class="wodEn">${sod.grapheme}</div>
-          <div class="wodZh">範例：${sod.words.join(" · ")}</div>
+          <div class="wodZh">範例：${sod.words.map((w) => hlGrapheme(w, sod.grapheme)).join(" · ")}</div>
         </div>
         <div style="display:flex;gap:20px;flex-shrink:0;align-items:center;">${slowSoundBtnHtml(sod.id, 38, "#fff", "rgba(255,255,255,.22)")}${speakSoundBtnHtml(sod.id, 58, "#fff", "rgba(255,255,255,.28)")}</div>
       </div>
@@ -1640,15 +1672,122 @@ function buildStudyQueue(group) {
 }
 if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.study.group);
 
+/* ---------- pictures (Google Noto Emoji, Apache-2.0, stored in img/) ---------- */
+const IMG = {"ant": "e_1f41c", "apple": "e_1f34e", "arm": "e_1f4aa", "bat": "e_1f987", "bath": "e_1f6c1", "bee": "e_1f41d", "big": "e_1f418", "blue": "e_1f535", "boat": "e_1f6a4", "boil": "e_2668", "book": "e_1f4d5", "box": "e_1f4e6", "bus": "e_1f68c", "car": "e_1f697", "cat": "e_1f408", "cheese": "e_1f9c0", "chin": "e_1f9d4", "chip": "e_1f35f", "cloud": "e_2601", "coat": "e_1f9e5", "coin": "e_1fa99", "corn": "e_1f33d", "cried": "e_1f62d", "cup": "e_2615", "dad": "e_1f468", "dog": "e_1f415", "doll": "e_1fa86", "duck": "e_1f986", "egg": "e_1f95a", "fan": "e_1faad", "feet": "e_1f9b6", "fern": "e_1f33f", "fish": "e_1f41f", "food": "e_1f371", "fork": "e_1f374", "fox": "e_1f98a", "glue": "e_1f9f4", "go": "e_1f7e2", "goat": "e_1f410", "hat": "e_1f452", "hen": "e_1f414", "horn": "e_1f4ef", "hot": "e_1f975", "ink": "e_1f58b", "jam": "e_1f353", "jug": "e_1fad6", "jump": "e_1f998", "king": "e_1f934", "kite": "e_1fa81", "leg": "e_1f9b5", "lip": "e_1f444", "log": "e_1fab5", "look": "e_1f440", "man": "e_1f468", "map": "e_1f5fa", "moon": "e_1f319", "mother": "e_1f469", "mouth": "e_1f444", "mum": "e_1f469", "net": "e_1f945", "oil": "e_1f6e2", "pen": "e_1f58a", "pie": "e_1f967", "pig": "e_1f437", "pin": "e_1f4cc", "queen": "e_1f478", "quick": "e_26a1", "quiz": "e_2753", "rain": "e_1f327", "rat": "e_1f400", "red": "e_1f534", "ring": "e_1f48d", "run": "e_1f3c3", "ship": "e_1f6a2", "shop": "e_1f6cd", "sister": "e_1f467", "sit": "e_1fa91", "six": "e_0036_20e3", "snail": "e_1f40c", "song": "e_1f3b6", "spoon": "e_1f944", "star": "e_2b50", "sun": "e_2600", "tail": "e_1f98a", "tap": "e_1f6b0", "ten": "e_1f51f", "three": "e_0033_20e3", "thumb": "e_1f44d", "tie": "e_1f454", "top": "e_1f51d", "tree": "e_1f333", "true": "e_2705", "van": "e_1f690", "vet": "e_1f9d1_200d_2695", "violin": "e_1f3bb", "web": "e_1f578", "wet": "e_1f4a6", "win": "e_1f3c6", "yellow": "e_1f7e1", "yes": "e_2705", "yo-yo": "e_1fa80", "zebra": "e_1f993", "zip": "e_1f910", "zoo": "e_1f981"};
+function wordImgUrl(en) { const k = IMG[en]; return k ? `img/${k}.svg` : null; }
+function wordImgHtml(en, px, style) {
+  const u = wordImgUrl(en);
+  return u ? `<img src="${u}" alt="" width="${px}" height="${px}" draggable="false" style="display:block;${style || ""}">` : "";
+}
+/* ---------- auto-play when a new card appears (setting, shared by the apps) ---------- */
+const AUTOPLAY_KEY = "yle-autoplay-v1";
+let AUTOPLAY = (() => { try { return localStorage.getItem(AUTOPLAY_KEY) !== "off"; } catch (e) { return true; } })();
+function setAutoplay(on) {
+  AUTOPLAY = !!on;
+  try { localStorage.setItem(AUTOPLAY_KEY, AUTOPLAY ? "on" : "off"); } catch (e) {}
+  render();
+  showToast(AUTOPLAY ? "▶ 翻到新卡會自動發音" : "已關閉自動發音");
+}
+// called straight from a tap / swipe so iPhone allows the sound
+function autoPlayStudy() {
+  if (!AUTOPLAY || STATE.tab !== "study") return;
+  const it = STATE.study.queue[STATE.study.idx];
+  if (it) pronounceSound(it.id);
+}
+/* ---------- swipe a flashcard: right = 會了, left = 再練練 ---------- */
+let swipeSuppressClick = false;
+function attachSwipe() {
+  const el = document.getElementById("fcInner");
+  const wrap = document.getElementById("cardWrap");
+  if (!el || !wrap) return;
+  const yes = wrap.querySelector(".swipeTag.yes"), no = wrap.querySelector(".swipeTag.no");
+  let sx = 0, sy = 0, dx = 0, down = false, moving = false;
+  const reset = () => {
+    wrap.style.transition = "transform .2s ease"; wrap.style.transform = "";
+    if (yes) yes.style.opacity = 0; if (no) no.style.opacity = 0;
+  };
+  el.addEventListener("pointerdown", (e) => { down = true; moving = false; sx = e.clientX; sy = e.clientY; dx = 0; wrap.style.transition = "none"; });
+  el.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+    if (!moving && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) { moving = true; try { el.setPointerCapture(e.pointerId); } catch (err) {} }
+    if (!moving) return;
+    wrap.style.transform = `translateX(${dx}px) rotate(${dx / 20}deg)`;
+    if (yes) yes.style.opacity = Math.max(0, Math.min(1, dx / 90));
+    if (no) no.style.opacity = Math.max(0, Math.min(1, -dx / 90));
+  });
+  const end = () => {
+    if (!down) return;
+    down = false;
+    if (!moving) return;
+    swipeSuppressClick = true;
+    setTimeout(() => { swipeSuppressClick = false; }, 80);
+    if (Math.abs(dx) < 90) { reset(); return; }
+    const right = dx > 0;
+    wrap.style.transition = "transform .22s ease-in, opacity .22s ease-in";
+    wrap.style.transform = `translateX(${right ? 520 : -520}px) rotate(${right ? 22 : -22}deg)`;
+    wrap.style.opacity = "0";
+    rateStudyCard(right ? 3 : 1, true);
+  };
+  el.addEventListener("pointerup", end);
+  el.addEventListener("pointercancel", () => { if (down && moving) { down = false; reset(); } down = false; });
+}
+function studySessionBarHtml(s) {
+  const pct = Math.round((s.idx / Math.max(1, s.queue.length)) * 100);
+  return `<div class="sessBar"><div class="sessTrack"><div class="sessFill" style="width:${pct}%;"></div></div><div class="sessTxt">${s.idx + 1} / ${s.queue.length}</div></div>`;
+}
+function studyWeakAgain() {
+  const s = STATE.study;
+  const seen = new Set();
+  const weak = (s.results || []).filter((r) => r.level <= 2).map((r) => r.item).filter((it) => !seen.has(it.id) && seen.add(it.id));
+  if (!weak.length) return;
+  s.queue = shuffle(weak); s.idx = 0; s.flipped = false; s.results = [];
+  render();
+  autoPlayStudy();
+}
+function studySummaryHtml(s, again) {
+  const res = s.results || [];
+  const known = res.filter((r) => r.level >= 3), weak = res.filter((r) => r.level <= 2);
+  const ratio = res.length ? known.length / res.length : 0;
+  const stars = !res.length ? "" : ratio >= 0.8 ? "⭐⭐⭐" : ratio >= 0.5 ? "⭐⭐" : "⭐";
+  const msg = !res.length ? "這組卡片都跳過了，再來一組吧！" : ratio >= 0.8 ? "太厲害了！這組幾乎都會了！" : ratio >= 0.5 ? "很不錯！再把不熟的練一練。" : "慢慢來，多練幾次就會記住！";
+  const weakIds = new Set();
+  const weakItems = weak.map((r) => r.item).filter((it) => !weakIds.has(it.id) && weakIds.add(it.id));
+  return `<div class="sumCard">
+    <div style="font-size:15px;font-weight:800;color:var(--sub);">這組完成了！</div>
+    <div class="sumStars">${stars}</div>
+    <div style="font-weight:800;font-size:16px;">🦉 ${msg}</div>
+    <div class="sumStats">
+      <div class="sumStat" style="background:#E9F9F3;color:#06A77D;"><div class="v">${known.length}</div><div class="l">會了</div></div>
+      <div class="sumStat" style="background:#FDECEF;color:#D63B5F;"><div class="v">${weakItems.length}</div><div class="l">要加強</div></div>
+    </div>
+    ${weakItems.length ? `<div class="weakList">${weakItems.map((it) => `<div class="weakItem"><div style="font-weight:900;font-size:22px;min-width:52px;text-align:center;">${it.grapheme}</div><div style="flex:1;min-width:0;font-size:13px;color:var(--sub);font-weight:700;">${it.words.join(" · ")}</div>${speakSoundBtnHtml(it.id, 34)}</div>`).join("")}</div>
+      <button class="bigCta" style="margin-top:14px;margin-bottom:8px;" onclick="studyWeakAgain()">💪 再練要加強的 ${weakItems.length} 個</button>` : ""}
+    <button class="subCta" style="width:100%;margin-top:${weakItems.length ? "0" : "14px"};" onclick="${again}">🔄 再來一組新的</button>
+  </div>`;
+}
+// colour the letters that make the sound inside an example word (sun -> **s**un)
+function hlGrapheme(word, grapheme) {
+  const gs = graphemeLetters(grapheme).slice().sort((a, b) => b.length - a.length);
+  const lw = word.toLowerCase();
+  let at = -1, len = 0;
+  gs.forEach((g) => { const i = lw.indexOf(g.toLowerCase()); if (i >= 0 && (at < 0 || i < at)) { at = i; len = g.length; } });
+  if (at < 0) return escapeHtml(word);
+  return escapeHtml(word.slice(0, at)) + `<b class="hl">${escapeHtml(word.slice(at, at + len))}</b>` + escapeHtml(word.slice(at + len));
+}
 function restartStudy(group) {
   STATE.study.group = group;
   STATE.study.queue = buildStudyQueue(group);
   STATE.scopeOpen.study = false;
   STATE.study.idx = 0;
   STATE.study.flipped = false;
+  STATE.study.results = [];
   render();
+  autoPlayStudy();
 }
 function flipStudyCard() {
+  if (swipeSuppressClick) return;
   STATE.study.flipped = !STATE.study.flipped;
   const inner = document.getElementById("fcInner");
   if (!inner) { render(); return; }
@@ -1664,14 +1803,17 @@ function skipStudyCard() {
   STATE.study.idx++;
   STATE.study.flipped = false;
   render();
+  autoPlayStudy();
 }
-function rateStudyCard(level) {
+function rateStudyCard(level, viaSwipe) {
   const p = STATE.study.queue[STATE.study.idx];
   updateSound(p.id, { level, seen: ((STATE.progress[p.id] || {}).seen || 0) + 1 });
   recordActivity(1);
+  (STATE.study.results = STATE.study.results || []).push({ item: p, level });
   STATE.study.flipped = false;
   STATE.study.idx++;
-  render();
+  autoPlayStudy(); // still inside the tap / swipe
+  if (viaSwipe) setTimeout(render, 200); else render();
   if (STATE.study.idx >= STATE.study.queue.length) celebrate("🎉 完成一組！");
   else if (level >= 4) celebrate("精通！");
 }
@@ -1686,33 +1828,28 @@ function renderStudy() {
     </div>` : ""}`;
 
   if (!done) {
-    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張</div>`;
+    inner += studySessionBarHtml(s);
   }
 
   if (done) {
-    inner += `<div class="emptyWrap">
-      <div style="font-size:44px;margin-bottom:8px;">🎉</div>
-      <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組發音複習完成！</div>
-      <div style="font-size:13px;color:#8592A6;margin-bottom:18px;">再抽一組卡片繼續加強熟悉度</div>
-      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.group}')">🔄 再來一組</button>
-    </div>`;
+    inner += studySummaryHtml(s, `restartStudy('${s.group}')`);
   } else {
     const p = s.queue[s.idx];
     const color = GROUP_COLORS[p.group];
     const lv = (STATE.progress[p.id] || {}).level || 0;
     const rateRowHtml = LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("");
-    inner += `<div class="cardWrap cardEnter">
+    inner += `<div class="cardWrap cardEnter" id="cardWrap"><div class="swipeTag yes">會了 👍</div><div class="swipeTag no">再練練 💪</div>
       <div id="fcInner" class="flipInner ${s.flipped ? "flipped" : ""}" onclick="flipStudyCard()">
         <div class="flashcard front" style="background:linear-gradient(150deg, ${color}, ${color}CC);">
           <div class="fcTab">第 ${p.group} 組</div>
           <div class="fcEn" style="font-size:44px;">${p.grapheme}</div>
-          <div class="fcHint">點卡片翻面看範例字</div>
+          <div class="fcHint">點一下翻面看範例字</div>
         </div>
         <div class="flashcard back">
           <div class="fcTab" style="color:${color};background:${color}18;">第 ${p.group} 組</div>
           <div class="fcEn" style="color:#233047;font-size:32px;">${p.grapheme}</div>
           <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
-            ${p.words.map((w) => `<div style="display:flex;align-items:center;gap:4px;background:#F3F5FA;border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700;" onclick="event.stopPropagation();">${w}${speakBtnHtml(w, 22)}</div>`).join("")}
+            ${p.words.map((w) => `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#F3F5FA;border-radius:12px;padding:8px 10px;min-width:64px;" onclick="event.stopPropagation();">${wordImgHtml(w, 34) || '<div style="height:34px"></div>'}<div style="font-size:15px;font-weight:800;">${hlGrapheme(w, p.grapheme)}</div>${speakBtnHtml(w, 30)}</div>`).join("")}
           </div>
           <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
         </div>
@@ -1720,7 +1857,8 @@ function renderStudy() {
       <div id="frontCtrls" class="cardCtrls" style="${s.flipped ? "display:none;" : ""}" onclick="event.stopPropagation();">${slowSoundBtnHtml(p.id, 38, color, "#fff")}${speakSoundBtnHtml(p.id, 56, color, "#fff")}</div>
     </div>
     <div id="skipRow" style="text-align:center;margin-top:18px;${s.flipped ? "display:none;" : ""}"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>
-    <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>`;
+    <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>
+    <div class="swipeHint"><span>← 滑到左邊：再練練</span><span>滑到右邊：會了 →</span></div>`;
   }
   inner += `</div>`;
   return inner;
@@ -1886,6 +2024,7 @@ function render() {
     ${settingsSheetHtml()}
   `;
   if (STATE.tab === "browse") updateBrowseList();
+  if (STATE.tab === "study") attachSwipe();
 }
 
 // load voices ahead of time (some browsers populate this list async);

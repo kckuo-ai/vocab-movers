@@ -138,7 +138,7 @@ input{font-family:inherit;}
 /* 3D flip card */
 .flipInner{position:relative;height:230px;cursor:pointer;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;}
 .flipInner.flipped{transform:rotateY(180deg);}
-.flipInner .flashcard{position:absolute;top:0;left:0;right:0;bottom:0;height:auto;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.flipInner .flashcard{position:absolute;top:0;left:0;right:0;bottom:0;height:auto;padding-bottom:64px;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
 .flipInner .flashcard.back{transform:rotateY(180deg);}
 .flipInner:not(.flipped) .flashcard.back,.flipInner.flipped .flashcard.front{pointer-events:none;}
 .cardCtrls{position:absolute;bottom:14px;right:14px;z-index:5;display:flex;gap:20px;align-items:center;}
@@ -184,6 +184,31 @@ input{font-family:inherit;}
 .appLink{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;margin-bottom:8px;}
 .appLink span{color:var(--sub);}
 .sheetLabel{font-size:13px;font-weight:800;color:var(--sub);margin:18px 2px 8px;}
+/* ---------- flashcards: pictures, swipe, session progress ---------- */
+.flipInner{height:304px;touch-action:pan-y;-webkit-user-select:none;user-select:none;}
+.fcPic{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.12);margin-top:6px;}
+.fcPic img{width:70px;height:70px;pointer-events:none;}
+.fcPicSm{width:58px;height:58px;margin-bottom:2px;}
+.fcPicSm img{width:58px;height:58px;pointer-events:none;}
+.swipeTag{position:absolute;top:20px;z-index:6;padding:5px 12px;border-radius:12px;font-weight:900;font-size:17px;border:3px solid;background:#fff;opacity:0;pointer-events:none;}
+.swipeTag.yes{left:20px;color:#06A77D;border-color:#06D6A0;transform:rotate(-12deg);}
+.swipeTag.no{right:20px;color:#D63B5F;border-color:#EF476F;transform:rotate(12deg);}
+.sessBar{display:flex;align-items:center;gap:10px;margin:12px 2px 10px;}
+.sessTrack{flex:1;height:8px;background:var(--track);border-radius:999px;overflow:hidden;}
+.sessFill{height:100%;background:var(--accent);border-radius:999px;transition:width .35s ease;}
+.sessTxt{font-size:12.5px;font-weight:800;color:var(--sub);white-space:nowrap;}
+.swipeHint{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);font-weight:800;margin:10px 6px 0;}
+.sumCard{background:#fff;border-radius:20px;padding:20px 18px;text-align:center;box-shadow:0 6px 18px rgba(35,48,71,.06);margin-top:12px;}
+.sumStars{font-size:34px;letter-spacing:4px;margin:4px 0 6px;}
+.sumStats{display:flex;gap:10px;margin:14px 0 4px;}
+.sumStat{flex:1;border-radius:14px;padding:10px 4px;}
+.sumStat .v{font-weight:900;font-size:22px;}
+.sumStat .l{font-size:12px;font-weight:800;margin-top:2px;}
+.weakList{display:flex;flex-direction:column;gap:8px;margin-top:12px;text-align:left;}
+.weakItem{display:flex;align-items:center;gap:10px;background:#F6F8FC;border-radius:12px;padding:8px 10px;}
+.weakItem img{width:30px;height:30px;flex-shrink:0;}
+.hl{color:var(--accent);font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+.rowPic{width:30px;height:30px;flex-shrink:0;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -1612,7 +1637,7 @@ function computeStats() {
   };
 }
 
-function setTab(tab) { STATE.tab = tab; render(); }
+function setTab(tab) { STATE.tab = tab; render(); if (tab === "study") autoPlayStudy(); }
 
 /* ============================================================
    render: header + tabbar
@@ -1788,6 +1813,8 @@ function creditsHtml() {
       ${last}
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">🔊 預錄發音（預設）</div>
       <div>所有單字與片語都有預錄檔，使用開源語音合成模型 <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener" style="color:var(--accent);">Kokoro-82M</a>（hexgrad，Apache License 2.0）產生：英式聲音 Emma（bf_emma）、美式聲音 Heart（af_heart）。合成語音為電腦產生，並非真人朗讀。</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">🖼️ 圖片</div>
+      <div>單字圖片使用 Google <a href="https://github.com/googlefonts/noto-emoji" target="_blank" rel="noopener" style="color:var(--accent);">Noto Emoji</a> 的向量圖（Apache License 2.0）。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📱 裝置語音</div>
       <div>以上都無法播放時，才使用手機或電腦內建的語音。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📚 內容</div>
@@ -1804,7 +1831,7 @@ const BACKUP_APPS = [
   ["movers-vocab", "Movers"], ["starters-vocab", "Starters"], ["flyers-vocab", "Flyers"], ["phonics", "自然發音"],
 ];
 const BACKUP_KEYS = BACKUP_APPS.flatMap(([p]) => [`${p}-progress-v1`, `${p}-hiscore-v1`, `${p}-daily-v1`])
-  .concat(["yle-accent-v1", "yle-sound-source-v1"]);
+  .concat(["yle-accent-v1", "yle-sound-source-v1", "yle-autoplay-v1"]);
 function exportProgressCode() {
   const d = {};
   BACKUP_KEYS.forEach((k) => { try { const v = localStorage.getItem(k); if (v !== null) d[k] = v; } catch (e) {} });
@@ -1917,6 +1944,11 @@ function settingsSheetHtml() {
       <button class="${SOUND_SOURCE === "real" ? "on" : ""}" onclick="setSoundSource('real')">🎙️ 真人錄音優先</button>
     </div>
     <div class="segNote">${SOUND_SOURCE === "gen" ? "每個字都用同一個預錄聲音，速度快、音量一致。" : "有志工真人錄音的字先播真人錄音，沒有的再用預錄聲音。"}</div>
+    <div class="sheetLabel">翻到新卡時自動發音</div>
+    <div class="seg">
+      <button class="${AUTOPLAY ? "on" : ""}" onclick="setAutoplay(true)">開</button>
+      <button class="${!AUTOPLAY ? "on" : ""}" onclick="setAutoplay(false)">關</button>
+    </div>
     <div class="sheetLabel">切換程度</div>
     <a class="appLink" href="index.html">🐱 Movers · A1 <span>›</span></a>
     <a class="appLink" href="starters-vocab.html">🐣 Starters · Pre-A1 <span>›</span></a>
@@ -1996,9 +2028,12 @@ function renderHome() {
     <div class="wodCard" style="background:linear-gradient(135deg, var(--hdrA), var(--hdrB));">
       <div class="wodLabel">今日單字 · ${wc.label}</div>
       <div class="wodRow">
-        <div style="min-width:0;">
-          <div class="wodEn">${wod.en}</div>
-          <div class="wodZh">${wod.pos} · ${wod.zh}</div>
+        <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+          ${wordImgUrl(wod.en) ? `<div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;flex-shrink:0;">${wordImgHtml(wod.en, 44)}</div>` : ""}
+          <div style="min-width:0;">
+            <div class="wodEn">${wod.en}</div>
+            <div class="wodZh">${wod.pos} · ${wod.zh}</div>
+          </div>
         </div>
         <div style="display:flex;gap:20px;flex-shrink:0;align-items:center;">${slowBtnHtml(wod.en, 38, "#fff", "rgba(255,255,255,.22)")}${speakBtnHtml(wod.en, 58, "#fff", "rgba(255,255,255,.28)")}</div>
       </div>
@@ -2048,7 +2083,7 @@ function browseListHtml() {
     const c = CAT_MAP[w.cat];
     return `<div class="rowCard">
       <div class="rowHead" onclick="toggleWordId('${w.id}')">
-        <div class="rowDot" style="background:${c.color};"></div>
+        ${wordImgUrl(w.en) ? wordImgHtml(w.en, 30, "flex-shrink:0;") : `<div style="width:30px;display:flex;justify-content:center;flex-shrink:0;"><div class="rowDot" style="background:${c.color};"></div></div>`}
         <div style="flex:1;text-align:left;min-width:0;">
           <div style="font-weight:800;font-size:15px;">${w.en}</div>
           <div style="font-size:12px;color:#8592A6;">${w.pos} · ${w.zh}</div>
@@ -2137,6 +2172,101 @@ function buildStudyQueue(sel) {
 }
 if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.study);
 
+/* ---------- pictures (Google Noto Emoji, Apache-2.0, stored in img/) ---------- */
+const IMG = {"Earth": "e_1f30d", "London": "e_1f3a1", "act": "e_1f3ad", "actor": "e_1f3ad", "air": "e_1f4a8", "airport": "e_1f6eb", "alone": "e_1f9cd", "amazing": "e_1f929", "ambulance": "e_1f691", "art": "e_1f3a8", "artist": "e_1f9d1_200d_1f3a8", "astronaut": "e_1f9d1_200d_1f680", "autumn (fall)": "e_1f342", "backpack (rucksack)": "e_1f392", "bandage": "e_1fa79", "bank": "e_1f3e6", "beetle": "e_1fab2", "bicycle": "e_1f6b2", "bin": "e_1f5d1", "biscuit (cookie)": "e_1f36a", "bored": "e_1f971", "bracelet": "e_1f4ff", "break": "e_1f494", "bridge": "e_1f309", "broken": "e_1f494", "brush": "e_1faae", "burn": "e_1f525", "business": "e_1f4bc", "businessman/woman": "e_1f4bc", "butter": "e_1f9c8", "butterfly": "e_1f98b", "calendar": "e_1f4c5", "camel": "e_1f42b", "camp": "e_1f3d5", "cartoon": "e_1f4fa", "castle": "e_1f3f0", "cave": "e_1f573", "century": "e_1f4af", "cereal": "e_1f963", "channel": "e_1f4fa", "chat": "e_1f4ac", "cheap": "e_1f3f7", "chemist's": "e_1f48a", "chess": "e_265f", "chopsticks": "e_1f962", "collect": "e_1f9fa", "college": "e_1f393", "comb": "e_1faae", "competition": "e_1f3c6", "concert": "e_1f3b5", "cooker": "e_1f373", "corner": "e_1f4d0", "costume": "e_1f9b8", "creature": "e_1f43e", "crown": "e_1f451", "cushion": "e_1f6cb", "cut": "e_2702", "cycle": "e_1f6b4", "dark": "e_1f311", "date (time)": "e_1f4c5", "delicious": "e_1f60b", "desert": "e_1f3dc", "designer": "e_1f9d1_200d_1f3a8", "diary": "e_1f4d4", "dictionary": "e_1f4d8", "dinosaur": "e_1f995", "drum": "e_1f941", "eagle": "e_1f985", "early": "e_23f0", "east": "e_1f9ed", "empty": "e_1fad9", "engineer": "e_1f9d1_200d_1f527", "enormous": "e_1f40b", "entrance": "e_1f6aa", "envelope": "e_2709", "environment": "e_1f333", "excellent": "e_1f3c5", "excited": "e_1f929", "exit": "e_1f6aa", "expensive": "e_1f48e", "explore": "e_1f9ed", "extinct": "e_1f996", "factory": "e_1f3ed", "fall over": "e_1f938", "fast": "e_1f3ce", "festival": "e_1f389", "finger": "e_261d", "fire": "e_1f525", "fire engine (fire truck)": "e_1f692", "fire fighter": "e_1f9d1_200d_1f692", "fire station": "e_1f692", "flag": "e_1f6a9", "flashlight (torch)": "e_1f526", "flour": "e_1f33e", "fog": "e_1f32b", "foggy": "e_1f32b", "forget": "e_1f937", "fork": "e_1f374", "fridge": "e_1f9ca", "friendly": "e_1f917", "frightening": "e_1f47b", "full": "e_1f37d", "fur": "e_1f98a", "gate": "e_1f6a7", "geography": "e_1f5fa", "glove": "e_1f9e4", "glue": "e_1f9f4", "gold": "e_1f947", "golf": "e_26f3", "group": "e_1f465", "gym": "e_1f3cb", "hear": "e_1f442", "heavy": "e_1f3cb", "high": "e_1f3d4", "hill": "e_26f0", "history": "e_1f4dc", "honey": "e_1f36f", "horrible": "e_1f92e", "hotel": "e_1f3e8", "hour": "e_1f550", "hurry": "e_1f3c3", "husband": "e_1f935", "insect": "e_1f41e", "instrument": "e_1f3bb", "invent": "e_1f4a1", "invitation": "e_1f48c", "jam": "e_1f353", "job": "e_1f4bc", "join (a club)": "e_1f64b", "journalist": "e_1f4f0", "journey": "e_1f5fa", "key": "e_1f511", "kind": "e_1f496", "knife": "e_1f52a", "land": "e_1f6ec", "language": "e_1f5e3", "large": "e_1f418", "late": "e_231b", "lazy": "e_1f9a5", "left (direction)": "e_2b05", "letter (mail)": "e_2709", "lift": "e_1f3cb", "lift (ride)": "e_1f697", "light": "e_1fab6", "lovely": "e_1f970", "lucky": "e_1f340", "magazine": "e_1f4f0", "manager": "e_1f4bc", "married": "e_1f492", "match (football)": "e_26bd", "maths (math)": "e_2797", "meal": "e_1f37d", "mechanic": "e_1f9d1_200d_1f527", "medicine": "e_1f48a", "meet": "e_1f91d", "meeting": "e_1f91d", "member": "e_1faaa", "midday": "e_1f55b", "midnight": "e_1f319", "minute": "e_23f1", "mix": "e_1f963", "month": "e_1f5d3", "motorway": "e_1f6e3", "museum": "e_1f3db", "necklace": "e_1f4ff", "nest": "e_1faba", "news": "e_1f4f0", "newspaper": "e_1f4f0", "noisy": "e_1f4e2", "north": "e_1f9ed", "ocean": "e_1f30a", "octopus": "e_1f419", "office": "e_1f3e2", "olives": "e_1fad2", "online": "e_1f310", "oven": "e_1f35e", "pajamas (pyjamas)": "e_1f6cc", "passenger": "e_1f9f3", "path": "e_1f97e", "pepper": "e_1fad1", "photographer": "e_1f4f8", "pilot": "e_1f9d1_200d_2708", "pizza": "e_1f355", "planet": "e_1fa90", "platform": "e_1f689", "pleased": "e_1f60a", "police officer": "e_1f46e", "police station": "e_1f693", "pond": "e_1f986", "poor": "e_1fa99", "pop music": "e_1f3b5", "post": "e_1f4ee", "post office": "e_1f3e4", "prize": "e_1f3c6", "programme (program)": "e_1f4fa", "pull": "e_1faf8", "push": "e_1faf7", "puzzle": "e_1f9e9", "pyramid": "e_1f53a", "quarter": "e_1f552", "queen": "e_1f478", "quiz": "e_2753", "race": "e_1f3c1", "racing": "e_1f3ce", "railway": "e_1f6e4", "remember": "e_1f9e0", "repair": "e_1f527", "restaurant": "e_1f37d", "rich": "e_1f4b0", "right (direction)": "e_27a1", "ring": "e_1f48d", "rock music": "e_1f3b8", "rocket": "e_1f680", "salt": "e_1f9c2", "science": "e_1f52c", "scissors": "e_2702", "score": "e_1f522", "screen": "e_1f5a5", "sell": "e_1f3f7", "shampoo": "e_1f9f4", "shelf": "e_1f4da", "silver": "e_1f948", "singer": "e_1f3a4", "ski": "e_1f3bf", "skyscraper": "e_1f3d9", "sledge": "e_1f6f7", "smell": "e_1f443", "snack": "e_1f968", "snowball": "e_2744", "snowboard": "e_1f3c2", "snowboarding": "e_1f3c2", "snowman": "e_2603", "soap": "e_1f9fc", "soft": "e_1f9f8", "sore": "e_1f915", "south": "e_1f9ed", "space": "e_1f30c", "spaceship": "e_1f6f8", "speak": "e_1f5e3", "spoon": "e_1f944", "spot": "e_1f534", "spotted": "e_1f41e", "spring": "e_1f337", "stadium": "e_1f3df", "stage (theatre)": "e_1f3ad", "stamp": "e_1f4ee", "stone": "e_1faa8", "storm": "e_26c8", "straight on": "e_2b06", "strange": "e_1f47d", "strawberry": "e_1f353", "stream": "e_1f3de", "stripe": "e_1f993", "striped": "e_1f993", "student": "e_1f9d1_200d_1f393", "study": "e_1f4da", "sugar": "e_1f36c", "suitcase": "e_1f9f3", "summer": "e_1f3d6", "sunglasses": "e_1f576", "swan": "e_1f9a2", "swing": "e_1f6dd", "taste": "e_1f60b", "taxi": "e_1f695", "team": "e_1f465", "telephone": "e_260e", "tent": "e_26fa", "thank": "e_1f64f", "theatre (theater)": "e_1f3ad", "tidy": "e_1f9f9", "time": "e_23f0", "timetable": "e_1f5d3", "toe": "e_1f9b6", "tomorrow": "e_1f4c5", "tonight": "e_1f319", "tortoise": "e_1f422", "touch": "e_1f446", "tour": "e_1f5fa", "traffic": "e_1f6a6", "trainers": "e_1f45f", "tune": "e_1f3b6", "turn off": "e_1f4f4", "tyre (tire)": "e_1f6de", "umbrella": "e_2602", "unhappy": "e_2639", "uniform": "e_1f46e", "university": "e_1f393", "untidy": "e_1f5d1", "use": "e_1f6e0", "view": "e_1f3de", "violin": "e_1f3bb", "visit": "e_1f6aa", "volleyball": "e_1f3d0", "waiter": "e_1f37d", "warm": "e_1f525", "west": "e_1f9ed", "wheel": "e_1f6de", "whisper": "e_1f92b", "whistle": "e_1f3b5", "wife": "e_1f470", "wild": "e_1f43a", "win": "e_1f3c6", "wing": "e_1fabd", "winner": "e_1f3c6", "winter": "e_2603", "wish": "e_1f320", "wonderful": "e_2728", "wood": "e_1fab5", "worried": "e_1f61f", "x-ray": "e_1fa7b", "yoghurt": "e_1f95b"};
+function wordImgUrl(en) { const k = IMG[en]; return k ? `img/${k}.svg` : null; }
+function wordImgHtml(en, px, style) {
+  const u = wordImgUrl(en);
+  return u ? `<img src="${u}" alt="" width="${px}" height="${px}" draggable="false" style="display:block;${style || ""}">` : "";
+}
+/* ---------- auto-play when a new card appears (setting, shared by the apps) ---------- */
+const AUTOPLAY_KEY = "yle-autoplay-v1";
+let AUTOPLAY = (() => { try { return localStorage.getItem(AUTOPLAY_KEY) !== "off"; } catch (e) { return true; } })();
+function setAutoplay(on) {
+  AUTOPLAY = !!on;
+  try { localStorage.setItem(AUTOPLAY_KEY, AUTOPLAY ? "on" : "off"); } catch (e) {}
+  render();
+  showToast(AUTOPLAY ? "▶ 翻到新卡會自動發音" : "已關閉自動發音");
+}
+// called straight from a tap / swipe so iPhone allows the sound
+function autoPlayStudy() {
+  if (!AUTOPLAY || STATE.tab !== "study") return;
+  const it = STATE.study.queue[STATE.study.idx];
+  if (it) pronounce(it.en);
+}
+/* ---------- swipe a flashcard: right = 會了, left = 再練練 ---------- */
+let swipeSuppressClick = false;
+function attachSwipe() {
+  const el = document.getElementById("fcInner");
+  const wrap = document.getElementById("cardWrap");
+  if (!el || !wrap) return;
+  const yes = wrap.querySelector(".swipeTag.yes"), no = wrap.querySelector(".swipeTag.no");
+  let sx = 0, sy = 0, dx = 0, down = false, moving = false;
+  const reset = () => {
+    wrap.style.transition = "transform .2s ease"; wrap.style.transform = "";
+    if (yes) yes.style.opacity = 0; if (no) no.style.opacity = 0;
+  };
+  el.addEventListener("pointerdown", (e) => { down = true; moving = false; sx = e.clientX; sy = e.clientY; dx = 0; wrap.style.transition = "none"; });
+  el.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+    if (!moving && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) { moving = true; try { el.setPointerCapture(e.pointerId); } catch (err) {} }
+    if (!moving) return;
+    wrap.style.transform = `translateX(${dx}px) rotate(${dx / 20}deg)`;
+    if (yes) yes.style.opacity = Math.max(0, Math.min(1, dx / 90));
+    if (no) no.style.opacity = Math.max(0, Math.min(1, -dx / 90));
+  });
+  const end = () => {
+    if (!down) return;
+    down = false;
+    if (!moving) return;
+    swipeSuppressClick = true;
+    setTimeout(() => { swipeSuppressClick = false; }, 80);
+    if (Math.abs(dx) < 90) { reset(); return; }
+    const right = dx > 0;
+    wrap.style.transition = "transform .22s ease-in, opacity .22s ease-in";
+    wrap.style.transform = `translateX(${right ? 520 : -520}px) rotate(${right ? 22 : -22}deg)`;
+    wrap.style.opacity = "0";
+    rateStudyCard(right ? 3 : 1, true);
+  };
+  el.addEventListener("pointerup", end);
+  el.addEventListener("pointercancel", () => { if (down && moving) { down = false; reset(); } down = false; });
+}
+function studySessionBarHtml(s) {
+  const pct = Math.round((s.idx / Math.max(1, s.queue.length)) * 100);
+  return `<div class="sessBar"><div class="sessTrack"><div class="sessFill" style="width:${pct}%;"></div></div><div class="sessTxt">${s.idx + 1} / ${s.queue.length}</div></div>`;
+}
+function studyWeakAgain() {
+  const s = STATE.study;
+  const seen = new Set();
+  const weak = (s.results || []).filter((r) => r.level <= 2).map((r) => r.item).filter((it) => !seen.has(it.id) && seen.add(it.id));
+  if (!weak.length) return;
+  s.queue = shuffle(weak); s.idx = 0; s.flipped = false; s.results = [];
+  render();
+  autoPlayStudy();
+}
+function studySummaryHtml(s, again) {
+  const res = s.results || [];
+  const known = res.filter((r) => r.level >= 3), weak = res.filter((r) => r.level <= 2);
+  const ratio = res.length ? known.length / res.length : 0;
+  const stars = !res.length ? "" : ratio >= 0.8 ? "⭐⭐⭐" : ratio >= 0.5 ? "⭐⭐" : "⭐";
+  const msg = !res.length ? "這組卡片都跳過了，再來一組吧！" : ratio >= 0.8 ? "太厲害了！這組幾乎都會了！" : ratio >= 0.5 ? "很不錯！再把不熟的練一練。" : "慢慢來，多練幾次就會記住！";
+  const weakIds = new Set();
+  const weakItems = weak.map((r) => r.item).filter((it) => !weakIds.has(it.id) && weakIds.add(it.id));
+  return `<div class="sumCard">
+    <div style="font-size:15px;font-weight:800;color:var(--sub);">這組完成了！</div>
+    <div class="sumStars">${stars}</div>
+    <div style="font-weight:800;font-size:16px;">🦉 ${msg}</div>
+    <div class="sumStats">
+      <div class="sumStat" style="background:#E9F9F3;color:#06A77D;"><div class="v">${known.length}</div><div class="l">會了</div></div>
+      <div class="sumStat" style="background:#FDECEF;color:#D63B5F;"><div class="v">${weakItems.length}</div><div class="l">要加強</div></div>
+    </div>
+    ${weakItems.length ? `<div class="weakList">${weakItems.map((it) => `<div class="weakItem">${wordImgHtml(it.en, 30) || '<div style="width:30px"></div>'}<div style="flex:1;min-width:0;"><div style="font-weight:800;font-size:15px;">${it.en}</div><div style="font-size:12px;color:var(--sub);">${it.zh}</div></div>${speakBtnHtml(it.en, 34)}</div>`).join("")}</div>
+      <button class="bigCta" style="margin-top:14px;margin-bottom:8px;" onclick="studyWeakAgain()">💪 再練要加強的 ${weakItems.length} 個</button>` : ""}
+    <button class="subCta" style="width:100%;margin-top:${weakItems.length ? "0" : "14px"};" onclick="${again}">🔄 再來一組新的</button>
+  </div>`;
+}
 function restartStudy(mode, value) {
   STATE.study.mode = mode;
   if (mode === "letter") STATE.study.letter = value; else STATE.study.cat = value;
@@ -2144,9 +2274,12 @@ function restartStudy(mode, value) {
   STATE.scopeOpen.study = false;
   STATE.study.idx = 0;
   STATE.study.flipped = false;
+  STATE.study.results = [];
   render();
+  autoPlayStudy();
 }
 function flipStudyCard() {
+  if (swipeSuppressClick) return;
   STATE.study.flipped = !STATE.study.flipped;
   const inner = document.getElementById("fcInner");
   if (!inner) { render(); return; }
@@ -2160,14 +2293,17 @@ function skipStudyCard() {
   STATE.study.idx++;
   STATE.study.flipped = false;
   render();
+  autoPlayStudy();
 }
-function rateStudyCard(level) {
+function rateStudyCard(level, viaSwipe) {
   const word = STATE.study.queue[STATE.study.idx];
   updateWord(word.id, { level, seen: ((STATE.progress[word.id] || {}).seen || 0) + 1 });
   recordActivity(1);
+  (STATE.study.results = STATE.study.results || []).push({ item: word, level });
   STATE.study.flipped = false;
   STATE.study.idx++;
-  render();
+  autoPlayStudy(); // still inside the tap / swipe
+  if (viaSwipe) setTimeout(render, 200); else render();
   if (STATE.study.idx >= STATE.study.queue.length) celebrate("🎉 完成一組！");
   else if (level >= 4) celebrate("精通！");
 }
@@ -2193,32 +2329,29 @@ function renderStudy() {
     </div>` : ""}`;
 
   if (!done) {
-    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張</div>`;
+    inner += studySessionBarHtml(s);
   }
 
   if (done) {
-    inner += `<div class="emptyWrap">
-      <div style="font-size:44px;margin-bottom:8px;">🎉</div>
-      <div style="font-weight:800;font-size:18px;margin-bottom:6px;">這組單字複習完成！</div>
-      <div style="font-size:13px;color:#8592A6;margin-bottom:18px;">再抽一組卡片繼續加強熟悉度</div>
-      <button class="cta" style="background:#4361EE;flex:none;padding:12px 26px;" onclick="restartStudy('${s.mode}','${s.mode === "letter" ? s.letter : s.cat}')">🔄 再來一組</button>
-    </div>`;
+    inner += studySummaryHtml(s, `restartStudy('${s.mode}','${s.mode === "letter" ? s.letter : s.cat}')`);
   } else {
     const word = s.queue[s.idx];
     const c = CAT_MAP[word.cat];
     const lv = (STATE.progress[word.id] || {}).level || 0;
     const rateRowHtml = LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("");
-    inner += `<div class="cardWrap cardEnter">
+    inner += `<div class="cardWrap cardEnter" id="cardWrap"><div class="swipeTag yes">會了 👍</div><div class="swipeTag no">再練練 💪</div>
       <div id="fcInner" class="flipInner ${s.flipped ? "flipped" : ""}" onclick="flipStudyCard()">
         <div class="flashcard front" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
           <div class="fcTab">${c.emoji} ${c.label}</div>
           <div class="fcPos">${word.pos}</div>
-          <div class="fcEn">${word.en}</div>
-          <div class="fcHint">點卡片翻面看意思</div>
+          ${wordImgUrl(word.en) ? `<div class="fcPic">${wordImgHtml(word.en, 70)}</div>` : ""}
+          <div class="fcEn" style="${wordImgUrl(word.en) ? "font-size:28px;margin-top:10px;" : ""}">${word.en}</div>
+          <div class="fcHint">點一下翻面</div>
         </div>
         <div class="flashcard back">
           <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
           <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
+          ${wordImgUrl(word.en) ? `<div class="fcPicSm">${wordImgHtml(word.en, 58)}</div>` : ""}
           <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
           <div class="fcZh">${word.zh}</div>
           <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
@@ -2227,7 +2360,8 @@ function renderStudy() {
       <div class="cardCtrls" onclick="event.stopPropagation();">${slowBtnHtml(word.en, 38, c.color, "#fff")}${speakBtnHtml(word.en, 56, c.color, "#fff")}</div>
     </div>
     <div id="skipRow" style="text-align:center;margin-top:18px;${s.flipped ? "display:none;" : ""}"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>
-    <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>`;
+    <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>
+    <div class="swipeHint"><span>← 滑到左邊：再練練</span><span>滑到右邊：會了 →</span></div>`;
   }
   inner += `</div>`;
   return inner;
@@ -2598,6 +2732,7 @@ function render() {
     ${settingsSheetHtml()}
   `;
   if (STATE.tab === "browse") updateBrowseList();
+  if (STATE.tab === "study") attachSwipe();
 }
 
 // load voices ahead of time (some browsers populate this list async);
