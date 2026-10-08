@@ -935,8 +935,29 @@ function canonicalWord(raw) {
 const PRONOUNCE_OVERRIDES = {
   cook: "kuk",
 };
+/* ---------- entries with "/" : say every form ----------
+   "tooth / teeth" -> tooth, teeth ; "businessman/woman" -> businessman,
+   businesswoman ; "take a photo / picture" -> take a photo, take a picture */
+const SPOKEN_FORMS = {
+  "businessman/woman": ["businessman", "businesswoman"],
+  "city / town centre": ["city centre", "town centre"],
+  "take a photo / picture": ["take a photo", "take a picture"],
+  "gray / grey": ["grey"],
+  "practice / practise": ["practice"],
+};
+function spokenForms(rawText) {
+  const raw = String(rawText).trim();
+  if (SPOKEN_FORMS[raw]) return SPOKEN_FORMS[raw];
+  if (raw.indexOf("/") < 0) return [canonicalWord(raw)];
+  // strip (...) notes, then split on "/"
+  let noParen = "", depth = 0;
+  for (const ch of raw) { if (ch === "(") { depth++; continue; } if (ch === ")") { if (depth > 0) depth--; continue; } if (depth === 0) noParen += ch; }
+  return noParen.split("/").map((x) => x.trim()).filter(Boolean);
+}
+// text actually spoken / used for the generated MP3 name
+function spokenText(rawText) { return spokenForms(rawText).join(", "); }
 function speakTextFor(rawText) {
-  const base = canonicalWord(rawText);
+  const base = spokenText(rawText);
   const override = PRONOUNCE_OVERRIDES[base.toLowerCase()];
   const text = override || base;
   // ending punctuation gives many TTS engines natural sentence-final
@@ -1352,7 +1373,8 @@ function pronounce(rawText, slow) {
 
   try {
     warmAudioSession();
-    const base = canonicalWord(rawText);
+    const multi = spokenForms(rawText).length > 1;
+    const base = multi ? spokenText(rawText) : canonicalWord(rawText);
     if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
     // default: this site's generated MP3 (Commons recordings only as a backup);
     // "real" setting: Commons recordings first, generated MP3 as the backup
@@ -2092,9 +2114,31 @@ function renderStudy() {
 /* ============================================================
    QUIZ
    ============================================================ */
+/* ---------- tests: entries with two words are asked as two words ----------
+   "tooth / teeth" becomes two questions (tooth, teeth). Both keep the same id,
+   so progress still counts toward the one entry, and a word's own pair never
+   appears as a wrong option. Spelling variants that sound the same
+   (gray / grey, practice / practise) stay one question. */
+const SPLIT_ZH = {
+  "Ann / Anna": ["安（女子名）", "安娜（女子名）"],
+  "businessman/woman": ["商人（男）", "女商人"],
+  "city / town centre": ["市中心", "鎮中心"],
+  "television / TV": ["電視", "電視（縮寫）"],
+  "take a photo / picture": ["拍照", "拍照"],
+};
+function expandForTest(pool) {
+  const out = [];
+  pool.forEach((w) => {
+    const forms = spokenForms(w.en);
+    if (forms.length < 2) { out.push(w); return; }
+    const zhs = SPLIT_ZH[w.en] || forms.map((f, i) => (i === 0 ? w.zh : `${w.zh}（複數）`));
+    forms.forEach((f, i) => out.push({ ...w, en: f, zh: zhs[i] || w.zh, splitFrom: w.en }));
+  });
+  return out;
+}
 function buildQuizQuestions(sel) {
-  let pool = poolForSelection(sel);
-  if (pool.length < 4) pool = WORDS;
+  let pool = expandForTest(poolForSelection(sel));
+  if (pool.length < 4) pool = expandForTest(WORDS);
   const chosen = buildWeightedQueue(pool, QUIZ_LEN);
   return chosen.map((w) => {
     const distractors = shuffle(pool.filter((x) => x.id !== w.id)).slice(0, 3);
@@ -2210,7 +2254,7 @@ function renderQuiz() {
    ============================================================ */
 const SPELL_LEN = 10;
 function buildSpellQueue(sel) {
-  return buildWeightedQueue(poolForSelection(sel), SPELL_LEN);
+  return buildWeightedQueue(expandForTest(poolForSelection(sel)), SPELL_LEN);
 }
 function startSpell(mode, value) {
   const sel = { mode, cat: mode === "cat" ? value : "all", letter: mode === "letter" ? value : "A" };
@@ -2298,9 +2342,9 @@ function submitSpell() {
   const sp = STATE.spell;
   if (sp.feedback) return; // already answered, waiting to advance
   const w = sp.queue[sp.idx];
-  const answer = normalizeSpelling(canonicalWord(w.en));
+  const answers = [canonicalWord(w.en)].concat(spokenForms(w.en)).map(normalizeSpelling);
   const given = normalizeSpelling(sp.input || "");
-  const isCorrect = given.length > 0 && given === answer;
+  const isCorrect = given.length > 0 && answers.includes(given);
   resolveSpell(isCorrect);
 }
 function hintSpell() {

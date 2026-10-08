@@ -441,8 +441,29 @@ function canonicalWord(raw) {
 const PRONOUNCE_OVERRIDES = {
   cook: "kuk",
 };
+/* ---------- entries with "/" : say every form ----------
+   "tooth / teeth" -> tooth, teeth ; "businessman/woman" -> businessman,
+   businesswoman ; "take a photo / picture" -> take a photo, take a picture */
+const SPOKEN_FORMS = {
+  "businessman/woman": ["businessman", "businesswoman"],
+  "city / town centre": ["city centre", "town centre"],
+  "take a photo / picture": ["take a photo", "take a picture"],
+  "gray / grey": ["grey"],
+  "practice / practise": ["practice"],
+};
+function spokenForms(rawText) {
+  const raw = String(rawText).trim();
+  if (SPOKEN_FORMS[raw]) return SPOKEN_FORMS[raw];
+  if (raw.indexOf("/") < 0) return [canonicalWord(raw)];
+  // strip (...) notes, then split on "/"
+  let noParen = "", depth = 0;
+  for (const ch of raw) { if (ch === "(") { depth++; continue; } if (ch === ")") { if (depth > 0) depth--; continue; } if (depth === 0) noParen += ch; }
+  return noParen.split("/").map((x) => x.trim()).filter(Boolean);
+}
+// text actually spoken / used for the generated MP3 name
+function spokenText(rawText) { return spokenForms(rawText).join(", "); }
 function speakTextFor(rawText) {
-  const base = canonicalWord(rawText);
+  const base = spokenText(rawText);
   const override = PRONOUNCE_OVERRIDES[base.toLowerCase()];
   const text = override || base;
   // ending punctuation gives many TTS engines natural sentence-final
@@ -858,7 +879,8 @@ function pronounce(rawText, slow) {
 
   try {
     warmAudioSession();
-    const base = canonicalWord(rawText);
+    const multi = spokenForms(rawText).length > 1;
+    const base = multi ? spokenText(rawText) : canonicalWord(rawText);
     if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
     // default: this site's generated MP3 (Commons recordings only as a backup);
     // "real" setting: Commons recordings first, generated MP3 as the backup
