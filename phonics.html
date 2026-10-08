@@ -1504,7 +1504,7 @@ function renderHome() {
           <div class="wodEn">${sod.grapheme}</div>
           <div class="wodZh">範例：${sod.words.join(" · ")}</div>
         </div>
-        <div style="display:flex;gap:10px;flex-shrink:0;align-items:center;">${slowSoundBtnHtml(sod.id, 38, "#fff", "rgba(255,255,255,.22)")}${speakSoundBtnHtml(sod.id, 46, "#fff", "rgba(255,255,255,.28)")}</div>
+        <div style="display:flex;gap:10px;flex-shrink:0;align-items:center;">${slowSoundBtnHtml(sod.id, 38, "#fff", "rgba(255,255,255,.22)")}${speakSoundBtnHtml(sod.id, 58, "#fff", "rgba(255,255,255,.28)")}</div>
       </div>
     </div>
     ${progressFoldHtml(stats, groups)}
@@ -1701,7 +1701,7 @@ function renderStudy() {
           <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
         </div>
       </div>
-      <div id="frontCtrls" class="cardCtrls" style="${s.flipped ? "display:none;" : ""}" onclick="event.stopPropagation();">${slowSoundBtnHtml(p.id, 38, color, "#fff")}${speakSoundBtnHtml(p.id, 44, color, "#fff")}</div>
+      <div id="frontCtrls" class="cardCtrls" style="${s.flipped ? "display:none;" : ""}" onclick="event.stopPropagation();">${slowSoundBtnHtml(p.id, 38, color, "#fff")}${speakSoundBtnHtml(p.id, 56, color, "#fff")}</div>
     </div>
     <div id="skipRow" style="text-align:center;margin-top:18px;${s.flipped ? "display:none;" : ""}"><button style="background:none;color:#8592A6;font-weight:700;font-size:13px;" onclick="skipStudyCard()">跳過這張 →</button></div>
     <div id="rateRow" class="rateRow" style="${s.flipped ? "" : "display:none;"}">${rateRowHtml}</div>`;
