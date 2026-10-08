@@ -1508,6 +1508,7 @@ let STATE = {
   voicePref: lget(VKEY, { voiceURI: null }),
   showVoicePicker: false,
   showSettings: false,
+  backup: null,
   showProgress: false,
   scopeOpen: { study: false, quiz: false, spell: false },
   showCredits: false,
@@ -1770,7 +1771,109 @@ function creditsHtml() {
     </div>` : ""}
   </div>`;
 }
-function toggleSettings() { STATE.showSettings = !STATE.showSettings; render(); }
+/* ---------- backup: export / import progress as a code ----------
+   All four apps live on the same site, so one code carries everything:
+   progress, daily record and best score of each app, plus accent and sound
+   source. Format: "YLE1-" + base64(JSON). Import overwrites only the keys the
+   code contains, then reloads the page. */
+const BACKUP_APPS = [
+  ["movers-vocab", "Movers"], ["starters-vocab", "Starters"], ["flyers-vocab", "Flyers"], ["phonics", "自然發音"],
+];
+const BACKUP_KEYS = BACKUP_APPS.flatMap(([p]) => [`${p}-progress-v1`, `${p}-hiscore-v1`, `${p}-daily-v1`])
+  .concat(["yle-accent-v1", "yle-sound-source-v1"]);
+function exportProgressCode() {
+  const d = {};
+  BACKUP_KEYS.forEach((k) => { try { const v = localStorage.getItem(k); if (v !== null) d[k] = v; } catch (e) {} });
+  const json = JSON.stringify({ v: 1, t: new Date().toISOString(), d });
+  return "YLE1-" + btoa(unescape(encodeURIComponent(json)));
+}
+function parseProgressCode(code) {
+  const c = String(code || "").replace(/\s+/g, "");
+  if (!c.startsWith("YLE1-")) throw new Error("這不是進度代碼（應該以 YLE1- 開頭）");
+  let obj;
+  try { obj = JSON.parse(decodeURIComponent(escape(atob(c.slice(5))))); }
+  catch (e) { throw new Error("代碼不完整，請確認整段都有複製到"); }
+  if (!obj || obj.v !== 1 || !obj.d || typeof obj.d !== "object") throw new Error("代碼格式不正確");
+  return obj;
+}
+function backupSummary(obj) {
+  const parts = BACKUP_APPS.map(([p, label]) => {
+    let learned = 0, streak = 0;
+    try { const prog = JSON.parse(obj.d[`${p}-progress-v1`] || "{}"); learned = Object.values(prog).filter((x) => x && x.level > 0).length; } catch (e) {}
+    try { streak = (JSON.parse(obj.d[`${p}-daily-v1`] || "{}").streak) || 0; } catch (e) {}
+    return `${label}：已學 ${learned}${p === "phonics" ? " 個發音" : " 字"}${streak ? `，連續 ${streak} 天` : ""}`;
+  });
+  let when = "";
+  try { const t = new Date(obj.t); when = `${t.getFullYear()}/${t.getMonth() + 1}/${t.getDate()} ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`; } catch (e) {}
+  return { when, parts };
+}
+function backupStart(mode) {
+  STATE.backup = { mode, code: mode === "export" ? exportProgressCode() : "", msg: "", preview: null };
+  render();
+}
+function backupClose() { STATE.backup = null; render(); }
+function backupCopy() {
+  const code = STATE.backup && STATE.backup.code;
+  const fallback = () => {
+    const el = document.getElementById("backupCode");
+    if (el) { el.focus(); el.select(); }
+    showToast("請長按代碼 → 全選 → 拷貝");
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(() => showToast("✅ 已複製進度代碼"), fallback);
+    } else fallback();
+  } catch (e) { fallback(); }
+}
+function backupShare() {
+  const code = STATE.backup && STATE.backup.code;
+  try { navigator.share({ title: "單字練習進度", text: code }).catch(() => {}); } catch (e) { backupCopy(); }
+}
+function backupCheck() {
+  const b = STATE.backup;
+  const el = document.getElementById("backupCode");
+  if (el) b.code = el.value;
+  try { const obj = parseProgressCode(b.code); b.preview = backupSummary(obj); b.msg = ""; }
+  catch (e) { b.preview = null; b.msg = e.message; }
+  render();
+}
+function backupApply() {
+  try {
+    const obj = parseProgressCode(STATE.backup.code);
+    Object.keys(obj.d).forEach((k) => { if (BACKUP_KEYS.includes(k)) localStorage.setItem(k, obj.d[k]); });
+    showToast("✅ 已匯入，重新載入中…");
+    setTimeout(() => location.reload(), 600);
+  } catch (e) { STATE.backup.msg = "匯入失敗：" + e.message; render(); }
+}
+function backupHtml() {
+  const b = STATE.backup;
+  const btn = (label, onclick, primary) => `<button style="flex:1;padding:12px 0;border-radius:12px;font-weight:800;font-size:14px;background:${primary ? "var(--accent)" : "#fff"};color:${primary ? "#fff" : "var(--ink)"};border:1.5px solid ${primary ? "var(--accent)" : "var(--border)"};" onclick="${onclick}">${label}</button>`;
+  if (!b) return `<div style="display:flex;gap:8px;">${btn("📤 匯出進度", "backupStart('export')")}${btn("📥 匯入進度", "backupStart('import')")}</div>
+    <div class="segNote">換手機、換瀏覽器前先匯出，到新的地方再匯入。</div>`;
+  const area = (ro) => `<textarea id="backupCode" ${ro ? "readonly" : ""} onfocus="${ro ? "this.select()" : ""}" oninput="STATE.backup.code=this.value"
+    placeholder="把進度代碼貼在這裡" style="width:100%;height:96px;border-radius:12px;border:1.5px solid var(--border);padding:10px;font-size:11px;font-family:Menlo,monospace;word-break:break-all;resize:none;background:#fff;color:var(--ink);">${escapeHtml(b.code)}</textarea>`;
+  if (b.mode === "export") {
+    return `<div style="background:#fff;border-radius:14px;padding:12px;">
+      <div style="font-weight:800;font-size:14px;margin-bottom:8px;">📤 你的進度代碼</div>
+      ${area(true)}
+      <div style="display:flex;gap:8px;margin-top:8px;">${btn("複製", "backupCopy()", true)}${navigator.share ? btn("分享…", "backupShare()") : ""}${btn("關閉", "backupClose()")}</div>
+      <div class="segNote">把代碼傳到新的裝置（例如用 LINE 或訊息），在那裡的「匯入進度」貼上。</div>
+    </div>`;
+  }
+  return `<div style="background:#fff;border-radius:14px;padding:12px;">
+    <div style="font-weight:800;font-size:14px;margin-bottom:8px;">📥 匯入進度</div>
+    ${area(false)}
+    ${b.msg ? `<div style="color:#B3223F;font-size:12.5px;font-weight:700;margin-top:6px;">${escapeHtml(b.msg)}</div>` : ""}
+    ${b.preview ? `<div style="background:#F6F8FC;border-radius:10px;padding:10px;margin-top:8px;font-size:12.5px;line-height:1.6;">
+        <div style="font-weight:800;">這份備份${b.preview.when ? `（${b.preview.when}）` : ""}</div>
+        ${b.preview.parts.map((x) => `<div>${escapeHtml(x)}</div>`).join("")}
+        <div style="color:#B3223F;font-weight:700;margin-top:6px;">匯入後會取代這台裝置目前的進度。</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px;">${btn("確定匯入", "backupApply()", true)}${btn("取消", "backupClose()")}</div>`
+    : `<div style="display:flex;gap:8px;margin-top:8px;">${btn("檢查代碼", "backupCheck()", true)}${btn("取消", "backupClose()")}</div>`}
+  </div>`;
+}
+function toggleSettings() { STATE.showSettings = !STATE.showSettings; STATE.backup = null; render(); }
 function setAccent(a) { if (ACCENT !== a) toggleAccent(); }
 function settingsSheetHtml() {
   if (!STATE.showSettings) return "";
@@ -1794,6 +1897,8 @@ function settingsSheetHtml() {
     <a class="appLink" href="index.html">🐱 Movers · A1 <span>›</span></a>
     <a class="appLink" href="flyers-vocab.html">🚀 Flyers · A2 <span>›</span></a>
     <a class="appLink" href="phonics.html">🔤 自然發音 <span>›</span></a>
+    <div class="sheetLabel">備份進度</div>
+    ${backupHtml()}
     <div style="margin-top:14px;">${creditsHtml()}</div>
   </div></div>`;
 }
