@@ -674,6 +674,18 @@ function commonsAudioCandidates(word) {
   const pairs = Array.isArray(known) ? known : candidateNames(lower);
   return orderByAccent(pairs).map((p) => commonsMp3Url(p[1]));
 }
+/* ---------- pre-generated pronunciations ----------
+   Every word and phrase also has an MP3 on this site (audio/uk, audio/us),
+   generated with the open-source Kokoro TTS model (Apache-2.0): British voice
+   "Emma", American voice "Heart". They are played exactly like the real
+   recordings, which is what works reliably on iPhone, so the device's own
+   speech engine (silent in Safari on some iPhones) is only a last resort. */
+function generatedSlug(text) {
+  return canonicalWord(text).trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+function generatedAudioUrl(text) {
+  return `audio/${ACCENT === "uk" ? "uk" : "us"}/${generatedSlug(text)}.mp3`;
+}
 let recIndexRunning = false;
 async function buildRecordingIndex() {
   if (recIndexRunning || !("fetch" in window)) return;
@@ -793,7 +805,8 @@ function pronounce(rawText, slow) {
     warmAudioSession();
     const base = canonicalWord(rawText);
     if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
-    const candidates = commonsAudioCandidates(base);
+    // real recordings first (if any), then this site's generated MP3
+    const candidates = commonsAudioCandidates(base).concat([generatedAudioUrl(base)]);
     dbg(`── 點擊 "${base}" 口音=${ACCENT} 索引=${recIndexStatus(base)} 錄音候選=${candidates.length} 慢速=${!!slow}`);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
@@ -842,9 +855,11 @@ function pronounce(rawText, slow) {
     audioEl.addEventListener("error", () => { if (settled) return; dbg(`錄音載入失敗 code=${audioEl.error && audioEl.error.code}`); tryNext(); });
     audioEl.addEventListener("playing", () => {
       if (fellBack) { try { audioEl.pause(); } catch (e) {} return; }
-      dbg("真人錄音播放中 ✓");
+      const isReal = /upload\.wikimedia\.org/.test(audioEl.src);
+      dbg(isReal ? "真人錄音播放中 ✓" : "預錄發音播放中 ✓");
       settled = true;
-      showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
+      if (isReal) showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
+      else if (slow) showToast("🐢 慢速");
       release();
     });
     // Safety net: some failure modes (blocked/hung requests, wrong content
@@ -853,7 +868,8 @@ function pronounce(rawText, slow) {
     // ends up with at least the device voice quickly no matter what.
     // 2.5 s to find a recording; once one is found (metadata loaded) give
     // it extra time to start, since a first, uncached load can be slow
-    let deadline = setTimeout(() => fallbackNow("timed out"), 2500);
+    // room for a few missing-file checks plus the site's own MP3
+    let deadline = setTimeout(() => fallbackNow("timed out"), 4000);
     audioEl.addEventListener("loadedmetadata", () => {
       if (settled) return;
       clearTimeout(deadline);
