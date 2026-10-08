@@ -155,6 +155,34 @@ input{font-family:inherit;}
 .fxText{position:absolute;left:50%;top:36%;font-size:28px;font-weight:900;color:var(--accent);text-shadow:0 2px 0 #fff,0 4px 14px rgba(0,0,0,.18);white-space:nowrap;animation:floatUp 1.1s ease-out forwards;}
 @keyframes floatUp{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-150%) scale(1)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;}}
+/* ---------- practice-first layout ---------- */
+:root{--sub:#66748A;}
+.header::before,.header::after{display:none;}
+.owl{animation:none;}
+.header{padding:18px 20px 20px;}
+.hsub{font-size:13.5px;}
+.gearBtn{position:absolute;top:16px;right:16px;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;}
+.htagRow{max-width:calc(100% - 52px);}
+.heroCard{background:#fff;border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 18px rgba(35,48,71,.06);margin-bottom:14px;}
+.miniRing{position:relative;width:78px;height:78px;flex-shrink:0;}
+.miniRing .c{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.bigCta{display:block;width:100%;background:var(--accent);color:#fff;font-weight:800;font-size:18px;padding:18px 0;border-radius:18px;box-shadow:0 10px 22px var(--hdrShadow);margin-bottom:10px;transition:transform .12s ease;}
+.bigCta:active{transform:scale(.96);}
+.subCtaRow{display:flex;gap:10px;margin-bottom:18px;}
+.subCta{flex:1;background:#fff;color:var(--ink);font-weight:800;font-size:15px;padding:14px 0;border-radius:14px;border:1.5px solid var(--border);}
+.foldHead{display:flex;width:100%;justify-content:space-between;align-items:center;background:#fff;border-radius:14px;padding:15px 16px;font-weight:800;font-size:15px;color:var(--ink);margin:4px 0 10px;}
+.foldHead span{color:var(--sub);font-size:13px;}
+.scopeBar{display:flex;width:100%;justify-content:space-between;align-items:center;background:#fff;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.scopeBar .chg{color:var(--accent);font-size:13px;}
+.sheetBg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(20,28,45,.45);z-index:70;display:flex;align-items:flex-end;justify-content:center;}
+.sheet{background:var(--bg);width:100%;max-width:480px;max-height:86vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom));}
+.seg{display:flex;background:#E8ECF3;border-radius:12px;padding:4px;gap:4px;}
+.seg button{flex:1;padding:11px 0;border-radius:9px;font-weight:800;font-size:14.5px;color:#5B6779;}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(35,48,71,.12);}
+.segNote{font-size:12px;color:var(--sub);margin:7px 2px 0;line-height:1.5;}
+.appLink{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;margin-bottom:8px;}
+.appLink span{color:var(--sub);}
+.sheetLabel{font-size:13px;font-weight:800;color:var(--sub);margin:18px 2px 8px;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -1298,6 +1326,9 @@ let STATE = {
   daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [], history: {} })),
   voicePref: lget(VKEY, { voiceURI: null }),
   showVoicePicker: false,
+  showSettings: false,
+  showProgress: false,
+  scopeOpen: { study: false, quiz: false, spell: false },
   showCredits: false,
   tab: "home",
   toast: null,
@@ -1390,12 +1421,8 @@ const TITLES = {
 function headerHtml() {
   const [title, sub] = TITLES[STATE.tab];
   return `<div class="header">
-    <div class="appSwitchGroup">
-      <a class="appSwitch" href="starters-vocab.html">🐣 Starters</a>
-      <a class="appSwitch" href="flyers-vocab.html">🚀 Flyers</a>
-      <a class="appSwitch" href="phonics.html">🔤 自然發音</a>
-    </div>
-    <div class="htagRow"><div class="htag">MOVERS · A1</div>${accentBtnHtml()}</div>
+    <button class="gearBtn" onclick="toggleSettings()" aria-label="設定">⚙️</button>
+    <div class="htagRow"><div class="htag">MOVERS · A1</div></div>
     <div class="htitle">${title}</div>
     <div class="hsub">${sub}</div>
   </div>`;
@@ -1505,7 +1532,7 @@ function weekHistoryHtml() {
   }
   const max = Math.max(DAILY_GOAL, ...days.map((d) => d.count));
   return `<div class="dailyCard">
-    <div style="font-weight:800;font-size:13.5px;margin-bottom:12px;">📊 最近 7 天學習紀錄</div>
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:12px;">最近 7 天</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;height:86px;gap:6px;">
       ${days.map((d) => {
         const h = d.count > 0 ? Math.max(6, Math.round((d.count / max) * 60)) : 3;
@@ -1525,7 +1552,7 @@ function listCompletionHtml(stats) {
   const studiedPct = total ? stats.studiedCount / total : 0;
   const masteredPct = total ? stats.masteredCount / total : 0;
   return `<div class="dailyCard">
-    <div style="font-weight:800;font-size:13.5px;margin-bottom:10px;">📚 單字表完成度（共 ${total} 字）</div>
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:10px;">單字表完成度（共 ${total} 字）</div>
     <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#8592A6;margin-bottom:4px;">
       <span>已學習</span><span>${stats.studiedCount}/${total}（${Math.round(studiedPct*100)}%）</span>
     </div>
@@ -1544,7 +1571,7 @@ function creditsHtml() {
   const last = lastRecordingFile
     ? `<div style="margin-top:6px;">剛剛播放的真人錄音：<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(lastRecordingFile.replace(/ /g, "_"))}" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all;">${escapeHtml(lastRecordingFile)}</a>（點開可看錄音者與授權）</div>`
     : `<div style="margin-top:6px;">播放任一真人錄音後，這裡會出現該錄音的檔案頁連結（含錄音者與授權）。</div>`;
-  return `<div class="dailyCard" style="margin-top:6px;">
+  return `<div class="dailyCard">
     <div class="dailyTop" style="cursor:pointer;margin-bottom:${open ? "8px" : "0"};" onclick="toggleCredits()">
       <div style="font-weight:800;font-size:13.5px;">ℹ️ 聲音來源與授權</div>
       <div style="font-size:12px;color:#8592A6;font-weight:700;">${open ? "收起 ▲" : "展開 ▼"}</div>
@@ -1562,39 +1589,102 @@ function creditsHtml() {
     </div>` : ""}
   </div>`;
 }
+function toggleSettings() { STATE.showSettings = !STATE.showSettings; render(); }
+function setAccent(a) { if (ACCENT !== a) toggleAccent(); }
+function settingsSheetHtml() {
+  if (!STATE.showSettings) return "";
+  return `<div class="sheetBg" onclick="toggleSettings()"><div class="sheet" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:800;font-size:19px;">設定</div>
+      <button style="font-size:15px;font-weight:800;color:var(--accent);padding:6px 4px;" onclick="toggleSettings()">完成</button>
+    </div>
+    <div class="sheetLabel">發音口音</div>
+    <div class="seg">
+      <button class="${ACCENT === "uk" ? "on" : ""}" onclick="setAccent('uk')">🇬🇧 英式</button>
+      <button class="${ACCENT === "us" ? "on" : ""}" onclick="setAccent('us')">🇺🇸 美式</button>
+    </div>
+    <div class="sheetLabel">發音來源</div>
+    <div class="seg">
+      <button class="${SOUND_SOURCE === "gen" ? "on" : ""}" onclick="setSoundSource('gen')">🔊 預錄</button>
+      <button class="${SOUND_SOURCE === "real" ? "on" : ""}" onclick="setSoundSource('real')">🎙️ 真人錄音優先</button>
+    </div>
+    <div class="segNote">${SOUND_SOURCE === "gen" ? "每個字都用同一個預錄聲音，速度快、音量一致。" : "有志工真人錄音的字先播真人錄音，沒有的再用預錄聲音。"}</div>
+    <div class="sheetLabel">切換程度</div>
+    <a class="appLink" href="starters-vocab.html">🐣 Starters · Pre-A1 <span>›</span></a>
+    <a class="appLink" href="flyers-vocab.html">🚀 Flyers · A2 <span>›</span></a>
+    <a class="appLink" href="phonics.html">🔤 自然發音 <span>›</span></a>
+    <div style="margin-top:14px;">${creditsHtml()}</div>
+  </div></div>`;
+}
+function toggleProgressFold() { STATE.showProgress = !STATE.showProgress; render(); }
+function heroMessage() {
+  const remaining = DAILY_GOAL - STATE.daily.todayCount;
+  if (STATE.daily.todayCount === 0) return "今天還沒開始，一起來練習吧！";
+  if (remaining > 0) return `再 ${remaining} 個就完成今天的目標`;
+  return "今天的目標完成了！🎉";
+}
+function toggleScope(screen) { STATE.scopeOpen[screen] = !STATE.scopeOpen[screen]; render(); }
+function heroCardHtml(stats, unit) {
+  const today = Math.min(STATE.daily.todayCount, DAILY_GOAL);
+  const complete = STATE.daily.todayCount >= DAILY_GOAL;
+  const C = 2 * Math.PI * 32;
+  return `<div class="heroCard">
+    <div class="miniRing">
+      <svg width="78" height="78" viewBox="0 0 78 78">
+        <circle cx="39" cy="39" r="32" fill="none" stroke="#EDF1F8" stroke-width="9"/>
+        <circle cx="39" cy="39" r="32" fill="none" style="stroke:${complete ? "#06D6A0" : "var(--accent)"};" stroke-width="9" stroke-linecap="round"
+          stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - today / DAILY_GOAL)}" transform="rotate(-90 39 39)"/>
+      </svg>
+      <div class="c"><div style="font-weight:800;font-size:20px;line-height:1;">${today}</div><div style="font-size:11.5px;color:var(--sub);font-weight:700;margin-top:2px;">/ ${DAILY_GOAL}</div></div>
+    </div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-weight:800;font-size:16px;line-height:1.4;margin-bottom:6px;">🦉 ${escapeHtml(heroMessage())}</div>
+      <div style="font-size:13px;color:var(--sub);font-weight:700;">🔥 連續 ${STATE.daily.streak} 天　·　精通 ${stats.masteredCount} ${unit}</div>
+    </div>
+  </div>`;
+}
+function progressFoldHtml(stats, groupsHtml) {
+  const open = STATE.showProgress;
+  const earned = BADGES.filter((b) => STATE.daily.badges.includes(b.id));
+  const next = BADGES.find((b) => !STATE.daily.badges.includes(b.id));
+  return `<button class="foldHead" onclick="toggleProgressFold()">我的進度與貼紙 <span>${open ? "收起 ▲" : "展開 ▼"}</span></button>
+    ${open ? `
+      ${listCompletionHtml(stats)}
+      ${weekHistoryHtml()}
+      <div class="sectionTitle">貼紙收藏（${earned.length}）</div>
+      <div class="badgeGrid">
+        ${earned.map((b) => `<div class="badge" title="${b.desc}"><div class="emo">${b.emoji}</div><div class="lbl">${b.label}</div></div>`).join("")}
+        ${next ? `<div class="badge locked" title="${next.desc}"><div class="emo">🔒</div><div class="lbl">${next.desc}</div></div>` : ""}
+      </div>
+      ${groupsHtml}
+    ` : ""}`;
+}
 function renderHome() {
   const stats = computeStats();
   const wod = getWordOfDay();
-  const wodLv = (STATE.progress[wod.id] || {}).level || 0;
   const wc = CAT_MAP[wod.cat];
-  const earned = BADGES.filter((b) => STATE.daily.badges.includes(b.id));
-  const next = BADGES.find((b) => !STATE.daily.badges.includes(b.id));
-  const pct = Math.min(1, STATE.daily.todayCount / DAILY_GOAL);
   const complete = STATE.daily.todayCount >= DAILY_GOAL;
-  const circumference = 2 * Math.PI * 56;
-
+  const groups = `<div class="sectionTitle">各主題精通</div>
+    ${CATEGORIES.map((c) => {
+      const cs = stats.byCat[c.key];
+      const p = cs.total ? cs.weighted / (cs.total * 4) : 0;
+      return `<div class="catRow">
+        <div class="catIcon" style="background:#F1F3F8;">${c.emoji}</div>
+        <div style="flex:1;">
+          <div class="catTop"><span style="font-weight:800;font-size:14px;">${c.label}</span><span style="font-size:12.5px;color:var(--sub);font-weight:700;">${cs.mastered}/${cs.total}</span></div>
+          <div class="barTrack"><div class="barFill" style="width:${Math.round(p*100)}%;background:var(--accent);"></div></div>
+        </div>
+      </div>`;
+    }).join("")}`;
   return `<div class="pad">
-    <div class="mascotWrap">
-      <div class="owl">🦉</div>
-      <div class="bubble">${escapeHtml(mascotMessage())}</div>
-      ${STATE.daily.streak > 0 ? `<div class="streakBadge">🔥 ${STATE.daily.streak}</div>` : ""}
+    ${heroCardHtml(stats, "字")}
+    <button class="bigCta" onclick="setTab('study')">${complete ? "再練一組 →" : "開始今天的練習 →"}</button>
+    <div class="subCtaRow">
+      <button class="subCta" onclick="setTab('spell')">✏️ 拼字</button>
+      <button class="subCta" onclick="setTab('quiz')">🎯 測驗</button>
     </div>
-    ${soundSourceHtml()}
-    ${voicePickerHtml()}
-
-    <div class="dailyCard">
-      <div class="dailyTop">
-        <div style="font-weight:800;font-size:13.5px;">📅 今日練習目標</div>
-        <div style="font-size:12px;font-weight:800;color:${complete ? "#06D6A0" : "#8592A6"};">${Math.min(STATE.daily.todayCount, DAILY_GOAL)}/${DAILY_GOAL}</div>
-      </div>
-      <div class="barTrack"><div class="barFill" style="width:${Math.round(pct*100)}%;background:${complete ? "#06D6A0" : "#FFB703"};"></div></div>
-      <div class="dailyStreakRow"><span>🔥 連續 ${STATE.daily.streak} 天</span><span>🏆 最佳 ${STATE.daily.bestStreak || 0} 天</span></div>
-    </div>
-
-    ${weekHistoryHtml()}
-
-    <div class="wodCard" style="background:linear-gradient(135deg, ${wc.color}, ${wc.color}CC);">
-      <div class="wodLabel">⭐ 今日單字 · ${wc.emoji} ${wc.label}</div>
+    <div class="wodCard" style="background:linear-gradient(135deg, var(--hdrA), var(--hdrB));">
+      <div class="wodLabel">今日單字 · ${wc.label}</div>
       <div class="wodRow">
         <div style="min-width:0;">
           <div class="wodEn">${wod.en}</div>
@@ -1602,55 +1692,8 @@ function renderHome() {
         </div>
         <div style="display:flex;gap:8px;flex-shrink:0;">${slowBtnHtml(wod.en, 38, "#fff", "rgba(255,255,255,.22)")}${speakBtnHtml(wod.en, 46, "#fff", "rgba(255,255,255,.28)")}</div>
       </div>
-      <div class="wodFooter">目前熟悉度：${levelInfo(wodLv).emoji} ${levelInfo(wodLv).label}</div>
     </div>
-
-    <div class="ctaRow">
-      <button class="cta" style="background:#4361EE;" onclick="setTab('study')">🃏 開始複習</button>
-      <button class="cta" style="background:#EF476F;" onclick="setTab('quiz')">🎯 挑戰測驗</button>
-    </div>
-
-    <div class="ring">
-      <svg width="132" height="132" viewBox="0 0 132 132">
-        <circle cx="66" cy="66" r="56" fill="none" stroke="#EDF1F8" stroke-width="14"/>
-        <circle cx="66" cy="66" r="56" fill="none" stroke="#4361EE" stroke-width="14" stroke-linecap="round"
-          stroke-dasharray="${circumference}" stroke-dashoffset="${circumference * (1 - stats.masteredPct)}"
-          transform="rotate(-90 66 66)"/>
-      </svg>
-      <div class="ringCenter">
-        <div style="font-weight:800;font-size:26px;">${stats.masteredCount}</div>
-        <div style="font-size:11px;color:#8592A6;font-weight:700;">/ ${stats.total} 精通</div>
-      </div>
-    </div>
-
-    ${listCompletionHtml(stats)}
-
-    <div class="statRow">
-      <div class="chip" style="border-color:#2EC4B655;"><div class="val" style="color:#2EC4B6;">${stats.studiedCount}</div><div class="lbl">已學習</div></div>
-      <div class="chip" style="border-color:#FFB70355;"><div class="val" style="color:#FFB703;">${stats.avgLevel.toFixed(1)}</div><div class="lbl">平均熟悉度</div></div>
-      <div class="chip" style="border-color:#EF476F55;"><div class="val" style="color:#EF476F;">${STATE.hiScore.best || 0}</div><div class="lbl">測驗最高分</div></div>
-    </div>
-
-    <div class="sectionTitle">我的貼紙收藏</div>
-    <div class="badgeGrid">
-      ${earned.map((b) => `<div class="badge" title="${b.desc}"><div class="emo">${b.emoji}</div><div class="lbl">${b.label}</div></div>`).join("")}
-      ${next ? `<div class="badge locked" title="${next.desc}"><div class="emo">🔒</div><div class="lbl">${next.desc}</div></div>` : ""}
-      ${earned.length === 0 && !next ? `<div style="font-size:12px;color:#8592A6;">持續練習來收集貼紙吧！</div>` : ""}
-    </div>
-
-    <div class="sectionTitle">依主題進度</div>
-    ${CATEGORIES.map((c) => {
-      const cs = stats.byCat[c.key];
-      const p = cs.total ? cs.weighted / (cs.total * 4) : 0;
-      return `<div class="catRow">
-        <div class="catIcon" style="background:${c.color}22;">${c.emoji}</div>
-        <div style="flex:1;">
-          <div class="catTop"><span style="font-weight:800;font-size:13.5px;">${c.label}</span><span style="font-size:11.5px;color:#8592A6;font-weight:700;">${cs.mastered}/${cs.total}</span></div>
-          <div class="barTrack"><div class="barFill" style="width:${Math.round(p*100)}%;background:${c.color};"></div></div>
-        </div>
-      </div>`;
-    }).join("")}
-    ${creditsHtml()}
+    ${progressFoldHtml(stats, groups)}
   </div>`;
 }
 
@@ -1788,6 +1831,7 @@ function restartStudy(mode, value) {
   STATE.study.mode = mode;
   if (mode === "letter") STATE.study.letter = value; else STATE.study.cat = value;
   STATE.study.queue = buildStudyQueue(STATE.study);
+  STATE.scopeOpen.study = false;
   STATE.study.idx = 0;
   STATE.study.flipped = false;
   render();
@@ -1817,11 +1861,18 @@ function rateStudyCard(level) {
   if (STATE.study.idx >= STATE.study.queue.length) celebrate("🎉 完成一組！");
   else if (level >= 4) celebrate("精通！");
 }
+function scopeLabel(sel) {
+  if (sel.mode === "letter") return `字母 ${sel.letter}`;
+  if (sel.cat === "all") return "全部單字";
+  const c = CAT_MAP[sel.cat];
+  return `${c.emoji} ${c.label}`;
+}
 function renderStudy() {
   const s = STATE.study;
   const done = s.idx >= s.queue.length;
   let inner = `<div class="pad">
-    ${modeToggleHtml("study", s.mode)}
+    <button class="scopeBar" onclick="toggleScope('study')"><span>範圍：${scopeLabel(s)}（${poolForSelection(s).length} 字）</span><span class="chg">${STATE.scopeOpen.study ? "收起 ▲" : "更改 ▼"}</span></button>
+    ${STATE.scopeOpen.study ? `${modeToggleHtml("study", s.mode)}
     <div class="chipRow">
       ${s.mode === "cat" ? `
         ${catChipHtml(s.cat === "all", "全部", "🔀", "#233047", `restartStudy('cat','all')`)}
@@ -1829,10 +1880,10 @@ function renderStudy() {
       ` : `
         ${LETTERS.map((l) => letterChipHtml(s.letter === l, l, `restartStudy('letter','${l}')`)).join("")}
       `}
-    </div>`;
+    </div>` : ""}`;
 
   if (!done) {
-    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張 · 新單字與待加強單字混合出題</div>`;
+    inner += `<div style="font-size:12px;font-weight:700;color:#8592A6;margin:12px 2px;">第 ${s.idx+1} / ${s.queue.length} 張</div>`;
   }
 
   if (done) {
@@ -1928,11 +1979,12 @@ function renderQuiz() {
       <div class="introCard">
         <div style="font-size:38px;">🎯</div>
         <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">選出正確的中文意思</div>
-        <div style="font-size:13px;color:#8592A6;">每題答對 +10 分，連續答對有額外加分。答錯會降低該單字熟悉度，答對則提升熟悉度。</div>
+        <div style="font-size:14px;color:var(--sub);line-height:1.5;">看英文，選出正確的中文意思。連續答對有加分！</div>
         <div style="font-size:12px;color:#8592A6;margin-top:10px;font-weight:700;">歷史最高分：${STATE.hiScore.best || 0}</div>
       </div>
-      <div class="sectionTitle">選擇範圍</div>
-      ${modeToggleHtml("quiz", qz.mode)}
+      <button class="bigCta" style="margin-top:16px;" onclick="startQuiz('cat','all')">開始測驗（全部單字）→</button>
+      <button class="scopeBar" onclick="toggleScope('quiz')"><span>或指定分類 / 字母</span><span class="chg">${STATE.scopeOpen.quiz ? "收起 ▲" : "展開 ▼"}</span></button>
+      ${STATE.scopeOpen.quiz ? `${modeToggleHtml("quiz", qz.mode)}
       <div class="chipRow">
         ${qz.mode === "cat" ? `
           ${catChipHtml(false, "全部", "🔀", "#233047", `startQuiz('cat','all')`)}
@@ -1940,7 +1992,7 @@ function renderQuiz() {
         ` : `
           ${LETTERS.map((l) => letterChipHtml(false, l, `startQuiz('letter','${l}')`)).join("")}
         `}
-      </div>
+      </div>` : ""}
     </div>`;
   }
   if (qz.phase === "done") {
@@ -2126,10 +2178,11 @@ function renderSpell() {
       <div class="introCard">
         <div style="font-size:38px;">✏️</div>
         <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">聽發音，拼出這個字</div>
-        <div style="font-size:13px;color:#8592A6;">每題會先唸出單字，聽完後在下面輸入拼法。答對加分、提升熟悉度；答錯會顯示正確答案並降低熟悉度。不會的話可以按「💡 提示」，最多兩次，每次隨機透露 1~2 個字母；第三次按提示會直接視為不會，記為答錯。</div>
+        <div style="font-size:14px;color:var(--sub);line-height:1.5;">聽發音，拼出單字。不會的話可以按 💡 提示（最多兩次）。</div>
       </div>
-      <div class="sectionTitle">選擇範圍</div>
-      ${modeToggleHtml("spell", sp.mode)}
+      <button class="bigCta" style="margin-top:16px;" onclick="startSpell('cat','all')">開始拼字（全部單字）→</button>
+      <button class="scopeBar" onclick="toggleScope('spell')"><span>或指定分類 / 字母</span><span class="chg">${STATE.scopeOpen.spell ? "收起 ▲" : "展開 ▼"}</span></button>
+      ${STATE.scopeOpen.spell ? `${modeToggleHtml("spell", sp.mode)}
       <div class="chipRow">
         ${sp.mode === "cat" ? `
           ${catChipHtml(false, "全部", "🔀", "#233047", `startSpell('cat','all')`)}
@@ -2137,7 +2190,7 @@ function renderSpell() {
         ` : `
           ${LETTERS.map((l) => letterChipHtml(false, l, `startSpell('letter','${l}')`)).join("")}
         `}
-      </div>
+      </div>` : ""}
     </div>`;
   }
   if (sp.phase === "done") {
@@ -2210,6 +2263,7 @@ function render() {
     <div class="body">${bodyHtml()}</div>
     ${tabBarHtml()}
     <div id="toastHost">${STATE.toast ? `<div class="toast">${escapeHtml(STATE.toast)}</div>` : ""}</div>
+    ${settingsSheetHtml()}
   `;
   if (STATE.tab === "browse") updateBrowseList();
 }
