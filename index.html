@@ -691,14 +691,15 @@ const PREFERRED_GB_VOICE_NAMES = ["Daniel", "Kate", "Serena", "Arthur", "Martha"
 function pickBestVoice() {
   const en = usableEnglishVoices();
   if (!en.length) return null;
-  // follow the 🇬🇧/🇺🇸 accent toggle; fall back to the other accent only if
-  // the device has no voice at all for the chosen one
-  const wantLang = ACCENT === "uk" ? "en-GB" : "en-US";
+  // The system voice is always an American one. On iPhone the British
+  // "Daniel" voice runs (start/end events fire) but produces no sound in
+  // Safari, so the 🇬🇧/🇺🇸 toggle only orders the real recordings.
+  const wantLang = "en-US";
   const same = en.filter((v) => v.lang === wantLang);
   const pool = same.length ? same : en;
   let v = pool.find((v) => /premium|enhanced|neural/i.test(v.name) || /premium|enhanced|neural/i.test(v.voiceURI));
   if (v) return v;
-  const names = ACCENT === "uk" ? PREFERRED_GB_VOICE_NAMES : PREFERRED_VOICE_NAMES;
+  const names = PREFERRED_VOICE_NAMES.filter((n) => n !== "Daniel");
   for (const name of names) {
     v = pool.find((vv) => vv.name === name);
     if (v) return v;
@@ -707,7 +708,7 @@ function pickBestVoice() {
     v = pool.find((vv) => vv.name.includes(name));
     if (v) return v;
   }
-  return pool[0];
+  return pool.find((vv) => vv.name !== "Daniel") || pool[0];
 }
 const VKEY = "movers-vocab-voice-v1";
 function getSelectedVoice() {
@@ -794,7 +795,7 @@ function speak(rawText, attempt, onSettle, opts) {
         // attempt 0 uses the chosen voice; retries let iOS pick its own default
         // voice for the language, in case the chosen one is the problem
         const voice = attempt === 0 ? getSelectedVoice() : null;
-        utter.lang = attempt >= 2 ? "en-US" : (ACCENT === "uk" ? "en-GB" : "en-US");
+        utter.lang = "en-US";
         if (voice) { try { utter.voice = voice; utter.lang = voice.lang; } catch (e) { dbg(`指定聲音失敗：${e && e.message}`); } }
         dbg(`TTS 第${attempt + 1}次 "${utter.text}" 聲音=${voiceDesc(voice)} lang=${utter.lang} rate=${utter.rate} ${ssState()} unlocked=${ttsUnlocked}`);
         let started = false;
@@ -2141,7 +2142,7 @@ if ("speechSynthesis" in window) {
   window.speechSynthesis.getVoices();
   window.speechSynthesis.onvoiceschanged = () => {
     cachedVoice = null;
-    dbg(`聲音清單更新：英文可用 ${usableEnglishVoices().length} 個，自動選 ${voiceDesc(pickBestVoice())}`);
+    dbg(`聲音清單更新：${usableEnglishVoices().map((v) => v.name + "|" + v.lang).join(", ")}；自動選 ${voiceDesc(pickBestVoice())}`);
     window.speechSynthesis.getVoices();
     if (STATE.tab === "home") render();
   };
@@ -2151,7 +2152,7 @@ render();
 dbg(`除錯模式 ${navigator.userAgent.replace(/^Mozilla\/5.0 /, "")}`);
 dbg(`錄音索引：${recIndexSummary()}`);
 setTimeout(buildRecordingIndex, 1500);
-dbg(`英文聲音 ${usableEnglishVoices().length} 個，自動選 ${voiceDesc(pickBestVoice())}，手動選 ${(STATE.voicePref && STATE.voicePref.voiceURI) || "無"}`);
+dbg(`英文聲音 ${usableEnglishVoices().map((v) => v.name + "|" + v.lang).join(", ") || "0 個"}；自動選 ${voiceDesc(pickBestVoice())}，手動選 ${(STATE.voicePref && STATE.voicePref.voiceURI) || "無"}`);
 </script>
 </body>
 </html>
