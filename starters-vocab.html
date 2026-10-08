@@ -46,7 +46,7 @@ input{font-family:inherit;}
 .toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:50;max-width:90%;text-align:center;}
 .card{background:#fff;border-radius:16px;}
 .sectionTitle{font-weight:800;font-size:15px;margin:16px 0 10px;}
-.speakBtn{border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:#EEF1FB;color:var(--blue);}
+.speakBtn{border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:#EEF1FB;color:var(--blue);padding:0;line-height:1;text-align:center;-webkit-appearance:none;appearance:none;}
 /* mascot */
 .mascotWrap{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;}
 .owl{width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 6px 14px rgba(35,48,71,.1);}
@@ -1455,7 +1455,7 @@ function pronounce(rawText, slow) {
 }
 function speakBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
-  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${Math.round(size*0.6)}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}')" aria-label="播放發音">🔊</button>`;
 }
 
 /* ---------- accent (British / American), shared by all four apps ---------- */
@@ -1473,7 +1473,7 @@ function accentBtnHtml() {
 }
 function slowBtnHtml(text, size, tone, bg) {
   size = size || 34; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
-  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${size*0.48}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}', true)" aria-label="慢速播放">🐢</button>`;
+  return `<button class="speakBtn" style="width:${size}px;height:${size}px;background:${bg};color:${tone};font-size:${Math.round(size*0.6)}px;" onclick="event.stopPropagation();pronounce('${jsAttrString(text)}', true)" aria-label="慢速播放">🐢</button>`;
 }
 /* ---------- celebration effects ---------- */
 function celebrate(text) {
@@ -2529,8 +2529,8 @@ function renderSpell() {
     <div class="qCard ${fb === "correct" ? "pop" : (!fb && sp.hintLevel === 0 ? "cardEnter" : "")}" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
       <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${w.pos} · ${w.zh}</div>
       <div style="margin-top:10px;display:flex;justify-content:center;align-items:center;gap:12px;">
-        <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:30px;" onclick="replaySpellWord()" aria-label="重播發音">🔊</button>
-        <button class="speakBtn" style="width:46px;height:46px;background:rgba(255,255,255,.2);color:#fff;font-size:22px;" onclick="replaySpellWord(true)" aria-label="慢速重播">🐢</button>
+        <button class="speakBtn" style="width:64px;height:64px;background:rgba(255,255,255,.25);color:#fff;font-size:38px;" onclick="replaySpellWord()" aria-label="重播發音">🔊</button>
+        <button class="speakBtn" style="width:46px;height:46px;background:rgba(255,255,255,.2);color:#fff;font-size:28px;" onclick="replaySpellWord(true)" aria-label="慢速重播">🐢</button>
       </div>
       <div style="font-size:20px;letter-spacing:3px;margin-top:12px;font-weight:800;opacity:.85;">${fb ? answer : blanks}</div>
       <div style="font-size:11px;opacity:.8;margin-top:4px;">點 🔊 聽發音，🐢 慢速再聽一次</div>
