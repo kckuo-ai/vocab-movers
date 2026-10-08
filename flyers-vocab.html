@@ -1180,6 +1180,33 @@ function generatedSlug(text) {
 function generatedAudioUrl(text) {
   return `audio/${ACCENT === "uk" ? "uk" : "us"}/${generatedSlug(text)}.mp3`;
 }
+/* ---------- sound source setting (shared by all four apps) ----------
+   "gen"  (default): this site's generated MP3 — fast, one consistent voice
+   "real": Wikimedia Commons volunteer recordings first, generated MP3 as backup */
+const SOURCE_KEY = "yle-sound-source-v1";
+let SOUND_SOURCE = (() => { try { return localStorage.getItem(SOURCE_KEY) === "real" ? "real" : "gen"; } catch (e) { return "gen"; } })();
+function setSoundSource(v) {
+  SOUND_SOURCE = v === "real" ? "real" : "gen";
+  try { localStorage.setItem(SOURCE_KEY, SOUND_SOURCE); } catch (e) {}
+  if (SOUND_SOURCE === "real") setTimeout(buildRecordingIndex, 300);
+  render();
+  showToast(SOUND_SOURCE === "real" ? "🎙️ 已改為真人錄音優先" : "🔊 已改為預錄發音");
+}
+function soundSourceHtml() {
+  const seg = (v, label) => {
+    const on = SOUND_SOURCE === v;
+    return `<button style="flex:1;padding:9px 4px;border-radius:9px;font-weight:800;font-size:12.5px;background:${on ? "#fff" : "transparent"};color:${on ? "var(--ink)" : "#5B6779"};box-shadow:${on ? "0 2px 6px rgba(35,48,71,.12)" : "none"};" onclick="setSoundSource('${v}')">${label}</button>`;
+  };
+  return `<div class="dailyCard">
+    <div style="font-weight:800;font-size:13.5px;margin-bottom:8px;">🔈 發音來源</div>
+    <div style="display:flex;gap:4px;background:#EEF1F7;border-radius:12px;padding:4px;">
+      ${seg("gen", "🔊 預錄（預設）")}${seg("real", "🎙️ 真人錄音優先")}
+    </div>
+    <div style="font-size:11px;color:#8592A6;margin-top:7px;line-height:1.5;">${SOUND_SOURCE === "gen"
+      ? "每個字都用同一個預錄聲音，速度快、音量一致。"
+      : "有志工真人錄音的字先播真人錄音，沒有的再用預錄聲音。"}</div>
+  </div>`;
+}
 let recIndexRunning = false;
 async function buildRecordingIndex() {
   if (recIndexRunning || !("fetch" in window)) return;
@@ -1299,8 +1326,11 @@ function pronounce(rawText, slow) {
     warmAudioSession();
     const base = canonicalWord(rawText);
     if (currentAudioEl) { releaseAudio(currentAudioEl); currentAudioEl = null; }
-    // real recordings first (if any), then this site's generated MP3
-    const candidates = commonsAudioCandidates(base).concat([generatedAudioUrl(base)]);
+    // default: this site's generated MP3 (Commons recordings only as a backup);
+    // "real" setting: Commons recordings first, generated MP3 as the backup
+    const candidates = SOUND_SOURCE === "real"
+      ? commonsAudioCandidates(base).concat([generatedAudioUrl(base)])
+      : [generatedAudioUrl(base)].concat(commonsAudioCandidates(base));
     dbg(`── 點擊 "${base}" 口音=${ACCENT} 索引=${recIndexStatus(base)} 錄音候選=${candidates.length} 慢速=${!!slow}`);
     const speakOpts = slow ? { slow: true } : null;
     const rate = slow ? 0.7 : 1;
@@ -1686,11 +1716,11 @@ function creditsHtml() {
       <div style="font-size:12px;color:#8592A6;font-weight:700;">${open ? "收起 ▲" : "展開 ▼"}</div>
     </div>
     ${open ? `<div style="font-size:12px;color:#5B6779;line-height:1.65;">
-      <div style="font-weight:800;color:var(--ink);margin-top:4px;">🎙️ 真人發音</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:4px;">🎙️ 真人發音（設定為「真人錄音優先」時使用）</div>
       <div>來自 <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" style="color:var(--accent);">Wikimedia Commons</a> 志工錄製的發音檔（例如 En-uk-*.ogg、En-us-*.ogg、Lingua Libre），依各檔案頁面標示的授權使用，多為 CC BY-SA 3.0 / 4.0 或公有領域；作者與授權請見各檔案頁面。本網頁直接播放 Commons 提供的檔案，未修改內容。</div>
       ${last}
-      <div style="font-weight:800;color:var(--ink);margin-top:10px;">🔊 預錄發音</div>
-      <div>沒有真人錄音的單字與片語，使用開源語音合成模型 <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener" style="color:var(--accent);">Kokoro-82M</a>（hexgrad，Apache License 2.0）產生：英式聲音 Emma（bf_emma）、美式聲音 Heart（af_heart）。合成語音為電腦產生，並非真人朗讀。</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">🔊 預錄發音（預設）</div>
+      <div>所有單字與片語都有預錄檔，使用開源語音合成模型 <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener" style="color:var(--accent);">Kokoro-82M</a>（hexgrad，Apache License 2.0）產生：英式聲音 Emma（bf_emma）、美式聲音 Heart（af_heart）。合成語音為電腦產生，並非真人朗讀。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📱 裝置語音</div>
       <div>以上都無法播放時，才使用手機或電腦內建的語音。</div>
       <div style="font-weight:800;color:var(--ink);margin-top:10px;">📚 內容</div>
@@ -1715,6 +1745,7 @@ function renderHome() {
       <div class="bubble">${escapeHtml(mascotMessage())}</div>
       ${STATE.daily.streak > 0 ? `<div class="streakBadge">🔥 ${STATE.daily.streak}</div>` : ""}
     </div>
+    ${soundSourceHtml()}
     ${voicePickerHtml()}
 
     <div class="dailyCard">
@@ -2364,7 +2395,7 @@ if ("speechSynthesis" in window) {
 render();
 dbg(`除錯模式 ${navigator.userAgent.replace(/^Mozilla\/5.0 /, "")}`);
 dbg(`錄音索引：${recIndexSummary()}`);
-setTimeout(buildRecordingIndex, 1500);
+if (SOUND_SOURCE === "real") setTimeout(buildRecordingIndex, 1500);
 dbg(`英文聲音 ${usableEnglishVoices().map((v) => v.name + "|" + v.lang).join(", ") || "0 個"}；自動選 ${voiceDesc(pickBestVoice())}，手動選 ${(STATE.voicePref && STATE.voicePref.voiceURI) || "無"}`);
 </script>
 </body>
