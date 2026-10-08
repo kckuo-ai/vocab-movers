@@ -1850,8 +1850,8 @@ function renderQuiz() {
     <div class="qCard ${qz.picked ? (qz.picked === q.sound.id ? "pop" : "shake") : "cardEnter"}" style="background:linear-gradient(150deg, ${color}, ${color}CC);">
       <div style="font-size:11px;font-weight:800;opacity:.85;">▶ 聽發音 · 0.7× 慢速</div>
       <div style="margin-top:8px;display:flex;justify-content:center;align-items:center;gap:22px;">
-        <button class="speakBtn" style="width:68px;height:68px;background:#fff;color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.18);" onclick="replayQuizWord()" aria-label="重播發音">${playIconSvg(32)}</button>
         <button class="speakBtn" style="width:46px;height:46px;background:rgba(255,255,255,.22);color:#fff;" onclick="replayQuizWord(true)" aria-label="慢速重播">${slowLabelHtml(46)}</button>
+        <button class="speakBtn" style="width:68px;height:68px;background:#fff;color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.18);" onclick="replayQuizWord()" aria-label="重播發音">${playIconSvg(32)}</button>
       </div>
       <div style="font-size:12px;opacity:.85;margin-top:10px;">這個字裡包含哪一個自然發音？</div>
     </div>

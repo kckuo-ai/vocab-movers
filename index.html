@@ -2188,7 +2188,7 @@ function renderQuiz() {
       <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${q.word.pos}</div>
       <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:8px;">
         <div style="font-weight:800;font-size:30px;">${q.word.en}</div>
-        ${speakBtnHtml(q.word.en, 50, "#fff", "rgba(255,255,255,.28)")}${slowBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.2)")}
+        ${slowBtnHtml(q.word.en, 38, "#fff", "rgba(255,255,255,.2)")}${speakBtnHtml(q.word.en, 50, "#fff", "rgba(255,255,255,.28)")}
       </div>
       <div style="font-size:12px;opacity:.85;margin-top:6px;">這個字的中文意思是？</div>
     </div>
@@ -2387,8 +2387,8 @@ function renderSpell() {
     <div class="qCard ${fb === "correct" ? "pop" : (!fb && sp.hintLevel === 0 ? "cardEnter" : "")}" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
       <div style="font-size:11px;font-weight:800;opacity:.85;">${c.emoji} ${c.label} · ${w.pos} · ${w.zh}</div>
       <div style="margin-top:10px;display:flex;justify-content:center;align-items:center;gap:22px;">
-        <button class="speakBtn" style="width:68px;height:68px;background:#fff;color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.18);" onclick="replaySpellWord()" aria-label="重播發音">${playIconSvg(32)}</button>
         <button class="speakBtn" style="width:46px;height:46px;background:rgba(255,255,255,.22);color:#fff;" onclick="replaySpellWord(true)" aria-label="慢速重播">${slowLabelHtml(46)}</button>
+        <button class="speakBtn" style="width:68px;height:68px;background:#fff;color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.18);" onclick="replaySpellWord()" aria-label="重播發音">${playIconSvg(32)}</button>
       </div>
       <div style="font-size:20px;letter-spacing:3px;margin-top:12px;font-weight:800;opacity:.85;">${fb ? answer : blanks}</div>
       <div style="font-size:11px;opacity:.8;margin-top:4px;">點 ▶ 聽發音，0.7× 慢速再聽一次</div>
