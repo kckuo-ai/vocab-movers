@@ -1352,7 +1352,10 @@ function pronounce(rawText, slow) {
       const isReal = /upload\.wikimedia\.org/.test(audioEl.src);
       dbg(isReal ? "真人錄音播放中 ✓" : "預錄發音播放中 ✓");
       settled = true;
-      if (isReal) showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
+      if (isReal) {
+        try { lastRecordingFile = decodeURIComponent(audioEl.src.split("/").pop()).replace(/\.mp3$/, "").replace(/_/g, " "); } catch (e) {}
+        showToast(slow ? "🐢 慢速 · 真人發音" : "🎙️ 真人發音");
+      }
       else if (slow) showToast("🐢 慢速");
       release();
     });
@@ -1431,6 +1434,7 @@ let STATE = {
   daily: rollDaily(lget(DKEY, { date: todayStr(), streak: 0, bestStreak: 0, todayCount: 0, countedToday: false, badges: [], history: {} })),
   voicePref: lget(VKEY, { voiceURI: null }),
   showVoicePicker: false,
+  showCredits: false,
   tab: "home",
   toast: null,
   toastTimer: null,
@@ -1668,6 +1672,32 @@ function listCompletionHtml(stats) {
     <div class="barTrack"><div class="barFill" style="width:${Math.round(masteredPct*100)}%;background:#4361EE;"></div></div>
   </div>`;
 }
+/* ---------- sound sources & licences ---------- */
+let lastRecordingFile = null; // Commons file name of the last real recording played
+function toggleCredits() { STATE.showCredits = !STATE.showCredits; render(); }
+function creditsHtml() {
+  const open = STATE.showCredits;
+  const last = lastRecordingFile
+    ? `<div style="margin-top:6px;">剛剛播放的真人錄音：<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(lastRecordingFile.replace(/ /g, "_"))}" target="_blank" rel="noopener" style="color:var(--accent);word-break:break-all;">${escapeHtml(lastRecordingFile)}</a>（點開可看錄音者與授權）</div>`
+    : `<div style="margin-top:6px;">播放任一真人錄音後，這裡會出現該錄音的檔案頁連結（含錄音者與授權）。</div>`;
+  return `<div class="dailyCard" style="margin-top:6px;">
+    <div class="dailyTop" style="cursor:pointer;margin-bottom:${open ? "8px" : "0"};" onclick="toggleCredits()">
+      <div style="font-weight:800;font-size:13.5px;">ℹ️ 聲音來源與授權</div>
+      <div style="font-size:12px;color:#8592A6;font-weight:700;">${open ? "收起 ▲" : "展開 ▼"}</div>
+    </div>
+    ${open ? `<div style="font-size:12px;color:#5B6779;line-height:1.65;">
+      <div style="font-weight:800;color:var(--ink);margin-top:4px;">🎙️ 真人發音</div>
+      <div>來自 <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" style="color:var(--accent);">Wikimedia Commons</a> 志工錄製的發音檔（例如 En-uk-*.ogg、En-us-*.ogg、Lingua Libre），依各檔案頁面標示的授權使用，多為 CC BY-SA 3.0 / 4.0 或公有領域；作者與授權請見各檔案頁面。本網頁直接播放 Commons 提供的檔案，未修改內容。</div>
+      ${last}
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">🔊 預錄發音</div>
+      <div>沒有真人錄音的單字與片語，使用開源語音合成模型 <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank" rel="noopener" style="color:var(--accent);">Kokoro-82M</a>（hexgrad，Apache License 2.0）產生：英式聲音 Emma（bf_emma）、美式聲音 Heart（af_heart）。合成語音為電腦產生，並非真人朗讀。</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">📱 裝置語音</div>
+      <div>以上都無法播放時，才使用手機或電腦內建的語音。</div>
+      <div style="font-weight:800;color:var(--ink);margin-top:10px;">📚 內容</div>
+      <div>單字範圍參考 Cambridge English 官方 A2 Flyers 單字表整理，單字表版權屬 Cambridge University Press &amp; Assessment；本網頁為個人學習用途，與 Cambridge 無關聯。</div>
+    </div>` : ""}
+  </div>`;
+}
 function renderHome() {
   const stats = computeStats();
   const wod = getWordOfDay();
@@ -1755,6 +1785,7 @@ function renderHome() {
         </div>
       </div>`;
     }).join("")}
+    ${creditsHtml()}
   </div>`;
 }
 
