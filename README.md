@@ -1,11 +1,17 @@
 # YLE 單字與自然發音練習
 
-Cambridge YLE（Starters / Movers / Flyers）單字與 42 個自然發音的練習網頁。
+Cambridge YLE（Starters / Movers / Flyers）、A2 Key（KET）、B1 Preliminary（PET）單字與 42 個自然發音的練習網頁。
 
 - Movers：`index.html`
 - Starters：`starters-vocab.html`
 - Flyers：`flyers-vocab.html`
+- KET（A2 Key）：`ket-vocab.html`
+- PET（B1 Preliminary）：`pet-vocab.html`
 - 自然發音：`phonics.html`
+
+## 單字來源
+
+KET、PET 單字取自 Cambridge English 官方《A2 Key and A2 Key for Schools Vocabulary List》與《B1 Preliminary and B1 Preliminary for Schools Vocabulary List》（2025 年 8 月版），分類依官方 Topic Lists，不在主題表中的字依詞性分類；中文解釋為本專案撰寫。單字表版權屬 Cambridge University Press & Assessment，本專案與 Cambridge 無關聯。
 
 ## 發音來源
 
@@ -18,3 +24,4 @@ Cambridge YLE（Starters / Movers / Flyers）單字與 42 個自然發音的練�
 `img/` 中的單字圖片取自 Google [Noto Emoji](https://github.com/googlefonts/noto-emoji) 的 SVG 檔（Apache License 2.0），檔名 `e_<Unicode 編碼>.svg`。
 `img/c_*.svg` 是為本專案另外繪製的圖（介系詞、星期、月份、時鐘、方位、身體部位、人名的漫畫人物、公車站等），與專案一同提供。
 部分 `c_*.svg`（浴室、臥室、書店、書櫃、叉子、乾淨的盤子、棒球棒等）是把 Noto Emoji 的零件與手繪圖形組合而成，Noto 部分同樣依 Apache License 2.0 使用。
+`img/m_*.svg` 是 KET、PET 中描述感受、個性、角色或動作的字所用的日式漫畫風格人物圖，為本專案繪製；人物手上拿的物品取自 Noto Emoji。

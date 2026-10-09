@@ -471,6 +471,29 @@ const PRONOUNCE_OVERRIDES = {
    "tooth / teeth" -> tooth, teeth ; "businessman/woman" -> businessman,
    businesswoman ; "take a photo / picture" -> take a photo, take a picture */
 const SPOKEN_FORMS = {
+  "Dr / doctor": ["doctor"],
+  "doctor / Dr": ["doctor"],
+  "OK / O.K. / okay": ["okay"],
+  "OK/okay": ["okay"],
+  "all right/alright": ["all right"],
+  "at / @": ["at"],
+  "barbecue/barbeque": ["barbecue"],
+  "cafe/café": ["cafe"],
+  "café/cafe": ["cafe"],
+  "centimetre/centimeter (cm)": ["centimetre"],
+  "centre/center": ["centre"],
+  "disc/disk": ["disc"],
+  "driving/driver's licence": ["driving licence", "driver's licence"],
+  "focus (sth) on/upon sth/sb": ["focus on"],
+  "give somebody a call/ring": ["give somebody a call", "give somebody a ring"],
+  "humour/humor": ["humour"],
+  "made of/from/out of": ["made of", "made from", "made out of"],
+  "poor thing/you": ["poor thing", "poor you"],
+  "step forward/back(wards)/out": ["step forward", "step back", "step out"],
+  "step over/in/on/out of (sth)": ["step over", "step in", "step on", "step out of"],
+  "v/versus": ["versus"],
+  "well made / well-made": ["well made"],
+  "wetsuit/wet suit": ["wetsuit"],
   "businessman/woman": ["businessman", "businesswoman"],
   "city / town centre": ["city centre", "town centre"],
   "take a photo / picture": ["take a photo", "take a picture"],
@@ -1416,7 +1439,7 @@ function creditsHtml() {
    source. Format: "YLE1-" + base64(JSON). Import overwrites only the keys the
    code contains, then reloads the page. */
 const BACKUP_APPS = [
-  ["movers-vocab", "Movers"], ["starters-vocab", "Starters"], ["flyers-vocab", "Flyers"], ["phonics", "自然發音"],
+  ["movers-vocab", "Movers"], ["starters-vocab", "Starters"], ["flyers-vocab", "Flyers"], ["ket-vocab", "KET"], ["pet-vocab", "PET"], ["phonics", "自然發音"],
 ];
 const BACKUP_KEYS = BACKUP_APPS.flatMap(([p]) => [`${p}-progress-v1`, `${p}-hiscore-v1`, `${p}-daily-v1`])
   .concat(["yle-accent-v1", "yle-sound-source-v1", "yle-autoplay-v1"]);
@@ -1541,6 +1564,8 @@ function settingsSheetHtml() {
     <a class="appLink" href="index.html">🐱 Movers · A1 <span>›</span></a>
     <a class="appLink" href="starters-vocab.html">🐣 Starters · Pre-A1 <span>›</span></a>
     <a class="appLink" href="flyers-vocab.html">🚀 Flyers · A2 <span>›</span></a>
+    <a class="appLink" href="ket-vocab.html">🎒 KET · A2 Key <span>›</span></a>
+    <a class="appLink" href="pet-vocab.html">🎓 PET · B1 Preliminary <span>›</span></a>
     <div class="sheetLabel">備份進度</div>
     ${backupHtml()}
     <div style="margin-top:14px;">${creditsHtml()}</div>
