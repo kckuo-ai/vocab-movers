@@ -1,0 +1,471 @@
+w0|A crocodile is a big animal.|animal|鱷魚是一種大型動物。
+w1|The bear is sleeping under the tree.|bear|熊在樹下睡覺。|The bear is brown.|熊是棕色的。|The bear is pink.
+w2|A bee is on the yellow flower.|bee|一隻蜜蜂停在黃色的花上。|The bee is yellow and black.|蜜蜂是黃黑相間的。|The bee is green and blue.
+w3|The bird is singing in the tree.|bird|鳥在樹上唱歌。|The bird is blue.|這隻鳥是藍色的。|The bird is red.
+w4|My cat likes sleeping on the sofa.|cat|我的貓喜歡睡在沙發上。|This is a yellow cat.|這是一隻黃色的貓。|This is a black cat.
+w5|The chicken is eating in the garden.|chicken|雞在花園裡吃東西。|The chicken is white and red.|這隻雞是白色和紅色的。|The chicken is black and blue.
+w6|The cow is drinking water.|cow|母牛在喝水。|The cow is black and white.|這頭牛是黑白相間的。|The cow is brown and orange.
+w7|The crocodile is swimming in the water.|crocodile|鱷魚在水裡游泳。|The crocodile is green.|鱷魚是綠色的。|The crocodile is pink.
+w8|Sam's dog can catch a ball.|dog|山姆的狗會接球。|The dog has got brown ears.|小狗有棕色的耳朵。|The dog has got black ears.
+w9|Ben is riding a donkey on the beach.|donkey|班在海灘上騎驢子。|The donkey is grey.|驢子是灰色的。|The donkey is yellow.
+w10|The ducks are swimming in the water.|ducks|鴨子在水裡游泳。|The duck has got a green head.|鴨子有綠色的頭。|The duck has got a blue head.
+w11|The elephant has got very big ears.|elephant|大象有一對很大的耳朵。|The elephant is grey.|大象是灰色的。|The elephant is pink.
+w12|There are lots of fish in the sea.|fish|海裡有很多魚。|The fish is blue.|這條魚是藍色的。|The fish is red.
+w13|A frog is jumping in the garden.|frog|一隻青蛙在花園裡跳。|The frog is green.|青蛙是綠色的。|The frog is purple.
+w14|The giraffe is eating from the tree.|giraffe|長頸鹿在吃樹上的葉子。|The giraffe is yellow and orange.|長頸鹿是黃色和橘色的。|The giraffe is black and white.
+w15|The goat is eating my hat!|goat|山羊在吃我的帽子！|The goat is brown.|山羊是棕色的。|The goat is green.
+w16|The hippo is sleeping in the water.|hippo|河馬在水裡睡覺。|This is a big hippo.|這是一隻大河馬。
+w17|The horse is eating an apple.|horse|馬在吃蘋果。|The horse is running.|馬正在跑。|The horse is sleeping.
+w18|There's a jellyfish in the sea.|jellyfish|海裡有一隻水母。|The jellyfish is blue.|水母是藍色的。|The jellyfish is orange.
+w19|A small lizard is on the wall.|lizard|一隻小蜥蜴在牆上。|The lizard is green.|蜥蜴是綠色的。|The lizard is blue.
+w20|The monkey is eating a banana.|monkey|猴子在吃香蕉。|The monkey has got a long tail.|猴子有一條長尾巴。|The monkey has got a short tail.
+w21|There are two mice under the bed.|mice|床底下有兩隻老鼠。|The mouse has got pink ears.|老鼠有粉紅色的耳朵。|The mouse has got green ears.
+w22|Have you got a pet?|pet|你有養寵物嗎？
+w23|A polar bear can swim in the sea.|polar bear|北極熊會在海裡游泳。|The polar bear is white.|北極熊是白色的。|The polar bear is brown.
+w24|I can count ten sheep.|sheep|我可以數到十隻綿羊。|The sheep is white.|綿羊是白色的。|The sheep is black.
+w25|Look! There's a long snake in the tree!|snake|看！樹上有一條長長的蛇！|The snake is green.|蛇是綠色的。|The snake is red.
+w26|There's a big spider in the bath!|spider|浴缸裡有一隻大蜘蛛！|The spider has got eight legs.|蜘蛛有八隻腳。|The spider has got two legs.
+w27|The monkey is holding the tree with its tail.|tail|猴子用尾巴抓著樹。|This cat has got a long tail.|這隻貓有一條長尾巴。|This cat has got a short tail.
+w28|The tiger is sleeping in the sun.|tiger|老虎在太陽下睡覺。|The tiger is orange and black.|老虎是橘黑相間的。|The tiger is blue and white.
+w29|The zebra is running with its friends.|zebra|斑馬和牠的朋友們一起跑。|The zebra is black and white.|斑馬是黑白相間的。|The zebra is red and yellow.
+w30|We can see elephants and monkeys at the zoo.|zoo|我們可以在動物園看到大象和猴子。
+w31|Put your arms up!|arms|把手臂舉起來！
+w32|We're learning about the body today.|body|我們今天在學身體的部位。
+w33|Point to your ear!|ear|指著你的耳朵！|This ear is yellow.|這隻耳朵是黃色的。|This ear is blue.
+w34|My cat has got green eyes.|eyes|我的貓有綠色的眼睛。|The eye is brown.|這隻眼睛是棕色的。|The eye is blue.
+w35|Draw eyes and a mouth on the face.|face|在臉上畫眼睛和嘴巴。|The face is happy.|這張臉很開心。|The face is sad.
+w36|My feet are very cold!|feet|我的腳好冷！|This is one foot.|這是一隻腳。|These are two feet.
+w37|Mum has got short brown hair.|hair|媽媽有一頭棕色短髮。|This woman has got brown hair.|這位女士有棕色的頭髮。|This woman has got yellow hair.
+w38|Put up your hand, please.|hand|請舉手。|The hand is yellow.|這隻手是黃色的。|The hand is green.
+w39|Put your hat on your head.|head|把帽子戴在頭上。
+w40|Chickens have got two legs.|legs|雞有兩條腿。|This is one leg.|這是一條腿。|These are two legs.
+w41|Open your mouth, please.|mouth|請張開嘴巴。|The mouth is open.|嘴巴是張開的。|The mouth is closed.
+w42|An elephant's nose is very long.|nose|大象的鼻子很長。|This nose is yellow.|這個鼻子是黃色的。|This nose is blue.
+w43|Grandma has got a beautiful smile.|smile|奶奶的笑容很美。|This is a big smile.|這是一個大大的笑容。
+w44|My books are in my school bag.|bag|我的書在我的書包裡。|The bag is brown.|這個包包是棕色的。|The bag is pink.
+w45|Dan is wearing a red baseball cap.|baseball cap|丹戴著一頂紅色的棒球帽。|The baseball cap is blue.|這頂棒球帽是藍色的。|The baseball cap is red.
+w46|These boots are too big for me.|boots|這雙靴子對我來說太大了。|These are orange boots.|這是一雙橘色的靴子。|These are green boots.
+w47|Put your clothes in the cupboard.|clothes|把你的衣服放進櫃子裡。|These clothes are blue and brown.|這些衣服是藍色和棕色的。|These clothes are pink and yellow.
+w48|Kim is wearing a beautiful dress.|dress|金穿著一件漂亮的洋裝。|The dress is blue.|這件洋裝是藍色的。|The dress is pink.
+w49|Grandpa wears glasses to read books.|glasses|爺爺戴眼鏡看書。|The glasses are brown.|這副眼鏡是棕色的。|The glasses are red.
+w50|Mum's phone is in her handbag.|handbag|媽媽的手機在她的手提包裡。|The handbag is pink.|這個手提包是粉紅色的。|The handbag is brown.
+w51|I like your funny hat!|hat|我喜歡你那頂好笑的帽子！|The hat is yellow and purple.|這頂帽子是黃色和紫色的。|The hat is black and white.
+w52|I like your new jacket.|jacket|我喜歡你的新夾克。|The jacket is brown.|這件夾克是棕色的。|The jacket is blue.
+w53|Dad is wearing his old jeans.|jeans|爸爸穿著他的舊牛仔褲。|The jeans are blue.|這條牛仔褲是藍色的。|The jeans are pink.
+w54|Dad is wearing a new shirt.|shirt|爸爸穿著一件新襯衫。|The shirt is blue and white.|這件襯衫是藍白相間的。|The shirt is red and black.
+w55|Where's my shoe? It isn't under the bed.|shoe|我的鞋子在哪裡？它不在床底下。|The shoe is brown.|這隻鞋子是棕色的。|The shoe is green.
+w56|I wear shorts on the beach.|shorts|我在海灘上穿短褲。|The shorts are blue.|這件短褲是藍色的。|The shorts are red.
+w57|Grace has got a new skirt.|skirt|葛瑞絲有一件新裙子。|The skirt is pink.|這件裙子是粉紅色的。|The skirt is green.
+w58|I've got one red sock and one blue sock.|sock|我有一隻紅襪子和一隻藍襪子。|There are two socks.|這裡有兩隻襪子。|There are three socks.
+w59|These trousers are too long.|trousers|這條長褲太長了。|The trousers are brown.|這條長褲是棕色的。|The trousers are blue.
+w60|Hugo is wearing a blue T-shirt.|T-shirt|雨果穿著一件藍色 T 恤。|The T-shirt is blue.|這件 T 恤是藍色的。|The T-shirt is red.
+w61|Do you wear glasses?|wear|你戴眼鏡嗎？
+w62|The cat under the table is black.|black|桌子底下的貓是黑色的。
+w63|My eyes are blue.|blue|我的眼睛是藍色的。
+w64|Nick's dog is brown.|brown|尼克的狗是棕色的。
+w65|What colour is your bike?|colour|你的腳踏車是什麼顏色？
+w66|The elephant is grey.|grey|大象是灰色的。
+w67|My new bike is green.|green|我的新腳踏車是綠色的。
+w68|Look at the orange fish!|orange|看那條橘色的魚！
+w69|Alice's bag is pink.|pink|愛麗絲的包包是粉紅色的。
+w70|These grapes are purple.|purple|這些葡萄是紫色的。
+w71|The apple on the table is red.|red|桌上的蘋果是紅色的。
+w72|My grandpa has got white hair.|white|我爺爺有白色的頭髮。
+w73|Bananas are yellow.|yellow|香蕉是黃色的。
+w74|The baby is sleeping in her bed.|baby|寶寶正在她的床上睡覺。
+w75|That boy is my brother.|boy|那個男孩是我弟弟。
+w76|I play games with my brother.|brother|我和我哥哥一起玩遊戲。
+w77|The children are singing a song.|children|孩子們在唱歌。
+w78|My classmates are very nice.|classmates|我的同學們都很好。
+w79|My cousin lives in a big house.|cousin|我的表哥住在一間大房子裡。
+w80|My dad drives a red car.|dad|我爸爸開一輛紅色的車。
+w81|There are five people in my family.|family|我家有五個人。
+w82|Anna's father is a teacher.|father|安娜的父親是老師。
+w83|Kim and Lucy are friends.|friends|金和露西是朋友。
+w84|The girl with the red bag is my sister.|girl|拿紅色包包的女孩是我妹妹。
+w85|My grandfather likes fishing.|grandfather|我祖父喜歡釣魚。
+w86|Grandma makes great cakes.|Grandma|奶奶做的蛋糕很棒。
+w87|My grandmother has got a beautiful garden.|grandmother|我祖母有一座漂亮的花園。
+w88|Grandpa likes watching TV with me.|Grandpa|爺爺喜歡和我一起看電視。
+w89|The kids are playing football.|kids|孩子們在踢足球。
+w90|Where do you live?|live|你住在哪裡？
+w91|There are three men in the car.|men|車上有三個男人。
+w92|My mother is a nurse.|mother|我媽媽是護士。
+w93|Mum, can I have some juice, please?|Mum|媽媽，我可以喝一點果汁嗎？
+w94|My grandma is old, but she plays tennis!|old|我奶奶年紀大了，但她還會打網球！
+w95|There are lots of people on the beach.|people|海灘上有很多人。
+w96|My sister likes drawing animals.|sister|我姊姊喜歡畫動物。
+w97|The woman in the shop is very nice.|woman|店裡的那位女士人很好。
+w98|My dog is very young.|young|我的狗年紀還很小。
+w99|Can I have an apple, please?|apple|我可以吃一顆蘋果嗎？|The apple is red.|這顆蘋果是紅色的。|The apple is green.
+w100|Monkeys like bananas.|bananas|猴子喜歡香蕉。|The banana is yellow.|這根香蕉是黃色的。|The banana is blue.
+w101|I don't like beans.|beans|我不喜歡豆子。|There are three beans.|這裡有三顆豆子。|There are five beans.
+w102|We have bread and eggs for breakfast.|bread|我們早餐吃麵包和蛋。|This bread is brown.|這塊麵包是棕色的。
+w103|I have breakfast with my family.|breakfast|我和家人一起吃早餐。|There's an egg for breakfast.|早餐有一顆蛋。|There are three eggs for breakfast.
+w104|Can I have a burger and chips, please?|burger|我可以要一個漢堡和薯條嗎？|This is a big burger.|這是一個大漢堡。
+w105|Happy birthday! Here's your cake.|cake|生日快樂！這是你的蛋糕。|This cake is pink and orange.|這塊蛋糕是粉紅色和橘色的。|This cake is black and brown.
+w106|Don't eat too many sweets!|sweets|不要吃太多糖果！|This candy is pink.|這顆糖果是粉紅色的。|This candy is green.
+w107|I like chips with my burger.|chips|我喜歡漢堡配薯條。|The chips are in a red box.|薯條裝在紅色的盒子裡。|The chips are in a blue box.
+w108|Can I have some chocolate?|chocolate|我可以吃一點巧克力嗎？|The chocolate is brown.|巧克力是棕色的。|The chocolate is pink.
+w109|Let's drink coconut water!|coconut|我們來喝椰子水吧！|The coconut is brown and white.|椰子是棕色和白色的。|The coconut is yellow and red.
+w110|What's for dinner, Mum?|dinner|媽媽，晚餐吃什麼？
+w111|Drink some water, please.|Drink|請喝點水。
+w112|Don't eat in the classroom!|eat|不要在教室裡吃東西！
+w113|The chicken has got three eggs.|eggs|這隻雞有三顆蛋。|There's one egg.|這裡有一顆蛋。|There are two eggs.
+w114|Fish is my cat's favourite food.|food|魚是我的貓最喜歡的食物。
+w115|Apples and bananas are fruit.|fruit|蘋果和香蕉都是水果。
+w116|There are grapes in my lunch box.|grapes|我的午餐盒裡有葡萄。|The grapes are purple.|這些葡萄是紫色的。|The grapes are green.
+w117|I want a big ice cream!|ice cream|我想要一支大冰淇淋！|This ice cream is white.|這支冰淇淋是白色的。|This ice cream is pink.
+w118|Apple juice is my favourite drink.|juice|蘋果汁是我最喜歡的飲料。|The juice box is green.|這盒果汁是綠色的。|The juice box is red.
+w119|I've got a kiwi and a banana in my bag.|kiwi|我的包包裡有一顆奇異果和一根香蕉。|This kiwi is green.|這顆奇異果是綠色的。|This kiwi is pink.
+w120|Can you give me a lemon, please?|lemon|可以給我一顆檸檬嗎？|The lemon is yellow.|這顆檸檬是黃色的。|The lemon is purple.
+w121|Let's drink lemonade on the beach.|lemonade|我們在海灘上喝檸檬水吧。|The lemonade is yellow.|這杯檸檬水是黃色的。|The lemonade is red.
+w122|Limes and lemons are fruit.|Limes|萊姆和檸檬都是水果。|The lime is green.|這顆萊姆是綠色的。|The lime is red.
+w123|We have lunch at school.|lunch|我們在學校吃午餐。
+w124|This mango is really nice.|mango|這顆芒果真好吃。|The mango is red and yellow.|這顆芒果是紅色和黃色的。|The mango is blue and white.
+w125|Tigers eat meat.|meat|老虎吃肉。
+w126|We're having meatballs for dinner.|meatballs|我們晚餐要吃肉丸。
+w127|Do you want some milk?|milk|你要喝點牛奶嗎？|The milk is white.|牛奶是白色的。|The milk is pink.
+w128|Onions make me cry!|Onions|洋蔥讓我想哭！|The onion is brown.|這顆洋蔥是棕色的。|The onion is blue.
+w129|There are four oranges on the table.|oranges|桌上有四顆柳橙。|There's one orange.|這裡有一顆柳橙。|There are two oranges.
+w130|Peas are small and green.|Peas|豌豆又小又綠。|There are three peas.|這裡有三顆豌豆。|There are six peas.
+w131|I want a pear, not an apple.|pear|我想要梨子，不是蘋果。|The pear is green.|這顆梨子是綠色的。|The pear is red.
+w132|Grandma is making an apple pie.|pie|奶奶正在做蘋果派。|This is a pie.|這是一個派。
+w133|Let's eat the pineapple now!|pineapple|我們現在來吃鳳梨吧！|The pineapple is yellow and green.|鳳梨是黃色和綠色的。|The pineapple is pink and blue.
+w134|I like potatoes and meat.|potatoes|我喜歡馬鈴薯和肉。|The potato is brown.|這顆馬鈴薯是棕色的。|The potato is green.
+w135|We eat rice with fish.|rice|我們吃米飯配魚。|The rice is white.|米飯是白色的。|The rice is yellow.
+w136|Can I have two sausages, please?|sausages|我可以要兩根香腸嗎？|The sausage is in some bread.|香腸夾在麵包裡。
+w137|There are tomatoes in the garden.|tomatoes|花園裡有番茄。|The tomato is red.|這顆番茄是紅色的。|The tomato is blue.
+w138|Can I have some water, please?|water|我可以喝點水嗎？|The water is blue.|水是藍色的。|The water is red.
+w139|This watermelon is very big!|watermelon|這顆西瓜好大！|The watermelon is red and green.|西瓜是紅色和綠色的。|The watermelon is orange and blue.
+w140|I can't go to school. I've got a cold.|cold|我不能去上學，我感冒了。
+w141|Dan has got a cough.|cough|丹咳嗽了。
+w142|The baby is crying.|crying|寶寶在哭。
+w143|My dentist is very nice.|dentist|我的牙醫人很好。
+w144|The doctor is talking to my mum.|doctor|醫生正在跟我媽媽說話。
+w145|Mum, I've got earache.|earache|媽媽，我耳朵痛。
+w146|Don't stand on the chair. You can fall!|fall|不要站在椅子上，你會跌倒！
+w147|How are you? I'm fine, thank you.|fine|你好嗎？我很好，謝謝。
+w148|Can you stop the music? I've got a headache.|headache|可以把音樂停掉嗎？我頭痛。
+w149|There's a hospital next to my school.|hospital|我學校旁邊有一間醫院。|The hospital has got a red cross.|醫院上面有一個紅色的十字。|The hospital has got a green cross.
+w150|Kim is ill today. She's in bed.|ill|金今天生病了，她躺在床上。
+w151|What's the matter? Are you sad?|matter|怎麼了？你難過嗎？
+w152|The nurse is giving me some water.|nurse|護士在給我一些水。
+w153|My dog is sick today.|sick|我的狗今天生病了。
+w154|Ben has got a stomach-ache.|stomach-ache|班肚子痛。
+w155|You've got a temperature. Go to bed.|temperature|你發燒了，去睡覺吧。
+w156|I'm tired. I want to go to bed.|tired|我好累，我想去睡覺。
+w157|I've got toothache. I'm going to the dentist.|toothache|我牙痛，我要去看牙醫。
+w158|We live in an apartment next to the park.|apartment|我們住在公園旁邊的一間公寓。|This apartment is very big.|這棟公寓很大。
+w159|My cat is sleeping in the armchair.|armchair|我的貓在扶手椅上睡覺。|The armchair is orange.|這張扶手椅是橘色的。|The armchair is blue.
+w160|I have a bath in the evening.|bath|我晚上泡澡。|The bath is white.|浴缸是白色的。|The bath is black.
+w161|There's a big bath in our bathroom.|bathroom|我們的浴室裡有一個大浴缸。|There's a mirror in the bathroom.|浴室裡有一面鏡子。|There's a sofa in the bathroom.
+w162|My bed is next to the window.|bed|我的床在窗戶旁邊。|The bed is blue.|這張床是藍色的。|The bed is red.
+w163|My bedroom is next to the bathroom.|bedroom|我的臥室在浴室旁邊。|There's a teddy in the bedroom.|臥室裡有一隻泰迪熊。|There's a robot in the bedroom.
+w164|Put the books in the bookcase, please.|bookcase|請把書放進書櫃。|There are lots of books in the bookcase.|書櫃裡有很多書。|There are lots of shoes in the bookcase.
+w165|What's in the box?|box|箱子裡有什麼？|The box is brown.|這個箱子是棕色的。|The box is pink.
+w166|Dad has got a new camera.|camera|爸爸有一台新相機。|The camera is black and grey.|這台相機是黑色和灰色的。|The camera is pink and yellow.
+w167|Sit on your chair, please.|chair|請坐在你的椅子上。|The chair is brown.|這張椅子是棕色的。|The chair is blue.
+w168|The clock on the wall is big.|clock|牆上的時鐘很大。|The clock is brown.|這個時鐘是棕色的。|The clock is red.
+w169|I play games on my computer.|computer|我在電腦上玩遊戲。|This is a computer.|這是一台電腦。
+w170|My toys are in the cupboard.|cupboard|我的玩具在櫃子裡。|The cupboard is brown.|這個櫃子是棕色的。|The cupboard is white.
+w171|My pencils are on my desk.|desk|我的鉛筆在書桌上。|There's a lamp on the desk.|書桌上有一盞檯燈。|There's a cat on the desk.
+w172|We eat dinner in the dining room.|dining room|我們在餐廳吃晚餐。|There's a table in the dining room.|餐廳裡有一張桌子。|There's a bed in the dining room.
+w173|Close the door, please.|door|請關門。|The door is brown.|這扇門是棕色的。|The door is green.
+w174|Mum likes pink flowers.|flowers|媽媽喜歡粉紅色的花。|The flower is pink.|這朵花是粉紅色的。|The flower is blue.
+w175|There are lots of flowers in our garden.|garden|我們的花園裡有很多花。
+w176|Put your shoes in the hall.|hall|把你的鞋子放在走廊。
+w177|I'm at home.|home|我在家。
+w178|My house has got a red door.|house|我家的房子有一扇紅色的門。|There's a tree next to the house.|房子旁邊有一棵樹。|There's a car next to the house.
+w179|Mum is in the kitchen.|kitchen|媽媽在廚房裡。
+w180|There's a lamp next to my bed.|lamp|我的床旁邊有一盞檯燈。|The lamp is yellow.|這盞檯燈是黃色的。|The lamp is green.
+w181|We watch TV in the living room.|living room|我們在客廳看電視。|There's a blue sofa in the living room.|客廳裡有一張藍色的沙發。|There's a red sofa in the living room.
+w182|The cat is sitting on the mat.|mat|貓坐在墊子上。
+w183|Look in the mirror!|mirror|照照鏡子！
+w184|Mum is talking on the phone.|phone|媽媽正在講電話。|The phone is black.|這支手機是黑色的。|The phone is white.
+w185|I've got a picture of a horse in my bedroom.|picture|我的臥室裡有一張馬的圖片。
+w186|Grandpa listens to the radio.|radio|爺爺在聽收音機。|The radio is orange.|這台收音機是橘色的。|The radio is green.
+w187|How many rooms are there in your house?|rooms|你家有幾個房間？
+w188|The dog is sleeping on the rug.|rug|狗在地毯上睡覺。
+w189|Cats sleep a lot.|sleep|貓很愛睡覺。
+w190|Sit on the sofa with me.|sofa|跟我一起坐在沙發上。|The sofa is blue.|這張沙發是藍色的。|The sofa is red.
+w191|Your bag is under the table.|table|你的包包在桌子底下。|The table is brown.|這張桌子是棕色的。|The table is white.
+w192|There's a big TV in our living room.|TV|我們的客廳裡有一台大電視。|This is an old TV.|這是一台舊電視。
+w193|There's a bird in the tree.|tree|樹上有一隻鳥。|The tree is green.|這棵樹是綠色的。|The tree is pink.
+w194|There's a picture on the wall.|wall|牆上有一幅畫。|The wall is red.|這面牆是紅色的。|The wall is blue.
+w195|This is my new watch.|watch|這是我的新手錶。|The watch is grey and brown.|這支手錶是灰色和棕色的。|The watch is red and green.
+w196|My bedroom has got a big window.|window|我的臥室有一扇大窗戶。|The window is closed.|窗戶是關著的。|The window is open.
+w197|Alex likes playing computer games.|Alex|艾力克斯喜歡玩電腦遊戲。
+w198|Alice has got long black hair.|Alice|愛麗絲有一頭黑色長髮。
+w199|Anna is my sister's friend.|Anna|安娜是我姊姊的朋友。
+w200|Ben has got a new bike.|Ben|班有一台新腳踏車。
+w201|Bill can play the guitar.|Bill|比爾會彈吉他。
+w202|Dan lives next to the park.|Dan|丹住在公園旁邊。
+w203|Eva has got two cats.|Eva|伊娃有兩隻貓。
+w204|Grace likes singing songs.|Grace|葛瑞絲喜歡唱歌。
+w205|Hugo is in my class.|Hugo|雨果和我同班。
+w206|Jill is drawing a monster.|Jill|吉兒正在畫一隻怪物。
+w207|Kim's favourite colour is pink.|Kim|金最喜歡的顏色是粉紅色。
+w208|Lucy is my cousin.|Lucy|露西是我的表姊。
+w209|Mark is playing tennis with his dad.|Mark|馬克正在和他爸爸打網球。
+w210|Matt has got a big dog.|Matt|麥特有一隻大狗。
+w211|May is eating an ice cream.|May|梅正在吃冰淇淋。
+w212|Nick likes swimming in the sea.|Nick|尼克喜歡在海裡游泳。
+w213|Pat is my friend from school.|Pat|派特是我學校的朋友。
+w214|Sam is flying a kite.|Sam|山姆正在放風箏。
+w215|Sue is sitting next to me.|Sue|蘇坐在我旁邊。
+w216|Tom is ten years old.|Tom|湯姆十歲。
+w217|The cat is behind the door.|behind|貓在門後面。|The ball is behind the box.|球在箱子後面。|The ball is in front of the box.
+w218|I'm sitting between Anna and Tom.|between|我坐在安娜和湯姆中間。|The ball is between the boxes.|球在兩個箱子中間。|The ball is in the boxes.
+w219|There's a bookshop next to the park.|bookshop|公園旁邊有一間書店。|There are lots of books in the bookshop.|書店裡有很多書。|There are lots of toys in the bookshop.
+w220|Our house is at the end of the street.|end|我們家在這條街的盡頭。
+w221|Come here, please!|here|請過來這裡！
+w222|My pencils are in my bag.|in|我的鉛筆在我的包包裡。|The ball is in the box.|球在箱子裡。|The ball is under the box.
+w223|There's a tree in front of my house.|in front of|我家前面有一棵樹。|The ball is in front of the box.|球在箱子前面。|The ball is behind the box.
+w224|Your book is on the table.|on|你的書在桌上。|The ball is on the box.|球在箱子上面。|The ball is in the box.
+w225|Let's play in the park.|park|我們去公園玩吧。|There are two trees in the park.|公園裡有兩棵樹。|There are five trees in the park.
+w226|The children are playing in the playground.|playground|孩子們在遊樂場玩。
+w227|There's a toy shop in my street.|shop|我家那條街上有一間玩具店。
+w228|Don't play in the street!|street|不要在街上玩！|There are four houses in the street.|街上有四間房子。|There are two houses in the street.
+w229|Your bag is there, under the chair.|there|你的包包在那裡，在椅子底下。
+w230|The dog is under the table.|under|狗在桌子底下。|The ball is under the table.|球在桌子底下。|The ball is on the table.
+w231|Can you say the alphabet?|alphabet|你會念字母表嗎？
+w232|Do you know the answer?|answer|你知道答案嗎？
+w233|Can I ask a question?|ask|我可以問一個問題嗎？
+w234|The teacher is writing on the board.|board|老師正在黑板上寫字。
+w235|I've got a new book about animals.|book|我有一本關於動物的新書。|The book is red.|這本書是紅色的。|The book is green.
+w236|There are twenty children in my class.|class|我班上有二十個小孩。
+w237|Our classroom is big.|classroom|我們的教室很大。|There's a green board in the classroom.|教室裡有一塊綠色的黑板。|There's a red board in the classroom.
+w238|Close your books, please.|Close|請把書闔上。
+w239|Is this answer correct?|correct|這個答案正確嗎？
+w240|I've got lots of crayons.|crayons|我有很多蠟筆。|The crayon is red.|這支蠟筆是紅色的。|The crayon is blue.
+w241|Put a cross in the box.|cross|在格子裡打叉。|The cross is red.|這個叉是紅色的。|The cross is green.
+w242|Let's draw a big house!|draw|我們來畫一間大房子吧！
+w243|I like English lessons.|English|我喜歡英文課。
+w244|Can I have your eraser, please?|eraser|可以借我你的橡皮擦嗎？|The eraser is pink and blue.|這個橡皮擦是粉紅色和藍色的。|The eraser is green and yellow.
+w245|Look at the example, please.|example|請看例子。
+w246|I can't find my pen!|find|我找不到我的筆！
+w247|Don't sit on the floor.|floor|不要坐在地板上。
+w248|The computer keyboard is on the desk.|keyboard|電腦鍵盤在書桌上。|The keyboard is white.|這個鍵盤是白色的。|The keyboard is black.
+w249|We learn English at school.|learn|我們在學校學英文。
+w250|The music lesson is fun.|lesson|音樂課很好玩。
+w251|What's this letter? It's B!|letter|這是什麼字母？是 B！|This is the letter A.|這是字母 A。|This is the letter B.
+w252|Draw a line under the word.|line|在這個字下面畫一條線。
+w253|Listen to the story.|Listen|聽故事。
+w254|Look at the elephant!|Look|看那隻大象！
+w255|Where's the mouse for my computer?|mouse|我電腦的滑鼠在哪裡？|The mouse is white.|這個滑鼠是白色的。|The mouse is black.
+w256|I like listening to music.|music|我喜歡聽音樂。
+w257|What's your favourite number?|number|你最喜歡的數字是什麼？|These are the numbers one, two, three and four.|這些是數字一、二、三和四。|These are the numbers five, six, seven and eight.
+w258|Open your books, please.|Open|請打開你的書。
+w259|Look at page ten.|page|請看第十頁。
+w260|That's a beautiful painting.|painting|那是一幅很漂亮的畫。
+w261|Draw a cat on this paper.|paper|在這張紙上畫一隻貓。
+w262|Can you read this part of the story?|part|你可以讀故事的這個部分嗎？
+w263|Can I have a blue pen, please?|pen|可以給我一支藍色的筆嗎？|The pen is blue.|這支筆是藍色的。|The pen is red.
+w264|Write with a pencil, please.|pencil|請用鉛筆寫。|The pencil is yellow.|這支鉛筆是黃色的。|The pencil is purple.
+w265|There's a big poster on the wall.|poster|牆上有一張大海報。|The poster is yellow.|這張海報是黃色的。|The poster is blue.
+w266|Answer the question, please.|question|請回答問題。
+w267|Mum reads me a story at night.|reads|媽媽晚上念故事給我聽。
+w268|Yes, that's right!|right|對，沒錯！
+w269|This ruler is long.|ruler|這把尺很長。|The ruler is blue.|這把尺是藍色的。|The ruler is red.
+w270|My school has got a big playground.|school|我的學校有一座大遊樂場。|There's a clock on the school.|學校上面有一個時鐘。|There's a cat on the school.
+w271|Write a sentence about your family.|sentence|寫一個關於你家人的句子。
+w272|Please sit down.|sit|請坐下。
+w273|How do you spell 'cat'?|spell|cat 怎麼拼？
+w274|Stand up, please.|Stand|請站起來。
+w275|Grandma tells me funny stories.|stories|奶奶會講好笑的故事給我聽。
+w276|Our teacher is very nice.|teacher|我們的老師人很好。
+w277|Tell me about your pet.|Tell|跟我說說你的寵物。
+w278|Put a tick next to the correct answer.|tick|在正確答案旁邊打勾。
+w279|I don't understand. Can you say that again?|understand|我聽不懂，你可以再說一次嗎？
+w280|This word is very long.|word|這個字很長。
+w281|Write the words in your book.|Write|把這些字寫在你的本子上。
+w282|I play badminton with my dad.|badminton|我和爸爸打羽毛球。
+w283|Let's play with my new ball.|ball|我們來玩我的新球吧。|The ball is red, yellow, blue and green.|這顆球是紅、黃、藍、綠色的。|The ball is black and white.
+w284|Do you like baseball?|baseball|你喜歡棒球嗎？
+w285|Bill and Mark are playing basketball.|basketball|比爾和馬克正在打籃球。|The basketball is orange.|這顆籃球是橘色的。|The basketball is green.
+w286|This is my new bat.|bat|這是我的新球棒。
+w287|Can you bounce the ball?|bounce|你會拍球嗎？
+w288|Catch the ball, Ben!|Catch|班，接住球！
+w289|Look at my drawing of a horse!|drawing|看我畫的馬！
+w290|I enjoy swimming in the sea.|enjoy|我喜歡在海裡游泳。
+w291|My favourite fruit is mango.|favourite|我最喜歡的水果是芒果。
+w292|Let's go fishing in the sea.|fishing|我們去海上釣魚吧。
+w293|My brother plays football.|football|我哥哥踢足球。|The football is black and white.|這顆足球是黑白相間的。|The football is orange and blue.
+w294|Let's play a game!|game|我們來玩遊戲吧！
+w295|I've got a red guitar.|guitar|我有一把紅色的吉他。|The guitar is red.|這把吉他是紅色的。|The guitar is blue.
+w296|My hobby is painting.|hobby|我的嗜好是畫畫。
+w297|We play hockey at school.|hockey|我們在學校打曲棍球。
+w298|The children are jumping on the bed!|jumping|孩子們在床上跳！
+w299|Kick the ball, Tom!|Kick|湯姆，踢球！
+w300|My kite is in the tree!|kite|我的風箏卡在樹上了！|The kite is orange and red.|這只風箏是橘色和紅色的。|The kite is green and black.
+w301|Look at this photo of my dog.|photo|看這張我的狗的照片。
+w302|Lucy plays the piano.|piano|露西會彈鋼琴。|The piano is black and white.|鋼琴是黑白相間的。|The piano is red and yellow.
+w303|Can I play with you?|play|我可以跟你一起玩嗎？
+w304|Don't run in the classroom!|run|不要在教室裡跑！
+w305|Let's sing a song!|sing|我們來唱歌吧！
+w306|Is this your skateboard?|skateboard|這是你的滑板嗎？|The skateboard is black.|這塊滑板是黑色的。|The skateboard is pink.
+w307|Skateboarding is fun!|Skateboarding|玩滑板很好玩！
+w308|This is my favourite song.|song|這是我最喜歡的歌。
+w309|What's your favourite sport?|sport|你最喜歡什麼運動？
+w310|Let's play table tennis!|table tennis|我們來打桌球吧！
+w311|Can I take a photo of your cat?|take a photo|我可以幫你的貓拍張照嗎？
+w312|Do you want to play tennis?|tennis|你想打網球嗎？
+w313|My tennis racket is in my bag.|tennis racket|我的網球拍在我的包包裡。|The tennis racket is red.|這支網球拍是紅色的。|The tennis racket is blue.
+w314|Throw the ball to me, please!|Throw|請把球丟給我！
+w315|We play in the park in the afternoon.|afternoon|我們下午在公園玩。
+w316|Happy birthday, Lucy!|birthday|生日快樂，露西！
+w317|Have a nice day!|day|祝你有美好的一天！
+w318|I read books in the evening.|evening|我晚上看書。
+w319|Good morning, children!|morning|早安，孩子們！
+w320|I sleep with my teddy at night.|night|我晚上抱著泰迪熊睡覺。
+w321|It's my birthday today!|today|今天是我的生日！
+w322|My sister is six years old.|years|我妹妹六歲。
+w323|Look! There's an alien in the garden!|alien|看！花園裡有一個外星人！|The alien is grey.|外星人是灰色的。|The alien is pink.
+w324|Can I have a red balloon, please?|balloon|可以給我一顆紅氣球嗎？|The balloon is red.|這顆氣球是紅色的。|The balloon is yellow.
+w325|Do you want to play a board game with me?|board game|你想跟我玩桌遊嗎？
+w326|There are three cars in the street.|cars|街上有三輛車。|The car is red.|這輛車是紅色的。|The car is blue.
+w327|My sister has got lots of dolls.|dolls|我妹妹有很多娃娃。
+w328|My toy helicopter can fly!|helicopter|我的玩具直升機會飛！|The helicopter is yellow.|這架直升機是黃色的。|The helicopter is green.
+w329|There's a big lorry in the street.|lorry|街上有一輛大卡車。|The lorry is white and orange.|這輛卡車是白色和橘色的。|The lorry is blue and green.
+w330|This monster has got three eyes!|monster|這隻怪物有三隻眼睛！|The monster is purple.|這隻怪物是紫色的。|The monster is green.
+w331|There's a red motorbike next to the shop.|motorbike|商店旁邊有一輛紅色的摩托車。|The motorbike is red.|這輛摩托車是紅色的。|The motorbike is blue.
+w332|I'm flying in a plane today!|plane|我今天要坐飛機！|The plane is white and blue.|這架飛機是白色和藍色的。|The plane is red and yellow.
+w333|My robot can talk!|robot|我的機器人會說話！|The robot is grey.|這個機器人是灰色的。|The robot is pink.
+w334|My teddy is on my bed.|teddy|我的泰迪熊在我床上。|The teddy is brown.|這隻泰迪熊是棕色的。|The teddy is white.
+w335|Put your toys in the box, please.|toys|請把玩具放進箱子裡。|The toys are in a red box.|玩具裝在紅色的箱子裡。|The toys are in a blue box.
+w336|I ride my bike to school.|bike|我騎腳踏車上學。|The bike is blue.|這台腳踏車是藍色的。|The bike is red.
+w337|There's a small boat on the sea.|boat|海上有一艘小船。|The boat is orange and yellow.|這艘船是橘色和黃色的。|The boat is blue and white.
+w338|The children are on the school bus.|bus|孩子們在校車上。|This is a bus.|這是一輛公車。
+w339|My mum can drive a lorry!|drive|我媽媽會開卡車！
+w340|Birds can fly.|fly|鳥會飛。
+w341|Let's go to the beach!|go|我們去海灘吧！
+w342|Can you ride a horse?|ride|你會騎馬嗎？
+w343|Look at that big ship!|ship|看那艘大船！|The ship is red and white.|這艘船是紅色和白色的。|The ship is green and yellow.
+w344|Can you swim?|swim|你會游泳嗎？
+w345|The train is very long.|train|這列火車很長。|The train is blue and grey.|這列火車是藍色和灰色的。|The train is red and yellow.
+w346|We walk to school.|walk|我們走路上學。
+w347|Don't look at the sun!|sun|不要直視太陽！|The sun is yellow.|太陽是黃色的。|The sun is blue.
+w348|There are lots of shells on the beach.|beach|海灘上有很多貝殼。
+w349|The children are playing in the sand.|sand|孩子們在沙子裡玩。
+w350|Fish live in the sea.|sea|魚住在海裡。
+w351|Look at this beautiful shell!|shell|看這個漂亮的貝殼！|The shell is white.|這個貝殼是白色的。|The shell is green.
+w352|Dad is angry with the dog.|angry|爸爸在生小狗的氣。
+w353|What a beautiful flower!|beautiful|好漂亮的花！
+w354|An elephant is very big.|big|大象非常大。
+w355|My hands are clean.|clean|我的手很乾淨。
+w356|The shop is closed today.|closed|這間商店今天沒開。
+w357|Your new skateboard is cool!|cool|你的新滑板好酷！
+w358|Your shoes are dirty!|dirty|你的鞋子好髒！
+w359|'Apple' has got a double 'p'.|double|apple 這個字有兩個 p。
+w360|Your drawing is fantastic!|fantastic|你的畫太棒了！
+w361|Swimming is fun!|fun|游泳很好玩！
+w362|This story is very funny.|funny|這個故事很好笑。
+w363|This cake is very good.|good|這個蛋糕很好吃。
+w364|Great! You're right!|Great|太棒了！你答對了！
+w365|The children are happy today.|happy|孩子們今天很開心。
+w366|The snake is very long.|long|這條蛇很長。
+w367|I've got new shoes!|new|我有新鞋子！
+w368|Nice to see you!|Nice|很高興見到你！
+w369|The boy is sad. He can't find his dog.|sad|那個男孩很難過，他找不到他的狗。
+w370|This monster is scary!|scary|這隻怪物好可怕！
+w371|My hair is short.|short|我的頭髮很短。
+w372|Don't be silly!|silly|別傻了！
+w373|A mouse is very small.|small|老鼠非常小。
+w374|I don't like this ugly hat.|ugly|我不喜歡這頂醜醜的帽子。
+w375|Add two and three.|Add|把二和三加起來。
+w376|Clap your hands!|Clap|拍拍手！
+w377|Please clean your room.|clean|請打掃你的房間。
+w378|Colour the apple red.|Colour|把蘋果塗成紅色。
+w379|Complete the sentences.|Complete|完成這些句子。
+w380|Can you count to ten?|count|你會數到十嗎？
+w381|I like ice cream.|like|我喜歡冰淇淋。
+w382|I love my family.|love|我愛我的家人。
+w383|Let's paint a picture!|paint|我們來畫一幅畫吧！
+w384|Pick up your toys, please.|Pick up|請把你的玩具撿起來。
+w385|Point to the door.|Point|指著門。
+w386|Show me your new book!|Show|給我看你的新書！
+w387|Let's start the game!|start|我們開始玩遊戲吧！
+w388|Stop! Don't run!|Stop|停！不要跑！
+w389|Don't talk in the lesson.|talk|上課時不要說話。
+w390|Try again!|Try|再試一次！
+w391|Do you want an apple?|want|你想要一顆蘋果嗎？
+w392|Wave goodbye to Grandma.|Wave|跟奶奶揮手說再見。
+w393|I want to be a teacher.|be|我想當老師。
+w394|I can swim.|can|我會游泳。
+w395|Choose a colour.|Choose|選一個顏色。
+w396|Can you come to my house?|come|你可以來我家嗎？
+w397|Do you like apples?|Do|你喜歡蘋果嗎？
+w398|I get lots of toys on my birthday.|get|我生日時會收到很多玩具。
+w399|Give me the pen, please.|Give|請把筆給我。
+w400|Go to bed now, please.|Go to bed|現在請去睡覺。
+w401|The baby can't go to sleep.|go to sleep|寶寶睡不著。
+w402|I have breakfast at home.|have|我在家吃早餐。
+w403|I have got two brothers.|have got|我有兩個兄弟。
+w404|Hit the ball!|Hit|擊球！
+w405|Hold my hand, please.|Hold|請牽著我的手。
+w406|I know the answer!|know|我知道答案！
+w407|Let's go!|Let's|我們走吧！
+w408|Let's make a cake!|make|我們來做蛋糕吧！
+w409|Put your bag on the chair.|Put|把你的包包放在椅子上。
+w410|Say 'hello' to your teacher.|Say|跟你的老師說「哈囉」。
+w411|I can see a bird.|see|我看到一隻鳥。
+w412|I've got a cat.|a|我有一隻貓。
+w413|There are a lot of books here.|a lot of|這裡有很多書。
+w414|Look! It's an elephant.|an|看！是一頭大象。
+w415|I've got lots of friends.|lots of|我有很多朋友。
+w416|There are many birds in the tree.|many|樹上有很多鳥。
+w417|No, thank you.|No|不用了，謝謝。
+w418|I've got one sister.|one|我有一個姊姊。
+w419|I want some grapes.|some|我想要一些葡萄。
+w420|Is that your bag?|that|那是你的包包嗎？
+w421|These are my books.|These|這些是我的書。
+w422|This is my friend, Tom.|This|這是我的朋友湯姆。
+w423|Those shoes are very nice.|Those|那雙鞋子很好看。
+w424|Let's play that game again!|again|我們再玩一次那個遊戲吧！
+w425|I like dogs a lot.|a lot|我很喜歡狗。
+w426|How many shells have you got? Lots!|Lots|你有幾個貝殼？很多！
+w427|I'm not tired.|not|我不累。
+w428|Stop that now!|now|現在停下來！
+w429|I really like your drawing.|really|我真的很喜歡你的畫。
+w430|This T-shirt is too small.|too|這件 T 恤太小了。
+w431|I'm very happy today.|very|我今天非常開心。
+w432|Yes, I can!|Yes|是的，我可以！
+w433|This book is about a monkey.|about|這本書是關於一隻猴子的。
+w434|This cake is for you.|for|這個蛋糕是給你的。
+w435|Where are you from?|from|你從哪裡來？
+w436|Sit next to me.|next to|坐我旁邊。|The ball is next to the box.|球在箱子旁邊。|The ball is on the box.
+w437|Here's a photo of my family.|of|這是我家人的照片。
+w438|I go to the park with my dad.|to|我和爸爸去公園。
+w439|Come with me!|with|跟我來！
+w440|I like cats and dogs.|and|我喜歡貓和狗。
+w441|I like apples, but I don't like pears.|but|我喜歡蘋果，但是我不喜歡梨子。
+w442|Do you want juice or milk?|or|你要果汁還是牛奶？
+w443|This is Ben. He is my friend.|He|這是班，他是我的朋友。
+w444|That's Lucy and her cat.|her|那是露西和她的貓。
+w445|That bag isn't mine. It's hers.|hers|那個包包不是我的，是她的。
+w446|Give the ball to him.|him|把球給他。
+w447|Tom is playing with his dog.|his|湯姆在跟他的狗玩。
+w448|I'm eight years old.|I|我八歲。
+w449|Where's my pen? I can't find it.|it|我的筆在哪裡？我找不到它。
+w450|The dog is eating its dinner.|its|小狗在吃牠的晚餐。
+w451|Look at me!|me|看我！
+w452|This book is mine.|mine|這本書是我的。
+w453|That house is ours.|ours|那間房子是我們的。
+w454|This is my sister. She is seven.|She|這是我妹妹，她七歲。
+w455|Those bikes are theirs.|theirs|那些腳踏車是他們的。
+w456|I've got two cats. I love them!|them|我有兩隻貓，我好愛牠們！
+w457|Where are Sam and Pat? They are in the garden.|They|山姆和派特在哪裡？他們在花園裡。
+w458|Please play with us!|us|請跟我們一起玩！
+w459|We are classmates.|We|我們是同學。
+w460|Thank you!|you|謝謝你！
+w461|Is this pencil yours?|yours|這支鉛筆是你的嗎？
+w462|How are you?|How|你好嗎？
+w463|How many brothers have you got?|How many|你有幾個兄弟？
+w464|How old are you?|How old|你幾歲？
+w465|Pardon? Can you say that again, please?|Pardon|什麼？可以請你再說一次嗎？
+w466|What is this?|What|這是什麼？
+w467|Where is my bag?|Where|我的包包在哪裡？
+w468|Which ice cream do you want?|Which|你想要哪一種冰淇淋？
+w469|Who is that girl?|Who|那個女孩是誰？
+w470|Whose book is this?|Whose|這是誰的書？

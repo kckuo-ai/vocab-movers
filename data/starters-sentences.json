@@ -1,0 +1,4124 @@
+{
+ "version": 1,
+ "level": "starters",
+ "note": "Example sentences written for this project; vocabulary limited to the Cambridge Pre A1 Starters wordlist. Entries with tts:true have no MP3 yet and are read with the device voice.",
+ "sentences": {
+  "w0": {
+   "word": "animal",
+   "en": "A crocodile is a big animal.",
+   "hl": "animal",
+   "zh": "鱷魚是一種大型動物。",
+   "audio": "st/s/animal"
+  },
+  "w1": {
+   "word": "bear",
+   "en": "The bear is sleeping under the tree.",
+   "hl": "bear",
+   "zh": "熊在樹下睡覺。",
+   "audio": "st/s/bear",
+   "pic": "The bear is brown.",
+   "pzh": "熊是棕色的。",
+   "paudio": "st/p/bear",
+   "pfalse": "The bear is pink.",
+   "pfaudio": "st/q/bear"
+  },
+  "w2": {
+   "word": "bee",
+   "en": "A bee is on the yellow flower.",
+   "hl": "bee",
+   "zh": "一隻蜜蜂停在黃色的花上。",
+   "audio": "st/s/bee",
+   "pic": "The bee is yellow and black.",
+   "pzh": "蜜蜂是黃黑相間的。",
+   "paudio": "st/p/bee",
+   "pfalse": "The bee is green and blue.",
+   "pfaudio": "st/q/bee"
+  },
+  "w3": {
+   "word": "bird",
+   "en": "The bird is singing in the tree.",
+   "hl": "bird",
+   "zh": "鳥在樹上唱歌。",
+   "audio": "st/s/bird",
+   "pic": "The bird is blue.",
+   "pzh": "這隻鳥是藍色的。",
+   "paudio": "st/p/bird",
+   "pfalse": "The bird is red.",
+   "pfaudio": "st/q/bird"
+  },
+  "w4": {
+   "word": "cat",
+   "en": "My cat likes sleeping on the sofa.",
+   "hl": "cat",
+   "zh": "我的貓喜歡睡在沙發上。",
+   "audio": "st/s/cat",
+   "pic": "This is a yellow cat.",
+   "pzh": "這是一隻黃色的貓。",
+   "paudio": "st/p/cat",
+   "pfalse": "This is a black cat.",
+   "pfaudio": "st/q/cat"
+  },
+  "w5": {
+   "word": "chicken",
+   "en": "The chicken is eating in the garden.",
+   "hl": "chicken",
+   "zh": "雞在花園裡吃東西。",
+   "audio": "st/s/chicken",
+   "pic": "The chicken is white and red.",
+   "pzh": "這隻雞是白色和紅色的。",
+   "paudio": "st/p/chicken",
+   "pfalse": "The chicken is black and blue.",
+   "pfaudio": "st/q/chicken"
+  },
+  "w6": {
+   "word": "cow",
+   "en": "The cow is drinking water.",
+   "hl": "cow",
+   "zh": "母牛在喝水。",
+   "audio": "st/s/cow",
+   "pic": "The cow is black and white.",
+   "pzh": "這頭牛是黑白相間的。",
+   "paudio": "st/p/cow",
+   "pfalse": "The cow is brown and orange.",
+   "pfaudio": "st/q/cow"
+  },
+  "w7": {
+   "word": "crocodile",
+   "en": "The crocodile is swimming in the water.",
+   "hl": "crocodile",
+   "zh": "鱷魚在水裡游泳。",
+   "audio": "st/s/crocodile",
+   "pic": "The crocodile is green.",
+   "pzh": "鱷魚是綠色的。",
+   "paudio": "st/p/crocodile",
+   "pfalse": "The crocodile is pink.",
+   "pfaudio": "st/q/crocodile"
+  },
+  "w8": {
+   "word": "dog",
+   "en": "Sam's dog can catch a ball.",
+   "hl": "dog",
+   "zh": "山姆的狗會接球。",
+   "audio": "st/s/dog",
+   "pic": "The dog has got brown ears.",
+   "pzh": "小狗有棕色的耳朵。",
+   "paudio": "st/p/dog",
+   "pfalse": "The dog has got black ears.",
+   "pfaudio": "st/q/dog"
+  },
+  "w9": {
+   "word": "donkey",
+   "en": "Ben is riding a donkey on the beach.",
+   "hl": "donkey",
+   "zh": "班在海灘上騎驢子。",
+   "audio": "st/s/donkey",
+   "pic": "The donkey is grey.",
+   "pzh": "驢子是灰色的。",
+   "paudio": "st/p/donkey",
+   "pfalse": "The donkey is yellow.",
+   "pfaudio": "st/q/donkey"
+  },
+  "w10": {
+   "word": "duck",
+   "en": "The ducks are swimming in the water.",
+   "hl": "ducks",
+   "zh": "鴨子在水裡游泳。",
+   "audio": "st/s/duck",
+   "pic": "The duck has got a green head.",
+   "pzh": "鴨子有綠色的頭。",
+   "paudio": "st/p/duck",
+   "pfalse": "The duck has got a blue head.",
+   "pfaudio": "st/q/duck"
+  },
+  "w11": {
+   "word": "elephant",
+   "en": "The elephant has got very big ears.",
+   "hl": "elephant",
+   "zh": "大象有一對很大的耳朵。",
+   "audio": "st/s/elephant",
+   "pic": "The elephant is grey.",
+   "pzh": "大象是灰色的。",
+   "paudio": "st/p/elephant",
+   "pfalse": "The elephant is pink.",
+   "pfaudio": "st/q/elephant"
+  },
+  "w12": {
+   "word": "fish",
+   "en": "There are lots of fish in the sea.",
+   "hl": "fish",
+   "zh": "海裡有很多魚。",
+   "audio": "st/s/fish",
+   "pic": "The fish is blue.",
+   "pzh": "這條魚是藍色的。",
+   "paudio": "st/p/fish",
+   "pfalse": "The fish is red.",
+   "pfaudio": "st/q/fish"
+  },
+  "w13": {
+   "word": "frog",
+   "en": "A frog is jumping in the garden.",
+   "hl": "frog",
+   "zh": "一隻青蛙在花園裡跳。",
+   "audio": "st/s/frog",
+   "pic": "The frog is green.",
+   "pzh": "青蛙是綠色的。",
+   "paudio": "st/p/frog",
+   "pfalse": "The frog is purple.",
+   "pfaudio": "st/q/frog"
+  },
+  "w14": {
+   "word": "giraffe",
+   "en": "The giraffe is eating from the tree.",
+   "hl": "giraffe",
+   "zh": "長頸鹿在吃樹上的葉子。",
+   "audio": "st/s/giraffe",
+   "pic": "The giraffe is yellow and orange.",
+   "pzh": "長頸鹿是黃色和橘色的。",
+   "paudio": "st/p/giraffe",
+   "pfalse": "The giraffe is black and white.",
+   "pfaudio": "st/q/giraffe"
+  },
+  "w15": {
+   "word": "goat",
+   "en": "The goat is eating my hat!",
+   "hl": "goat",
+   "zh": "山羊在吃我的帽子！",
+   "audio": "st/s/goat",
+   "pic": "The goat is brown.",
+   "pzh": "山羊是棕色的。",
+   "paudio": "st/p/goat",
+   "pfalse": "The goat is green.",
+   "pfaudio": "st/q/goat"
+  },
+  "w16": {
+   "word": "hippo",
+   "en": "The hippo is sleeping in the water.",
+   "hl": "hippo",
+   "zh": "河馬在水裡睡覺。",
+   "audio": "st/s/hippo",
+   "pic": "This is a big hippo.",
+   "pzh": "這是一隻大河馬。",
+   "paudio": "st/p/hippo"
+  },
+  "w17": {
+   "word": "horse",
+   "en": "The horse is eating an apple.",
+   "hl": "horse",
+   "zh": "馬在吃蘋果。",
+   "audio": "st/s/horse",
+   "pic": "The horse is running.",
+   "pzh": "馬正在跑。",
+   "paudio": "st/p/horse",
+   "pfalse": "The horse is sleeping.",
+   "pfaudio": "st/q/horse"
+  },
+  "w18": {
+   "word": "jellyfish",
+   "en": "There's a jellyfish in the sea.",
+   "hl": "jellyfish",
+   "zh": "海裡有一隻水母。",
+   "audio": "st/s/jellyfish",
+   "pic": "The jellyfish is blue.",
+   "pzh": "水母是藍色的。",
+   "paudio": "st/p/jellyfish",
+   "pfalse": "The jellyfish is orange.",
+   "pfaudio": "st/q/jellyfish"
+  },
+  "w19": {
+   "word": "lizard",
+   "en": "A small lizard is on the wall.",
+   "hl": "lizard",
+   "zh": "一隻小蜥蜴在牆上。",
+   "audio": "st/s/lizard",
+   "pic": "The lizard is green.",
+   "pzh": "蜥蜴是綠色的。",
+   "paudio": "st/p/lizard",
+   "pfalse": "The lizard is blue.",
+   "pfaudio": "st/q/lizard"
+  },
+  "w20": {
+   "word": "monkey",
+   "en": "The monkey is eating a banana.",
+   "hl": "monkey",
+   "zh": "猴子在吃香蕉。",
+   "audio": "st/s/monkey",
+   "pic": "The monkey has got a long tail.",
+   "pzh": "猴子有一條長尾巴。",
+   "paudio": "st/p/monkey",
+   "pfalse": "The monkey has got a short tail.",
+   "pfaudio": "st/q/monkey"
+  },
+  "w21": {
+   "word": "mouse / mice",
+   "en": "There are two mice under the bed.",
+   "hl": "mice",
+   "zh": "床底下有兩隻老鼠。",
+   "audio": "st/s/mouse_mice",
+   "pic": "The mouse has got pink ears.",
+   "pzh": "老鼠有粉紅色的耳朵。",
+   "paudio": "st/p/mouse_mice",
+   "pfalse": "The mouse has got green ears.",
+   "pfaudio": "st/q/mouse_mice"
+  },
+  "w22": {
+   "word": "pet",
+   "en": "Have you got a pet?",
+   "hl": "pet",
+   "zh": "你有養寵物嗎？",
+   "audio": "st/s/pet"
+  },
+  "w23": {
+   "word": "polar bear",
+   "en": "A polar bear can swim in the sea.",
+   "hl": "polar bear",
+   "zh": "北極熊會在海裡游泳。",
+   "audio": "st/s/polar_bear",
+   "pic": "The polar bear is white.",
+   "pzh": "北極熊是白色的。",
+   "paudio": "st/p/polar_bear",
+   "pfalse": "The polar bear is brown.",
+   "pfaudio": "st/q/polar_bear"
+  },
+  "w24": {
+   "word": "sheep",
+   "en": "I can count ten sheep.",
+   "hl": "sheep",
+   "zh": "我可以數到十隻綿羊。",
+   "audio": "st/s/sheep",
+   "pic": "The sheep is white.",
+   "pzh": "綿羊是白色的。",
+   "paudio": "st/p/sheep",
+   "pfalse": "The sheep is black.",
+   "pfaudio": "st/q/sheep"
+  },
+  "w25": {
+   "word": "snake",
+   "en": "Look! There's a long snake in the tree!",
+   "hl": "snake",
+   "zh": "看！樹上有一條長長的蛇！",
+   "audio": "st/s/snake",
+   "pic": "The snake is green.",
+   "pzh": "蛇是綠色的。",
+   "paudio": "st/p/snake",
+   "pfalse": "The snake is red.",
+   "pfaudio": "st/q/snake"
+  },
+  "w26": {
+   "word": "spider",
+   "en": "There's a big spider in the bath!",
+   "hl": "spider",
+   "zh": "浴缸裡有一隻大蜘蛛！",
+   "audio": "st/s/spider",
+   "pic": "The spider has got eight legs.",
+   "pzh": "蜘蛛有八隻腳。",
+   "paudio": "st/p/spider",
+   "pfalse": "The spider has got two legs.",
+   "pfaudio": "st/q/spider"
+  },
+  "w27": {
+   "word": "tail",
+   "en": "The monkey is holding the tree with its tail.",
+   "hl": "tail",
+   "zh": "猴子用尾巴抓著樹。",
+   "audio": "st/s/tail",
+   "pic": "This cat has got a long tail.",
+   "pzh": "這隻貓有一條長尾巴。",
+   "paudio": "st/p/tail",
+   "pfalse": "This cat has got a short tail.",
+   "pfaudio": "st/q/tail"
+  },
+  "w28": {
+   "word": "tiger",
+   "en": "The tiger is sleeping in the sun.",
+   "hl": "tiger",
+   "zh": "老虎在太陽下睡覺。",
+   "audio": "st/s/tiger",
+   "pic": "The tiger is orange and black.",
+   "pzh": "老虎是橘黑相間的。",
+   "paudio": "st/p/tiger",
+   "pfalse": "The tiger is blue and white.",
+   "pfaudio": "st/q/tiger"
+  },
+  "w29": {
+   "word": "zebra",
+   "en": "The zebra is running with its friends.",
+   "hl": "zebra",
+   "zh": "斑馬和牠的朋友們一起跑。",
+   "audio": "st/s/zebra",
+   "pic": "The zebra is black and white.",
+   "pzh": "斑馬是黑白相間的。",
+   "paudio": "st/p/zebra",
+   "pfalse": "The zebra is red and yellow.",
+   "pfaudio": "st/q/zebra"
+  },
+  "w30": {
+   "word": "zoo",
+   "en": "We can see elephants and monkeys at the zoo.",
+   "hl": "zoo",
+   "zh": "我們可以在動物園看到大象和猴子。",
+   "audio": "st/s/zoo"
+  },
+  "w31": {
+   "word": "arm",
+   "en": "Put your arms up!",
+   "hl": "arms",
+   "zh": "把手臂舉起來！",
+   "audio": "st/s/arm"
+  },
+  "w32": {
+   "word": "body",
+   "en": "We're learning about the body today.",
+   "hl": "body",
+   "zh": "我們今天在學身體的部位。",
+   "audio": "st/s/body"
+  },
+  "w33": {
+   "word": "ear",
+   "en": "Point to your ear!",
+   "hl": "ear",
+   "zh": "指著你的耳朵！",
+   "audio": "st/s/ear",
+   "pic": "This ear is yellow.",
+   "pzh": "這隻耳朵是黃色的。",
+   "paudio": "st/p/ear",
+   "pfalse": "This ear is blue.",
+   "pfaudio": "st/q/ear"
+  },
+  "w34": {
+   "word": "eye",
+   "en": "My cat has got green eyes.",
+   "hl": "eyes",
+   "zh": "我的貓有綠色的眼睛。",
+   "audio": "st/s/eye",
+   "pic": "The eye is brown.",
+   "pzh": "這隻眼睛是棕色的。",
+   "paudio": "st/p/eye",
+   "pfalse": "The eye is blue.",
+   "pfaudio": "st/q/eye"
+  },
+  "w35": {
+   "word": "face",
+   "en": "Draw eyes and a mouth on the face.",
+   "hl": "face",
+   "zh": "在臉上畫眼睛和嘴巴。",
+   "audio": "st/s/face",
+   "pic": "The face is happy.",
+   "pzh": "這張臉很開心。",
+   "paudio": "st/p/face",
+   "pfalse": "The face is sad.",
+   "pfaudio": "st/q/face"
+  },
+  "w36": {
+   "word": "foot / feet",
+   "en": "My feet are very cold!",
+   "hl": "feet",
+   "zh": "我的腳好冷！",
+   "audio": "st/s/foot_feet",
+   "pic": "This is one foot.",
+   "pzh": "這是一隻腳。",
+   "paudio": "st/p/foot_feet",
+   "pfalse": "These are two feet.",
+   "pfaudio": "st/q/foot_feet"
+  },
+  "w37": {
+   "word": "hair",
+   "en": "Mum has got short brown hair.",
+   "hl": "hair",
+   "zh": "媽媽有一頭棕色短髮。",
+   "audio": "st/s/hair",
+   "pic": "This woman has got brown hair.",
+   "pzh": "這位女士有棕色的頭髮。",
+   "paudio": "st/p/hair",
+   "pfalse": "This woman has got yellow hair.",
+   "pfaudio": "st/q/hair"
+  },
+  "w38": {
+   "word": "hand",
+   "en": "Put up your hand, please.",
+   "hl": "hand",
+   "zh": "請舉手。",
+   "audio": "st/s/hand",
+   "pic": "The hand is yellow.",
+   "pzh": "這隻手是黃色的。",
+   "paudio": "st/p/hand",
+   "pfalse": "The hand is green.",
+   "pfaudio": "st/q/hand"
+  },
+  "w39": {
+   "word": "head",
+   "en": "Put your hat on your head.",
+   "hl": "head",
+   "zh": "把帽子戴在頭上。",
+   "audio": "st/s/head"
+  },
+  "w40": {
+   "word": "leg",
+   "en": "Chickens have got two legs.",
+   "hl": "legs",
+   "zh": "雞有兩條腿。",
+   "audio": "st/s/leg",
+   "pic": "This is one leg.",
+   "pzh": "這是一條腿。",
+   "paudio": "st/p/leg",
+   "pfalse": "These are two legs.",
+   "pfaudio": "st/q/leg"
+  },
+  "w41": {
+   "word": "mouth",
+   "en": "Open your mouth, please.",
+   "hl": "mouth",
+   "zh": "請張開嘴巴。",
+   "audio": "st/s/mouth",
+   "pic": "The mouth is open.",
+   "pzh": "嘴巴是張開的。",
+   "paudio": "st/p/mouth",
+   "pfalse": "The mouth is closed.",
+   "pfaudio": "st/q/mouth"
+  },
+  "w42": {
+   "word": "nose",
+   "en": "An elephant's nose is very long.",
+   "hl": "nose",
+   "zh": "大象的鼻子很長。",
+   "audio": "st/s/nose",
+   "pic": "This nose is yellow.",
+   "pzh": "這個鼻子是黃色的。",
+   "paudio": "st/p/nose",
+   "pfalse": "This nose is blue.",
+   "pfaudio": "st/q/nose"
+  },
+  "w43": {
+   "word": "smile",
+   "en": "Grandma has got a beautiful smile.",
+   "hl": "smile",
+   "zh": "奶奶的笑容很美。",
+   "audio": "st/s/smile",
+   "pic": "This is a big smile.",
+   "pzh": "這是一個大大的笑容。",
+   "paudio": "st/p/smile"
+  },
+  "w44": {
+   "word": "bag",
+   "en": "My books are in my school bag.",
+   "hl": "bag",
+   "zh": "我的書在我的書包裡。",
+   "audio": "st/s/bag",
+   "pic": "The bag is brown.",
+   "pzh": "這個包包是棕色的。",
+   "paudio": "st/p/bag",
+   "pfalse": "The bag is pink.",
+   "pfaudio": "st/q/bag"
+  },
+  "w45": {
+   "word": "baseball cap",
+   "en": "Dan is wearing a red baseball cap.",
+   "hl": "baseball cap",
+   "zh": "丹戴著一頂紅色的棒球帽。",
+   "audio": "st/s/baseball_cap",
+   "pic": "The baseball cap is blue.",
+   "pzh": "這頂棒球帽是藍色的。",
+   "paudio": "st/p/baseball_cap",
+   "pfalse": "The baseball cap is red.",
+   "pfaudio": "st/q/baseball_cap"
+  },
+  "w46": {
+   "word": "boots",
+   "en": "These boots are too big for me.",
+   "hl": "boots",
+   "zh": "這雙靴子對我來說太大了。",
+   "audio": "st/s/boots",
+   "pic": "These are orange boots.",
+   "pzh": "這是一雙橘色的靴子。",
+   "paudio": "st/p/boots",
+   "pfalse": "These are green boots.",
+   "pfaudio": "st/q/boots"
+  },
+  "w47": {
+   "word": "clothes",
+   "en": "Put your clothes in the cupboard.",
+   "hl": "clothes",
+   "zh": "把你的衣服放進櫃子裡。",
+   "audio": "st/s/clothes",
+   "pic": "These clothes are blue and brown.",
+   "pzh": "這些衣服是藍色和棕色的。",
+   "paudio": "st/p/clothes",
+   "pfalse": "These clothes are pink and yellow.",
+   "pfaudio": "st/q/clothes"
+  },
+  "w48": {
+   "word": "dress",
+   "en": "Kim is wearing a beautiful dress.",
+   "hl": "dress",
+   "zh": "金穿著一件漂亮的洋裝。",
+   "audio": "st/s/dress",
+   "pic": "The dress is blue.",
+   "pzh": "這件洋裝是藍色的。",
+   "paudio": "st/p/dress",
+   "pfalse": "The dress is pink.",
+   "pfaudio": "st/q/dress"
+  },
+  "w49": {
+   "word": "glasses",
+   "en": "Grandpa wears glasses to read books.",
+   "hl": "glasses",
+   "zh": "爺爺戴眼鏡看書。",
+   "audio": "st/s/glasses",
+   "pic": "The glasses are brown.",
+   "pzh": "這副眼鏡是棕色的。",
+   "paudio": "st/p/glasses",
+   "pfalse": "The glasses are red.",
+   "pfaudio": "st/q/glasses"
+  },
+  "w50": {
+   "word": "handbag",
+   "en": "Mum's phone is in her handbag.",
+   "hl": "handbag",
+   "zh": "媽媽的手機在她的手提包裡。",
+   "audio": "st/s/handbag",
+   "pic": "The handbag is pink.",
+   "pzh": "這個手提包是粉紅色的。",
+   "paudio": "st/p/handbag",
+   "pfalse": "The handbag is brown.",
+   "pfaudio": "st/q/handbag"
+  },
+  "w51": {
+   "word": "hat",
+   "en": "I like your funny hat!",
+   "hl": "hat",
+   "zh": "我喜歡你那頂好笑的帽子！",
+   "audio": "st/s/hat",
+   "pic": "The hat is yellow and purple.",
+   "pzh": "這頂帽子是黃色和紫色的。",
+   "paudio": "st/p/hat",
+   "pfalse": "The hat is black and white.",
+   "pfaudio": "st/q/hat"
+  },
+  "w52": {
+   "word": "jacket",
+   "en": "I like your new jacket.",
+   "hl": "jacket",
+   "zh": "我喜歡你的新夾克。",
+   "audio": "st/s/jacket",
+   "pic": "The jacket is brown.",
+   "pzh": "這件夾克是棕色的。",
+   "paudio": "st/p/jacket",
+   "pfalse": "The jacket is blue.",
+   "pfaudio": "st/q/jacket"
+  },
+  "w53": {
+   "word": "jeans",
+   "en": "Dad is wearing his old jeans.",
+   "hl": "jeans",
+   "zh": "爸爸穿著他的舊牛仔褲。",
+   "audio": "st/s/jeans",
+   "pic": "The jeans are blue.",
+   "pzh": "這條牛仔褲是藍色的。",
+   "paudio": "st/p/jeans",
+   "pfalse": "The jeans are pink.",
+   "pfaudio": "st/q/jeans"
+  },
+  "w54": {
+   "word": "shirt",
+   "en": "Dad is wearing a new shirt.",
+   "hl": "shirt",
+   "zh": "爸爸穿著一件新襯衫。",
+   "audio": "st/s/shirt",
+   "pic": "The shirt is blue and white.",
+   "pzh": "這件襯衫是藍白相間的。",
+   "paudio": "st/p/shirt",
+   "pfalse": "The shirt is red and black.",
+   "pfaudio": "st/q/shirt"
+  },
+  "w55": {
+   "word": "shoe",
+   "en": "Where's my shoe? It isn't under the bed.",
+   "hl": "shoe",
+   "zh": "我的鞋子在哪裡？它不在床底下。",
+   "audio": "st/s/shoe",
+   "pic": "The shoe is brown.",
+   "pzh": "這隻鞋子是棕色的。",
+   "paudio": "st/p/shoe",
+   "pfalse": "The shoe is green.",
+   "pfaudio": "st/q/shoe"
+  },
+  "w56": {
+   "word": "shorts",
+   "en": "I wear shorts on the beach.",
+   "hl": "shorts",
+   "zh": "我在海灘上穿短褲。",
+   "audio": "st/s/shorts",
+   "pic": "The shorts are blue.",
+   "pzh": "這件短褲是藍色的。",
+   "paudio": "st/p/shorts",
+   "pfalse": "The shorts are red.",
+   "pfaudio": "st/q/shorts"
+  },
+  "w57": {
+   "word": "skirt",
+   "en": "Grace has got a new skirt.",
+   "hl": "skirt",
+   "zh": "葛瑞絲有一件新裙子。",
+   "audio": "st/s/skirt",
+   "pic": "The skirt is pink.",
+   "pzh": "這件裙子是粉紅色的。",
+   "paudio": "st/p/skirt",
+   "pfalse": "The skirt is green.",
+   "pfaudio": "st/q/skirt"
+  },
+  "w58": {
+   "word": "sock",
+   "en": "I've got one red sock and one blue sock.",
+   "hl": "sock",
+   "zh": "我有一隻紅襪子和一隻藍襪子。",
+   "audio": "st/s/sock",
+   "pic": "There are two socks.",
+   "pzh": "這裡有兩隻襪子。",
+   "paudio": "st/p/sock",
+   "pfalse": "There are three socks.",
+   "pfaudio": "st/q/sock"
+  },
+  "w59": {
+   "word": "trousers",
+   "en": "These trousers are too long.",
+   "hl": "trousers",
+   "zh": "這條長褲太長了。",
+   "audio": "st/s/trousers",
+   "pic": "The trousers are brown.",
+   "pzh": "這條長褲是棕色的。",
+   "paudio": "st/p/trousers",
+   "pfalse": "The trousers are blue.",
+   "pfaudio": "st/q/trousers"
+  },
+  "w60": {
+   "word": "T-shirt",
+   "en": "Hugo is wearing a blue T-shirt.",
+   "hl": "T-shirt",
+   "zh": "雨果穿著一件藍色 T 恤。",
+   "audio": "st/s/t_shirt",
+   "pic": "The T-shirt is blue.",
+   "pzh": "這件 T 恤是藍色的。",
+   "paudio": "st/p/t_shirt",
+   "pfalse": "The T-shirt is red.",
+   "pfaudio": "st/q/t_shirt"
+  },
+  "w61": {
+   "word": "wear",
+   "en": "Do you wear glasses?",
+   "hl": "wear",
+   "zh": "你戴眼鏡嗎？",
+   "audio": "st/s/wear"
+  },
+  "w62": {
+   "word": "black",
+   "en": "The cat under the table is black.",
+   "hl": "black",
+   "zh": "桌子底下的貓是黑色的。",
+   "audio": "st/s/black"
+  },
+  "w63": {
+   "word": "blue",
+   "en": "My eyes are blue.",
+   "hl": "blue",
+   "zh": "我的眼睛是藍色的。",
+   "audio": "st/s/blue"
+  },
+  "w64": {
+   "word": "brown",
+   "en": "Nick's dog is brown.",
+   "hl": "brown",
+   "zh": "尼克的狗是棕色的。",
+   "audio": "st/s/brown"
+  },
+  "w65": {
+   "word": "colour",
+   "en": "What colour is your bike?",
+   "hl": "colour",
+   "zh": "你的腳踏車是什麼顏色？",
+   "audio": "st/s/colour_65"
+  },
+  "w66": {
+   "word": "gray / grey",
+   "en": "The elephant is grey.",
+   "hl": "grey",
+   "zh": "大象是灰色的。",
+   "audio": "st/s/gray_grey"
+  },
+  "w67": {
+   "word": "green",
+   "en": "My new bike is green.",
+   "hl": "green",
+   "zh": "我的新腳踏車是綠色的。",
+   "audio": "st/s/green"
+  },
+  "w68": {
+   "word": "orange",
+   "en": "Look at the orange fish!",
+   "hl": "orange",
+   "zh": "看那條橘色的魚！",
+   "audio": "st/s/orange_68"
+  },
+  "w69": {
+   "word": "pink",
+   "en": "Alice's bag is pink.",
+   "hl": "pink",
+   "zh": "愛麗絲的包包是粉紅色的。",
+   "audio": "st/s/pink"
+  },
+  "w70": {
+   "word": "purple",
+   "en": "These grapes are purple.",
+   "hl": "purple",
+   "zh": "這些葡萄是紫色的。",
+   "audio": "st/s/purple"
+  },
+  "w71": {
+   "word": "red",
+   "en": "The apple on the table is red.",
+   "hl": "red",
+   "zh": "桌上的蘋果是紅色的。",
+   "audio": "st/s/red"
+  },
+  "w72": {
+   "word": "white",
+   "en": "My grandpa has got white hair.",
+   "hl": "white",
+   "zh": "我爺爺有白色的頭髮。",
+   "audio": "st/s/white"
+  },
+  "w73": {
+   "word": "yellow",
+   "en": "Bananas are yellow.",
+   "hl": "yellow",
+   "zh": "香蕉是黃色的。",
+   "audio": "st/s/yellow"
+  },
+  "w74": {
+   "word": "baby",
+   "en": "The baby is sleeping in her bed.",
+   "hl": "baby",
+   "zh": "寶寶正在她的床上睡覺。",
+   "audio": "st/s/baby"
+  },
+  "w75": {
+   "word": "boy",
+   "en": "That boy is my brother.",
+   "hl": "boy",
+   "zh": "那個男孩是我弟弟。",
+   "audio": "st/s/boy"
+  },
+  "w76": {
+   "word": "brother",
+   "en": "I play games with my brother.",
+   "hl": "brother",
+   "zh": "我和我哥哥一起玩遊戲。",
+   "audio": "st/s/brother"
+  },
+  "w77": {
+   "word": "child / children",
+   "en": "The children are singing a song.",
+   "hl": "children",
+   "zh": "孩子們在唱歌。",
+   "audio": "st/s/child_children"
+  },
+  "w78": {
+   "word": "classmate",
+   "en": "My classmates are very nice.",
+   "hl": "classmates",
+   "zh": "我的同學們都很好。",
+   "audio": "st/s/classmate"
+  },
+  "w79": {
+   "word": "cousin",
+   "en": "My cousin lives in a big house.",
+   "hl": "cousin",
+   "zh": "我的表哥住在一間大房子裡。",
+   "audio": "st/s/cousin"
+  },
+  "w80": {
+   "word": "dad",
+   "en": "My dad drives a red car.",
+   "hl": "dad",
+   "zh": "我爸爸開一輛紅色的車。",
+   "audio": "st/s/dad"
+  },
+  "w81": {
+   "word": "family",
+   "en": "There are five people in my family.",
+   "hl": "family",
+   "zh": "我家有五個人。",
+   "audio": "st/s/family"
+  },
+  "w82": {
+   "word": "father",
+   "en": "Anna's father is a teacher.",
+   "hl": "father",
+   "zh": "安娜的父親是老師。",
+   "audio": "st/s/father"
+  },
+  "w83": {
+   "word": "friend",
+   "en": "Kim and Lucy are friends.",
+   "hl": "friends",
+   "zh": "金和露西是朋友。",
+   "audio": "st/s/friend"
+  },
+  "w84": {
+   "word": "girl",
+   "en": "The girl with the red bag is my sister.",
+   "hl": "girl",
+   "zh": "拿紅色包包的女孩是我妹妹。",
+   "audio": "st/s/girl"
+  },
+  "w85": {
+   "word": "grandfather",
+   "en": "My grandfather likes fishing.",
+   "hl": "grandfather",
+   "zh": "我祖父喜歡釣魚。",
+   "audio": "st/s/grandfather"
+  },
+  "w86": {
+   "word": "grandma",
+   "en": "Grandma makes great cakes.",
+   "hl": "Grandma",
+   "zh": "奶奶做的蛋糕很棒。",
+   "audio": "st/s/grandma"
+  },
+  "w87": {
+   "word": "grandmother",
+   "en": "My grandmother has got a beautiful garden.",
+   "hl": "grandmother",
+   "zh": "我祖母有一座漂亮的花園。",
+   "audio": "st/s/grandmother"
+  },
+  "w88": {
+   "word": "grandpa",
+   "en": "Grandpa likes watching TV with me.",
+   "hl": "Grandpa",
+   "zh": "爺爺喜歡和我一起看電視。",
+   "audio": "st/s/grandpa"
+  },
+  "w89": {
+   "word": "kid",
+   "en": "The kids are playing football.",
+   "hl": "kids",
+   "zh": "孩子們在踢足球。",
+   "audio": "st/s/kid"
+  },
+  "w90": {
+   "word": "live",
+   "en": "Where do you live?",
+   "hl": "live",
+   "zh": "你住在哪裡？",
+   "audio": "st/s/live"
+  },
+  "w91": {
+   "word": "man / men",
+   "en": "There are three men in the car.",
+   "hl": "men",
+   "zh": "車上有三個男人。",
+   "audio": "st/s/man_men"
+  },
+  "w92": {
+   "word": "mother",
+   "en": "My mother is a nurse.",
+   "hl": "mother",
+   "zh": "我媽媽是護士。",
+   "audio": "st/s/mother"
+  },
+  "w93": {
+   "word": "mum",
+   "en": "Mum, can I have some juice, please?",
+   "hl": "Mum",
+   "zh": "媽媽，我可以喝一點果汁嗎？",
+   "audio": "st/s/mum"
+  },
+  "w94": {
+   "word": "old",
+   "en": "My grandma is old, but she plays tennis!",
+   "hl": "old",
+   "zh": "我奶奶年紀大了，但她還會打網球！",
+   "audio": "st/s/old"
+  },
+  "w95": {
+   "word": "person / people",
+   "en": "There are lots of people on the beach.",
+   "hl": "people",
+   "zh": "海灘上有很多人。",
+   "audio": "st/s/person_people"
+  },
+  "w96": {
+   "word": "sister",
+   "en": "My sister likes drawing animals.",
+   "hl": "sister",
+   "zh": "我姊姊喜歡畫動物。",
+   "audio": "st/s/sister"
+  },
+  "w97": {
+   "word": "woman / women",
+   "en": "The woman in the shop is very nice.",
+   "hl": "woman",
+   "zh": "店裡的那位女士人很好。",
+   "audio": "st/s/woman_women"
+  },
+  "w98": {
+   "word": "young",
+   "en": "My dog is very young.",
+   "hl": "young",
+   "zh": "我的狗年紀還很小。",
+   "audio": "st/s/young"
+  },
+  "w99": {
+   "word": "apple",
+   "en": "Can I have an apple, please?",
+   "hl": "apple",
+   "zh": "我可以吃一顆蘋果嗎？",
+   "audio": "st/s/apple",
+   "pic": "The apple is red.",
+   "pzh": "這顆蘋果是紅色的。",
+   "paudio": "st/p/apple",
+   "pfalse": "The apple is green.",
+   "pfaudio": "st/q/apple"
+  },
+  "w100": {
+   "word": "banana",
+   "en": "Monkeys like bananas.",
+   "hl": "bananas",
+   "zh": "猴子喜歡香蕉。",
+   "audio": "st/s/banana",
+   "pic": "The banana is yellow.",
+   "pzh": "這根香蕉是黃色的。",
+   "paudio": "st/p/banana",
+   "pfalse": "The banana is blue.",
+   "pfaudio": "st/q/banana"
+  },
+  "w101": {
+   "word": "bean",
+   "en": "I don't like beans.",
+   "hl": "beans",
+   "zh": "我不喜歡豆子。",
+   "audio": "st/s/bean",
+   "pic": "There are three beans.",
+   "pzh": "這裡有三顆豆子。",
+   "paudio": "st/p/bean",
+   "pfalse": "There are five beans.",
+   "pfaudio": "st/q/bean"
+  },
+  "w102": {
+   "word": "bread",
+   "en": "We have bread and eggs for breakfast.",
+   "hl": "bread",
+   "zh": "我們早餐吃麵包和蛋。",
+   "audio": "st/s/bread",
+   "pic": "This bread is brown.",
+   "pzh": "這塊麵包是棕色的。",
+   "paudio": "st/p/bread"
+  },
+  "w103": {
+   "word": "breakfast",
+   "en": "I have breakfast with my family.",
+   "hl": "breakfast",
+   "zh": "我和家人一起吃早餐。",
+   "audio": "st/s/breakfast",
+   "pic": "There's an egg for breakfast.",
+   "pzh": "早餐有一顆蛋。",
+   "paudio": "st/p/breakfast",
+   "pfalse": "There are three eggs for breakfast.",
+   "pfaudio": "st/q/breakfast"
+  },
+  "w104": {
+   "word": "burger",
+   "en": "Can I have a burger and chips, please?",
+   "hl": "burger",
+   "zh": "我可以要一個漢堡和薯條嗎？",
+   "audio": "st/s/burger",
+   "pic": "This is a big burger.",
+   "pzh": "這是一個大漢堡。",
+   "paudio": "st/p/burger"
+  },
+  "w105": {
+   "word": "cake",
+   "en": "Happy birthday! Here's your cake.",
+   "hl": "cake",
+   "zh": "生日快樂！這是你的蛋糕。",
+   "audio": "st/s/cake",
+   "pic": "This cake is pink and orange.",
+   "pzh": "這塊蛋糕是粉紅色和橘色的。",
+   "paudio": "st/p/cake",
+   "pfalse": "This cake is black and brown.",
+   "pfaudio": "st/q/cake"
+  },
+  "w106": {
+   "word": "candy (sweets)",
+   "en": "Don't eat too many sweets!",
+   "hl": "sweets",
+   "zh": "不要吃太多糖果！",
+   "audio": "st/s/candy_sweets",
+   "pic": "This candy is pink.",
+   "pzh": "這顆糖果是粉紅色的。",
+   "paudio": "st/p/candy_sweets",
+   "pfalse": "This candy is green.",
+   "pfaudio": "st/q/candy_sweets"
+  },
+  "w107": {
+   "word": "chips (fries)",
+   "en": "I like chips with my burger.",
+   "hl": "chips",
+   "zh": "我喜歡漢堡配薯條。",
+   "audio": "st/s/chips_fries",
+   "pic": "The chips are in a red box.",
+   "pzh": "薯條裝在紅色的盒子裡。",
+   "paudio": "st/p/chips_fries",
+   "pfalse": "The chips are in a blue box.",
+   "pfaudio": "st/q/chips_fries"
+  },
+  "w108": {
+   "word": "chocolate",
+   "en": "Can I have some chocolate?",
+   "hl": "chocolate",
+   "zh": "我可以吃一點巧克力嗎？",
+   "audio": "st/s/chocolate",
+   "pic": "The chocolate is brown.",
+   "pzh": "巧克力是棕色的。",
+   "paudio": "st/p/chocolate",
+   "pfalse": "The chocolate is pink.",
+   "pfaudio": "st/q/chocolate"
+  },
+  "w109": {
+   "word": "coconut",
+   "en": "Let's drink coconut water!",
+   "hl": "coconut",
+   "zh": "我們來喝椰子水吧！",
+   "audio": "st/s/coconut",
+   "pic": "The coconut is brown and white.",
+   "pzh": "椰子是棕色和白色的。",
+   "paudio": "st/p/coconut",
+   "pfalse": "The coconut is yellow and red.",
+   "pfaudio": "st/q/coconut"
+  },
+  "w110": {
+   "word": "dinner",
+   "en": "What's for dinner, Mum?",
+   "hl": "dinner",
+   "zh": "媽媽，晚餐吃什麼？",
+   "audio": "st/s/dinner"
+  },
+  "w111": {
+   "word": "drink",
+   "en": "Drink some water, please.",
+   "hl": "Drink",
+   "zh": "請喝點水。",
+   "audio": "st/s/drink"
+  },
+  "w112": {
+   "word": "eat",
+   "en": "Don't eat in the classroom!",
+   "hl": "eat",
+   "zh": "不要在教室裡吃東西！",
+   "audio": "st/s/eat"
+  },
+  "w113": {
+   "word": "egg",
+   "en": "The chicken has got three eggs.",
+   "hl": "eggs",
+   "zh": "這隻雞有三顆蛋。",
+   "audio": "st/s/egg",
+   "pic": "There's one egg.",
+   "pzh": "這裡有一顆蛋。",
+   "paudio": "st/p/egg",
+   "pfalse": "There are two eggs.",
+   "pfaudio": "st/q/egg"
+  },
+  "w114": {
+   "word": "food",
+   "en": "Fish is my cat's favourite food.",
+   "hl": "food",
+   "zh": "魚是我的貓最喜歡的食物。",
+   "audio": "st/s/food"
+  },
+  "w115": {
+   "word": "fruit",
+   "en": "Apples and bananas are fruit.",
+   "hl": "fruit",
+   "zh": "蘋果和香蕉都是水果。",
+   "audio": "st/s/fruit"
+  },
+  "w116": {
+   "word": "grape",
+   "en": "There are grapes in my lunch box.",
+   "hl": "grapes",
+   "zh": "我的午餐盒裡有葡萄。",
+   "audio": "st/s/grape",
+   "pic": "The grapes are purple.",
+   "pzh": "這些葡萄是紫色的。",
+   "paudio": "st/p/grape",
+   "pfalse": "The grapes are green.",
+   "pfaudio": "st/q/grape"
+  },
+  "w117": {
+   "word": "ice cream",
+   "en": "I want a big ice cream!",
+   "hl": "ice cream",
+   "zh": "我想要一支大冰淇淋！",
+   "audio": "st/s/ice_cream",
+   "pic": "This ice cream is white.",
+   "pzh": "這支冰淇淋是白色的。",
+   "paudio": "st/p/ice_cream",
+   "pfalse": "This ice cream is pink.",
+   "pfaudio": "st/q/ice_cream"
+  },
+  "w118": {
+   "word": "juice",
+   "en": "Apple juice is my favourite drink.",
+   "hl": "juice",
+   "zh": "蘋果汁是我最喜歡的飲料。",
+   "audio": "st/s/juice",
+   "pic": "The juice box is green.",
+   "pzh": "這盒果汁是綠色的。",
+   "paudio": "st/p/juice",
+   "pfalse": "The juice box is red.",
+   "pfaudio": "st/q/juice"
+  },
+  "w119": {
+   "word": "kiwi",
+   "en": "I've got a kiwi and a banana in my bag.",
+   "hl": "kiwi",
+   "zh": "我的包包裡有一顆奇異果和一根香蕉。",
+   "audio": "st/s/kiwi",
+   "pic": "This kiwi is green.",
+   "pzh": "這顆奇異果是綠色的。",
+   "paudio": "st/p/kiwi",
+   "pfalse": "This kiwi is pink.",
+   "pfaudio": "st/q/kiwi"
+  },
+  "w120": {
+   "word": "lemon",
+   "en": "Can you give me a lemon, please?",
+   "hl": "lemon",
+   "zh": "可以給我一顆檸檬嗎？",
+   "audio": "st/s/lemon",
+   "pic": "The lemon is yellow.",
+   "pzh": "這顆檸檬是黃色的。",
+   "paudio": "st/p/lemon",
+   "pfalse": "The lemon is purple.",
+   "pfaudio": "st/q/lemon"
+  },
+  "w121": {
+   "word": "lemonade",
+   "en": "Let's drink lemonade on the beach.",
+   "hl": "lemonade",
+   "zh": "我們在海灘上喝檸檬水吧。",
+   "audio": "st/s/lemonade",
+   "pic": "The lemonade is yellow.",
+   "pzh": "這杯檸檬水是黃色的。",
+   "paudio": "st/p/lemonade",
+   "pfalse": "The lemonade is red.",
+   "pfaudio": "st/q/lemonade"
+  },
+  "w122": {
+   "word": "lime",
+   "en": "Limes and lemons are fruit.",
+   "hl": "Limes",
+   "zh": "萊姆和檸檬都是水果。",
+   "audio": "st/s/lime",
+   "pic": "The lime is green.",
+   "pzh": "這顆萊姆是綠色的。",
+   "paudio": "st/p/lime",
+   "pfalse": "The lime is red.",
+   "pfaudio": "st/q/lime"
+  },
+  "w123": {
+   "word": "lunch",
+   "en": "We have lunch at school.",
+   "hl": "lunch",
+   "zh": "我們在學校吃午餐。",
+   "audio": "st/s/lunch"
+  },
+  "w124": {
+   "word": "mango",
+   "en": "This mango is really nice.",
+   "hl": "mango",
+   "zh": "這顆芒果真好吃。",
+   "audio": "st/s/mango",
+   "pic": "The mango is red and yellow.",
+   "pzh": "這顆芒果是紅色和黃色的。",
+   "paudio": "st/p/mango",
+   "pfalse": "The mango is blue and white.",
+   "pfaudio": "st/q/mango"
+  },
+  "w125": {
+   "word": "meat",
+   "en": "Tigers eat meat.",
+   "hl": "meat",
+   "zh": "老虎吃肉。",
+   "audio": "st/s/meat"
+  },
+  "w126": {
+   "word": "meatballs",
+   "en": "We're having meatballs for dinner.",
+   "hl": "meatballs",
+   "zh": "我們晚餐要吃肉丸。",
+   "audio": "st/s/meatballs"
+  },
+  "w127": {
+   "word": "milk",
+   "en": "Do you want some milk?",
+   "hl": "milk",
+   "zh": "你要喝點牛奶嗎？",
+   "audio": "st/s/milk",
+   "pic": "The milk is white.",
+   "pzh": "牛奶是白色的。",
+   "paudio": "st/p/milk",
+   "pfalse": "The milk is pink.",
+   "pfaudio": "st/q/milk"
+  },
+  "w128": {
+   "word": "onion",
+   "en": "Onions make me cry!",
+   "hl": "Onions",
+   "zh": "洋蔥讓我想哭！",
+   "audio": "st/s/onion",
+   "pic": "The onion is brown.",
+   "pzh": "這顆洋蔥是棕色的。",
+   "paudio": "st/p/onion",
+   "pfalse": "The onion is blue.",
+   "pfaudio": "st/q/onion"
+  },
+  "w129": {
+   "word": "orange",
+   "en": "There are four oranges on the table.",
+   "hl": "oranges",
+   "zh": "桌上有四顆柳橙。",
+   "audio": "st/s/orange_129",
+   "pic": "There's one orange.",
+   "pzh": "這裡有一顆柳橙。",
+   "paudio": "st/p/orange_129",
+   "pfalse": "There are two oranges.",
+   "pfaudio": "st/q/orange_129"
+  },
+  "w130": {
+   "word": "pea",
+   "en": "Peas are small and green.",
+   "hl": "Peas",
+   "zh": "豌豆又小又綠。",
+   "audio": "st/s/pea",
+   "pic": "There are three peas.",
+   "pzh": "這裡有三顆豌豆。",
+   "paudio": "st/p/pea",
+   "pfalse": "There are six peas.",
+   "pfaudio": "st/q/pea"
+  },
+  "w131": {
+   "word": "pear",
+   "en": "I want a pear, not an apple.",
+   "hl": "pear",
+   "zh": "我想要梨子，不是蘋果。",
+   "audio": "st/s/pear",
+   "pic": "The pear is green.",
+   "pzh": "這顆梨子是綠色的。",
+   "paudio": "st/p/pear",
+   "pfalse": "The pear is red.",
+   "pfaudio": "st/q/pear"
+  },
+  "w132": {
+   "word": "pie",
+   "en": "Grandma is making an apple pie.",
+   "hl": "pie",
+   "zh": "奶奶正在做蘋果派。",
+   "audio": "st/s/pie",
+   "pic": "This is a pie.",
+   "pzh": "這是一個派。",
+   "paudio": "st/p/pie"
+  },
+  "w133": {
+   "word": "pineapple",
+   "en": "Let's eat the pineapple now!",
+   "hl": "pineapple",
+   "zh": "我們現在來吃鳳梨吧！",
+   "audio": "st/s/pineapple",
+   "pic": "The pineapple is yellow and green.",
+   "pzh": "鳳梨是黃色和綠色的。",
+   "paudio": "st/p/pineapple",
+   "pfalse": "The pineapple is pink and blue.",
+   "pfaudio": "st/q/pineapple"
+  },
+  "w134": {
+   "word": "potato",
+   "en": "I like potatoes and meat.",
+   "hl": "potatoes",
+   "zh": "我喜歡馬鈴薯和肉。",
+   "audio": "st/s/potato",
+   "pic": "The potato is brown.",
+   "pzh": "這顆馬鈴薯是棕色的。",
+   "paudio": "st/p/potato",
+   "pfalse": "The potato is green.",
+   "pfaudio": "st/q/potato"
+  },
+  "w135": {
+   "word": "rice",
+   "en": "We eat rice with fish.",
+   "hl": "rice",
+   "zh": "我們吃米飯配魚。",
+   "audio": "st/s/rice",
+   "pic": "The rice is white.",
+   "pzh": "米飯是白色的。",
+   "paudio": "st/p/rice",
+   "pfalse": "The rice is yellow.",
+   "pfaudio": "st/q/rice"
+  },
+  "w136": {
+   "word": "sausage",
+   "en": "Can I have two sausages, please?",
+   "hl": "sausages",
+   "zh": "我可以要兩根香腸嗎？",
+   "audio": "st/s/sausage",
+   "pic": "The sausage is in some bread.",
+   "pzh": "香腸夾在麵包裡。",
+   "paudio": "st/p/sausage"
+  },
+  "w137": {
+   "word": "tomato",
+   "en": "There are tomatoes in the garden.",
+   "hl": "tomatoes",
+   "zh": "花園裡有番茄。",
+   "audio": "st/s/tomato",
+   "pic": "The tomato is red.",
+   "pzh": "這顆番茄是紅色的。",
+   "paudio": "st/p/tomato",
+   "pfalse": "The tomato is blue.",
+   "pfaudio": "st/q/tomato"
+  },
+  "w138": {
+   "word": "water",
+   "en": "Can I have some water, please?",
+   "hl": "water",
+   "zh": "我可以喝點水嗎？",
+   "audio": "st/s/water",
+   "pic": "The water is blue.",
+   "pzh": "水是藍色的。",
+   "paudio": "st/p/water",
+   "pfalse": "The water is red.",
+   "pfaudio": "st/q/water"
+  },
+  "w139": {
+   "word": "watermelon",
+   "en": "This watermelon is very big!",
+   "hl": "watermelon",
+   "zh": "這顆西瓜好大！",
+   "audio": "st/s/watermelon",
+   "pic": "The watermelon is red and green.",
+   "pzh": "西瓜是紅色和綠色的。",
+   "paudio": "st/p/watermelon",
+   "pfalse": "The watermelon is orange and blue.",
+   "pfaudio": "st/q/watermelon"
+  },
+  "w140": {
+   "word": "cold",
+   "en": "I can't go to school. I've got a cold.",
+   "hl": "cold",
+   "zh": "我不能去上學，我感冒了。",
+   "audio": "st/s/cold"
+  },
+  "w141": {
+   "word": "cough",
+   "en": "Dan has got a cough.",
+   "hl": "cough",
+   "zh": "丹咳嗽了。",
+   "audio": "st/s/cough"
+  },
+  "w142": {
+   "word": "cry",
+   "en": "The baby is crying.",
+   "hl": "crying",
+   "zh": "寶寶在哭。",
+   "audio": "st/s/cry"
+  },
+  "w143": {
+   "word": "dentist",
+   "en": "My dentist is very nice.",
+   "hl": "dentist",
+   "zh": "我的牙醫人很好。",
+   "audio": "st/s/dentist"
+  },
+  "w144": {
+   "word": "doctor",
+   "en": "The doctor is talking to my mum.",
+   "hl": "doctor",
+   "zh": "醫生正在跟我媽媽說話。",
+   "audio": "st/s/doctor"
+  },
+  "w145": {
+   "word": "earache",
+   "en": "Mum, I've got earache.",
+   "hl": "earache",
+   "zh": "媽媽，我耳朵痛。",
+   "audio": "st/s/earache"
+  },
+  "w146": {
+   "word": "fall",
+   "en": "Don't stand on the chair. You can fall!",
+   "hl": "fall",
+   "zh": "不要站在椅子上，你會跌倒！",
+   "audio": "st/s/fall"
+  },
+  "w147": {
+   "word": "fine",
+   "en": "How are you? I'm fine, thank you.",
+   "hl": "fine",
+   "zh": "你好嗎？我很好，謝謝。",
+   "audio": "st/s/fine"
+  },
+  "w148": {
+   "word": "headache",
+   "en": "Can you stop the music? I've got a headache.",
+   "hl": "headache",
+   "zh": "可以把音樂停掉嗎？我頭痛。",
+   "audio": "st/s/headache"
+  },
+  "w149": {
+   "word": "hospital",
+   "en": "There's a hospital next to my school.",
+   "hl": "hospital",
+   "zh": "我學校旁邊有一間醫院。",
+   "audio": "st/s/hospital",
+   "pic": "The hospital has got a red cross.",
+   "pzh": "醫院上面有一個紅色的十字。",
+   "paudio": "st/p/hospital",
+   "pfalse": "The hospital has got a green cross.",
+   "pfaudio": "st/q/hospital"
+  },
+  "w150": {
+   "word": "ill",
+   "en": "Kim is ill today. She's in bed.",
+   "hl": "ill",
+   "zh": "金今天生病了，她躺在床上。",
+   "audio": "st/s/ill"
+  },
+  "w151": {
+   "word": "matter",
+   "en": "What's the matter? Are you sad?",
+   "hl": "matter",
+   "zh": "怎麼了？你難過嗎？",
+   "audio": "st/s/matter"
+  },
+  "w152": {
+   "word": "nurse",
+   "en": "The nurse is giving me some water.",
+   "hl": "nurse",
+   "zh": "護士在給我一些水。",
+   "audio": "st/s/nurse"
+  },
+  "w153": {
+   "word": "sick",
+   "en": "My dog is sick today.",
+   "hl": "sick",
+   "zh": "我的狗今天生病了。",
+   "audio": "st/s/sick"
+  },
+  "w154": {
+   "word": "stomach-ache",
+   "en": "Ben has got a stomach-ache.",
+   "hl": "stomach-ache",
+   "zh": "班肚子痛。",
+   "audio": "st/s/stomach_ache"
+  },
+  "w155": {
+   "word": "temperature",
+   "en": "You've got a temperature. Go to bed.",
+   "hl": "temperature",
+   "zh": "你發燒了，去睡覺吧。",
+   "audio": "st/s/temperature"
+  },
+  "w156": {
+   "word": "tired",
+   "en": "I'm tired. I want to go to bed.",
+   "hl": "tired",
+   "zh": "我好累，我想去睡覺。",
+   "audio": "st/s/tired"
+  },
+  "w157": {
+   "word": "toothache",
+   "en": "I've got toothache. I'm going to the dentist.",
+   "hl": "toothache",
+   "zh": "我牙痛，我要去看牙醫。",
+   "audio": "st/s/toothache"
+  },
+  "w158": {
+   "word": "apartment (flat)",
+   "en": "We live in an apartment next to the park.",
+   "hl": "apartment",
+   "zh": "我們住在公園旁邊的一間公寓。",
+   "audio": "st/s/apartment_flat",
+   "pic": "This apartment is very big.",
+   "pzh": "這棟公寓很大。",
+   "paudio": "st/p/apartment_flat"
+  },
+  "w159": {
+   "word": "armchair",
+   "en": "My cat is sleeping in the armchair.",
+   "hl": "armchair",
+   "zh": "我的貓在扶手椅上睡覺。",
+   "audio": "st/s/armchair",
+   "pic": "The armchair is orange.",
+   "pzh": "這張扶手椅是橘色的。",
+   "paudio": "st/p/armchair",
+   "pfalse": "The armchair is blue.",
+   "pfaudio": "st/q/armchair"
+  },
+  "w160": {
+   "word": "bath",
+   "en": "I have a bath in the evening.",
+   "hl": "bath",
+   "zh": "我晚上泡澡。",
+   "audio": "st/s/bath",
+   "pic": "The bath is white.",
+   "pzh": "浴缸是白色的。",
+   "paudio": "st/p/bath",
+   "pfalse": "The bath is black.",
+   "pfaudio": "st/q/bath"
+  },
+  "w161": {
+   "word": "bathroom",
+   "en": "There's a big bath in our bathroom.",
+   "hl": "bathroom",
+   "zh": "我們的浴室裡有一個大浴缸。",
+   "audio": "st/s/bathroom",
+   "pic": "There's a mirror in the bathroom.",
+   "pzh": "浴室裡有一面鏡子。",
+   "paudio": "st/p/bathroom",
+   "pfalse": "There's a sofa in the bathroom.",
+   "pfaudio": "st/q/bathroom"
+  },
+  "w162": {
+   "word": "bed",
+   "en": "My bed is next to the window.",
+   "hl": "bed",
+   "zh": "我的床在窗戶旁邊。",
+   "audio": "st/s/bed",
+   "pic": "The bed is blue.",
+   "pzh": "這張床是藍色的。",
+   "paudio": "st/p/bed",
+   "pfalse": "The bed is red.",
+   "pfaudio": "st/q/bed"
+  },
+  "w163": {
+   "word": "bedroom",
+   "en": "My bedroom is next to the bathroom.",
+   "hl": "bedroom",
+   "zh": "我的臥室在浴室旁邊。",
+   "audio": "st/s/bedroom",
+   "pic": "There's a teddy in the bedroom.",
+   "pzh": "臥室裡有一隻泰迪熊。",
+   "paudio": "st/p/bedroom",
+   "pfalse": "There's a robot in the bedroom.",
+   "pfaudio": "st/q/bedroom"
+  },
+  "w164": {
+   "word": "bookcase",
+   "en": "Put the books in the bookcase, please.",
+   "hl": "bookcase",
+   "zh": "請把書放進書櫃。",
+   "audio": "st/s/bookcase",
+   "pic": "There are lots of books in the bookcase.",
+   "pzh": "書櫃裡有很多書。",
+   "paudio": "st/p/bookcase",
+   "pfalse": "There are lots of shoes in the bookcase.",
+   "pfaudio": "st/q/bookcase"
+  },
+  "w165": {
+   "word": "box",
+   "en": "What's in the box?",
+   "hl": "box",
+   "zh": "箱子裡有什麼？",
+   "audio": "st/s/box",
+   "pic": "The box is brown.",
+   "pzh": "這個箱子是棕色的。",
+   "paudio": "st/p/box",
+   "pfalse": "The box is pink.",
+   "pfaudio": "st/q/box"
+  },
+  "w166": {
+   "word": "camera",
+   "en": "Dad has got a new camera.",
+   "hl": "camera",
+   "zh": "爸爸有一台新相機。",
+   "audio": "st/s/camera",
+   "pic": "The camera is black and grey.",
+   "pzh": "這台相機是黑色和灰色的。",
+   "paudio": "st/p/camera",
+   "pfalse": "The camera is pink and yellow.",
+   "pfaudio": "st/q/camera"
+  },
+  "w167": {
+   "word": "chair",
+   "en": "Sit on your chair, please.",
+   "hl": "chair",
+   "zh": "請坐在你的椅子上。",
+   "audio": "st/s/chair",
+   "pic": "The chair is brown.",
+   "pzh": "這張椅子是棕色的。",
+   "paudio": "st/p/chair",
+   "pfalse": "The chair is blue.",
+   "pfaudio": "st/q/chair"
+  },
+  "w168": {
+   "word": "clock",
+   "en": "The clock on the wall is big.",
+   "hl": "clock",
+   "zh": "牆上的時鐘很大。",
+   "audio": "st/s/clock",
+   "pic": "The clock is brown.",
+   "pzh": "這個時鐘是棕色的。",
+   "paudio": "st/p/clock",
+   "pfalse": "The clock is red.",
+   "pfaudio": "st/q/clock"
+  },
+  "w169": {
+   "word": "computer",
+   "en": "I play games on my computer.",
+   "hl": "computer",
+   "zh": "我在電腦上玩遊戲。",
+   "audio": "st/s/computer",
+   "pic": "This is a computer.",
+   "pzh": "這是一台電腦。",
+   "paudio": "st/p/computer"
+  },
+  "w170": {
+   "word": "cupboard",
+   "en": "My toys are in the cupboard.",
+   "hl": "cupboard",
+   "zh": "我的玩具在櫃子裡。",
+   "audio": "st/s/cupboard",
+   "pic": "The cupboard is brown.",
+   "pzh": "這個櫃子是棕色的。",
+   "paudio": "st/p/cupboard",
+   "pfalse": "The cupboard is white.",
+   "pfaudio": "st/q/cupboard"
+  },
+  "w171": {
+   "word": "desk",
+   "en": "My pencils are on my desk.",
+   "hl": "desk",
+   "zh": "我的鉛筆在書桌上。",
+   "audio": "st/s/desk",
+   "pic": "There's a lamp on the desk.",
+   "pzh": "書桌上有一盞檯燈。",
+   "paudio": "st/p/desk",
+   "pfalse": "There's a cat on the desk.",
+   "pfaudio": "st/q/desk"
+  },
+  "w172": {
+   "word": "dining room",
+   "en": "We eat dinner in the dining room.",
+   "hl": "dining room",
+   "zh": "我們在餐廳吃晚餐。",
+   "audio": "st/s/dining_room",
+   "pic": "There's a table in the dining room.",
+   "pzh": "餐廳裡有一張桌子。",
+   "paudio": "st/p/dining_room",
+   "pfalse": "There's a bed in the dining room.",
+   "pfaudio": "st/q/dining_room"
+  },
+  "w173": {
+   "word": "door",
+   "en": "Close the door, please.",
+   "hl": "door",
+   "zh": "請關門。",
+   "audio": "st/s/door",
+   "pic": "The door is brown.",
+   "pzh": "這扇門是棕色的。",
+   "paudio": "st/p/door",
+   "pfalse": "The door is green.",
+   "pfaudio": "st/q/door"
+  },
+  "w174": {
+   "word": "flower",
+   "en": "Mum likes pink flowers.",
+   "hl": "flowers",
+   "zh": "媽媽喜歡粉紅色的花。",
+   "audio": "st/s/flower",
+   "pic": "The flower is pink.",
+   "pzh": "這朵花是粉紅色的。",
+   "paudio": "st/p/flower",
+   "pfalse": "The flower is blue.",
+   "pfaudio": "st/q/flower"
+  },
+  "w175": {
+   "word": "garden",
+   "en": "There are lots of flowers in our garden.",
+   "hl": "garden",
+   "zh": "我們的花園裡有很多花。",
+   "audio": "st/s/garden"
+  },
+  "w176": {
+   "word": "hall",
+   "en": "Put your shoes in the hall.",
+   "hl": "hall",
+   "zh": "把你的鞋子放在走廊。",
+   "audio": "st/s/hall"
+  },
+  "w177": {
+   "word": "home",
+   "en": "I'm at home.",
+   "hl": "home",
+   "zh": "我在家。",
+   "audio": "st/s/home"
+  },
+  "w178": {
+   "word": "house",
+   "en": "My house has got a red door.",
+   "hl": "house",
+   "zh": "我家的房子有一扇紅色的門。",
+   "audio": "st/s/house",
+   "pic": "There's a tree next to the house.",
+   "pzh": "房子旁邊有一棵樹。",
+   "paudio": "st/p/house",
+   "pfalse": "There's a car next to the house.",
+   "pfaudio": "st/q/house"
+  },
+  "w179": {
+   "word": "kitchen",
+   "en": "Mum is in the kitchen.",
+   "hl": "kitchen",
+   "zh": "媽媽在廚房裡。",
+   "audio": "st/s/kitchen"
+  },
+  "w180": {
+   "word": "lamp",
+   "en": "There's a lamp next to my bed.",
+   "hl": "lamp",
+   "zh": "我的床旁邊有一盞檯燈。",
+   "audio": "st/s/lamp",
+   "pic": "The lamp is yellow.",
+   "pzh": "這盞檯燈是黃色的。",
+   "paudio": "st/p/lamp",
+   "pfalse": "The lamp is green.",
+   "pfaudio": "st/q/lamp"
+  },
+  "w181": {
+   "word": "living room",
+   "en": "We watch TV in the living room.",
+   "hl": "living room",
+   "zh": "我們在客廳看電視。",
+   "audio": "st/s/living_room",
+   "pic": "There's a blue sofa in the living room.",
+   "pzh": "客廳裡有一張藍色的沙發。",
+   "paudio": "st/p/living_room",
+   "pfalse": "There's a red sofa in the living room.",
+   "pfaudio": "st/q/living_room"
+  },
+  "w182": {
+   "word": "mat",
+   "en": "The cat is sitting on the mat.",
+   "hl": "mat",
+   "zh": "貓坐在墊子上。",
+   "audio": "st/s/mat"
+  },
+  "w183": {
+   "word": "mirror",
+   "en": "Look in the mirror!",
+   "hl": "mirror",
+   "zh": "照照鏡子！",
+   "audio": "st/s/mirror"
+  },
+  "w184": {
+   "word": "phone",
+   "en": "Mum is talking on the phone.",
+   "hl": "phone",
+   "zh": "媽媽正在講電話。",
+   "audio": "st/s/phone",
+   "pic": "The phone is black.",
+   "pzh": "這支手機是黑色的。",
+   "paudio": "st/p/phone",
+   "pfalse": "The phone is white.",
+   "pfaudio": "st/q/phone"
+  },
+  "w185": {
+   "word": "picture",
+   "en": "I've got a picture of a horse in my bedroom.",
+   "hl": "picture",
+   "zh": "我的臥室裡有一張馬的圖片。",
+   "audio": "st/s/picture"
+  },
+  "w186": {
+   "word": "radio",
+   "en": "Grandpa listens to the radio.",
+   "hl": "radio",
+   "zh": "爺爺在聽收音機。",
+   "audio": "st/s/radio",
+   "pic": "The radio is orange.",
+   "pzh": "這台收音機是橘色的。",
+   "paudio": "st/p/radio",
+   "pfalse": "The radio is green.",
+   "pfaudio": "st/q/radio"
+  },
+  "w187": {
+   "word": "room",
+   "en": "How many rooms are there in your house?",
+   "hl": "rooms",
+   "zh": "你家有幾個房間？",
+   "audio": "st/s/room"
+  },
+  "w188": {
+   "word": "rug",
+   "en": "The dog is sleeping on the rug.",
+   "hl": "rug",
+   "zh": "狗在地毯上睡覺。",
+   "audio": "st/s/rug"
+  },
+  "w189": {
+   "word": "sleep",
+   "en": "Cats sleep a lot.",
+   "hl": "sleep",
+   "zh": "貓很愛睡覺。",
+   "audio": "st/s/sleep"
+  },
+  "w190": {
+   "word": "sofa",
+   "en": "Sit on the sofa with me.",
+   "hl": "sofa",
+   "zh": "跟我一起坐在沙發上。",
+   "audio": "st/s/sofa",
+   "pic": "The sofa is blue.",
+   "pzh": "這張沙發是藍色的。",
+   "paudio": "st/p/sofa",
+   "pfalse": "The sofa is red.",
+   "pfaudio": "st/q/sofa"
+  },
+  "w191": {
+   "word": "table",
+   "en": "Your bag is under the table.",
+   "hl": "table",
+   "zh": "你的包包在桌子底下。",
+   "audio": "st/s/table",
+   "pic": "The table is brown.",
+   "pzh": "這張桌子是棕色的。",
+   "paudio": "st/p/table",
+   "pfalse": "The table is white.",
+   "pfaudio": "st/q/table"
+  },
+  "w192": {
+   "word": "television / TV",
+   "en": "There's a big TV in our living room.",
+   "hl": "TV",
+   "zh": "我們的客廳裡有一台大電視。",
+   "audio": "st/s/television_tv",
+   "pic": "This is an old TV.",
+   "pzh": "這是一台舊電視。",
+   "paudio": "st/p/television_tv"
+  },
+  "w193": {
+   "word": "tree",
+   "en": "There's a bird in the tree.",
+   "hl": "tree",
+   "zh": "樹上有一隻鳥。",
+   "audio": "st/s/tree",
+   "pic": "The tree is green.",
+   "pzh": "這棵樹是綠色的。",
+   "paudio": "st/p/tree",
+   "pfalse": "The tree is pink.",
+   "pfaudio": "st/q/tree"
+  },
+  "w194": {
+   "word": "wall",
+   "en": "There's a picture on the wall.",
+   "hl": "wall",
+   "zh": "牆上有一幅畫。",
+   "audio": "st/s/wall",
+   "pic": "The wall is red.",
+   "pzh": "這面牆是紅色的。",
+   "paudio": "st/p/wall",
+   "pfalse": "The wall is blue.",
+   "pfaudio": "st/q/wall"
+  },
+  "w195": {
+   "word": "watch",
+   "en": "This is my new watch.",
+   "hl": "watch",
+   "zh": "這是我的新手錶。",
+   "audio": "st/s/watch",
+   "pic": "The watch is grey and brown.",
+   "pzh": "這支手錶是灰色和棕色的。",
+   "paudio": "st/p/watch",
+   "pfalse": "The watch is red and green.",
+   "pfaudio": "st/q/watch"
+  },
+  "w196": {
+   "word": "window",
+   "en": "My bedroom has got a big window.",
+   "hl": "window",
+   "zh": "我的臥室有一扇大窗戶。",
+   "audio": "st/s/window",
+   "pic": "The window is closed.",
+   "pzh": "窗戶是關著的。",
+   "paudio": "st/p/window",
+   "pfalse": "The window is open.",
+   "pfaudio": "st/q/window"
+  },
+  "w197": {
+   "word": "Alex",
+   "en": "Alex likes playing computer games.",
+   "hl": "Alex",
+   "zh": "艾力克斯喜歡玩電腦遊戲。",
+   "audio": "st/s/alex"
+  },
+  "w198": {
+   "word": "Alice",
+   "en": "Alice has got long black hair.",
+   "hl": "Alice",
+   "zh": "愛麗絲有一頭黑色長髮。",
+   "audio": "st/s/alice"
+  },
+  "w199": {
+   "word": "Ann / Anna",
+   "en": "Anna is my sister's friend.",
+   "hl": "Anna",
+   "zh": "安娜是我姊姊的朋友。",
+   "audio": "st/s/ann_anna"
+  },
+  "w200": {
+   "word": "Ben",
+   "en": "Ben has got a new bike.",
+   "hl": "Ben",
+   "zh": "班有一台新腳踏車。",
+   "audio": "st/s/ben"
+  },
+  "w201": {
+   "word": "Bill",
+   "en": "Bill can play the guitar.",
+   "hl": "Bill",
+   "zh": "比爾會彈吉他。",
+   "audio": "st/s/bill"
+  },
+  "w202": {
+   "word": "Dan",
+   "en": "Dan lives next to the park.",
+   "hl": "Dan",
+   "zh": "丹住在公園旁邊。",
+   "audio": "st/s/dan"
+  },
+  "w203": {
+   "word": "Eva",
+   "en": "Eva has got two cats.",
+   "hl": "Eva",
+   "zh": "伊娃有兩隻貓。",
+   "audio": "st/s/eva"
+  },
+  "w204": {
+   "word": "Grace",
+   "en": "Grace likes singing songs.",
+   "hl": "Grace",
+   "zh": "葛瑞絲喜歡唱歌。",
+   "audio": "st/s/grace"
+  },
+  "w205": {
+   "word": "Hugo",
+   "en": "Hugo is in my class.",
+   "hl": "Hugo",
+   "zh": "雨果和我同班。",
+   "audio": "st/s/hugo"
+  },
+  "w206": {
+   "word": "Jill",
+   "en": "Jill is drawing a monster.",
+   "hl": "Jill",
+   "zh": "吉兒正在畫一隻怪物。",
+   "audio": "st/s/jill"
+  },
+  "w207": {
+   "word": "Kim",
+   "en": "Kim's favourite colour is pink.",
+   "hl": "Kim",
+   "zh": "金最喜歡的顏色是粉紅色。",
+   "audio": "st/s/kim"
+  },
+  "w208": {
+   "word": "Lucy",
+   "en": "Lucy is my cousin.",
+   "hl": "Lucy",
+   "zh": "露西是我的表姊。",
+   "audio": "st/s/lucy"
+  },
+  "w209": {
+   "word": "Mark",
+   "en": "Mark is playing tennis with his dad.",
+   "hl": "Mark",
+   "zh": "馬克正在和他爸爸打網球。",
+   "audio": "st/s/mark"
+  },
+  "w210": {
+   "word": "Matt",
+   "en": "Matt has got a big dog.",
+   "hl": "Matt",
+   "zh": "麥特有一隻大狗。",
+   "audio": "st/s/matt"
+  },
+  "w211": {
+   "word": "May",
+   "en": "May is eating an ice cream.",
+   "hl": "May",
+   "zh": "梅正在吃冰淇淋。",
+   "audio": "st/s/may"
+  },
+  "w212": {
+   "word": "Nick",
+   "en": "Nick likes swimming in the sea.",
+   "hl": "Nick",
+   "zh": "尼克喜歡在海裡游泳。",
+   "audio": "st/s/nick"
+  },
+  "w213": {
+   "word": "Pat",
+   "en": "Pat is my friend from school.",
+   "hl": "Pat",
+   "zh": "派特是我學校的朋友。",
+   "audio": "st/s/pat"
+  },
+  "w214": {
+   "word": "Sam",
+   "en": "Sam is flying a kite.",
+   "hl": "Sam",
+   "zh": "山姆正在放風箏。",
+   "audio": "st/s/sam"
+  },
+  "w215": {
+   "word": "Sue",
+   "en": "Sue is sitting next to me.",
+   "hl": "Sue",
+   "zh": "蘇坐在我旁邊。",
+   "audio": "st/s/sue"
+  },
+  "w216": {
+   "word": "Tom",
+   "en": "Tom is ten years old.",
+   "hl": "Tom",
+   "zh": "湯姆十歲。",
+   "audio": "st/s/tom"
+  },
+  "w217": {
+   "word": "behind",
+   "en": "The cat is behind the door.",
+   "hl": "behind",
+   "zh": "貓在門後面。",
+   "audio": "st/s/behind",
+   "pic": "The ball is behind the box.",
+   "pzh": "球在箱子後面。",
+   "paudio": "st/p/behind",
+   "pfalse": "The ball is in front of the box.",
+   "pfaudio": "st/q/behind"
+  },
+  "w218": {
+   "word": "between",
+   "en": "I'm sitting between Anna and Tom.",
+   "hl": "between",
+   "zh": "我坐在安娜和湯姆中間。",
+   "audio": "st/s/between",
+   "pic": "The ball is between the boxes.",
+   "pzh": "球在兩個箱子中間。",
+   "paudio": "st/p/between",
+   "pfalse": "The ball is in the boxes.",
+   "pfaudio": "st/q/between"
+  },
+  "w219": {
+   "word": "bookshop",
+   "en": "There's a bookshop next to the park.",
+   "hl": "bookshop",
+   "zh": "公園旁邊有一間書店。",
+   "audio": "st/s/bookshop",
+   "pic": "There are lots of books in the bookshop.",
+   "pzh": "書店裡有很多書。",
+   "paudio": "st/p/bookshop",
+   "pfalse": "There are lots of toys in the bookshop.",
+   "pfaudio": "st/q/bookshop"
+  },
+  "w220": {
+   "word": "end",
+   "en": "Our house is at the end of the street.",
+   "hl": "end",
+   "zh": "我們家在這條街的盡頭。",
+   "audio": "st/s/end"
+  },
+  "w221": {
+   "word": "here",
+   "en": "Come here, please!",
+   "hl": "here",
+   "zh": "請過來這裡！",
+   "audio": "st/s/here"
+  },
+  "w222": {
+   "word": "in",
+   "en": "My pencils are in my bag.",
+   "hl": "in",
+   "zh": "我的鉛筆在我的包包裡。",
+   "audio": "st/s/in",
+   "pic": "The ball is in the box.",
+   "pzh": "球在箱子裡。",
+   "paudio": "st/p/in",
+   "pfalse": "The ball is under the box.",
+   "pfaudio": "st/q/in"
+  },
+  "w223": {
+   "word": "in front of",
+   "en": "There's a tree in front of my house.",
+   "hl": "in front of",
+   "zh": "我家前面有一棵樹。",
+   "audio": "st/s/in_front_of",
+   "pic": "The ball is in front of the box.",
+   "pzh": "球在箱子前面。",
+   "paudio": "st/p/in_front_of",
+   "pfalse": "The ball is behind the box.",
+   "pfaudio": "st/q/in_front_of"
+  },
+  "w224": {
+   "word": "on",
+   "en": "Your book is on the table.",
+   "hl": "on",
+   "zh": "你的書在桌上。",
+   "audio": "st/s/on",
+   "pic": "The ball is on the box.",
+   "pzh": "球在箱子上面。",
+   "paudio": "st/p/on",
+   "pfalse": "The ball is in the box.",
+   "pfaudio": "st/q/on"
+  },
+  "w225": {
+   "word": "park",
+   "en": "Let's play in the park.",
+   "hl": "park",
+   "zh": "我們去公園玩吧。",
+   "audio": "st/s/park",
+   "pic": "There are two trees in the park.",
+   "pzh": "公園裡有兩棵樹。",
+   "paudio": "st/p/park",
+   "pfalse": "There are five trees in the park.",
+   "pfaudio": "st/q/park"
+  },
+  "w226": {
+   "word": "playground",
+   "en": "The children are playing in the playground.",
+   "hl": "playground",
+   "zh": "孩子們在遊樂場玩。",
+   "audio": "st/s/playground"
+  },
+  "w227": {
+   "word": "shop (store)",
+   "en": "There's a toy shop in my street.",
+   "hl": "shop",
+   "zh": "我家那條街上有一間玩具店。",
+   "audio": "st/s/shop_store"
+  },
+  "w228": {
+   "word": "street",
+   "en": "Don't play in the street!",
+   "hl": "street",
+   "zh": "不要在街上玩！",
+   "audio": "st/s/street",
+   "pic": "There are four houses in the street.",
+   "pzh": "街上有四間房子。",
+   "paudio": "st/p/street",
+   "pfalse": "There are two houses in the street.",
+   "pfaudio": "st/q/street"
+  },
+  "w229": {
+   "word": "there",
+   "en": "Your bag is there, under the chair.",
+   "hl": "there",
+   "zh": "你的包包在那裡，在椅子底下。",
+   "audio": "st/s/there"
+  },
+  "w230": {
+   "word": "under",
+   "en": "The dog is under the table.",
+   "hl": "under",
+   "zh": "狗在桌子底下。",
+   "audio": "st/s/under",
+   "pic": "The ball is under the table.",
+   "pzh": "球在桌子底下。",
+   "paudio": "st/p/under",
+   "pfalse": "The ball is on the table.",
+   "pfaudio": "st/q/under"
+  },
+  "w231": {
+   "word": "alphabet",
+   "en": "Can you say the alphabet?",
+   "hl": "alphabet",
+   "zh": "你會念字母表嗎？",
+   "audio": "st/s/alphabet"
+  },
+  "w232": {
+   "word": "answer",
+   "en": "Do you know the answer?",
+   "hl": "answer",
+   "zh": "你知道答案嗎？",
+   "audio": "st/s/answer"
+  },
+  "w233": {
+   "word": "ask",
+   "en": "Can I ask a question?",
+   "hl": "ask",
+   "zh": "我可以問一個問題嗎？",
+   "audio": "st/s/ask"
+  },
+  "w234": {
+   "word": "board",
+   "en": "The teacher is writing on the board.",
+   "hl": "board",
+   "zh": "老師正在黑板上寫字。",
+   "audio": "st/s/board"
+  },
+  "w235": {
+   "word": "book",
+   "en": "I've got a new book about animals.",
+   "hl": "book",
+   "zh": "我有一本關於動物的新書。",
+   "audio": "st/s/book",
+   "pic": "The book is red.",
+   "pzh": "這本書是紅色的。",
+   "paudio": "st/p/book",
+   "pfalse": "The book is green.",
+   "pfaudio": "st/q/book"
+  },
+  "w236": {
+   "word": "class",
+   "en": "There are twenty children in my class.",
+   "hl": "class",
+   "zh": "我班上有二十個小孩。",
+   "audio": "st/s/class"
+  },
+  "w237": {
+   "word": "classroom",
+   "en": "Our classroom is big.",
+   "hl": "classroom",
+   "zh": "我們的教室很大。",
+   "audio": "st/s/classroom",
+   "pic": "There's a green board in the classroom.",
+   "pzh": "教室裡有一塊綠色的黑板。",
+   "paudio": "st/p/classroom",
+   "pfalse": "There's a red board in the classroom.",
+   "pfaudio": "st/q/classroom"
+  },
+  "w238": {
+   "word": "close",
+   "en": "Close your books, please.",
+   "hl": "Close",
+   "zh": "請把書闔上。",
+   "audio": "st/s/close"
+  },
+  "w239": {
+   "word": "correct",
+   "en": "Is this answer correct?",
+   "hl": "correct",
+   "zh": "這個答案正確嗎？",
+   "audio": "st/s/correct"
+  },
+  "w240": {
+   "word": "crayon",
+   "en": "I've got lots of crayons.",
+   "hl": "crayons",
+   "zh": "我有很多蠟筆。",
+   "audio": "st/s/crayon",
+   "pic": "The crayon is red.",
+   "pzh": "這支蠟筆是紅色的。",
+   "paudio": "st/p/crayon",
+   "pfalse": "The crayon is blue.",
+   "pfaudio": "st/q/crayon"
+  },
+  "w241": {
+   "word": "cross",
+   "en": "Put a cross in the box.",
+   "hl": "cross",
+   "zh": "在格子裡打叉。",
+   "audio": "st/s/cross",
+   "pic": "The cross is red.",
+   "pzh": "這個叉是紅色的。",
+   "paudio": "st/p/cross",
+   "pfalse": "The cross is green.",
+   "pfaudio": "st/q/cross"
+  },
+  "w242": {
+   "word": "draw",
+   "en": "Let's draw a big house!",
+   "hl": "draw",
+   "zh": "我們來畫一間大房子吧！",
+   "audio": "st/s/draw"
+  },
+  "w243": {
+   "word": "English",
+   "en": "I like English lessons.",
+   "hl": "English",
+   "zh": "我喜歡英文課。",
+   "audio": "st/s/english"
+  },
+  "w244": {
+   "word": "eraser (rubber)",
+   "en": "Can I have your eraser, please?",
+   "hl": "eraser",
+   "zh": "可以借我你的橡皮擦嗎？",
+   "audio": "st/s/eraser_rubber",
+   "pic": "The eraser is pink and blue.",
+   "pzh": "這個橡皮擦是粉紅色和藍色的。",
+   "paudio": "st/p/eraser_rubber",
+   "pfalse": "The eraser is green and yellow.",
+   "pfaudio": "st/q/eraser_rubber"
+  },
+  "w245": {
+   "word": "example",
+   "en": "Look at the example, please.",
+   "hl": "example",
+   "zh": "請看例子。",
+   "audio": "st/s/example"
+  },
+  "w246": {
+   "word": "find",
+   "en": "I can't find my pen!",
+   "hl": "find",
+   "zh": "我找不到我的筆！",
+   "audio": "st/s/find"
+  },
+  "w247": {
+   "word": "floor",
+   "en": "Don't sit on the floor.",
+   "hl": "floor",
+   "zh": "不要坐在地板上。",
+   "audio": "st/s/floor"
+  },
+  "w248": {
+   "word": "keyboard (computer)",
+   "en": "The computer keyboard is on the desk.",
+   "hl": "keyboard",
+   "zh": "電腦鍵盤在書桌上。",
+   "audio": "st/s/keyboard_computer",
+   "pic": "The keyboard is white.",
+   "pzh": "這個鍵盤是白色的。",
+   "paudio": "st/p/keyboard_computer",
+   "pfalse": "The keyboard is black.",
+   "pfaudio": "st/q/keyboard_computer"
+  },
+  "w249": {
+   "word": "learn",
+   "en": "We learn English at school.",
+   "hl": "learn",
+   "zh": "我們在學校學英文。",
+   "audio": "st/s/learn"
+  },
+  "w250": {
+   "word": "lesson",
+   "en": "The music lesson is fun.",
+   "hl": "lesson",
+   "zh": "音樂課很好玩。",
+   "audio": "st/s/lesson"
+  },
+  "w251": {
+   "word": "letter (alphabet)",
+   "en": "What's this letter? It's B!",
+   "hl": "letter",
+   "zh": "這是什麼字母？是 B！",
+   "audio": "st/s/letter_alphabet",
+   "pic": "This is the letter A.",
+   "pzh": "這是字母 A。",
+   "paudio": "st/p/letter_alphabet",
+   "pfalse": "This is the letter B.",
+   "pfaudio": "st/q/letter_alphabet"
+  },
+  "w252": {
+   "word": "line",
+   "en": "Draw a line under the word.",
+   "hl": "line",
+   "zh": "在這個字下面畫一條線。",
+   "audio": "st/s/line"
+  },
+  "w253": {
+   "word": "listen",
+   "en": "Listen to the story.",
+   "hl": "Listen",
+   "zh": "聽故事。",
+   "audio": "st/s/listen"
+  },
+  "w254": {
+   "word": "look",
+   "en": "Look at the elephant!",
+   "hl": "Look",
+   "zh": "看那隻大象！",
+   "audio": "st/s/look"
+  },
+  "w255": {
+   "word": "mouse (computer)",
+   "en": "Where's the mouse for my computer?",
+   "hl": "mouse",
+   "zh": "我電腦的滑鼠在哪裡？",
+   "audio": "st/s/mouse_computer",
+   "pic": "The mouse is white.",
+   "pzh": "這個滑鼠是白色的。",
+   "paudio": "st/p/mouse_computer",
+   "pfalse": "The mouse is black.",
+   "pfaudio": "st/q/mouse_computer"
+  },
+  "w256": {
+   "word": "music",
+   "en": "I like listening to music.",
+   "hl": "music",
+   "zh": "我喜歡聽音樂。",
+   "audio": "st/s/music"
+  },
+  "w257": {
+   "word": "number",
+   "en": "What's your favourite number?",
+   "hl": "number",
+   "zh": "你最喜歡的數字是什麼？",
+   "audio": "st/s/number",
+   "pic": "These are the numbers one, two, three and four.",
+   "pzh": "這些是數字一、二、三和四。",
+   "paudio": "st/p/number",
+   "pfalse": "These are the numbers five, six, seven and eight.",
+   "pfaudio": "st/q/number"
+  },
+  "w258": {
+   "word": "open",
+   "en": "Open your books, please.",
+   "hl": "Open",
+   "zh": "請打開你的書。",
+   "audio": "st/s/open"
+  },
+  "w259": {
+   "word": "page",
+   "en": "Look at page ten.",
+   "hl": "page",
+   "zh": "請看第十頁。",
+   "audio": "st/s/page"
+  },
+  "w260": {
+   "word": "painting",
+   "en": "That's a beautiful painting.",
+   "hl": "painting",
+   "zh": "那是一幅很漂亮的畫。",
+   "audio": "st/s/painting"
+  },
+  "w261": {
+   "word": "paper",
+   "en": "Draw a cat on this paper.",
+   "hl": "paper",
+   "zh": "在這張紙上畫一隻貓。",
+   "audio": "st/s/paper"
+  },
+  "w262": {
+   "word": "part",
+   "en": "Can you read this part of the story?",
+   "hl": "part",
+   "zh": "你可以讀故事的這個部分嗎？",
+   "audio": "st/s/part"
+  },
+  "w263": {
+   "word": "pen",
+   "en": "Can I have a blue pen, please?",
+   "hl": "pen",
+   "zh": "可以給我一支藍色的筆嗎？",
+   "audio": "st/s/pen",
+   "pic": "The pen is blue.",
+   "pzh": "這支筆是藍色的。",
+   "paudio": "st/p/pen",
+   "pfalse": "The pen is red.",
+   "pfaudio": "st/q/pen"
+  },
+  "w264": {
+   "word": "pencil",
+   "en": "Write with a pencil, please.",
+   "hl": "pencil",
+   "zh": "請用鉛筆寫。",
+   "audio": "st/s/pencil",
+   "pic": "The pencil is yellow.",
+   "pzh": "這支鉛筆是黃色的。",
+   "paudio": "st/p/pencil",
+   "pfalse": "The pencil is purple.",
+   "pfaudio": "st/q/pencil"
+  },
+  "w265": {
+   "word": "poster",
+   "en": "There's a big poster on the wall.",
+   "hl": "poster",
+   "zh": "牆上有一張大海報。",
+   "audio": "st/s/poster",
+   "pic": "The poster is yellow.",
+   "pzh": "這張海報是黃色的。",
+   "paudio": "st/p/poster",
+   "pfalse": "The poster is blue.",
+   "pfaudio": "st/q/poster"
+  },
+  "w266": {
+   "word": "question",
+   "en": "Answer the question, please.",
+   "hl": "question",
+   "zh": "請回答問題。",
+   "audio": "st/s/question"
+  },
+  "w267": {
+   "word": "read",
+   "en": "Mum reads me a story at night.",
+   "hl": "reads",
+   "zh": "媽媽晚上念故事給我聽。",
+   "audio": "st/s/read"
+  },
+  "w268": {
+   "word": "right (correct)",
+   "en": "Yes, that's right!",
+   "hl": "right",
+   "zh": "對，沒錯！",
+   "audio": "st/s/right_correct"
+  },
+  "w269": {
+   "word": "ruler",
+   "en": "This ruler is long.",
+   "hl": "ruler",
+   "zh": "這把尺很長。",
+   "audio": "st/s/ruler",
+   "pic": "The ruler is blue.",
+   "pzh": "這把尺是藍色的。",
+   "paudio": "st/p/ruler",
+   "pfalse": "The ruler is red.",
+   "pfaudio": "st/q/ruler"
+  },
+  "w270": {
+   "word": "school",
+   "en": "My school has got a big playground.",
+   "hl": "school",
+   "zh": "我的學校有一座大遊樂場。",
+   "audio": "st/s/school",
+   "pic": "There's a clock on the school.",
+   "pzh": "學校上面有一個時鐘。",
+   "paudio": "st/p/school",
+   "pfalse": "There's a cat on the school.",
+   "pfaudio": "st/q/school"
+  },
+  "w271": {
+   "word": "sentence",
+   "en": "Write a sentence about your family.",
+   "hl": "sentence",
+   "zh": "寫一個關於你家人的句子。",
+   "audio": "st/s/sentence"
+  },
+  "w272": {
+   "word": "sit",
+   "en": "Please sit down.",
+   "hl": "sit",
+   "zh": "請坐下。",
+   "audio": "st/s/sit"
+  },
+  "w273": {
+   "word": "spell",
+   "en": "How do you spell 'cat'?",
+   "hl": "spell",
+   "zh": "cat 怎麼拼？",
+   "audio": "st/s/spell"
+  },
+  "w274": {
+   "word": "stand",
+   "en": "Stand up, please.",
+   "hl": "Stand",
+   "zh": "請站起來。",
+   "audio": "st/s/stand"
+  },
+  "w275": {
+   "word": "story",
+   "en": "Grandma tells me funny stories.",
+   "hl": "stories",
+   "zh": "奶奶會講好笑的故事給我聽。",
+   "audio": "st/s/story"
+  },
+  "w276": {
+   "word": "teacher",
+   "en": "Our teacher is very nice.",
+   "hl": "teacher",
+   "zh": "我們的老師人很好。",
+   "audio": "st/s/teacher"
+  },
+  "w277": {
+   "word": "tell",
+   "en": "Tell me about your pet.",
+   "hl": "Tell",
+   "zh": "跟我說說你的寵物。",
+   "audio": "st/s/tell"
+  },
+  "w278": {
+   "word": "tick",
+   "en": "Put a tick next to the correct answer.",
+   "hl": "tick",
+   "zh": "在正確答案旁邊打勾。",
+   "audio": "st/s/tick"
+  },
+  "w279": {
+   "word": "understand",
+   "en": "I don't understand. Can you say that again?",
+   "hl": "understand",
+   "zh": "我聽不懂，你可以再說一次嗎？",
+   "audio": "st/s/understand"
+  },
+  "w280": {
+   "word": "word",
+   "en": "This word is very long.",
+   "hl": "word",
+   "zh": "這個字很長。",
+   "audio": "st/s/word"
+  },
+  "w281": {
+   "word": "write",
+   "en": "Write the words in your book.",
+   "hl": "Write",
+   "zh": "把這些字寫在你的本子上。",
+   "audio": "st/s/write"
+  },
+  "w282": {
+   "word": "badminton",
+   "en": "I play badminton with my dad.",
+   "hl": "badminton",
+   "zh": "我和爸爸打羽毛球。",
+   "audio": "st/s/badminton"
+  },
+  "w283": {
+   "word": "ball",
+   "en": "Let's play with my new ball.",
+   "hl": "ball",
+   "zh": "我們來玩我的新球吧。",
+   "audio": "st/s/ball",
+   "pic": "The ball is red, yellow, blue and green.",
+   "pzh": "這顆球是紅、黃、藍、綠色的。",
+   "paudio": "st/p/ball",
+   "pfalse": "The ball is black and white.",
+   "pfaudio": "st/q/ball"
+  },
+  "w284": {
+   "word": "baseball",
+   "en": "Do you like baseball?",
+   "hl": "baseball",
+   "zh": "你喜歡棒球嗎？",
+   "audio": "st/s/baseball"
+  },
+  "w285": {
+   "word": "basketball",
+   "en": "Bill and Mark are playing basketball.",
+   "hl": "basketball",
+   "zh": "比爾和馬克正在打籃球。",
+   "audio": "st/s/basketball",
+   "pic": "The basketball is orange.",
+   "pzh": "這顆籃球是橘色的。",
+   "paudio": "st/p/basketball",
+   "pfalse": "The basketball is green.",
+   "pfaudio": "st/q/basketball"
+  },
+  "w286": {
+   "word": "bat (sports equipment)",
+   "en": "This is my new bat.",
+   "hl": "bat",
+   "zh": "這是我的新球棒。",
+   "audio": "st/s/bat_sports_equipment"
+  },
+  "w287": {
+   "word": "bounce",
+   "en": "Can you bounce the ball?",
+   "hl": "bounce",
+   "zh": "你會拍球嗎？",
+   "audio": "st/s/bounce"
+  },
+  "w288": {
+   "word": "catch (a ball)",
+   "en": "Catch the ball, Ben!",
+   "hl": "Catch",
+   "zh": "班，接住球！",
+   "audio": "st/s/catch_a_ball"
+  },
+  "w289": {
+   "word": "drawing",
+   "en": "Look at my drawing of a horse!",
+   "hl": "drawing",
+   "zh": "看我畫的馬！",
+   "audio": "st/s/drawing"
+  },
+  "w290": {
+   "word": "enjoy",
+   "en": "I enjoy swimming in the sea.",
+   "hl": "enjoy",
+   "zh": "我喜歡在海裡游泳。",
+   "audio": "st/s/enjoy"
+  },
+  "w291": {
+   "word": "favourite",
+   "en": "My favourite fruit is mango.",
+   "hl": "favourite",
+   "zh": "我最喜歡的水果是芒果。",
+   "audio": "st/s/favourite"
+  },
+  "w292": {
+   "word": "fishing",
+   "en": "Let's go fishing in the sea.",
+   "hl": "fishing",
+   "zh": "我們去海上釣魚吧。",
+   "audio": "st/s/fishing"
+  },
+  "w293": {
+   "word": "football (soccer)",
+   "en": "My brother plays football.",
+   "hl": "football",
+   "zh": "我哥哥踢足球。",
+   "audio": "st/s/football_soccer",
+   "pic": "The football is black and white.",
+   "pzh": "這顆足球是黑白相間的。",
+   "paudio": "st/p/football_soccer",
+   "pfalse": "The football is orange and blue.",
+   "pfaudio": "st/q/football_soccer"
+  },
+  "w294": {
+   "word": "game",
+   "en": "Let's play a game!",
+   "hl": "game",
+   "zh": "我們來玩遊戲吧！",
+   "audio": "st/s/game"
+  },
+  "w295": {
+   "word": "guitar",
+   "en": "I've got a red guitar.",
+   "hl": "guitar",
+   "zh": "我有一把紅色的吉他。",
+   "audio": "st/s/guitar",
+   "pic": "The guitar is red.",
+   "pzh": "這把吉他是紅色的。",
+   "paudio": "st/p/guitar",
+   "pfalse": "The guitar is blue.",
+   "pfaudio": "st/q/guitar"
+  },
+  "w296": {
+   "word": "hobby",
+   "en": "My hobby is painting.",
+   "hl": "hobby",
+   "zh": "我的嗜好是畫畫。",
+   "audio": "st/s/hobby"
+  },
+  "w297": {
+   "word": "hockey",
+   "en": "We play hockey at school.",
+   "hl": "hockey",
+   "zh": "我們在學校打曲棍球。",
+   "audio": "st/s/hockey"
+  },
+  "w298": {
+   "word": "jump",
+   "en": "The children are jumping on the bed!",
+   "hl": "jumping",
+   "zh": "孩子們在床上跳！",
+   "audio": "st/s/jump"
+  },
+  "w299": {
+   "word": "kick",
+   "en": "Kick the ball, Tom!",
+   "hl": "Kick",
+   "zh": "湯姆，踢球！",
+   "audio": "st/s/kick"
+  },
+  "w300": {
+   "word": "kite",
+   "en": "My kite is in the tree!",
+   "hl": "kite",
+   "zh": "我的風箏卡在樹上了！",
+   "audio": "st/s/kite",
+   "pic": "The kite is orange and red.",
+   "pzh": "這只風箏是橘色和紅色的。",
+   "paudio": "st/p/kite",
+   "pfalse": "The kite is green and black.",
+   "pfaudio": "st/q/kite"
+  },
+  "w301": {
+   "word": "photo",
+   "en": "Look at this photo of my dog.",
+   "hl": "photo",
+   "zh": "看這張我的狗的照片。",
+   "audio": "st/s/photo"
+  },
+  "w302": {
+   "word": "piano",
+   "en": "Lucy plays the piano.",
+   "hl": "piano",
+   "zh": "露西會彈鋼琴。",
+   "audio": "st/s/piano",
+   "pic": "The piano is black and white.",
+   "pzh": "鋼琴是黑白相間的。",
+   "paudio": "st/p/piano",
+   "pfalse": "The piano is red and yellow.",
+   "pfaudio": "st/q/piano"
+  },
+  "w303": {
+   "word": "play",
+   "en": "Can I play with you?",
+   "hl": "play",
+   "zh": "我可以跟你一起玩嗎？",
+   "audio": "st/s/play"
+  },
+  "w304": {
+   "word": "run",
+   "en": "Don't run in the classroom!",
+   "hl": "run",
+   "zh": "不要在教室裡跑！",
+   "audio": "st/s/run"
+  },
+  "w305": {
+   "word": "sing",
+   "en": "Let's sing a song!",
+   "hl": "sing",
+   "zh": "我們來唱歌吧！",
+   "audio": "st/s/sing"
+  },
+  "w306": {
+   "word": "skateboard",
+   "en": "Is this your skateboard?",
+   "hl": "skateboard",
+   "zh": "這是你的滑板嗎？",
+   "audio": "st/s/skateboard",
+   "pic": "The skateboard is black.",
+   "pzh": "這塊滑板是黑色的。",
+   "paudio": "st/p/skateboard",
+   "pfalse": "The skateboard is pink.",
+   "pfaudio": "st/q/skateboard"
+  },
+  "w307": {
+   "word": "skateboarding",
+   "en": "Skateboarding is fun!",
+   "hl": "Skateboarding",
+   "zh": "玩滑板很好玩！",
+   "audio": "st/s/skateboarding"
+  },
+  "w308": {
+   "word": "song",
+   "en": "This is my favourite song.",
+   "hl": "song",
+   "zh": "這是我最喜歡的歌。",
+   "audio": "st/s/song"
+  },
+  "w309": {
+   "word": "sport",
+   "en": "What's your favourite sport?",
+   "hl": "sport",
+   "zh": "你最喜歡什麼運動？",
+   "audio": "st/s/sport"
+  },
+  "w310": {
+   "word": "table tennis",
+   "en": "Let's play table tennis!",
+   "hl": "table tennis",
+   "zh": "我們來打桌球吧！",
+   "audio": "st/s/table_tennis"
+  },
+  "w311": {
+   "word": "take a photo / picture",
+   "en": "Can I take a photo of your cat?",
+   "hl": "take a photo",
+   "zh": "我可以幫你的貓拍張照嗎？",
+   "audio": "st/s/take_a_photo_picture"
+  },
+  "w312": {
+   "word": "tennis",
+   "en": "Do you want to play tennis?",
+   "hl": "tennis",
+   "zh": "你想打網球嗎？",
+   "audio": "st/s/tennis"
+  },
+  "w313": {
+   "word": "tennis racket",
+   "en": "My tennis racket is in my bag.",
+   "hl": "tennis racket",
+   "zh": "我的網球拍在我的包包裡。",
+   "audio": "st/s/tennis_racket",
+   "pic": "The tennis racket is red.",
+   "pzh": "這支網球拍是紅色的。",
+   "paudio": "st/p/tennis_racket",
+   "pfalse": "The tennis racket is blue.",
+   "pfaudio": "st/q/tennis_racket"
+  },
+  "w314": {
+   "word": "throw",
+   "en": "Throw the ball to me, please!",
+   "hl": "Throw",
+   "zh": "請把球丟給我！",
+   "audio": "st/s/throw"
+  },
+  "w315": {
+   "word": "afternoon",
+   "en": "We play in the park in the afternoon.",
+   "hl": "afternoon",
+   "zh": "我們下午在公園玩。",
+   "audio": "st/s/afternoon"
+  },
+  "w316": {
+   "word": "birthday",
+   "en": "Happy birthday, Lucy!",
+   "hl": "birthday",
+   "zh": "生日快樂，露西！",
+   "audio": "st/s/birthday"
+  },
+  "w317": {
+   "word": "day",
+   "en": "Have a nice day!",
+   "hl": "day",
+   "zh": "祝你有美好的一天！",
+   "audio": "st/s/day"
+  },
+  "w318": {
+   "word": "evening",
+   "en": "I read books in the evening.",
+   "hl": "evening",
+   "zh": "我晚上看書。",
+   "audio": "st/s/evening"
+  },
+  "w319": {
+   "word": "morning",
+   "en": "Good morning, children!",
+   "hl": "morning",
+   "zh": "早安，孩子們！",
+   "audio": "st/s/morning"
+  },
+  "w320": {
+   "word": "night",
+   "en": "I sleep with my teddy at night.",
+   "hl": "night",
+   "zh": "我晚上抱著泰迪熊睡覺。",
+   "audio": "st/s/night"
+  },
+  "w321": {
+   "word": "today",
+   "en": "It's my birthday today!",
+   "hl": "today",
+   "zh": "今天是我的生日！",
+   "audio": "st/s/today"
+  },
+  "w322": {
+   "word": "year",
+   "en": "My sister is six years old.",
+   "hl": "years",
+   "zh": "我妹妹六歲。",
+   "audio": "st/s/year"
+  },
+  "w323": {
+   "word": "alien",
+   "en": "Look! There's an alien in the garden!",
+   "hl": "alien",
+   "zh": "看！花園裡有一個外星人！",
+   "audio": "st/s/alien",
+   "pic": "The alien is grey.",
+   "pzh": "外星人是灰色的。",
+   "paudio": "st/p/alien",
+   "pfalse": "The alien is pink.",
+   "pfaudio": "st/q/alien"
+  },
+  "w324": {
+   "word": "balloon",
+   "en": "Can I have a red balloon, please?",
+   "hl": "balloon",
+   "zh": "可以給我一顆紅氣球嗎？",
+   "audio": "st/s/balloon",
+   "pic": "The balloon is red.",
+   "pzh": "這顆氣球是紅色的。",
+   "paudio": "st/p/balloon",
+   "pfalse": "The balloon is yellow.",
+   "pfaudio": "st/q/balloon"
+  },
+  "w325": {
+   "word": "board game",
+   "en": "Do you want to play a board game with me?",
+   "hl": "board game",
+   "zh": "你想跟我玩桌遊嗎？",
+   "audio": "st/s/board_game"
+  },
+  "w326": {
+   "word": "car",
+   "en": "There are three cars in the street.",
+   "hl": "cars",
+   "zh": "街上有三輛車。",
+   "audio": "st/s/car",
+   "pic": "The car is red.",
+   "pzh": "這輛車是紅色的。",
+   "paudio": "st/p/car",
+   "pfalse": "The car is blue.",
+   "pfaudio": "st/q/car"
+  },
+  "w327": {
+   "word": "doll",
+   "en": "My sister has got lots of dolls.",
+   "hl": "dolls",
+   "zh": "我妹妹有很多娃娃。",
+   "audio": "st/s/doll"
+  },
+  "w328": {
+   "word": "helicopter",
+   "en": "My toy helicopter can fly!",
+   "hl": "helicopter",
+   "zh": "我的玩具直升機會飛！",
+   "audio": "st/s/helicopter",
+   "pic": "The helicopter is yellow.",
+   "pzh": "這架直升機是黃色的。",
+   "paudio": "st/p/helicopter",
+   "pfalse": "The helicopter is green.",
+   "pfaudio": "st/q/helicopter"
+  },
+  "w329": {
+   "word": "lorry (truck)",
+   "en": "There's a big lorry in the street.",
+   "hl": "lorry",
+   "zh": "街上有一輛大卡車。",
+   "audio": "st/s/lorry_truck",
+   "pic": "The lorry is white and orange.",
+   "pzh": "這輛卡車是白色和橘色的。",
+   "paudio": "st/p/lorry_truck",
+   "pfalse": "The lorry is blue and green.",
+   "pfaudio": "st/q/lorry_truck"
+  },
+  "w330": {
+   "word": "monster",
+   "en": "This monster has got three eyes!",
+   "hl": "monster",
+   "zh": "這隻怪物有三隻眼睛！",
+   "audio": "st/s/monster",
+   "pic": "The monster is purple.",
+   "pzh": "這隻怪物是紫色的。",
+   "paudio": "st/p/monster",
+   "pfalse": "The monster is green.",
+   "pfaudio": "st/q/monster"
+  },
+  "w331": {
+   "word": "motorbike",
+   "en": "There's a red motorbike next to the shop.",
+   "hl": "motorbike",
+   "zh": "商店旁邊有一輛紅色的摩托車。",
+   "audio": "st/s/motorbike",
+   "pic": "The motorbike is red.",
+   "pzh": "這輛摩托車是紅色的。",
+   "paudio": "st/p/motorbike",
+   "pfalse": "The motorbike is blue.",
+   "pfaudio": "st/q/motorbike"
+  },
+  "w332": {
+   "word": "plane",
+   "en": "I'm flying in a plane today!",
+   "hl": "plane",
+   "zh": "我今天要坐飛機！",
+   "audio": "st/s/plane",
+   "pic": "The plane is white and blue.",
+   "pzh": "這架飛機是白色和藍色的。",
+   "paudio": "st/p/plane",
+   "pfalse": "The plane is red and yellow.",
+   "pfaudio": "st/q/plane"
+  },
+  "w333": {
+   "word": "robot",
+   "en": "My robot can talk!",
+   "hl": "robot",
+   "zh": "我的機器人會說話！",
+   "audio": "st/s/robot",
+   "pic": "The robot is grey.",
+   "pzh": "這個機器人是灰色的。",
+   "paudio": "st/p/robot",
+   "pfalse": "The robot is pink.",
+   "pfaudio": "st/q/robot"
+  },
+  "w334": {
+   "word": "teddy (bear)",
+   "en": "My teddy is on my bed.",
+   "hl": "teddy",
+   "zh": "我的泰迪熊在我床上。",
+   "audio": "st/s/teddy_bear",
+   "pic": "The teddy is brown.",
+   "pzh": "這隻泰迪熊是棕色的。",
+   "paudio": "st/p/teddy_bear",
+   "pfalse": "The teddy is white.",
+   "pfaudio": "st/q/teddy_bear"
+  },
+  "w335": {
+   "word": "toy",
+   "en": "Put your toys in the box, please.",
+   "hl": "toys",
+   "zh": "請把玩具放進箱子裡。",
+   "audio": "st/s/toy",
+   "pic": "The toys are in a red box.",
+   "pzh": "玩具裝在紅色的箱子裡。",
+   "paudio": "st/p/toy",
+   "pfalse": "The toys are in a blue box.",
+   "pfaudio": "st/q/toy"
+  },
+  "w336": {
+   "word": "bike",
+   "en": "I ride my bike to school.",
+   "hl": "bike",
+   "zh": "我騎腳踏車上學。",
+   "audio": "st/s/bike",
+   "pic": "The bike is blue.",
+   "pzh": "這台腳踏車是藍色的。",
+   "paudio": "st/p/bike",
+   "pfalse": "The bike is red.",
+   "pfaudio": "st/q/bike"
+  },
+  "w337": {
+   "word": "boat",
+   "en": "There's a small boat on the sea.",
+   "hl": "boat",
+   "zh": "海上有一艘小船。",
+   "audio": "st/s/boat",
+   "pic": "The boat is orange and yellow.",
+   "pzh": "這艘船是橘色和黃色的。",
+   "paudio": "st/p/boat",
+   "pfalse": "The boat is blue and white.",
+   "pfaudio": "st/q/boat"
+  },
+  "w338": {
+   "word": "bus",
+   "en": "The children are on the school bus.",
+   "hl": "bus",
+   "zh": "孩子們在校車上。",
+   "audio": "st/s/bus",
+   "pic": "This is a bus.",
+   "pzh": "這是一輛公車。",
+   "paudio": "st/p/bus"
+  },
+  "w339": {
+   "word": "drive",
+   "en": "My mum can drive a lorry!",
+   "hl": "drive",
+   "zh": "我媽媽會開卡車！",
+   "audio": "st/s/drive"
+  },
+  "w340": {
+   "word": "fly",
+   "en": "Birds can fly.",
+   "hl": "fly",
+   "zh": "鳥會飛。",
+   "audio": "st/s/fly"
+  },
+  "w341": {
+   "word": "go",
+   "en": "Let's go to the beach!",
+   "hl": "go",
+   "zh": "我們去海灘吧！",
+   "audio": "st/s/go"
+  },
+  "w342": {
+   "word": "ride",
+   "en": "Can you ride a horse?",
+   "hl": "ride",
+   "zh": "你會騎馬嗎？",
+   "audio": "st/s/ride"
+  },
+  "w343": {
+   "word": "ship",
+   "en": "Look at that big ship!",
+   "hl": "ship",
+   "zh": "看那艘大船！",
+   "audio": "st/s/ship",
+   "pic": "The ship is red and white.",
+   "pzh": "這艘船是紅色和白色的。",
+   "paudio": "st/p/ship",
+   "pfalse": "The ship is green and yellow.",
+   "pfaudio": "st/q/ship"
+  },
+  "w344": {
+   "word": "swim",
+   "en": "Can you swim?",
+   "hl": "swim",
+   "zh": "你會游泳嗎？",
+   "audio": "st/s/swim"
+  },
+  "w345": {
+   "word": "train",
+   "en": "The train is very long.",
+   "hl": "train",
+   "zh": "這列火車很長。",
+   "audio": "st/s/train",
+   "pic": "The train is blue and grey.",
+   "pzh": "這列火車是藍色和灰色的。",
+   "paudio": "st/p/train",
+   "pfalse": "The train is red and yellow.",
+   "pfaudio": "st/q/train"
+  },
+  "w346": {
+   "word": "walk",
+   "en": "We walk to school.",
+   "hl": "walk",
+   "zh": "我們走路上學。",
+   "audio": "st/s/walk"
+  },
+  "w347": {
+   "word": "sun",
+   "en": "Don't look at the sun!",
+   "hl": "sun",
+   "zh": "不要直視太陽！",
+   "audio": "st/s/sun",
+   "pic": "The sun is yellow.",
+   "pzh": "太陽是黃色的。",
+   "paudio": "st/p/sun",
+   "pfalse": "The sun is blue.",
+   "pfaudio": "st/q/sun"
+  },
+  "w348": {
+   "word": "beach",
+   "en": "There are lots of shells on the beach.",
+   "hl": "beach",
+   "zh": "海灘上有很多貝殼。",
+   "audio": "st/s/beach"
+  },
+  "w349": {
+   "word": "sand",
+   "en": "The children are playing in the sand.",
+   "hl": "sand",
+   "zh": "孩子們在沙子裡玩。",
+   "audio": "st/s/sand"
+  },
+  "w350": {
+   "word": "sea",
+   "en": "Fish live in the sea.",
+   "hl": "sea",
+   "zh": "魚住在海裡。",
+   "audio": "st/s/sea"
+  },
+  "w351": {
+   "word": "shell",
+   "en": "Look at this beautiful shell!",
+   "hl": "shell",
+   "zh": "看這個漂亮的貝殼！",
+   "audio": "st/s/shell",
+   "pic": "The shell is white.",
+   "pzh": "這個貝殼是白色的。",
+   "paudio": "st/p/shell",
+   "pfalse": "The shell is green.",
+   "pfaudio": "st/q/shell"
+  },
+  "w352": {
+   "word": "angry",
+   "en": "Dad is angry with the dog.",
+   "hl": "angry",
+   "zh": "爸爸在生小狗的氣。",
+   "audio": "st/s/angry"
+  },
+  "w353": {
+   "word": "beautiful",
+   "en": "What a beautiful flower!",
+   "hl": "beautiful",
+   "zh": "好漂亮的花！",
+   "audio": "st/s/beautiful"
+  },
+  "w354": {
+   "word": "big",
+   "en": "An elephant is very big.",
+   "hl": "big",
+   "zh": "大象非常大。",
+   "audio": "st/s/big"
+  },
+  "w355": {
+   "word": "clean",
+   "en": "My hands are clean.",
+   "hl": "clean",
+   "zh": "我的手很乾淨。",
+   "audio": "st/s/clean_355"
+  },
+  "w356": {
+   "word": "closed",
+   "en": "The shop is closed today.",
+   "hl": "closed",
+   "zh": "這間商店今天沒開。",
+   "audio": "st/s/closed"
+  },
+  "w357": {
+   "word": "cool",
+   "en": "Your new skateboard is cool!",
+   "hl": "cool",
+   "zh": "你的新滑板好酷！",
+   "audio": "st/s/cool"
+  },
+  "w358": {
+   "word": "dirty",
+   "en": "Your shoes are dirty!",
+   "hl": "dirty",
+   "zh": "你的鞋子好髒！",
+   "audio": "st/s/dirty"
+  },
+  "w359": {
+   "word": "double",
+   "en": "'Apple' has got a double 'p'.",
+   "hl": "double",
+   "zh": "apple 這個字有兩個 p。",
+   "audio": "st/s/double"
+  },
+  "w360": {
+   "word": "fantastic",
+   "en": "Your drawing is fantastic!",
+   "hl": "fantastic",
+   "zh": "你的畫太棒了！",
+   "audio": "st/s/fantastic"
+  },
+  "w361": {
+   "word": "fun",
+   "en": "Swimming is fun!",
+   "hl": "fun",
+   "zh": "游泳很好玩！",
+   "audio": "st/s/fun"
+  },
+  "w362": {
+   "word": "funny",
+   "en": "This story is very funny.",
+   "hl": "funny",
+   "zh": "這個故事很好笑。",
+   "audio": "st/s/funny"
+  },
+  "w363": {
+   "word": "good",
+   "en": "This cake is very good.",
+   "hl": "good",
+   "zh": "這個蛋糕很好吃。",
+   "audio": "st/s/good"
+  },
+  "w364": {
+   "word": "great",
+   "en": "Great! You're right!",
+   "hl": "Great",
+   "zh": "太棒了！你答對了！",
+   "audio": "st/s/great"
+  },
+  "w365": {
+   "word": "happy",
+   "en": "The children are happy today.",
+   "hl": "happy",
+   "zh": "孩子們今天很開心。",
+   "audio": "st/s/happy"
+  },
+  "w366": {
+   "word": "long",
+   "en": "The snake is very long.",
+   "hl": "long",
+   "zh": "這條蛇很長。",
+   "audio": "st/s/long"
+  },
+  "w367": {
+   "word": "new",
+   "en": "I've got new shoes!",
+   "hl": "new",
+   "zh": "我有新鞋子！",
+   "audio": "st/s/new"
+  },
+  "w368": {
+   "word": "nice",
+   "en": "Nice to see you!",
+   "hl": "Nice",
+   "zh": "很高興見到你！",
+   "audio": "st/s/nice"
+  },
+  "w369": {
+   "word": "sad",
+   "en": "The boy is sad. He can't find his dog.",
+   "hl": "sad",
+   "zh": "那個男孩很難過，他找不到他的狗。",
+   "audio": "st/s/sad"
+  },
+  "w370": {
+   "word": "scary",
+   "en": "This monster is scary!",
+   "hl": "scary",
+   "zh": "這隻怪物好可怕！",
+   "audio": "st/s/scary"
+  },
+  "w371": {
+   "word": "short",
+   "en": "My hair is short.",
+   "hl": "short",
+   "zh": "我的頭髮很短。",
+   "audio": "st/s/short"
+  },
+  "w372": {
+   "word": "silly",
+   "en": "Don't be silly!",
+   "hl": "silly",
+   "zh": "別傻了！",
+   "audio": "st/s/silly"
+  },
+  "w373": {
+   "word": "small",
+   "en": "A mouse is very small.",
+   "hl": "small",
+   "zh": "老鼠非常小。",
+   "audio": "st/s/small"
+  },
+  "w374": {
+   "word": "ugly",
+   "en": "I don't like this ugly hat.",
+   "hl": "ugly",
+   "zh": "我不喜歡這頂醜醜的帽子。",
+   "audio": "st/s/ugly"
+  },
+  "w375": {
+   "word": "add",
+   "en": "Add two and three.",
+   "hl": "Add",
+   "zh": "把二和三加起來。",
+   "audio": "st/s/add"
+  },
+  "w376": {
+   "word": "clap",
+   "en": "Clap your hands!",
+   "hl": "Clap",
+   "zh": "拍拍手！",
+   "audio": "st/s/clap"
+  },
+  "w377": {
+   "word": "clean",
+   "en": "Please clean your room.",
+   "hl": "clean",
+   "zh": "請打掃你的房間。",
+   "audio": "st/s/clean_377"
+  },
+  "w378": {
+   "word": "colour",
+   "en": "Colour the apple red.",
+   "hl": "Colour",
+   "zh": "把蘋果塗成紅色。",
+   "audio": "st/s/colour_378"
+  },
+  "w379": {
+   "word": "complete",
+   "en": "Complete the sentences.",
+   "hl": "Complete",
+   "zh": "完成這些句子。",
+   "audio": "st/s/complete"
+  },
+  "w380": {
+   "word": "count",
+   "en": "Can you count to ten?",
+   "hl": "count",
+   "zh": "你會數到十嗎？",
+   "audio": "st/s/count"
+  },
+  "w381": {
+   "word": "like",
+   "en": "I like ice cream.",
+   "hl": "like",
+   "zh": "我喜歡冰淇淋。",
+   "audio": "st/s/like"
+  },
+  "w382": {
+   "word": "love",
+   "en": "I love my family.",
+   "hl": "love",
+   "zh": "我愛我的家人。",
+   "audio": "st/s/love"
+  },
+  "w383": {
+   "word": "paint",
+   "en": "Let's paint a picture!",
+   "hl": "paint",
+   "zh": "我們來畫一幅畫吧！",
+   "audio": "st/s/paint"
+  },
+  "w384": {
+   "word": "pick up",
+   "en": "Pick up your toys, please.",
+   "hl": "Pick up",
+   "zh": "請把你的玩具撿起來。",
+   "audio": "st/s/pick_up"
+  },
+  "w385": {
+   "word": "point",
+   "en": "Point to the door.",
+   "hl": "Point",
+   "zh": "指著門。",
+   "audio": "st/s/point"
+  },
+  "w386": {
+   "word": "show",
+   "en": "Show me your new book!",
+   "hl": "Show",
+   "zh": "給我看你的新書！",
+   "audio": "st/s/show"
+  },
+  "w387": {
+   "word": "start",
+   "en": "Let's start the game!",
+   "hl": "start",
+   "zh": "我們開始玩遊戲吧！",
+   "audio": "st/s/start"
+  },
+  "w388": {
+   "word": "stop",
+   "en": "Stop! Don't run!",
+   "hl": "Stop",
+   "zh": "停！不要跑！",
+   "audio": "st/s/stop"
+  },
+  "w389": {
+   "word": "talk",
+   "en": "Don't talk in the lesson.",
+   "hl": "talk",
+   "zh": "上課時不要說話。",
+   "audio": "st/s/talk"
+  },
+  "w390": {
+   "word": "try",
+   "en": "Try again!",
+   "hl": "Try",
+   "zh": "再試一次！",
+   "audio": "st/s/try"
+  },
+  "w391": {
+   "word": "want",
+   "en": "Do you want an apple?",
+   "hl": "want",
+   "zh": "你想要一顆蘋果嗎？",
+   "audio": "st/s/want"
+  },
+  "w392": {
+   "word": "wave",
+   "en": "Wave goodbye to Grandma.",
+   "hl": "Wave",
+   "zh": "跟奶奶揮手說再見。",
+   "audio": "st/s/wave"
+  },
+  "w393": {
+   "word": "be",
+   "en": "I want to be a teacher.",
+   "hl": "be",
+   "zh": "我想當老師。",
+   "audio": "st/s/be"
+  },
+  "w394": {
+   "word": "can",
+   "en": "I can swim.",
+   "hl": "can",
+   "zh": "我會游泳。",
+   "audio": "st/s/can"
+  },
+  "w395": {
+   "word": "choose",
+   "en": "Choose a colour.",
+   "hl": "Choose",
+   "zh": "選一個顏色。",
+   "audio": "st/s/choose"
+  },
+  "w396": {
+   "word": "come",
+   "en": "Can you come to my house?",
+   "hl": "come",
+   "zh": "你可以來我家嗎？",
+   "audio": "st/s/come"
+  },
+  "w397": {
+   "word": "do",
+   "en": "Do you like apples?",
+   "hl": "Do",
+   "zh": "你喜歡蘋果嗎？",
+   "audio": "st/s/do"
+  },
+  "w398": {
+   "word": "get",
+   "en": "I get lots of toys on my birthday.",
+   "hl": "get",
+   "zh": "我生日時會收到很多玩具。",
+   "audio": "st/s/get"
+  },
+  "w399": {
+   "word": "give",
+   "en": "Give me the pen, please.",
+   "hl": "Give",
+   "zh": "請把筆給我。",
+   "audio": "st/s/give"
+  },
+  "w400": {
+   "word": "go to bed",
+   "en": "Go to bed now, please.",
+   "hl": "Go to bed",
+   "zh": "現在請去睡覺。",
+   "audio": "st/s/go_to_bed"
+  },
+  "w401": {
+   "word": "go to sleep",
+   "en": "The baby can't go to sleep.",
+   "hl": "go to sleep",
+   "zh": "寶寶睡不著。",
+   "audio": "st/s/go_to_sleep"
+  },
+  "w402": {
+   "word": "have",
+   "en": "I have breakfast at home.",
+   "hl": "have",
+   "zh": "我在家吃早餐。",
+   "audio": "st/s/have"
+  },
+  "w403": {
+   "word": "have got",
+   "en": "I have got two brothers.",
+   "hl": "have got",
+   "zh": "我有兩個兄弟。",
+   "audio": "st/s/have_got"
+  },
+  "w404": {
+   "word": "hit",
+   "en": "Hit the ball!",
+   "hl": "Hit",
+   "zh": "擊球！",
+   "audio": "st/s/hit"
+  },
+  "w405": {
+   "word": "hold",
+   "en": "Hold my hand, please.",
+   "hl": "Hold",
+   "zh": "請牽著我的手。",
+   "audio": "st/s/hold"
+  },
+  "w406": {
+   "word": "know",
+   "en": "I know the answer!",
+   "hl": "know",
+   "zh": "我知道答案！",
+   "audio": "st/s/know"
+  },
+  "w407": {
+   "word": "let's",
+   "en": "Let's go!",
+   "hl": "Let's",
+   "zh": "我們走吧！",
+   "audio": "st/s/let_s"
+  },
+  "w408": {
+   "word": "make",
+   "en": "Let's make a cake!",
+   "hl": "make",
+   "zh": "我們來做蛋糕吧！",
+   "audio": "st/s/make"
+  },
+  "w409": {
+   "word": "put",
+   "en": "Put your bag on the chair.",
+   "hl": "Put",
+   "zh": "把你的包包放在椅子上。",
+   "audio": "st/s/put"
+  },
+  "w410": {
+   "word": "say",
+   "en": "Say 'hello' to your teacher.",
+   "hl": "Say",
+   "zh": "跟你的老師說「哈囉」。",
+   "audio": "st/s/say"
+  },
+  "w411": {
+   "word": "see",
+   "en": "I can see a bird.",
+   "hl": "see",
+   "zh": "我看到一隻鳥。",
+   "audio": "st/s/see"
+  },
+  "w412": {
+   "word": "a",
+   "en": "I've got a cat.",
+   "hl": "a",
+   "zh": "我有一隻貓。",
+   "audio": "st/s/a"
+  },
+  "w413": {
+   "word": "a lot of",
+   "en": "There are a lot of books here.",
+   "hl": "a lot of",
+   "zh": "這裡有很多書。",
+   "audio": "st/s/a_lot_of"
+  },
+  "w414": {
+   "word": "an",
+   "en": "Look! It's an elephant.",
+   "hl": "an",
+   "zh": "看！是一頭大象。",
+   "audio": "st/s/an"
+  },
+  "w415": {
+   "word": "lots of",
+   "en": "I've got lots of friends.",
+   "hl": "lots of",
+   "zh": "我有很多朋友。",
+   "audio": "st/s/lots_of"
+  },
+  "w416": {
+   "word": "many",
+   "en": "There are many birds in the tree.",
+   "hl": "many",
+   "zh": "樹上有很多鳥。",
+   "audio": "st/s/many"
+  },
+  "w417": {
+   "word": "no",
+   "en": "No, thank you.",
+   "hl": "No",
+   "zh": "不用了，謝謝。",
+   "audio": "st/s/no"
+  },
+  "w418": {
+   "word": "one",
+   "en": "I've got one sister.",
+   "hl": "one",
+   "zh": "我有一個姊姊。",
+   "audio": "st/s/one"
+  },
+  "w419": {
+   "word": "some",
+   "en": "I want some grapes.",
+   "hl": "some",
+   "zh": "我想要一些葡萄。",
+   "audio": "st/s/some"
+  },
+  "w420": {
+   "word": "that",
+   "en": "Is that your bag?",
+   "hl": "that",
+   "zh": "那是你的包包嗎？",
+   "audio": "st/s/that"
+  },
+  "w421": {
+   "word": "these",
+   "en": "These are my books.",
+   "hl": "These",
+   "zh": "這些是我的書。",
+   "audio": "st/s/these"
+  },
+  "w422": {
+   "word": "this",
+   "en": "This is my friend, Tom.",
+   "hl": "This",
+   "zh": "這是我的朋友湯姆。",
+   "audio": "st/s/this"
+  },
+  "w423": {
+   "word": "those",
+   "en": "Those shoes are very nice.",
+   "hl": "Those",
+   "zh": "那雙鞋子很好看。",
+   "audio": "st/s/those"
+  },
+  "w424": {
+   "word": "again",
+   "en": "Let's play that game again!",
+   "hl": "again",
+   "zh": "我們再玩一次那個遊戲吧！",
+   "audio": "st/s/again"
+  },
+  "w425": {
+   "word": "a lot",
+   "en": "I like dogs a lot.",
+   "hl": "a lot",
+   "zh": "我很喜歡狗。",
+   "audio": "st/s/a_lot"
+  },
+  "w426": {
+   "word": "lots",
+   "en": "How many shells have you got? Lots!",
+   "hl": "Lots",
+   "zh": "你有幾個貝殼？很多！",
+   "audio": "st/s/lots"
+  },
+  "w427": {
+   "word": "not",
+   "en": "I'm not tired.",
+   "hl": "not",
+   "zh": "我不累。",
+   "audio": "st/s/not"
+  },
+  "w428": {
+   "word": "now",
+   "en": "Stop that now!",
+   "hl": "now",
+   "zh": "現在停下來！",
+   "audio": "st/s/now"
+  },
+  "w429": {
+   "word": "really",
+   "en": "I really like your drawing.",
+   "hl": "really",
+   "zh": "我真的很喜歡你的畫。",
+   "audio": "st/s/really"
+  },
+  "w430": {
+   "word": "too",
+   "en": "This T-shirt is too small.",
+   "hl": "too",
+   "zh": "這件 T 恤太小了。",
+   "audio": "st/s/too"
+  },
+  "w431": {
+   "word": "very",
+   "en": "I'm very happy today.",
+   "hl": "very",
+   "zh": "我今天非常開心。",
+   "audio": "st/s/very"
+  },
+  "w432": {
+   "word": "yes",
+   "en": "Yes, I can!",
+   "hl": "Yes",
+   "zh": "是的，我可以！",
+   "audio": "st/s/yes"
+  },
+  "w433": {
+   "word": "about",
+   "en": "This book is about a monkey.",
+   "hl": "about",
+   "zh": "這本書是關於一隻猴子的。",
+   "audio": "st/s/about"
+  },
+  "w434": {
+   "word": "for",
+   "en": "This cake is for you.",
+   "hl": "for",
+   "zh": "這個蛋糕是給你的。",
+   "audio": "st/s/for"
+  },
+  "w435": {
+   "word": "from",
+   "en": "Where are you from?",
+   "hl": "from",
+   "zh": "你從哪裡來？",
+   "audio": "st/s/from"
+  },
+  "w436": {
+   "word": "next to",
+   "en": "Sit next to me.",
+   "hl": "next to",
+   "zh": "坐我旁邊。",
+   "audio": "st/s/next_to",
+   "pic": "The ball is next to the box.",
+   "pzh": "球在箱子旁邊。",
+   "paudio": "st/p/next_to",
+   "pfalse": "The ball is on the box.",
+   "pfaudio": "st/q/next_to"
+  },
+  "w437": {
+   "word": "of",
+   "en": "Here's a photo of my family.",
+   "hl": "of",
+   "zh": "這是我家人的照片。",
+   "audio": "st/s/of"
+  },
+  "w438": {
+   "word": "to",
+   "en": "I go to the park with my dad.",
+   "hl": "to",
+   "zh": "我和爸爸去公園。",
+   "audio": "st/s/to"
+  },
+  "w439": {
+   "word": "with",
+   "en": "Come with me!",
+   "hl": "with",
+   "zh": "跟我來！",
+   "audio": "st/s/with"
+  },
+  "w440": {
+   "word": "and",
+   "en": "I like cats and dogs.",
+   "hl": "and",
+   "zh": "我喜歡貓和狗。",
+   "audio": "st/s/and"
+  },
+  "w441": {
+   "word": "but",
+   "en": "I like apples, but I don't like pears.",
+   "hl": "but",
+   "zh": "我喜歡蘋果，但是我不喜歡梨子。",
+   "audio": "st/s/but"
+  },
+  "w442": {
+   "word": "or",
+   "en": "Do you want juice or milk?",
+   "hl": "or",
+   "zh": "你要果汁還是牛奶？",
+   "audio": "st/s/or"
+  },
+  "w443": {
+   "word": "he",
+   "en": "This is Ben. He is my friend.",
+   "hl": "He",
+   "zh": "這是班，他是我的朋友。",
+   "audio": "st/s/he"
+  },
+  "w444": {
+   "word": "her",
+   "en": "That's Lucy and her cat.",
+   "hl": "her",
+   "zh": "那是露西和她的貓。",
+   "audio": "st/s/her"
+  },
+  "w445": {
+   "word": "hers",
+   "en": "That bag isn't mine. It's hers.",
+   "hl": "hers",
+   "zh": "那個包包不是我的，是她的。",
+   "audio": "st/s/hers"
+  },
+  "w446": {
+   "word": "him",
+   "en": "Give the ball to him.",
+   "hl": "him",
+   "zh": "把球給他。",
+   "audio": "st/s/him"
+  },
+  "w447": {
+   "word": "his",
+   "en": "Tom is playing with his dog.",
+   "hl": "his",
+   "zh": "湯姆在跟他的狗玩。",
+   "audio": "st/s/his"
+  },
+  "w448": {
+   "word": "I",
+   "en": "I'm eight years old.",
+   "hl": "I",
+   "zh": "我八歲。",
+   "audio": "st/s/i"
+  },
+  "w449": {
+   "word": "it",
+   "en": "Where's my pen? I can't find it.",
+   "hl": "it",
+   "zh": "我的筆在哪裡？我找不到它。",
+   "audio": "st/s/it"
+  },
+  "w450": {
+   "word": "its",
+   "en": "The dog is eating its dinner.",
+   "hl": "its",
+   "zh": "小狗在吃牠的晚餐。",
+   "audio": "st/s/its"
+  },
+  "w451": {
+   "word": "me",
+   "en": "Look at me!",
+   "hl": "me",
+   "zh": "看我！",
+   "audio": "st/s/me"
+  },
+  "w452": {
+   "word": "mine",
+   "en": "This book is mine.",
+   "hl": "mine",
+   "zh": "這本書是我的。",
+   "audio": "st/s/mine"
+  },
+  "w453": {
+   "word": "ours",
+   "en": "That house is ours.",
+   "hl": "ours",
+   "zh": "那間房子是我們的。",
+   "audio": "st/s/ours"
+  },
+  "w454": {
+   "word": "she",
+   "en": "This is my sister. She is seven.",
+   "hl": "She",
+   "zh": "這是我妹妹，她七歲。",
+   "audio": "st/s/she"
+  },
+  "w455": {
+   "word": "theirs",
+   "en": "Those bikes are theirs.",
+   "hl": "theirs",
+   "zh": "那些腳踏車是他們的。",
+   "audio": "st/s/theirs"
+  },
+  "w456": {
+   "word": "them",
+   "en": "I've got two cats. I love them!",
+   "hl": "them",
+   "zh": "我有兩隻貓，我好愛牠們！",
+   "audio": "st/s/them"
+  },
+  "w457": {
+   "word": "they",
+   "en": "Where are Sam and Pat? They are in the garden.",
+   "hl": "They",
+   "zh": "山姆和派特在哪裡？他們在花園裡。",
+   "audio": "st/s/they"
+  },
+  "w458": {
+   "word": "us",
+   "en": "Please play with us!",
+   "hl": "us",
+   "zh": "請跟我們一起玩！",
+   "audio": "st/s/us"
+  },
+  "w459": {
+   "word": "we",
+   "en": "We are classmates.",
+   "hl": "We",
+   "zh": "我們是同學。",
+   "audio": "st/s/we"
+  },
+  "w460": {
+   "word": "you",
+   "en": "Thank you!",
+   "hl": "you",
+   "zh": "謝謝你！",
+   "audio": "st/s/you"
+  },
+  "w461": {
+   "word": "yours",
+   "en": "Is this pencil yours?",
+   "hl": "yours",
+   "zh": "這支鉛筆是你的嗎？",
+   "audio": "st/s/yours"
+  },
+  "w462": {
+   "word": "how",
+   "en": "How are you?",
+   "hl": "How",
+   "zh": "你好嗎？",
+   "audio": "st/s/how"
+  },
+  "w463": {
+   "word": "how many",
+   "en": "How many brothers have you got?",
+   "hl": "How many",
+   "zh": "你有幾個兄弟？",
+   "audio": "st/s/how_many"
+  },
+  "w464": {
+   "word": "how old",
+   "en": "How old are you?",
+   "hl": "How old",
+   "zh": "你幾歲？",
+   "audio": "st/s/how_old"
+  },
+  "w465": {
+   "word": "pardon",
+   "en": "Pardon? Can you say that again, please?",
+   "hl": "Pardon",
+   "zh": "什麼？可以請你再說一次嗎？",
+   "audio": "st/s/pardon"
+  },
+  "w466": {
+   "word": "what",
+   "en": "What is this?",
+   "hl": "What",
+   "zh": "這是什麼？",
+   "audio": "st/s/what"
+  },
+  "w467": {
+   "word": "where",
+   "en": "Where is my bag?",
+   "hl": "Where",
+   "zh": "我的包包在哪裡？",
+   "audio": "st/s/where"
+  },
+  "w468": {
+   "word": "which",
+   "en": "Which ice cream do you want?",
+   "hl": "Which",
+   "zh": "你想要哪一種冰淇淋？",
+   "audio": "st/s/which"
+  },
+  "w469": {
+   "word": "who",
+   "en": "Who is that girl?",
+   "hl": "Who",
+   "zh": "那個女孩是誰？",
+   "audio": "st/s/who"
+  },
+  "w470": {
+   "word": "whose",
+   "en": "Whose book is this?",
+   "hl": "Whose",
+   "zh": "這是誰的書？",
+   "audio": "st/s/whose"
+  }
+ }
+}

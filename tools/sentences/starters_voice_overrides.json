@@ -1,0 +1,110 @@
+{
+ "uk/st/p/burger": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/p/glasses": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/p/kiwi": [
+  "bm_lewis",
+  0.95
+ ],
+ "uk/st/p/shorts": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/p/tree": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/p/trousers": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/p/under": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/q/door": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/q/eye": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/q/shoe": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/q/under": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/badminton": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/board_game": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/boots": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/fine": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/him": [
+  "bm_lewis",
+  0.95
+ ],
+ "uk/st/s/living_room": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/meat": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/mouse_computer": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/no": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/point": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/polar_bear": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/rice": [
+  "bm_lewis",
+  0.95
+ ],
+ "uk/st/s/they": [
+  "bm_george",
+  0.95
+ ],
+ "uk/st/s/you": [
+  "bm_george",
+  0.95
+ ],
+ "us/st/q/boots": [
+  "af_heart",
+  0.85
+ ],
+ "us/st/s/they": [
+  "af_heart",
+  0.85
+ ]
+}
