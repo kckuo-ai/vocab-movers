@@ -135,6 +135,21 @@ input{font-family:inherit;}
 .chestBtn.ready{background:linear-gradient(135deg,#FFB703,#FB8500);color:#fff;box-shadow:0 8px 18px rgba(251,133,0,.35);animation:chestWiggle 1.6s ease-in-out infinite;}
 .chestBtn.opened{background:#FFF4DA;color:#B7791F;}
 .chestBtn .cEmo{font-size:28px;}
+.seriesWrap{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.seriesRow{background:#fff;border-radius:14px;padding:10px 10px 8px;border:1.5px solid transparent;}
+.seriesRow.active{border-color:#FFB703;}
+.seriesHead{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13.5px;margin-bottom:6px;}
+.seriesHead span:last-child{color:var(--sub);font-size:12.5px;}
+.nowTag{margin-left:6px;font-size:11px;background:#FFF4DA;color:#B7791F;padding:2px 7px;border-radius:999px;}
+.medal{margin-right:4px;display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#E9F7EF;font-size:13px;}
+.medal.gold{background:linear-gradient(135deg,#FFE27A,#F4B400);box-shadow:0 0 0 1.5px #E0A100;}
+.stkGrid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;}
+.stkCell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;background:#F6F8FC;}
+.stkCell.empty .stk{filter:grayscale(1);opacity:.22;}
+.stkCell.shinyCell{background:linear-gradient(135deg,#FFF6CC,#FFE08A);box-shadow:inset 0 0 0 1.5px #F4B400;}
+.stk{display:inline-block;line-height:1;}
+.stk.shiny{filter:drop-shadow(0 0 3px rgba(244,180,0,.9)) saturate(1.3);animation:shine 2.4s ease-in-out infinite;}
+@keyframes shine{0%,100%{filter:drop-shadow(0 0 2px rgba(244,180,0,.7)) saturate(1.2)}50%{filter:drop-shadow(0 0 6px rgba(255,214,10,1)) saturate(1.5) brightness(1.08)}}
 @keyframes chestWiggle{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-4deg)}82%{transform:rotate(4deg)}88%{transform:rotate(-3deg)}94%{transform:rotate(2deg)}}
 /* ---------- theme + lively motion ---------- */
 .header{background:linear-gradient(135deg,var(--hdrA) 0%,var(--hdrB) 100%);box-shadow:0 8px 24px var(--hdrShadow);overflow:hidden;}
@@ -1671,8 +1686,20 @@ const MISSIONS = [
   { key: "tf", label: "對或錯", emoji: "✅", goal: 5, unit: "題", go: "setTab('tf')" },
   { key: "spell", label: "拼字", emoji: "✏️", goal: 5, unit: "題", go: "setTab('spell')" },
 ];
-const TREASURES = ["🦄", "🐉", "🦖", "🐙", "🦊", "🐼", "🐧", "🦁", "🐯", "🐨", "🦋", "🐬", "🦜", "🐢", "🦔", "🐸",
-  "🚀", "🛸", "🎈", "🎸", "🏰", "🌈", "🍩", "🍦", "🧁", "🍉", "⚽", "🏀", "🎨", "👑", "💎", "🪐"];
+/* Stickers come in series of 8, collected in order: the chest only gives
+   stickers from the first unfinished series, and finishing a series earns its
+   medal. When every series is complete, the chest starts giving the golden
+   "shiny" versions, again series by series. Every sticker of the first
+   version (32 stickers, no series) is in a series here, so stickers already
+   collected simply count towards their series. */
+const TREASURE_SERIES = [
+  { key: "zoo", name: "動物園", medal: "🦁", items: ["🦁", "🐯", "🐼", "🐨", "🦊", "🦔", "🐸", "🐧"] },
+  { key: "sea", name: "海洋與天空", medal: "🐳", items: ["🐙", "🐬", "🐢", "🦋", "🦜", "🐳", "🦈", "🦉"] },
+  { key: "magic", name: "奇幻太空", medal: "🚀", items: ["🦄", "🐉", "🦖", "🚀", "🛸", "🪐", "🌈", "🏰"] },
+  { key: "sweet", name: "甜點派對", medal: "🧁", items: ["🍩", "🍦", "🧁", "🍉", "🎈", "🍭", "🍰", "🍓"] },
+  { key: "play", name: "才藝運動", medal: "⚽", items: ["⚽", "🏀", "🎨", "🎸", "👑", "💎", "🎹", "🛹"] },
+];
+const TREASURES = TREASURE_SERIES.flatMap((se) => se.items);
 function todayMission() {
   const m = STATE.daily.mission;
   if (m && m.date === todayStr()) return m;
@@ -1692,19 +1719,57 @@ function bumpMission(kind) {
   if (before >= ms.goal || m[kind] < ms.goal) return "";
   return missionsAllDone(m) ? "🎁 三個任務都完成了！回首頁打開寶箱吧！" : `✅ 「${ms.label}」任務完成！`;
 }
+// which stickers are owned, as "emoji" (normal) and "emoji*" (shiny) keys
+function treasureOwned() {
+  const set = new Set();
+  (STATE.daily.treasures || []).forEach((t) => set.add(t.s ? t.e + "*" : t.e));
+  return set;
+}
+function seriesCount(se, owned, shiny) { return se.items.filter((e) => owned.has(shiny ? e + "*" : e)).length; }
+// the series the chest is currently filling: { se, shiny } or null when everything is collected
+function activeSeries(owned) {
+  for (const shiny of [false, true]) {
+    for (const se of TREASURE_SERIES) if (seriesCount(se, owned, shiny) < se.items.length) return { se, shiny };
+  }
+  return null;
+}
 function openChest() {
   const m = { ...todayMission() };
   if (!missionsAllDone(m) || m.chest) return;
-  const owned = (STATE.daily.treasures || []).map((t) => t.e);
-  const fresh = TREASURES.filter((e) => !owned.includes(e));
-  const pick = (fresh.length ? fresh : TREASURES)[Math.floor(Math.random() * (fresh.length || TREASURES.length))];
+  const owned = treasureOwned();
+  const act = activeSeries(owned);
+  let pick, shiny, msg;
+  if (act) {
+    shiny = act.shiny;
+    const fresh = act.se.items.filter((e) => !owned.has(shiny ? e + "*" : e));
+    pick = fresh[Math.floor(Math.random() * fresh.length)];
+    const nowCount = seriesCount(act.se, owned, shiny) + 1;
+    if (nowCount >= act.se.items.length) {
+      const next = activeSeries(new Set([...owned, shiny ? pick + "*" : pick]));
+      msg = `🏆 集滿「${shiny ? "閃亮" : ""}${act.se.name}」，得到${shiny ? "金色" : ""}獎章！` +
+        (!next ? "　全部集滿了，你太厲害了！" : next.shiny && !shiny ? "　接下來開始收集 ✨閃亮版！" : "");
+    } else {
+      msg = `${pick} ${shiny ? "✨閃亮版！" : "新貼紙！"}「${act.se.name}」${nowCount} / ${act.se.items.length}`;
+    }
+  } else {
+    // everything (including all shiny ones) collected: a shiny repeat
+    shiny = true;
+    pick = TREASURES[Math.floor(Math.random() * TREASURES.length)];
+    msg = `${pick} 又拿到一張閃亮貼紙！`;
+  }
   m.chest = pick;
-  STATE.daily = { ...STATE.daily, mission: m, treasures: [...(STATE.daily.treasures || []), { d: todayStr(), e: pick }] };
+  m.chestShiny = !!shiny;
+  const entry = { d: todayStr(), e: pick };
+  if (shiny) entry.s = 1;
+  STATE.daily = { ...STATE.daily, mission: m, treasures: [...(STATE.daily.treasures || []), entry] };
   saveDaily();
   fxChest();
   render();
   celebrate(`${pick} 寶箱打開了！`);
-  showToast(fresh.length ? `${pick} 收集到新的寶箱貼紙！` : `${pick} 又拿到一張！`);
+  showToast(msg);
+}
+function stickerHtml(e, shiny, size) {
+  return `<span class="stk${shiny ? " shiny" : ""}" style="font-size:${size || 28}px;">${e}</span>`;
 }
 function missionCardHtml() {
   const m = todayMission();
@@ -1722,9 +1787,10 @@ function missionCardHtml() {
     </button>`;
   }).join("");
   let chest;
-  if (m.chest) chest = `<div class="chestBtn opened"><span class="cEmo">${m.chest}</span>今天的寶箱貼紙！明天再來開新的</div>`;
+  const act = activeSeries(treasureOwned());
+  if (m.chest) chest = `<div class="chestBtn opened">${stickerHtml(m.chest, m.chestShiny, 28)}今天的${m.chestShiny ? "閃亮" : ""}貼紙！明天再來開新的</div>`;
   else if (doneN === MISSIONS.length) chest = `<button class="chestBtn ready" onclick="openChest()"><span class="cEmo">🎁</span>打開寶箱！</button>`;
-  else chest = `<div class="chestBtn locked"><span class="cEmo">🎁</span>完成三個任務就能開寶箱</div>`;
+  else chest = `<div class="chestBtn locked"><span class="cEmo">🎁</span><span>完成三個任務就能開寶箱${act ? `<br><span style="font-size:12.5px;">正在收集：${act.shiny ? "✨閃亮" : ""}${act.se.name} ${seriesCount(act.se, treasureOwned(), act.shiny)}/${act.se.items.length}</span>` : ""}</span></div>`;
   return `<div class="missionCard">
     <div class="mHead"><span>🗺️ 今日任務</span><span>${doneN} / ${MISSIONS.length}</span></div>
     ${rows}
@@ -2135,13 +2201,29 @@ function heroCardHtml(stats, unit) {
   </div>`;
 }
 function treasureShelfHtml() {
-  const list = STATE.daily.treasures || [];
-  const kinds = Array.from(new Set(list.map((t) => t.e)));
-  return `<div class="sectionTitle">寶箱貼紙（${kinds.length} / ${TREASURES.length}）</div>
-    <div class="badgeGrid">
-      ${kinds.length ? kinds.map((e) => `<div class="badge"><div class="emo">${e}</div><div class="lbl">×${list.filter((t) => t.e === e).length}</div></div>`).join("")
-        : `<div class="badge locked"><div class="emo">🎁</div><div class="lbl">完成今日任務開寶箱</div></div>`}
+  const owned = treasureOwned();
+  const act = activeSeries(owned);
+  const shinyStarted = !act || act.shiny;
+  const total = TREASURES.length;
+  const normalN = TREASURES.filter((e) => owned.has(e)).length;
+  const shinyN = TREASURES.filter((e) => owned.has(e + "*")).length;
+  const rows = TREASURE_SERIES.map((se) => {
+    const n = seriesCount(se, owned, false), sn = seriesCount(se, owned, true);
+    const done = n === se.items.length, sdone = sn === se.items.length;
+    const isAct = act && act.se.key === se.key;
+    const medal = sdone ? `<span class="medal gold">${se.medal}</span>` : done ? `<span class="medal">${se.medal}</span>` : "";
+    return `<div class="seriesRow${isAct ? " active" : ""}">
+      <div class="seriesHead"><span>${medal}${se.name}${isAct ? `<span class="nowTag">${act.shiny ? "✨閃亮收集中" : "收集中"}</span>` : ""}</span>
+        <span>${shinyStarted ? `✨ ${sn}/8` : `${n}/8`}</span></div>
+      <div class="stkGrid">${se.items.map((e) => {
+        const has = owned.has(e), hasS = owned.has(e + "*");
+        return `<div class="stkCell${has ? "" : " empty"}${hasS ? " shinyCell" : ""}">${stickerHtml(e, hasS, 24)}</div>`;
+      }).join("")}</div>
     </div>`;
+  }).join("");
+  return `<div class="sectionTitle">寶箱貼紙（${normalN} / ${total}${shinyStarted ? `　✨閃亮 ${shinyN} / ${total}` : ""}）</div>
+    ${normalN === 0 ? `<div style="font-size:13px;color:var(--sub);margin:-4px 0 10px;">每天完成三個任務就能開一個寶箱，8 張集滿一套得到獎章！</div>` : ""}
+    <div class="seriesWrap">${rows}</div>`;
 }
 function progressFoldHtml(stats, groupsHtml) {
   const open = STATE.showProgress;
