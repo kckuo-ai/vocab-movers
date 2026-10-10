@@ -11,7 +11,7 @@ Cambridge YLE（Starters / Movers / Flyers）、A2 Key（KET）、B1 Preliminary
 
 ## 例句（Movers 試做）
 
-`data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，「對或錯」遊戲則用另外寫的看圖說話句：`pic` 只描述圖裡畫的東西（顏色、數量、動作），`pfalse` 是同一張圖但改掉一個細節的錯誤句，音檔分別在 `audio/*/p`、`audio/*/q`；可選「讀句子」或「聽句子」（文字隱藏，練聽力），答完再顯示例句。整句發音在 `audio/uk/s`、`audio/us/s`，用 Kokoro-82M 產生：英式主要為 Fable（`bm_fable`，少數句子用 George 或 Lewis），美式為 Heart（`af_heart`），語速 0.95；發音標註用 Kokoro 官方的 misaki（Apache-2.0，依詞性分辨 lives 這類同形字），過長的停頓會縮短，再以 Whisper small.en 逐句檢查。
+`data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，「對或錯」遊戲則用另外寫的看圖說話句：`pic` 只描述圖裡畫的東西（顏色、數量、動作），`pfalse` 是同一張圖但改掉一個細節的錯誤句，音檔分別在 `audio/*/p`、`audio/*/q`；可選「讀句子」或「聽句子」（文字隱藏，練聽力），答完再顯示例句。整句發音在 `audio/uk/s`、`audio/us/s`，用 Kokoro-82M 產生：英式主要為 Fable（`bm_fable`，少數句子用 George 或 Lewis），美式為 Heart（`af_heart`），語速 0.95；發音標註用 Kokoro 官方的 misaki（Apache-2.0，依詞性分辨 lives 這類同形字），過長的停頓會縮短，再以 Whisper small.en 逐句檢查。由兩句組成的例句（如 fine、hungry、wait），美式音檔是每句分開產生再接起來，中間停頓約 0.35 秒，避免問句語調不自然；英式維持整句產生。
 
 ## 單字來源
 
