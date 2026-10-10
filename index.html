@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="img/app-icon-180.png" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="theme-color" content="#4361EE" />
 <title>Movers 單字護照</title>
@@ -236,6 +238,9 @@ button.stkCell{padding:3px;}
 .seg button{flex:1;padding:11px 0;border-radius:9px;font-weight:800;font-size:14.5px;color:#5B6779;}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(35,48,71,.12);}
 .segNote{font-size:12px;color:var(--sub);margin:7px 2px 0;line-height:1.5;}
+.offBtn{display:block;width:100%;min-height:48px;margin-top:8px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;font-size:15px;}
+.offBtn.ghost{background:#EEF1F7;color:var(--ink);}
+.offLink{display:block;margin:8px 2px 0;font-size:12.5px;font-weight:700;color:#B3223F;min-height:32px;}
 .appLink{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;margin-bottom:8px;}
 .appLink span{color:var(--sub);}
 .sheetLabel{font-size:13px;font-weight:800;color:var(--sub);margin:18px 2px 8px;}
@@ -2196,7 +2201,153 @@ function backupHtml() {
   </div>`;
 }
 function toggleSettings() { STATE.showSettings = !STATE.showSettings; STATE.backup = null; render(); }
-function setAccent(a) { if (ACCENT !== a) toggleAccent(); }
+function setAccent(a) { if (ACCENT !== a) { OFFLINE.have = null; toggleAccent(); } }
+/* ============================================================
+   OFFLINE USE (PWA) — 設定 → 離線使用
+   The page builds the list of files it needs (this page, its sentence
+   data, every picture, and the word + sentence sounds for the chosen accent)
+   and stores them with the Cache API; sw.js then answers from that cache when
+   there is no network. Nothing is stored until the button is pressed.
+   ============================================================ */
+const OFFLINE_CACHE = "yle-offline-v1"; // must match sw.js
+const OFFLINE_OK = "serviceWorker" in navigator && "caches" in window && (location.protocol === "https:" || location.hostname === "localhost");
+let OFFLINE = { phase: "idle", have: null, total: null, done: 0, failed: 0, bytes: 0, accent: null, usage: null };
+if (OFFLINE_OK) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch((e) => dbg(`離線功能註冊失敗: ${e && e.message}`)); });
+}
+function offlineWordAudio(acc) {
+  const set = new Set();
+  const add = (text) => {
+    const multi = spokenForms(text).length > 1;
+    const base = multi ? spokenText(text) : canonicalWord(text);
+    set.add(`audio/${acc}/${generatedSlug(base)}.mp3`);
+  };
+  WORDS.forEach((w) => { add(w.en); expandForTest([w]).forEach((x) => add(x.en)); });
+  TREASURES.forEach((e) => add(stickerInfo(e).en));
+  return set;
+}
+function offlineFiles(acc) {
+  const page = location.pathname.split("/").pop() || "index.html";
+  const files = new Set([page, "manifest.webmanifest", "img/app-icon-180.png", "img/app-icon-512.png", SENT_URL]);
+  Object.values(IMG).forEach((k) => files.add(`img/${k}.svg`));
+  TREASURES.forEach((e) => files.add(stickerInfo(e).img));
+  offlineWordAudio(acc).forEach((f) => files.add(f));
+  Object.values(SENT).forEach((x) => ["audio", "paudio", "pfaudio"].forEach((k) => { if (x[k]) files.add(`audio/${acc}/${x[k]}.mp3`); }));
+  return Array.from(files);
+}
+function offlineAbs(f) { return new URL(f, location.href).href; }
+// files the site does not have (a word with no pre-made sound uses the device voice);
+// remembered so they don't keep the status at "not complete"
+const OFFLINE_MISSING_KEY = "yle-offline-missing-v1";
+function offlineMissing() { try { return new Set(JSON.parse(localStorage.getItem(OFFLINE_MISSING_KEY) || "[]")); } catch (e) { return new Set(); } }
+function offlineSaveMissing(set) { try { localStorage.setItem(OFFLINE_MISSING_KEY, JSON.stringify(Array.from(set))); } catch (e) {} }
+async function offlineCheck() {
+  if (!OFFLINE_OK || SENT_STATE === "loading") return;
+  try {
+    const acc = ACCENT === "uk" ? "uk" : "us";
+    const cache = await caches.open(OFFLINE_CACHE);
+    const keys = new Set((await cache.keys()).map((r) => r.url));
+    const missing = offlineMissing();
+    const list = offlineFiles(acc).filter((f) => !missing.has(f));
+    OFFLINE.total = list.length;
+    OFFLINE.have = list.filter((f) => keys.has(offlineAbs(f))).length;
+    OFFLINE.accent = acc;
+    if (navigator.storage && navigator.storage.estimate) {
+      const est = await navigator.storage.estimate();
+      OFFLINE.usage = est.usage || null;
+    }
+  } catch (e) { dbg(`離線狀態讀取失敗: ${e && e.message}`); }
+  offlineRefreshUi();
+}
+async function offlineDownload(refreshAll) {
+  if (!OFFLINE_OK || OFFLINE.phase === "running") return;
+  if (SENT_STATE === "loading") { showToast("資料還在載入，請稍候再按"); return; }
+  const acc = ACCENT === "uk" ? "uk" : "us";
+  OFFLINE = { ...OFFLINE, phase: "running", done: 0, failed: 0, bytes: 0, accent: acc };
+  offlineRefreshUi();
+  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
+  try {
+    const cache = await caches.open(OFFLINE_CACHE);
+    const keys = new Set((await cache.keys()).map((r) => r.url));
+    const missing = offlineMissing();
+    const todo = offlineFiles(acc).filter((f) => (refreshAll || !keys.has(offlineAbs(f))) && !missing.has(f));
+    OFFLINE.total = todo.length;
+    let next = 0;
+    const worker = async () => {
+      while (next < todo.length && OFFLINE.phase === "running") {
+        const f = todo[next++];
+        try {
+          const res = await fetch(f, { cache: "no-cache" });
+          if (res.ok && res.status === 200) {
+            const len = Number(res.headers.get("content-length")) || 0;
+            await cache.put(offlineAbs(f), res);
+            OFFLINE.bytes += len;
+          } else if (res.status === 404) {
+            missing.add(f); // a word without a pre-made sound simply uses the device voice
+          } else {
+            OFFLINE.failed++;
+          }
+        } catch (e) { OFFLINE.failed++; }
+        OFFLINE.done++;
+        if (OFFLINE.done % 20 === 0) offlineRefreshUi();
+      }
+    };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+    offlineSaveMissing(missing);
+    const stopped = OFFLINE.phase !== "running";
+    OFFLINE.phase = stopped ? "idle" : OFFLINE.failed ? "partial" : "done";
+    if (!stopped) showToast(OFFLINE.failed ? `下載完成，但有 ${OFFLINE.failed} 個檔案失敗，可以再按一次補下載` : "✅ 已可離線使用！");
+  } catch (e) {
+    OFFLINE.phase = "error";
+    dbg(`離線下載失敗: ${e && e.message}`);
+    showToast(/quota/i.test(String(e && e.name)) ? "手機空間不足，無法下載" : "下載失敗，請確認網路後再試一次");
+  }
+  await offlineCheck();
+}
+function offlineStop() { if (OFFLINE.phase === "running") OFFLINE.phase = "idle"; }
+async function offlineClear() {
+  if (!confirm("確定要刪除這台裝置上所有等級的離線資料嗎？（練習進度不會被刪除）")) return;
+  try { await caches.delete(OFFLINE_CACHE); } catch (e) {}
+  OFFLINE = { ...OFFLINE, phase: "idle", have: 0 };
+  showToast("已刪除離線資料");
+  offlineCheck();
+}
+function fmtMB(b) { return b ? `${(b / 1048576).toFixed(b > 10485760 ? 0 : 1)} MB` : ""; }
+function offlineRefreshUi() {
+  const el = document.getElementById("offlineBox");
+  if (el) el.innerHTML = offlineInnerHtml();
+}
+function offlineInnerHtml() {
+  const o = OFFLINE;
+  const accName = (o.accent || ACCENT) === "uk" ? "英式" : "美式";
+  const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches);
+  let status, btn = "";
+  if (o.phase === "running") {
+    const pct = o.total ? Math.round((o.done / o.total) * 100) : 0;
+    status = `下載中…${o.done} / ${o.total}（${pct}%）${o.bytes ? " · " + fmtMB(o.bytes) : ""}`;
+    btn = `<div class="barTrack" style="margin:8px 0 10px;"><div class="barFill" style="width:${pct}%;background:var(--accent);"></div></div>
+      <button class="offBtn ghost" onclick="offlineStop()">暫停</button>`;
+  } else if (o.have === null) {
+    status = "檢查中…";
+  } else if (o.have >= o.total) {
+    status = `✅ 已下載，可以離線使用（${accName}發音，${o.total} 個檔案）`;
+    btn = `<button class="offBtn ghost" onclick="offlineDownload(true)">🔄 重新下載（更新內容）</button>`;
+  } else {
+    status = o.have ? `已下載 ${o.have} / ${o.total} 個檔案（${accName}發音）` : `尚未下載（${accName}發音，${o.total} 個檔案）`;
+    btn = `<button class="offBtn" onclick="offlineDownload()">⬇️ ${o.have ? "繼續下載" : "下載這個等級，離線使用"}</button>`;
+  }
+  return `<div class="segNote" style="margin-top:0;font-size:13px;color:var(--ink);font-weight:700;">${status}</div>
+    ${btn}
+    <div class="segNote">只下載目前選的口音；切換口音後要再下載一次。建議在 Wi-Fi 下載。${o.usage > 1048576 ? `這個網站目前在手機上用了 ${fmtMB(o.usage)}。` : ""}</div>
+    ${standalone ? "" : `<div class="segNote">📱 iPhone：在 Safari 按「分享」→「加入主畫面」，之後從主畫面的圖示開啟。主畫面 App 的進度和 Safari 分開，請先用下方「備份進度」匯出，再到主畫面 App 匯入。主畫面 App 要再按一次下載。</div>`}
+    ${o.have ? `<button class="offLink" onclick="offlineClear()">刪除離線資料</button>` : ""}`;
+}
+function offlineHtml() {
+  if (!OFFLINE_OK) return `<div class="sheetLabel">離線使用</div><div class="segNote">這個瀏覽器不支援離線使用。</div>`;
+  if (OFFLINE.have === null && OFFLINE.phase !== "running") setTimeout(offlineCheck, 0);
+  return `<div class="sheetLabel">離線使用（沒有網路也能練習）</div><div id="offlineBox">${offlineInnerHtml()}</div>`;
+}
+
 function settingsSheetHtml() {
   if (!STATE.showSettings) return "";
   return `<div class="sheetBg" onclick="toggleSettings()"><div class="sheet" onclick="event.stopPropagation()">
@@ -2232,6 +2383,7 @@ function settingsSheetHtml() {
     <a class="appLink" href="ket-vocab.html">🎒 KET · A2 Key <span>›</span></a>
     <a class="appLink" href="pet-vocab.html">🎓 PET · B1 Preliminary <span>›</span></a>
     <a class="appLink" href="phonics.html">🔤 自然發音 <span>›</span></a>
+    ${offlineHtml()}
     <div class="sheetLabel">備份進度</div>
     ${backupHtml()}
     <div style="margin-top:14px;">${creditsHtml()}</div>
