@@ -1561,10 +1561,10 @@
    "hl": "cloud",
    "zh": "那朵雲看起來像一隻兔子！",
    "audio": "s/cloud",
-   "pic": "There's one white cloud.",
-   "pzh": "有一朵白雲。",
+   "pic": "There's a white cloud in the blue sky.",
+   "pzh": "藍藍的天空中有一朵白雲。",
    "paudio": "p/cloud",
-   "pfalse": "There are three white clouds.",
+   "pfalse": "There's a black cloud in the blue sky.",
    "pfaudio": "q/cloud"
   },
   "w154": {
