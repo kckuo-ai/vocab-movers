@@ -9,9 +9,13 @@ Cambridge YLE（Starters / Movers / Flyers）、A2 Key（KET）、B1 Preliminary
 - PET（B1 Preliminary）：`pet-vocab.html`
 - 自然發音：`phonics.html`
 
-## 例句（Movers 試做）
+## 例句（Movers、Flyers）
 
 `data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，「對或錯」遊戲則用另外寫的看圖說話句：`pic` 只描述圖裡畫的東西（顏色、數量、動作），`pfalse` 是同一張圖但改掉一個細節的錯誤句，音檔分別在 `audio/*/p`、`audio/*/q`；可選「讀句子」或「聽句子」（文字隱藏，練聽力），答完再顯示例句。整句發音在 `audio/uk/s`、`audio/us/s`，用 Kokoro-82M 產生：英式主要為 Fable（`bm_fable`，少數句子用 George 或 Lewis），美式為 Heart（`af_heart`），語速 0.95；發音標註用 Kokoro 官方的 misaki（Apache-2.0，依詞性分辨 lives 這類同形字），過長的停頓會縮短，再以 Whisper small.en 逐句檢查。由兩句組成的例句（如 fine、hungry、wait），美式音檔是每句分開產生再接起來，中間停頓約 0.35 秒，避免問句語調不自然；英式維持整句產生。
+
+`data/flyers-sentences.json` 是 Flyers 的例句（478 句）與看圖句（167 句，其中 122 句附改掉一個細節的錯誤句），格式相同，句中只使用 Starters、Movers、Flyers 三級單字表裡的字（以 `tools/sentences/vocab_check.py` 檢查）；看圖句逐張對照 `img/` 裡的圖片撰寫。音檔放在 `audio/uk/flyers/`、`audio/us/flyers/`，聲音與設定同 Movers 例句（英式 Fable、美式 Heart，語速 0.95，misaki 標註發音；Fable 唸不清楚的 8 句英式改用 George 或 Lewis，列在 `data/flyers-sentences-voices.json`），由 `tools/sentences/make_audio.py` 產生，再用 `tools/sentences/check_audio.py`（Whisper small.en）逐句檢查。
+
+Flyers 頁面（`flyers-vocab.html`）由 Movers 頁面為範本，以 `python3 tools/levels/port_level.py flyers` 產生：保留 Flyers 自己的單字、圖片、顏色與進度儲存位置，其餘功能與 Movers 相同。之後改了 Movers 頁面，重新執行這個指令即可同步到 Flyers。
 
 ## 單字來源
 

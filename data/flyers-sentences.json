@@ -1,0 +1,4098 @@
+{
+ "version": 1,
+ "level": "flyers",
+ "note": "Example sentences written for this project; vocabulary limited to the Cambridge Pre A1 Starters, A1 Movers and A2 Flyers wordlists. Audio: Kokoro-82M (Apache-2.0), voices bm_lewis (UK) / af_heart (US).",
+ "sentences": {
+  "w0": {
+   "word": "beetle",
+   "en": "A black beetle is walking on the leaf.",
+   "hl": "beetle",
+   "zh": "一隻黑色的甲蟲在葉子上走。",
+   "audio": "flyers/s/beetle",
+   "pic": "The beetle is green.",
+   "pzh": "這隻甲蟲是綠色的。",
+   "paudio": "flyers/p/beetle",
+   "pfalse": "The beetle is red.",
+   "pfaudio": "flyers/q/beetle"
+  },
+  "w1": {
+   "word": "butterfly",
+   "en": "The butterfly has got orange and black wings.",
+   "hl": "butterfly",
+   "zh": "這隻蝴蝶有橘色和黑色的翅膀。",
+   "audio": "flyers/s/butterfly",
+   "pic": "The butterfly has got blue wings.",
+   "pzh": "這隻蝴蝶有藍色的翅膀。",
+   "paudio": "flyers/p/butterfly",
+   "pfalse": "The butterfly has got yellow wings.",
+   "pfaudio": "flyers/q/butterfly"
+  },
+  "w2": {
+   "word": "camel",
+   "en": "The camel can walk across the desert for days.",
+   "hl": "camel",
+   "zh": "駱駝可以穿越沙漠走好幾天。",
+   "audio": "flyers/s/camel",
+   "pic": "This camel is standing.",
+   "pzh": "這隻駱駝站著。",
+   "paudio": "flyers/p/camel",
+   "pfalse": "This camel is sleeping.",
+   "pfaudio": "flyers/q/camel"
+  },
+  "w3": {
+   "word": "creature",
+   "en": "We found a strange creature in the pond.",
+   "hl": "creature",
+   "zh": "我們在池塘裡發現一隻奇怪的生物。",
+   "audio": "flyers/s/creature"
+  },
+  "w4": {
+   "word": "dinosaur",
+   "en": "This dinosaur was bigger than a bus!",
+   "hl": "dinosaur",
+   "zh": "這隻恐龍比公車還大！",
+   "audio": "flyers/s/dinosaur",
+   "pic": "The dinosaur is green.",
+   "pzh": "這隻恐龍是綠色的。",
+   "paudio": "flyers/p/dinosaur",
+   "pfalse": "The dinosaur is purple.",
+   "pfaudio": "flyers/q/dinosaur"
+  },
+  "w5": {
+   "word": "eagle",
+   "en": "The eagle is flying high above the mountains.",
+   "hl": "eagle",
+   "zh": "老鷹在高山上空飛翔。",
+   "audio": "flyers/s/eagle",
+   "pic": "The eagle is flying.",
+   "pzh": "老鷹正在飛。",
+   "paudio": "flyers/p/eagle",
+   "pfalse": "The eagle is swimming.",
+   "pfaudio": "flyers/q/eagle"
+  },
+  "w6": {
+   "word": "extinct",
+   "en": "Dinosaurs are extinct, so we can only see them in museums.",
+   "hl": "extinct",
+   "zh": "恐龍已經絕種了，所以我們只能在博物館看到牠們。",
+   "audio": "flyers/s/extinct"
+  },
+  "w7": {
+   "word": "fur",
+   "en": "My cat has got soft white fur.",
+   "hl": "fur",
+   "zh": "我的貓有柔軟的白色毛。",
+   "audio": "flyers/s/fur"
+  },
+  "w8": {
+   "word": "furry",
+   "en": "The rabbit is small and furry.",
+   "hl": "furry",
+   "zh": "這隻兔子小小的、毛茸茸的。",
+   "audio": "flyers/s/furry"
+  },
+  "w9": {
+   "word": "insect",
+   "en": "A bee is an insect with six legs.",
+   "hl": "insect",
+   "zh": "蜜蜂是有六隻腳的昆蟲。",
+   "audio": "flyers/s/insect",
+   "pic": "This insect is brown.",
+   "pzh": "這隻昆蟲是棕色的。",
+   "paudio": "flyers/p/insect",
+   "pfalse": "This insect is blue.",
+   "pfaudio": "flyers/q/insect"
+  },
+  "w10": {
+   "word": "nest",
+   "en": "There are three eggs in the bird's nest.",
+   "hl": "nest",
+   "zh": "鳥巢裡有三顆蛋。",
+   "audio": "flyers/s/nest",
+   "pic": "There are two eggs in the nest.",
+   "pzh": "鳥巢裡有兩顆蛋。",
+   "paudio": "flyers/p/nest",
+   "pfalse": "There are four eggs in the nest.",
+   "pfaudio": "flyers/q/nest"
+  },
+  "w11": {
+   "word": "octopus",
+   "en": "An octopus has got eight long arms.",
+   "hl": "octopus",
+   "zh": "章魚有八隻長長的腳。",
+   "audio": "flyers/s/octopus",
+   "pic": "The octopus is red.",
+   "pzh": "這隻章魚是紅色的。",
+   "paudio": "flyers/p/octopus",
+   "pfalse": "The octopus is green.",
+   "pfaudio": "flyers/q/octopus"
+  },
+  "w12": {
+   "word": "swan",
+   "en": "A white swan is swimming on the lake.",
+   "hl": "swan",
+   "zh": "一隻白天鵝在湖上游泳。",
+   "audio": "flyers/s/swan",
+   "pic": "The swan is white.",
+   "pzh": "這隻天鵝是白色的。",
+   "paudio": "flyers/p/swan",
+   "pfalse": "The swan is black.",
+   "pfaudio": "flyers/q/swan"
+  },
+  "w13": {
+   "word": "tortoise",
+   "en": "The tortoise is very old and very slow.",
+   "hl": "tortoise",
+   "zh": "這隻陸龜很老，走得很慢。",
+   "audio": "flyers/s/tortoise",
+   "pic": "The tortoise is green.",
+   "pzh": "這隻陸龜是綠色的。",
+   "paudio": "flyers/p/tortoise",
+   "pfalse": "The tortoise is pink.",
+   "pfaudio": "flyers/q/tortoise"
+  },
+  "w14": {
+   "word": "wild",
+   "en": "Lions and tigers are wild animals.",
+   "hl": "wild",
+   "zh": "獅子和老虎是野生動物。",
+   "audio": "flyers/s/wild"
+  },
+  "w15": {
+   "word": "wing",
+   "en": "The bird hurt its wing, so it can't fly.",
+   "hl": "wing",
+   "zh": "這隻鳥的翅膀受傷了，所以不能飛。",
+   "audio": "flyers/s/wing",
+   "pic": "This is a white wing.",
+   "pzh": "這是一隻白色的翅膀。",
+   "paudio": "flyers/p/wing",
+   "pfalse": "This is a black wing.",
+   "pfaudio": "flyers/q/wing"
+  },
+  "w16": {
+   "word": "elbow",
+   "en": "I fell off my bike and hurt my elbow.",
+   "hl": "elbow",
+   "zh": "我從腳踏車上摔下來，撞傷了手肘。",
+   "audio": "flyers/s/elbow"
+  },
+  "w17": {
+   "word": "finger",
+   "en": "She's wearing a ring on her finger.",
+   "hl": "finger",
+   "zh": "她的手指上戴著戒指。",
+   "audio": "flyers/s/finger",
+   "pic": "This is one finger.",
+   "pzh": "這是一根手指。",
+   "paudio": "flyers/p/finger",
+   "pfalse": "These are two fingers.",
+   "pfaudio": "flyers/q/finger"
+  },
+  "w18": {
+   "word": "knee",
+   "en": "He's got a bandage on his knee.",
+   "hl": "knee",
+   "zh": "他的膝蓋上包著繃帶。",
+   "audio": "flyers/s/knee"
+  },
+  "w19": {
+   "word": "toe",
+   "en": "The water is cold! I can feel it with my toes.",
+   "hl": "toes",
+   "zh": "水好冰！我的腳趾感覺得到。",
+   "audio": "flyers/s/toe"
+  },
+  "w20": {
+   "word": "belt",
+   "en": "Dad is wearing a brown belt with his jeans.",
+   "hl": "belt",
+   "zh": "爸爸的牛仔褲搭配一條棕色皮帶。",
+   "audio": "flyers/s/belt"
+  },
+  "w21": {
+   "word": "bracelet",
+   "en": "My aunt gave me a silver bracelet for my birthday.",
+   "hl": "bracelet",
+   "zh": "阿姨送我一條銀手鍊當生日禮物。",
+   "audio": "flyers/s/bracelet",
+   "pic": "This is a bracelet.",
+   "pzh": "這是一條手鍊。",
+   "paudio": "flyers/p/bracelet"
+  },
+  "w22": {
+   "word": "costume",
+   "en": "I'm wearing a pirate costume to the party.",
+   "hl": "costume",
+   "zh": "我穿著海盜裝去參加派對。",
+   "audio": "flyers/s/costume",
+   "pic": "This costume is purple.",
+   "pzh": "這套戲服是紫色的。",
+   "paudio": "flyers/p/costume",
+   "pfalse": "This costume is orange.",
+   "pfaudio": "flyers/q/costume"
+  },
+  "w23": {
+   "word": "crown",
+   "en": "The queen has got a gold crown on her head.",
+   "hl": "crown",
+   "zh": "女王頭上戴著金色的皇冠。",
+   "audio": "flyers/s/crown",
+   "pic": "This is a gold crown.",
+   "pzh": "這是一頂金色的皇冠。",
+   "paudio": "flyers/p/crown",
+   "pfalse": "This is a silver crown.",
+   "pfaudio": "flyers/q/crown"
+  },
+  "w24": {
+   "word": "glove",
+   "en": "It's cold, so put on your gloves.",
+   "hl": "gloves",
+   "zh": "天氣很冷，戴上你的手套。",
+   "audio": "flyers/s/glove",
+   "pic": "These gloves are blue.",
+   "pzh": "這雙手套是藍色的。",
+   "paudio": "flyers/p/glove",
+   "pfalse": "These gloves are red.",
+   "pfaudio": "flyers/q/glove"
+  },
+  "w25": {
+   "word": "necklace",
+   "en": "Mum is wearing a beautiful necklace tonight.",
+   "hl": "necklace",
+   "zh": "媽媽今晚戴著一條漂亮的項鍊。",
+   "audio": "flyers/s/necklace",
+   "pic": "This necklace is brown.",
+   "pzh": "這條項鍊是棕色的。",
+   "paudio": "flyers/p/necklace",
+   "pfalse": "This necklace is white.",
+   "pfaudio": "flyers/q/necklace"
+  },
+  "w26": {
+   "word": "pajamas (pyjamas)",
+   "en": "It's time for bed. Put on your pyjamas!",
+   "hl": "pyjamas",
+   "zh": "該睡覺了，穿上你的睡衣！",
+   "audio": "flyers/s/pajamas"
+  },
+  "w27": {
+   "word": "pocket",
+   "en": "I've got a key in my pocket.",
+   "hl": "pocket",
+   "zh": "我的口袋裡有一把鑰匙。",
+   "audio": "flyers/s/pocket"
+  },
+  "w28": {
+   "word": "ring",
+   "en": "The queen is wearing a gold ring.",
+   "hl": "ring",
+   "zh": "女王戴著一枚金戒指。",
+   "audio": "flyers/s/ring",
+   "pic": "This ring is silver.",
+   "pzh": "這枚戒指是銀色的。",
+   "paudio": "flyers/p/ring",
+   "pfalse": "This ring is gold.",
+   "pfaudio": "flyers/q/ring"
+  },
+  "w29": {
+   "word": "sunglasses",
+   "en": "It's very sunny today. Where are my sunglasses?",
+   "hl": "sunglasses",
+   "zh": "今天太陽好大，我的太陽眼鏡在哪裡？",
+   "audio": "flyers/s/sunglasses",
+   "pic": "These sunglasses are black.",
+   "pzh": "這副太陽眼鏡是黑色的。",
+   "paudio": "flyers/p/sunglasses",
+   "pfalse": "These sunglasses are pink.",
+   "pfaudio": "flyers/q/sunglasses"
+  },
+  "w30": {
+   "word": "trainers",
+   "en": "I wear my trainers when I play basketball.",
+   "hl": "trainers",
+   "zh": "我打籃球的時候穿運動鞋。",
+   "audio": "flyers/s/trainers",
+   "pic": "This is a blue trainer.",
+   "pzh": "這是一隻藍色的運動鞋。",
+   "paudio": "flyers/p/trainers",
+   "pfalse": "This is a red trainer.",
+   "pfaudio": "flyers/q/trainers"
+  },
+  "w31": {
+   "word": "umbrella",
+   "en": "Take an umbrella. It's going to rain.",
+   "hl": "umbrella",
+   "zh": "帶把雨傘，快要下雨了。",
+   "audio": "flyers/s/umbrella",
+   "pic": "The umbrella is purple.",
+   "pzh": "這把雨傘是紫色的。",
+   "paudio": "flyers/p/umbrella",
+   "pfalse": "The umbrella is yellow.",
+   "pfaudio": "flyers/q/umbrella"
+  },
+  "w32": {
+   "word": "uniform",
+   "en": "At my school, we wear a blue uniform.",
+   "hl": "uniform",
+   "zh": "我們學校穿藍色的制服。",
+   "audio": "flyers/s/uniform",
+   "pic": "The boy is wearing a uniform.",
+   "pzh": "這個男生穿著制服。",
+   "paudio": "flyers/p/uniform"
+  },
+  "w33": {
+   "word": "gold",
+   "en": "The winner got a gold cup.",
+   "hl": "gold",
+   "zh": "冠軍得到一座金色的獎盃。",
+   "audio": "flyers/s/gold"
+  },
+  "w34": {
+   "word": "silver",
+   "en": "Grandma has got a silver watch.",
+   "hl": "silver",
+   "zh": "奶奶有一支銀色的手錶。",
+   "audio": "flyers/s/silver"
+  },
+  "w35": {
+   "word": "spot",
+   "en": "There's a spot of paint on your T-shirt.",
+   "hl": "spot",
+   "zh": "你的 T 恤上有一個油漆點。",
+   "audio": "flyers/s/spot",
+   "pic": "There are lots of red spots on the yellow paper.",
+   "pzh": "黃色的紙上有很多紅色的點點。",
+   "paudio": "flyers/p/spot",
+   "pfalse": "There are lots of green spots on the yellow paper.",
+   "pfaudio": "flyers/q/spot"
+  },
+  "w36": {
+   "word": "spotted",
+   "en": "I've got a red spotted umbrella.",
+   "hl": "spotted",
+   "zh": "我有一把紅色的點點雨傘。",
+   "audio": "flyers/s/spotted",
+   "pic": "This insect is red with black spots.",
+   "pzh": "這隻昆蟲是紅色的，有黑色的點點。",
+   "paudio": "flyers/p/spotted",
+   "pfalse": "This insect is green with black spots.",
+   "pfaudio": "flyers/q/spotted"
+  },
+  "w37": {
+   "word": "stripe",
+   "en": "The tiger has got black stripes.",
+   "hl": "stripes",
+   "zh": "老虎有黑色的條紋。",
+   "audio": "flyers/s/stripe",
+   "pic": "There are red and blue stripes.",
+   "pzh": "有紅色和藍色的條紋。",
+   "paudio": "flyers/p/stripe",
+   "pfalse": "There are green and yellow stripes.",
+   "pfaudio": "flyers/q/stripe"
+  },
+  "w38": {
+   "word": "striped",
+   "en": "He's wearing a blue and white striped shirt.",
+   "hl": "striped",
+   "zh": "他穿著一件藍白條紋的襯衫。",
+   "audio": "flyers/s/striped",
+   "pic": "This is a striped T-shirt.",
+   "pzh": "這是一件條紋 T 恤。",
+   "paudio": "flyers/p/striped",
+   "pfalse": "This is a spotted T-shirt.",
+   "pfaudio": "flyers/q/striped"
+  },
+  "w39": {
+   "word": "husband",
+   "en": "Her husband is a doctor at the hospital.",
+   "hl": "husband",
+   "zh": "她的丈夫是醫院的醫生。",
+   "audio": "flyers/s/husband"
+  },
+  "w40": {
+   "word": "married",
+   "en": "My aunt and uncle got married last summer.",
+   "hl": "married",
+   "zh": "我的阿姨和姨丈去年夏天結婚了。",
+   "audio": "flyers/s/married"
+  },
+  "w41": {
+   "word": "surname",
+   "en": "My surname is Brown, like my dad's.",
+   "hl": "surname",
+   "zh": "我姓布朗，跟我爸爸一樣。",
+   "audio": "flyers/s/surname"
+  },
+  "w42": {
+   "word": "wife",
+   "en": "Mr Brown and his wife live next to us.",
+   "hl": "wife",
+   "zh": "布朗先生和他的太太住在我們隔壁。",
+   "audio": "flyers/s/wife"
+  },
+  "w43": {
+   "word": "biscuit (cookie)",
+   "en": "Can I have a chocolate biscuit, please?",
+   "hl": "biscuit",
+   "zh": "請問我可以吃一塊巧克力餅乾嗎？",
+   "audio": "flyers/s/biscuit",
+   "pic": "This is a chocolate biscuit.",
+   "pzh": "這是一塊巧克力餅乾。",
+   "paudio": "flyers/p/biscuit",
+   "pfalse": "This is a strawberry biscuit.",
+   "pfaudio": "flyers/q/biscuit"
+  },
+  "w44": {
+   "word": "butter",
+   "en": "I like butter and jam on my bread.",
+   "hl": "butter",
+   "zh": "我喜歡在麵包上塗奶油和果醬。",
+   "audio": "flyers/s/butter",
+   "pic": "The butter is yellow.",
+   "pzh": "奶油是黃色的。",
+   "paudio": "flyers/p/butter",
+   "pfalse": "The butter is pink.",
+   "pfaudio": "flyers/q/butter"
+  },
+  "w45": {
+   "word": "cereal",
+   "en": "I eat cereal with milk for breakfast.",
+   "hl": "cereal",
+   "zh": "我早餐吃加牛奶的穀片。",
+   "audio": "flyers/s/cereal",
+   "pic": "There's cereal in the bowl.",
+   "pzh": "碗裡有穀片。",
+   "paudio": "flyers/p/cereal"
+  },
+  "w46": {
+   "word": "chopsticks",
+   "en": "Can you eat noodles with chopsticks?",
+   "hl": "chopsticks",
+   "zh": "你會用筷子吃麵嗎？",
+   "audio": "flyers/s/chopsticks",
+   "pic": "These chopsticks are red.",
+   "pzh": "這雙筷子是紅色的。",
+   "paudio": "flyers/p/chopsticks",
+   "pfalse": "These chopsticks are green.",
+   "pfaudio": "flyers/q/chopsticks"
+  },
+  "w47": {
+   "word": "flour",
+   "en": "We need flour, eggs and sugar to make a cake.",
+   "hl": "flour",
+   "zh": "做蛋糕需要麵粉、蛋和糖。",
+   "audio": "flyers/s/flour",
+   "pic": "This is a bag of flour.",
+   "pzh": "這是一袋麵粉。",
+   "paudio": "flyers/p/flour",
+   "pfalse": "This is a bag of sugar.",
+   "pfaudio": "flyers/q/flour"
+  },
+  "w48": {
+   "word": "fork",
+   "en": "Please put a knife and fork on the table.",
+   "hl": "fork",
+   "zh": "請把刀子和叉子放在桌上。",
+   "audio": "flyers/s/fork",
+   "pic": "This is a fork.",
+   "pzh": "這是一支叉子。",
+   "paudio": "flyers/p/fork",
+   "pfalse": "This is a spoon.",
+   "pfaudio": "flyers/q/fork"
+  },
+  "w49": {
+   "word": "honey",
+   "en": "Bees make honey.",
+   "hl": "honey",
+   "zh": "蜜蜂會釀蜂蜜。",
+   "audio": "flyers/s/honey",
+   "pic": "This is honey.",
+   "pzh": "這是蜂蜜。",
+   "paudio": "flyers/p/honey"
+  },
+  "w50": {
+   "word": "jam",
+   "en": "Grandma makes strawberry jam.",
+   "hl": "jam",
+   "zh": "奶奶會做草莓果醬。",
+   "audio": "flyers/s/jam",
+   "pic": "This jam is red.",
+   "pzh": "這罐果醬是紅色的。",
+   "paudio": "flyers/p/jam",
+   "pfalse": "This jam is green.",
+   "pfaudio": "flyers/q/jam"
+  },
+  "w51": {
+   "word": "knife",
+   "en": "Be careful! Don't cut your finger with that knife.",
+   "hl": "knife",
+   "zh": "小心！別被那把刀割到手指。",
+   "audio": "flyers/s/knife",
+   "pic": "This is a knife.",
+   "pzh": "這是一把刀子。",
+   "paudio": "flyers/p/knife",
+   "pfalse": "This is a fork.",
+   "pfaudio": "flyers/q/knife"
+  },
+  "w52": {
+   "word": "meal",
+   "en": "Breakfast is my favourite meal of the day.",
+   "hl": "meal",
+   "zh": "早餐是我一天中最喜歡的一餐。",
+   "audio": "flyers/s/meal",
+   "pic": "There's a fork and a knife next to the plate.",
+   "pzh": "盤子旁邊有一支叉子和一把刀子。",
+   "paudio": "flyers/p/meal",
+   "pfalse": "There's a spoon next to the plate.",
+   "pfaudio": "flyers/q/meal"
+  },
+  "w53": {
+   "word": "olives",
+   "en": "There are green olives on the pizza.",
+   "hl": "olives",
+   "zh": "披薩上有綠橄欖。",
+   "audio": "flyers/s/olives",
+   "pic": "These olives are green.",
+   "pzh": "這些橄欖是綠色的。",
+   "paudio": "flyers/p/olives",
+   "pfalse": "These olives are black.",
+   "pfaudio": "flyers/q/olives"
+  },
+  "w54": {
+   "word": "pepper",
+   "en": "Can you give me the salt and pepper?",
+   "hl": "pepper",
+   "zh": "可以把鹽和胡椒給我嗎？",
+   "audio": "flyers/s/pepper",
+   "pic": "This pepper is green.",
+   "pzh": "這顆甜椒是綠色的。",
+   "paudio": "flyers/p/pepper",
+   "pfalse": "This pepper is red.",
+   "pfaudio": "flyers/q/pepper"
+  },
+  "w55": {
+   "word": "piece",
+   "en": "Would you like a piece of cake?",
+   "hl": "piece",
+   "zh": "你想吃一塊蛋糕嗎？",
+   "audio": "flyers/s/piece"
+  },
+  "w56": {
+   "word": "pizza",
+   "en": "We're having pizza for dinner tonight.",
+   "hl": "pizza",
+   "zh": "我們今天晚餐吃披薩。",
+   "audio": "flyers/s/pizza",
+   "pic": "This is a piece of pizza.",
+   "pzh": "這是一片披薩。",
+   "paudio": "flyers/p/pizza",
+   "pfalse": "This is a piece of cake.",
+   "pfaudio": "flyers/q/pizza"
+  },
+  "w57": {
+   "word": "salt",
+   "en": "This soup needs some salt.",
+   "hl": "salt",
+   "zh": "這碗湯需要加點鹽。",
+   "audio": "flyers/s/salt",
+   "pic": "This is salt.",
+   "pzh": "這是鹽。",
+   "paudio": "flyers/p/salt"
+  },
+  "w58": {
+   "word": "smell",
+   "en": "The bread smells lovely.",
+   "hl": "smells",
+   "zh": "麵包聞起來好香。",
+   "audio": "flyers/s/smell",
+   "pic": "This person is smelling a flower.",
+   "pzh": "這個人正在聞花。",
+   "paudio": "flyers/p/smell",
+   "pfalse": "This person is eating a flower.",
+   "pfaudio": "flyers/q/smell"
+  },
+  "w59": {
+   "word": "snack",
+   "en": "I have a snack after school.",
+   "hl": "snack",
+   "zh": "我放學後會吃點心。",
+   "audio": "flyers/s/snack"
+  },
+  "w60": {
+   "word": "spoon",
+   "en": "You need a spoon to eat your soup.",
+   "hl": "spoon",
+   "zh": "喝湯要用湯匙。",
+   "audio": "flyers/s/spoon",
+   "pic": "This is a spoon.",
+   "pzh": "這是一支湯匙。",
+   "paudio": "flyers/p/spoon",
+   "pfalse": "This is a knife.",
+   "pfaudio": "flyers/q/spoon"
+  },
+  "w61": {
+   "word": "strawberry",
+   "en": "This strawberry is big and red.",
+   "hl": "strawberry",
+   "zh": "這顆草莓又大又紅。",
+   "audio": "flyers/s/strawberry",
+   "pic": "This strawberry is red.",
+   "pzh": "這顆草莓是紅色的。",
+   "paudio": "flyers/p/strawberry",
+   "pfalse": "This strawberry is blue.",
+   "pfaudio": "flyers/q/strawberry"
+  },
+  "w62": {
+   "word": "sugar",
+   "en": "Do you want sugar in your tea?",
+   "hl": "sugar",
+   "zh": "你的茶要加糖嗎？",
+   "audio": "flyers/s/sugar",
+   "pic": "There are six pieces of sugar.",
+   "pzh": "有六顆方糖。",
+   "paudio": "flyers/p/sugar",
+   "pfalse": "There are ten pieces of sugar.",
+   "pfaudio": "flyers/q/sugar"
+  },
+  "w63": {
+   "word": "taste",
+   "en": "This soup tastes delicious!",
+   "hl": "tastes",
+   "zh": "這碗湯嚐起來好好喝！",
+   "audio": "flyers/s/taste"
+  },
+  "w64": {
+   "word": "yoghurt",
+   "en": "I like strawberry yoghurt.",
+   "hl": "yoghurt",
+   "zh": "我喜歡草莓優格。",
+   "audio": "flyers/s/yoghurt",
+   "pic": "This is yoghurt.",
+   "pzh": "這是優格。",
+   "paudio": "flyers/p/yoghurt"
+  },
+  "w65": {
+   "word": "bandage",
+   "en": "The nurse put a bandage on my arm.",
+   "hl": "bandage",
+   "zh": "護士在我的手臂上包了繃帶。",
+   "audio": "flyers/s/bandage",
+   "pic": "This is a bandage.",
+   "pzh": "這是一片 OK 繃。",
+   "paudio": "flyers/p/bandage"
+  },
+  "w66": {
+   "word": "chemist's",
+   "en": "Mum bought some medicine at the chemist's.",
+   "hl": "chemist's",
+   "zh": "媽媽在藥局買了一些藥。",
+   "audio": "flyers/s/chemist_s",
+   "pic": "You can buy medicine here.",
+   "pzh": "這裡可以買藥。",
+   "paudio": "flyers/p/chemist_s",
+   "pfalse": "You can buy pizza here.",
+   "pfaudio": "flyers/q/chemist_s"
+  },
+  "w67": {
+   "word": "cut",
+   "en": "I've got a cut on my finger.",
+   "hl": "cut",
+   "zh": "我的手指上有一道傷口。",
+   "audio": "flyers/s/cut"
+  },
+  "w68": {
+   "word": "fall over",
+   "en": "Be careful on the ice or you'll fall over.",
+   "hl": "fall over",
+   "zh": "在冰上要小心，不然會跌倒。",
+   "audio": "flyers/s/fall_over",
+   "pic": "The boy is falling over.",
+   "pzh": "這個男生跌倒了。",
+   "paudio": "flyers/p/fall_over",
+   "pfalse": "The boy is dancing.",
+   "pfaudio": "flyers/q/fall_over"
+  },
+  "w69": {
+   "word": "medicine",
+   "en": "Take this medicine and you'll feel better.",
+   "hl": "medicine",
+   "zh": "吃了這個藥你就會好一點。",
+   "audio": "flyers/s/medicine",
+   "pic": "This medicine is red and yellow.",
+   "pzh": "這顆藥是紅色和黃色的。",
+   "paudio": "flyers/p/medicine",
+   "pfalse": "This medicine is blue and green.",
+   "pfaudio": "flyers/q/medicine"
+  },
+  "w70": {
+   "word": "x-ray",
+   "en": "The doctor looked at the x-ray of my leg.",
+   "hl": "x-ray",
+   "zh": "醫生看了我腿部的 X 光片。",
+   "audio": "flyers/s/x_ray",
+   "pic": "This is an x-ray.",
+   "pzh": "這是一張 X 光片。",
+   "paudio": "flyers/p/x_ray"
+  },
+  "w71": {
+   "word": "brush",
+   "en": "Brush your teeth before you go to bed.",
+   "hl": "Brush",
+   "zh": "睡覺前要刷牙。",
+   "audio": "flyers/s/brush"
+  },
+  "w72": {
+   "word": "comb",
+   "en": "She combs her long hair every morning.",
+   "hl": "combs",
+   "zh": "她每天早上梳她的長髮。",
+   "audio": "flyers/s/comb",
+   "pic": "This comb is purple.",
+   "pzh": "這把梳子是紫色的。",
+   "paudio": "flyers/p/comb",
+   "pfalse": "This comb is orange.",
+   "pfaudio": "flyers/q/comb"
+  },
+  "w73": {
+   "word": "cooker",
+   "en": "Dad is making soup on the cooker.",
+   "hl": "cooker",
+   "zh": "爸爸正在爐子上煮湯。",
+   "audio": "flyers/s/cooker",
+   "pic": "This is a cooker.",
+   "pzh": "這是一台爐子。",
+   "paudio": "flyers/p/cooker"
+  },
+  "w74": {
+   "word": "cushion",
+   "en": "There's a soft cushion on the sofa.",
+   "hl": "cushion",
+   "zh": "沙發上有一個軟軟的靠墊。",
+   "audio": "flyers/s/cushion",
+   "pic": "This cushion is orange.",
+   "pzh": "這個靠墊是橘色的。",
+   "paudio": "flyers/p/cushion",
+   "pfalse": "This cushion is blue.",
+   "pfaudio": "flyers/q/cushion"
+  },
+  "w75": {
+   "word": "diary",
+   "en": "I write in my diary every night.",
+   "hl": "diary",
+   "zh": "我每天晚上寫日記。",
+   "audio": "flyers/s/diary",
+   "pic": "This is a diary.",
+   "pzh": "這是一本日記。",
+   "paudio": "flyers/p/diary"
+  },
+  "w76": {
+   "word": "entrance",
+   "en": "Meet me at the entrance of the zoo.",
+   "hl": "entrance",
+   "zh": "在動物園的入口和我碰面。",
+   "audio": "flyers/s/entrance"
+  },
+  "w77": {
+   "word": "envelope",
+   "en": "Put the letter in an envelope.",
+   "hl": "envelope",
+   "zh": "把信放進信封裡。",
+   "audio": "flyers/s/envelope",
+   "pic": "This is an envelope.",
+   "pzh": "這是一個信封。",
+   "paudio": "flyers/p/envelope"
+  },
+  "w78": {
+   "word": "fridge",
+   "en": "The milk is in the fridge.",
+   "hl": "fridge",
+   "zh": "牛奶在冰箱裡。",
+   "audio": "flyers/s/fridge",
+   "pic": "This is a fridge.",
+   "pzh": "這是一台冰箱。",
+   "paudio": "flyers/p/fridge"
+  },
+  "w79": {
+   "word": "gate",
+   "en": "Close the gate, or the dog will run away.",
+   "hl": "gate",
+   "zh": "把大門關上，不然狗會跑走。",
+   "audio": "flyers/s/gate",
+   "pic": "This is a gate.",
+   "pzh": "這是一扇大門。",
+   "paudio": "flyers/p/gate"
+  },
+  "w80": {
+   "word": "key",
+   "en": "I can't find the key to the front door.",
+   "hl": "key",
+   "zh": "我找不到前門的鑰匙。",
+   "audio": "flyers/s/key",
+   "pic": "This key is gold.",
+   "pzh": "這把鑰匙是金色的。",
+   "paudio": "flyers/p/key",
+   "pfalse": "This key is silver.",
+   "pfaudio": "flyers/q/key"
+  },
+  "w81": {
+   "word": "letter (mail)",
+   "en": "I wrote a letter to my grandpa.",
+   "hl": "letter",
+   "zh": "我寫了一封信給爺爺。",
+   "audio": "flyers/s/letter"
+  },
+  "w82": {
+   "word": "oven",
+   "en": "The cake is in the oven.",
+   "hl": "oven",
+   "zh": "蛋糕在烤箱裡。",
+   "audio": "flyers/s/oven",
+   "pic": "This is an oven.",
+   "pzh": "這是一台烤箱。",
+   "paudio": "flyers/p/oven"
+  },
+  "w83": {
+   "word": "screen",
+   "en": "Don't sit too near the screen.",
+   "hl": "screen",
+   "zh": "不要坐得離螢幕太近。",
+   "audio": "flyers/s/screen",
+   "pic": "This is a computer screen.",
+   "pzh": "這是一個電腦螢幕。",
+   "paudio": "flyers/p/screen"
+  },
+  "w84": {
+   "word": "shampoo",
+   "en": "I wash my hair with shampoo.",
+   "hl": "shampoo",
+   "zh": "我用洗髮精洗頭。",
+   "audio": "flyers/s/shampoo",
+   "pic": "This shampoo is purple.",
+   "pzh": "這瓶洗髮精是紫色的。",
+   "paudio": "flyers/p/shampoo",
+   "pfalse": "This shampoo is green.",
+   "pfaudio": "flyers/q/shampoo"
+  },
+  "w85": {
+   "word": "shelf",
+   "en": "Put the books back on the shelf, please.",
+   "hl": "shelf",
+   "zh": "請把書放回架子上。",
+   "audio": "flyers/s/shelf",
+   "pic": "There are books on the shelf.",
+   "pzh": "架子上有書。",
+   "paudio": "flyers/p/shelf",
+   "pfalse": "There are shoes on the shelf.",
+   "pfaudio": "flyers/q/shelf"
+  },
+  "w86": {
+   "word": "soap",
+   "en": "Wash your hands with soap and water.",
+   "hl": "soap",
+   "zh": "用肥皂和水洗手。",
+   "audio": "flyers/s/soap",
+   "pic": "This soap is pink.",
+   "pzh": "這塊肥皂是粉紅色的。",
+   "paudio": "flyers/p/soap",
+   "pfalse": "This soap is blue.",
+   "pfaudio": "flyers/q/soap"
+  },
+  "w87": {
+   "word": "stamp",
+   "en": "You need a stamp to post this letter.",
+   "hl": "stamp",
+   "zh": "要寄這封信需要貼郵票。",
+   "audio": "flyers/s/stamp",
+   "pic": "There's a bird on this stamp.",
+   "pzh": "這張郵票上有一隻鳥。",
+   "paudio": "flyers/p/stamp",
+   "pfalse": "There's a fish on this stamp.",
+   "pfaudio": "flyers/q/stamp"
+  },
+  "w88": {
+   "word": "step",
+   "en": "Sit on the step and take off your shoes.",
+   "hl": "step",
+   "zh": "坐在台階上把鞋子脫掉。",
+   "audio": "flyers/s/step"
+  },
+  "w89": {
+   "word": "swing",
+   "en": "The children are playing on the swings.",
+   "hl": "swings",
+   "zh": "孩子們在玩盪鞦韆。",
+   "audio": "flyers/s/swing",
+   "pic": "The girl is on a swing.",
+   "pzh": "這個女生在盪鞦韆。",
+   "paudio": "flyers/p/swing",
+   "pfalse": "The girl is on a bike.",
+   "pfaudio": "flyers/q/swing"
+  },
+  "w90": {
+   "word": "telephone",
+   "en": "The telephone is ringing. Can you answer it?",
+   "hl": "telephone",
+   "zh": "電話響了，你可以接一下嗎？",
+   "audio": "flyers/s/telephone",
+   "pic": "This telephone is red.",
+   "pzh": "這支電話是紅色的。",
+   "paudio": "flyers/p/telephone",
+   "pfalse": "This telephone is blue.",
+   "pfaudio": "flyers/q/telephone"
+  },
+  "w91": {
+   "word": "Betty",
+   "en": "Betty is the oldest girl in our class.",
+   "hl": "Betty",
+   "zh": "貝蒂是我們班上年紀最大的女生。",
+   "audio": "flyers/s/betty"
+  },
+  "w92": {
+   "word": "David",
+   "en": "David likes playing chess with his dad.",
+   "hl": "David",
+   "zh": "大衛喜歡和爸爸下西洋棋。",
+   "audio": "flyers/s/david"
+  },
+  "w93": {
+   "word": "Emma",
+   "en": "Emma wants to be a pilot one day.",
+   "hl": "Emma",
+   "zh": "艾瑪希望有一天能當飛行員。",
+   "audio": "flyers/s/emma"
+  },
+  "w94": {
+   "word": "Frank",
+   "en": "Frank is learning to play the drums.",
+   "hl": "Frank",
+   "zh": "法蘭克正在學打鼓。",
+   "audio": "flyers/s/frank"
+  },
+  "w95": {
+   "word": "George",
+   "en": "George forgot his backpack at school.",
+   "hl": "George",
+   "zh": "喬治把書包忘在學校了。",
+   "audio": "flyers/s/george"
+  },
+  "w96": {
+   "word": "Harry",
+   "en": "Harry is the fastest runner in the team.",
+   "hl": "Harry",
+   "zh": "哈利是隊上跑得最快的人。",
+   "audio": "flyers/s/harry"
+  },
+  "w97": {
+   "word": "Helen",
+   "en": "Helen sent me a letter from London.",
+   "hl": "Helen",
+   "zh": "海倫從倫敦寄了一封信給我。",
+   "audio": "flyers/s/helen"
+  },
+  "w98": {
+   "word": "Holly",
+   "en": "Holly has got a big spotted dog.",
+   "hl": "Holly",
+   "zh": "荷莉有一隻大斑點狗。",
+   "audio": "flyers/s/holly"
+  },
+  "w99": {
+   "word": "Katy",
+   "en": "Katy is wearing a costume for the festival.",
+   "hl": "Katy",
+   "zh": "凱蒂為了節慶活動穿上戲服。",
+   "audio": "flyers/s/katy"
+  },
+  "w100": {
+   "word": "Michael",
+   "en": "Michael wants to be an astronaut.",
+   "hl": "Michael",
+   "zh": "麥可想當太空人。",
+   "audio": "flyers/s/michael"
+  },
+  "w101": {
+   "word": "Oliver",
+   "en": "Oliver lives near the airport.",
+   "hl": "Oliver",
+   "zh": "奧利佛住在機場附近。",
+   "audio": "flyers/s/oliver"
+  },
+  "w102": {
+   "word": "Richard",
+   "en": "Richard is good at maths.",
+   "hl": "Richard",
+   "zh": "理查的數學很好。",
+   "audio": "flyers/s/richard"
+  },
+  "w103": {
+   "word": "Robert",
+   "en": "Robert broke his arm last winter.",
+   "hl": "Robert",
+   "zh": "羅伯特去年冬天摔斷了手臂。",
+   "audio": "flyers/s/robert"
+  },
+  "w104": {
+   "word": "Sarah",
+   "en": "Sarah won a prize in the competition.",
+   "hl": "Sarah",
+   "zh": "莎拉在比賽中得了獎。",
+   "audio": "flyers/s/sarah"
+  },
+  "w105": {
+   "word": "Sophia",
+   "en": "Sophia is studying history in the library.",
+   "hl": "Sophia",
+   "zh": "蘇菲亞正在圖書館讀歷史。",
+   "audio": "flyers/s/sophia"
+  },
+  "w106": {
+   "word": "William",
+   "en": "William plays the violin in the school concert.",
+   "hl": "William",
+   "zh": "威廉在學校音樂會上拉小提琴。",
+   "audio": "flyers/s/william"
+  },
+  "w107": {
+   "word": "airport",
+   "en": "We're going to the airport to catch a plane.",
+   "hl": "airport",
+   "zh": "我們要去機場搭飛機。",
+   "audio": "flyers/s/airport",
+   "pic": "There's a plane at the airport.",
+   "pzh": "機場有一架飛機。",
+   "paudio": "flyers/p/airport"
+  },
+  "w108": {
+   "word": "bank",
+   "en": "My aunt works in a bank in the city.",
+   "hl": "bank",
+   "zh": "我阿姨在城裡的銀行工作。",
+   "audio": "flyers/s/bank",
+   "pic": "This is a bank.",
+   "pzh": "這是一間銀行。",
+   "paudio": "flyers/p/bank"
+  },
+  "w109": {
+   "word": "bridge",
+   "en": "We walked across the bridge over the river.",
+   "hl": "bridge",
+   "zh": "我們走過河上的橋。",
+   "audio": "flyers/s/bridge",
+   "pic": "This bridge is red.",
+   "pzh": "這座橋是紅色的。",
+   "paudio": "flyers/p/bridge",
+   "pfalse": "This bridge is green.",
+   "pfaudio": "flyers/q/bridge"
+  },
+  "w110": {
+   "word": "castle",
+   "en": "The queen lives in a big castle.",
+   "hl": "castle",
+   "zh": "女王住在一座大城堡裡。",
+   "audio": "flyers/s/castle",
+   "pic": "This castle has got red flags.",
+   "pzh": "這座城堡有紅色的旗子。",
+   "paudio": "flyers/p/castle",
+   "pfalse": "This castle has got blue flags.",
+   "pfaudio": "flyers/q/castle"
+  },
+  "w111": {
+   "word": "club",
+   "en": "I go to a chess club on Fridays.",
+   "hl": "club",
+   "zh": "我每週五去參加西洋棋社。",
+   "audio": "flyers/s/club"
+  },
+  "w112": {
+   "word": "college",
+   "en": "My big sister studies art at college.",
+   "hl": "college",
+   "zh": "我姊姊在學院讀藝術。",
+   "audio": "flyers/s/college"
+  },
+  "w113": {
+   "word": "corner",
+   "en": "The bank is on the corner of the street.",
+   "hl": "corner",
+   "zh": "銀行在這條街的轉角。",
+   "audio": "flyers/s/corner"
+  },
+  "w114": {
+   "word": "east",
+   "en": "The sun comes up in the east.",
+   "hl": "east",
+   "zh": "太陽從東方升起。",
+   "audio": "flyers/s/east"
+  },
+  "w115": {
+   "word": "factory",
+   "en": "My uncle works in a car factory.",
+   "hl": "factory",
+   "zh": "我叔叔在汽車工廠工作。",
+   "audio": "flyers/s/factory",
+   "pic": "This is a factory.",
+   "pzh": "這是一座工廠。",
+   "paudio": "flyers/p/factory"
+  },
+  "w116": {
+   "word": "fire station",
+   "en": "The fire engine is at the fire station.",
+   "hl": "fire station",
+   "zh": "消防車在消防局裡。",
+   "audio": "flyers/s/fire_station",
+   "pic": "There's a fire engine at the fire station.",
+   "pzh": "消防局裡有一輛消防車。",
+   "paudio": "flyers/p/fire_station",
+   "pfalse": "There's a taxi at the fire station.",
+   "pfaudio": "flyers/q/fire_station"
+  },
+  "w117": {
+   "word": "front",
+   "en": "Let's sit at the front of the bus.",
+   "hl": "front",
+   "zh": "我們坐在公車的前面吧。",
+   "audio": "flyers/s/front"
+  },
+  "w118": {
+   "word": "get to",
+   "en": "How do I get to the museum?",
+   "hl": "get to",
+   "zh": "請問博物館怎麼去？",
+   "audio": "flyers/s/get_to"
+  },
+  "w119": {
+   "word": "hotel",
+   "en": "We stayed in a hotel near the beach.",
+   "hl": "hotel",
+   "zh": "我們住在海灘附近的旅館。",
+   "audio": "flyers/s/hotel",
+   "pic": "This is a hotel.",
+   "pzh": "這是一間旅館。",
+   "paudio": "flyers/p/hotel"
+  },
+  "w120": {
+   "word": "kilometre (kilometer)",
+   "en": "My school is two kilometres from my house.",
+   "hl": "kilometres",
+   "zh": "我的學校離我家兩公里。",
+   "audio": "flyers/s/kilometre"
+  },
+  "w121": {
+   "word": "left (direction)",
+   "en": "Turn left at the end of the street.",
+   "hl": "left",
+   "zh": "在這條街的盡頭左轉。",
+   "audio": "flyers/s/left"
+  },
+  "w122": {
+   "word": "London",
+   "en": "London is a big city with lots of museums.",
+   "hl": "London",
+   "zh": "倫敦是一座有很多博物館的大城市。",
+   "audio": "flyers/s/london"
+  },
+  "w123": {
+   "word": "middle",
+   "en": "There's a big tree in the middle of the park.",
+   "hl": "middle",
+   "zh": "公園的中間有一棵大樹。",
+   "audio": "flyers/s/middle"
+  },
+  "w124": {
+   "word": "museum",
+   "en": "We saw a dinosaur at the museum.",
+   "hl": "museum",
+   "zh": "我們在博物館看到恐龍。",
+   "audio": "flyers/s/museum",
+   "pic": "This is a museum.",
+   "pzh": "這是一間博物館。",
+   "paudio": "flyers/p/museum"
+  },
+  "w125": {
+   "word": "north",
+   "en": "It's very cold in the north in winter.",
+   "hl": "north",
+   "zh": "冬天北方非常冷。",
+   "audio": "flyers/s/north"
+  },
+  "w126": {
+   "word": "path",
+   "en": "Follow the path through the forest.",
+   "hl": "path",
+   "zh": "沿著小路穿過森林。",
+   "audio": "flyers/s/path",
+   "pic": "There's a path through the grass.",
+   "pzh": "草地中間有一條小路。",
+   "paudio": "flyers/p/path"
+  },
+  "w127": {
+   "word": "police station",
+   "en": "The police officer took us to the police station.",
+   "hl": "police station",
+   "zh": "警察帶我們去警察局。",
+   "audio": "flyers/s/police_station"
+  },
+  "w128": {
+   "word": "post office",
+   "en": "I'm going to the post office to buy some stamps.",
+   "hl": "post office",
+   "zh": "我要去郵局買郵票。",
+   "audio": "flyers/s/post_office",
+   "pic": "This is a post office.",
+   "pzh": "這是一間郵局。",
+   "paudio": "flyers/p/post_office"
+  },
+  "w129": {
+   "word": "restaurant",
+   "en": "We had pizza at a restaurant near the beach.",
+   "hl": "restaurant",
+   "zh": "我們在海灘附近的餐廳吃披薩。",
+   "audio": "flyers/s/restaurant",
+   "pic": "This is a restaurant.",
+   "pzh": "這是一間餐廳。",
+   "paudio": "flyers/p/restaurant"
+  },
+  "w130": {
+   "word": "right (direction)",
+   "en": "The library is on the right.",
+   "hl": "right",
+   "zh": "圖書館在右邊。",
+   "audio": "flyers/s/right"
+  },
+  "w131": {
+   "word": "skyscraper",
+   "en": "You can see the city from the skyscraper.",
+   "hl": "skyscraper",
+   "zh": "從摩天大樓上可以看到整座城市。",
+   "audio": "flyers/s/skyscraper",
+   "pic": "This is a skyscraper.",
+   "pzh": "這是一棟摩天大樓。",
+   "paudio": "flyers/p/skyscraper"
+  },
+  "w132": {
+   "word": "south",
+   "en": "Birds fly south in the autumn.",
+   "hl": "south",
+   "zh": "鳥兒在秋天往南飛。",
+   "audio": "flyers/s/south"
+  },
+  "w133": {
+   "word": "stadium",
+   "en": "Thousands of people watched the match at the stadium.",
+   "hl": "stadium",
+   "zh": "好幾千人在體育場看比賽。",
+   "audio": "flyers/s/stadium",
+   "pic": "This is a stadium.",
+   "pzh": "這是一座體育場。",
+   "paudio": "flyers/p/stadium"
+  },
+  "w134": {
+   "word": "straight on",
+   "en": "Go straight on and the park is in front of you.",
+   "hl": "straight on",
+   "zh": "一直往前走，公園就在你前面。",
+   "audio": "flyers/s/straight_on"
+  },
+  "w135": {
+   "word": "theatre (theater)",
+   "en": "We saw a play at the theatre.",
+   "hl": "theatre",
+   "zh": "我們在劇院看了一齣戲。",
+   "audio": "flyers/s/theatre",
+   "pic": "This is a theatre.",
+   "pzh": "這是一間劇院。",
+   "paudio": "flyers/p/theatre"
+  },
+  "w136": {
+   "word": "university",
+   "en": "My cousin is a student at the university.",
+   "hl": "university",
+   "zh": "我的表哥是這所大學的學生。",
+   "audio": "flyers/s/university"
+  },
+  "w137": {
+   "word": "way",
+   "en": "Is this the way to the station?",
+   "hl": "way",
+   "zh": "這是去車站的路嗎？",
+   "audio": "flyers/s/way"
+  },
+  "w138": {
+   "word": "west",
+   "en": "The sun goes down in the west.",
+   "hl": "west",
+   "zh": "太陽從西方落下。",
+   "audio": "flyers/s/west"
+  },
+  "w139": {
+   "word": "art",
+   "en": "Art is my favourite subject because I love painting.",
+   "hl": "Art",
+   "zh": "美術是我最喜歡的科目，因為我很愛畫畫。",
+   "audio": "flyers/s/art"
+  },
+  "w140": {
+   "word": "backpack (rucksack)",
+   "en": "I put my books in my backpack.",
+   "hl": "backpack",
+   "zh": "我把書放進背包裡。",
+   "audio": "flyers/s/backpack",
+   "pic": "This backpack is red.",
+   "pzh": "這個背包是紅色的。",
+   "paudio": "flyers/p/backpack",
+   "pfalse": "This backpack is blue.",
+   "pfaudio": "flyers/q/backpack"
+  },
+  "w141": {
+   "word": "bin",
+   "en": "Please put the old paper in the bin.",
+   "hl": "bin",
+   "zh": "請把舊紙丟進垃圾桶。",
+   "audio": "flyers/s/bin",
+   "pic": "This bin is empty.",
+   "pzh": "這個垃圾桶是空的。",
+   "paudio": "flyers/p/bin",
+   "pfalse": "This bin is full.",
+   "pfaudio": "flyers/q/bin"
+  },
+  "w142": {
+   "word": "competition",
+   "en": "I won first prize in the drawing competition.",
+   "hl": "competition",
+   "zh": "我在繪畫比賽中得到第一名。",
+   "audio": "flyers/s/competition",
+   "pic": "The children are in a running competition.",
+   "pzh": "孩子們在參加賽跑比賽。",
+   "paudio": "flyers/p/competition",
+   "pfalse": "The children are in a swimming competition.",
+   "pfaudio": "flyers/q/competition"
+  },
+  "w143": {
+   "word": "dictionary",
+   "en": "Look up the word in your dictionary.",
+   "hl": "dictionary",
+   "zh": "用你的字典查這個字。",
+   "audio": "flyers/s/dictionary",
+   "pic": "This dictionary is blue.",
+   "pzh": "這本字典是藍色的。",
+   "paudio": "flyers/p/dictionary",
+   "pfalse": "This dictionary is red.",
+   "pfaudio": "flyers/q/dictionary"
+  },
+  "w144": {
+   "word": "flag",
+   "en": "There's a flag on the castle.",
+   "hl": "flag",
+   "zh": "城堡上有一面旗子。",
+   "audio": "flyers/s/flag",
+   "pic": "This flag is red.",
+   "pzh": "這面旗子是紅色的。",
+   "paudio": "flyers/p/flag",
+   "pfalse": "This flag is yellow.",
+   "pfaudio": "flyers/q/flag"
+  },
+  "w145": {
+   "word": "geography",
+   "en": "In geography, we learn about rivers and mountains.",
+   "hl": "geography",
+   "zh": "我們在地理課學習河流和山脈。",
+   "audio": "flyers/s/geography"
+  },
+  "w146": {
+   "word": "glue",
+   "en": "Glue the picture on the paper.",
+   "hl": "Glue",
+   "zh": "把圖片黏在紙上。",
+   "audio": "flyers/s/glue",
+   "pic": "This is glue.",
+   "pzh": "這是膠水。",
+   "paudio": "flyers/p/glue"
+  },
+  "w147": {
+   "word": "group",
+   "en": "We worked in a group of four.",
+   "hl": "group",
+   "zh": "我們四個人一組一起做。",
+   "audio": "flyers/s/group"
+  },
+  "w148": {
+   "word": "gym",
+   "en": "We play basketball in the school gym.",
+   "hl": "gym",
+   "zh": "我們在學校體育館打籃球。",
+   "audio": "flyers/s/gym"
+  },
+  "w149": {
+   "word": "history",
+   "en": "In history, we learn about people from the past.",
+   "hl": "history",
+   "zh": "我們在歷史課學習過去的人。",
+   "audio": "flyers/s/history"
+  },
+  "w150": {
+   "word": "language",
+   "en": "English is an important language.",
+   "hl": "language",
+   "zh": "英文是一種重要的語言。",
+   "audio": "flyers/s/language"
+  },
+  "w151": {
+   "word": "maths (math)",
+   "en": "We've got maths after lunch.",
+   "hl": "maths",
+   "zh": "我們午餐後有數學課。",
+   "audio": "flyers/s/maths"
+  },
+  "w152": {
+   "word": "online",
+   "en": "I like playing games online with my friends.",
+   "hl": "online",
+   "zh": "我喜歡和朋友一起在網路上玩遊戲。",
+   "audio": "flyers/s/online"
+  },
+  "w153": {
+   "word": "project",
+   "en": "Our class is doing a project about the ocean.",
+   "hl": "project",
+   "zh": "我們班正在做一個關於海洋的專題。",
+   "audio": "flyers/s/project"
+  },
+  "w154": {
+   "word": "science",
+   "en": "We learn about plants and animals in science.",
+   "hl": "science",
+   "zh": "我們在自然課學習植物和動物。",
+   "audio": "flyers/s/science"
+  },
+  "w155": {
+   "word": "scissors",
+   "en": "Cut the paper with your scissors.",
+   "hl": "scissors",
+   "zh": "用你的剪刀剪紙。",
+   "audio": "flyers/s/scissors",
+   "pic": "These scissors are red.",
+   "pzh": "這把剪刀是紅色的。",
+   "paudio": "flyers/p/scissors",
+   "pfalse": "These scissors are blue.",
+   "pfaudio": "flyers/q/scissors"
+  },
+  "w156": {
+   "word": "student",
+   "en": "There are thirty students in my class.",
+   "hl": "students",
+   "zh": "我們班上有三十個學生。",
+   "audio": "flyers/s/student",
+   "pic": "The student is wearing a black hat.",
+   "pzh": "這個學生戴著一頂黑色的帽子。",
+   "paudio": "flyers/p/student",
+   "pfalse": "The student is wearing a white hat.",
+   "pfaudio": "flyers/q/student"
+  },
+  "w157": {
+   "word": "study",
+   "en": "I need to study tonight because I've got an English quiz tomorrow.",
+   "hl": "study",
+   "zh": "我今晚要讀書，因為明天有英文小考。",
+   "audio": "flyers/s/study"
+  },
+  "w158": {
+   "word": "subject",
+   "en": "What's your favourite subject at school?",
+   "hl": "subject",
+   "zh": "你在學校最喜歡什麼科目？",
+   "audio": "flyers/s/subject"
+  },
+  "w159": {
+   "word": "timetable",
+   "en": "Look at the timetable. We've got music after lunch.",
+   "hl": "timetable",
+   "zh": "看看課表，我們午餐後有音樂課。",
+   "audio": "flyers/s/timetable"
+  },
+  "w160": {
+   "word": "cartoon",
+   "en": "My little brother watches cartoons on Saturday morning.",
+   "hl": "cartoons",
+   "zh": "我弟弟星期六早上看卡通。",
+   "audio": "flyers/s/cartoon",
+   "pic": "There's a rabbit in this cartoon.",
+   "pzh": "這部卡通裡有一隻兔子。",
+   "paudio": "flyers/p/cartoon",
+   "pfalse": "There's a cat in this cartoon.",
+   "pfaudio": "flyers/q/cartoon"
+  },
+  "w161": {
+   "word": "channel",
+   "en": "What's on the other channel?",
+   "hl": "channel",
+   "zh": "另一個頻道在播什麼？",
+   "audio": "flyers/s/channel"
+  },
+  "w162": {
+   "word": "chess",
+   "en": "Grandpa taught me how to play chess.",
+   "hl": "chess",
+   "zh": "爺爺教我下西洋棋。",
+   "audio": "flyers/s/chess",
+   "pic": "This chess piece is black.",
+   "pzh": "這顆棋子是黑色的。",
+   "paudio": "flyers/p/chess",
+   "pfalse": "This chess piece is white.",
+   "pfaudio": "flyers/q/chess"
+  },
+  "w163": {
+   "word": "collect",
+   "en": "I collect stamps from all over the world.",
+   "hl": "collect",
+   "zh": "我收集世界各地的郵票。",
+   "audio": "flyers/s/collect"
+  },
+  "w164": {
+   "word": "concert",
+   "en": "We went to a pop concert in the park.",
+   "hl": "concert",
+   "zh": "我們去公園看了一場流行音樂會。",
+   "audio": "flyers/s/concert",
+   "pic": "A woman is singing at this concert.",
+   "pzh": "一位女生在這場音樂會上唱歌。",
+   "paudio": "flyers/p/concert",
+   "pfalse": "A man is singing at this concert.",
+   "pfaudio": "flyers/q/concert"
+  },
+  "w165": {
+   "word": "drum",
+   "en": "He's playing the drum very loudly.",
+   "hl": "drum",
+   "zh": "他把鼓打得很大聲。",
+   "audio": "flyers/s/drum",
+   "pic": "This drum is red and white.",
+   "pzh": "這個鼓是紅色和白色的。",
+   "paudio": "flyers/p/drum",
+   "pfalse": "This drum is green and white.",
+   "pfaudio": "flyers/q/drum"
+  },
+  "w166": {
+   "word": "festival",
+   "en": "There's a music festival in our town every summer.",
+   "hl": "festival",
+   "zh": "我們鎮上每年夏天都有音樂節。",
+   "audio": "flyers/s/festival"
+  },
+  "w167": {
+   "word": "flashlight (torch)",
+   "en": "It's dark in the cave. Turn on your torch!",
+   "hl": "torch",
+   "zh": "洞穴裡很暗，打開你的手電筒！",
+   "audio": "flyers/s/flashlight",
+   "pic": "This is a torch.",
+   "pzh": "這是一支手電筒。",
+   "paudio": "flyers/p/flashlight"
+  },
+  "w168": {
+   "word": "golf",
+   "en": "My grandpa plays golf every Sunday.",
+   "hl": "golf",
+   "zh": "我爺爺每個星期天打高爾夫球。",
+   "audio": "flyers/s/golf"
+  },
+  "w169": {
+   "word": "instrument",
+   "en": "The piano is my favourite instrument.",
+   "hl": "instrument",
+   "zh": "鋼琴是我最喜歡的樂器。",
+   "audio": "flyers/s/instrument"
+  },
+  "w170": {
+   "word": "invitation",
+   "en": "I got an invitation to Katy's birthday party.",
+   "hl": "invitation",
+   "zh": "我收到凱蒂生日派對的邀請函。",
+   "audio": "flyers/s/invitation"
+  },
+  "w171": {
+   "word": "join (a club)",
+   "en": "I want to join the swimming club.",
+   "hl": "join",
+   "zh": "我想加入游泳社。",
+   "audio": "flyers/s/join"
+  },
+  "w172": {
+   "word": "magazine",
+   "en": "Mum is reading a magazine about cooking.",
+   "hl": "magazine",
+   "zh": "媽媽正在看一本烹飪雜誌。",
+   "audio": "flyers/s/magazine",
+   "pic": "There's a woman on this magazine.",
+   "pzh": "這本雜誌上有一位女生。",
+   "paudio": "flyers/p/magazine",
+   "pfalse": "There's a dog on this magazine.",
+   "pfaudio": "flyers/q/magazine"
+  },
+  "w173": {
+   "word": "match (football)",
+   "en": "Our team won the football match!",
+   "hl": "match",
+   "zh": "我們隊贏了足球比賽！",
+   "audio": "flyers/s/match"
+  },
+  "w174": {
+   "word": "meet",
+   "en": "Let's meet at the café at four o'clock.",
+   "hl": "meet",
+   "zh": "我們四點在咖啡館碰面吧。",
+   "audio": "flyers/s/meet"
+  },
+  "w175": {
+   "word": "member",
+   "en": "I'm a member of the school chess club.",
+   "hl": "member",
+   "zh": "我是學校西洋棋社的社員。",
+   "audio": "flyers/s/member"
+  },
+  "w176": {
+   "word": "pop music",
+   "en": "My sister listens to pop music all day.",
+   "hl": "pop music",
+   "zh": "我姊姊整天都在聽流行音樂。",
+   "audio": "flyers/s/pop_music"
+  },
+  "w177": {
+   "word": "prize",
+   "en": "The winner of the race gets a prize.",
+   "hl": "prize",
+   "zh": "賽跑的冠軍會得到獎品。",
+   "audio": "flyers/s/prize",
+   "pic": "This prize is a gold cup.",
+   "pzh": "這個獎品是一座金色的獎盃。",
+   "paudio": "flyers/p/prize",
+   "pfalse": "This prize is a silver cup.",
+   "pfaudio": "flyers/q/prize"
+  },
+  "w178": {
+   "word": "programme (program)",
+   "en": "This TV programme is about animals in the ocean.",
+   "hl": "programme",
+   "zh": "這個電視節目在介紹海洋動物。",
+   "audio": "flyers/s/programme"
+  },
+  "w179": {
+   "word": "puzzle",
+   "en": "This puzzle has got five hundred pieces.",
+   "hl": "puzzle",
+   "zh": "這幅拼圖有五百片。",
+   "audio": "flyers/s/puzzle",
+   "pic": "This puzzle piece is green.",
+   "pzh": "這片拼圖是綠色的。",
+   "paudio": "flyers/p/puzzle",
+   "pfalse": "This puzzle piece is red.",
+   "pfaudio": "flyers/q/puzzle"
+  },
+  "w180": {
+   "word": "pyramid",
+   "en": "We made a sand pyramid on the beach.",
+   "hl": "pyramid",
+   "zh": "我們在海灘上堆了一座沙金字塔。",
+   "audio": "flyers/s/pyramid"
+  },
+  "w181": {
+   "word": "quiz",
+   "en": "Our class won the music quiz.",
+   "hl": "quiz",
+   "zh": "我們班贏了音樂問答比賽。",
+   "audio": "flyers/s/quiz"
+  },
+  "w182": {
+   "word": "race",
+   "en": "Let's have a race to the tree!",
+   "hl": "race",
+   "zh": "我們來比賽跑到那棵樹吧！",
+   "audio": "flyers/s/race",
+   "pic": "This flag is black and white.",
+   "pzh": "這面旗子是黑白色的。",
+   "paudio": "flyers/p/race",
+   "pfalse": "This flag is red and white.",
+   "pfaudio": "flyers/q/race"
+  },
+  "w183": {
+   "word": "rock music",
+   "en": "Dad likes loud rock music.",
+   "hl": "rock music",
+   "zh": "爸爸喜歡大聲的搖滾樂。",
+   "audio": "flyers/s/rock_music"
+  },
+  "w184": {
+   "word": "score",
+   "en": "What's the score? Is it two – one?",
+   "hl": "score",
+   "zh": "現在比數多少？是二比一嗎？",
+   "audio": "flyers/s/score",
+   "pic": "The score is two – one.",
+   "pzh": "比數是二比一。",
+   "paudio": "flyers/p/score",
+   "pfalse": "The score is three – one.",
+   "pfaudio": "flyers/q/score"
+  },
+  "w185": {
+   "word": "ski",
+   "en": "We're going to ski in the mountains this winter.",
+   "hl": "ski",
+   "zh": "我們今年冬天要去山上滑雪。",
+   "audio": "flyers/s/ski"
+  },
+  "w186": {
+   "word": "sledge",
+   "en": "The children are sledging down the hill.",
+   "hl": "sledging",
+   "zh": "孩子們正坐雪橇滑下山坡。",
+   "audio": "flyers/s/sledge",
+   "pic": "This sledge is red.",
+   "pzh": "這台雪橇是紅色的。",
+   "paudio": "flyers/p/sledge",
+   "pfalse": "This sledge is blue.",
+   "pfaudio": "flyers/q/sledge"
+  },
+  "w187": {
+   "word": "snowball",
+   "en": "My brother threw a snowball at me!",
+   "hl": "snowball",
+   "zh": "我哥哥朝我丟了一顆雪球！",
+   "audio": "flyers/s/snowball"
+  },
+  "w188": {
+   "word": "snowboard",
+   "en": "I want a new snowboard for my birthday.",
+   "hl": "snowboard",
+   "zh": "我生日想要一塊新的滑雪板。",
+   "audio": "flyers/s/snowboard",
+   "pic": "This snowboard is orange.",
+   "pzh": "這塊滑雪板是橘色的。",
+   "paudio": "flyers/p/snowboard",
+   "pfalse": "This snowboard is green.",
+   "pfaudio": "flyers/q/snowboard"
+  },
+  "w189": {
+   "word": "snowboarding",
+   "en": "Snowboarding is exciting, but it's difficult.",
+   "hl": "Snowboarding",
+   "zh": "單板滑雪很刺激，但是很難。",
+   "audio": "flyers/s/snowboarding"
+  },
+  "w190": {
+   "word": "snowman",
+   "en": "We made a big snowman in the garden.",
+   "hl": "snowman",
+   "zh": "我們在花園裡堆了一個大雪人。",
+   "audio": "flyers/s/snowman",
+   "pic": "The snowman has got a black hat.",
+   "pzh": "雪人戴著一頂黑色的帽子。",
+   "paudio": "flyers/p/snowman",
+   "pfalse": "The snowman has got a red hat.",
+   "pfaudio": "flyers/q/snowman"
+  },
+  "w191": {
+   "word": "stage (theatre)",
+   "en": "The singer is dancing on the stage.",
+   "hl": "stage",
+   "zh": "歌手在舞台上跳舞。",
+   "audio": "flyers/s/stage",
+   "pic": "This is a stage.",
+   "pzh": "這是一座舞台。",
+   "paudio": "flyers/p/stage"
+  },
+  "w192": {
+   "word": "suitcase",
+   "en": "Put your clothes in the suitcase. We're leaving tomorrow.",
+   "hl": "suitcase",
+   "zh": "把衣服放進行李箱，我們明天出發。",
+   "audio": "flyers/s/suitcase",
+   "pic": "This suitcase is blue.",
+   "pzh": "這個行李箱是藍色的。",
+   "paudio": "flyers/p/suitcase",
+   "pfalse": "This suitcase is yellow.",
+   "pfaudio": "flyers/q/suitcase"
+  },
+  "w193": {
+   "word": "team",
+   "en": "There are eleven players in a football team.",
+   "hl": "team",
+   "zh": "一支足球隊有十一名球員。",
+   "audio": "flyers/s/team"
+  },
+  "w194": {
+   "word": "tent",
+   "en": "We slept in a tent when we went camping.",
+   "hl": "tent",
+   "zh": "我們去露營的時候睡在帳篷裡。",
+   "audio": "flyers/s/tent",
+   "pic": "This tent is orange.",
+   "pzh": "這頂帳篷是橘色的。",
+   "paudio": "flyers/p/tent",
+   "pfalse": "This tent is green.",
+   "pfaudio": "flyers/q/tent"
+  },
+  "w195": {
+   "word": "tune",
+   "en": "I can play this tune on the guitar.",
+   "hl": "tune",
+   "zh": "我會用吉他彈這首曲子。",
+   "audio": "flyers/s/tune"
+  },
+  "w196": {
+   "word": "tyre (tire)",
+   "en": "Dad is changing the tyre on the car.",
+   "hl": "tyre",
+   "zh": "爸爸正在換車子的輪胎。",
+   "audio": "flyers/s/tyre",
+   "pic": "This tyre is black.",
+   "pzh": "這個輪胎是黑色的。",
+   "paudio": "flyers/p/tyre",
+   "pfalse": "This tyre is white.",
+   "pfaudio": "flyers/q/tyre"
+  },
+  "w197": {
+   "word": "violin",
+   "en": "She plays the violin in the school concert.",
+   "hl": "violin",
+   "zh": "她在學校音樂會上拉小提琴。",
+   "audio": "flyers/s/violin",
+   "pic": "This is a violin.",
+   "pzh": "這是一把小提琴。",
+   "paudio": "flyers/p/violin",
+   "pfalse": "This is a guitar.",
+   "pfaudio": "flyers/q/violin"
+  },
+  "w198": {
+   "word": "volleyball",
+   "en": "We play volleyball on the beach.",
+   "hl": "volleyball",
+   "zh": "我們在海灘上打排球。",
+   "audio": "flyers/s/volleyball",
+   "pic": "This is a volleyball.",
+   "pzh": "這是一顆排球。",
+   "paudio": "flyers/p/volleyball"
+  },
+  "w199": {
+   "word": "winner",
+   "en": "And the winner is... Sarah!",
+   "hl": "winner",
+   "zh": "冠軍是……莎拉！",
+   "audio": "flyers/s/winner",
+   "pic": "The winner is holding a gold cup.",
+   "pzh": "冠軍拿著一座金色的獎盃。",
+   "paudio": "flyers/p/winner",
+   "pfalse": "The winner is holding a flag.",
+   "pfaudio": "flyers/q/winner"
+  },
+  "w200": {
+   "word": "a.m.",
+   "en": "I get up at seven a.m. every day.",
+   "hl": "a.m.",
+   "zh": "我每天早上七點起床。",
+   "audio": "flyers/s/a_m",
+   "pic": "It's eight a.m.",
+   "pzh": "現在是早上八點。",
+   "paudio": "flyers/p/a_m",
+   "pfalse": "It's eight p.m.",
+   "pfaudio": "flyers/q/a_m"
+  },
+  "w201": {
+   "word": "ago",
+   "en": "We moved to this town two years ago.",
+   "hl": "ago",
+   "zh": "我們兩年前搬到這個鎮上。",
+   "audio": "flyers/s/ago"
+  },
+  "w202": {
+   "word": "autumn (fall)",
+   "en": "The leaves turn red and yellow in autumn.",
+   "hl": "autumn",
+   "zh": "秋天樹葉會變成紅色和黃色。",
+   "audio": "flyers/s/autumn",
+   "pic": "The leaves are orange.",
+   "pzh": "葉子是橘色的。",
+   "paudio": "flyers/p/autumn",
+   "pfalse": "The leaves are green.",
+   "pfaudio": "flyers/q/autumn"
+  },
+  "w203": {
+   "word": "calendar",
+   "en": "Write the date of the party on the calendar.",
+   "hl": "calendar",
+   "zh": "把派對的日期寫在月曆上。",
+   "audio": "flyers/s/calendar"
+  },
+  "w204": {
+   "word": "century",
+   "en": "This castle is five centuries old.",
+   "hl": "centuries",
+   "zh": "這座城堡已經有五百年的歷史。",
+   "audio": "flyers/s/century"
+  },
+  "w205": {
+   "word": "date (time)",
+   "en": "What's the date today?",
+   "hl": "date",
+   "zh": "今天是幾月幾號？",
+   "audio": "flyers/s/date"
+  },
+  "w206": {
+   "word": "early",
+   "en": "I went to bed early because I was tired.",
+   "hl": "early",
+   "zh": "我很累，所以很早就上床睡覺。",
+   "audio": "flyers/s/early"
+  },
+  "w207": {
+   "word": "hour",
+   "en": "The film is two hours long.",
+   "hl": "hours",
+   "zh": "這部電影長兩個小時。",
+   "audio": "flyers/s/hour"
+  },
+  "w208": {
+   "word": "how long",
+   "en": "How long does it take to get to school?",
+   "hl": "How long",
+   "zh": "去學校要花多久時間？",
+   "audio": "flyers/s/how_long"
+  },
+  "w209": {
+   "word": "late",
+   "en": "Hurry up! We're late for school.",
+   "hl": "late",
+   "zh": "快一點！我們上學遲到了。",
+   "audio": "flyers/s/late"
+  },
+  "w210": {
+   "word": "later",
+   "en": "I'm busy now. Can I call you later?",
+   "hl": "later",
+   "zh": "我現在很忙，晚點再打給你好嗎？",
+   "audio": "flyers/s/later"
+  },
+  "w211": {
+   "word": "midday",
+   "en": "We have lunch at midday.",
+   "hl": "midday",
+   "zh": "我們中午十二點吃午餐。",
+   "audio": "flyers/s/midday",
+   "pic": "It's midday.",
+   "pzh": "現在是中午十二點。",
+   "paudio": "flyers/p/midday",
+   "pfalse": "It's midnight.",
+   "pfaudio": "flyers/q/midday"
+  },
+  "w212": {
+   "word": "midnight",
+   "en": "Last night I went to bed at midnight.",
+   "hl": "midnight",
+   "zh": "我昨晚半夜十二點才睡覺。",
+   "audio": "flyers/s/midnight",
+   "pic": "It's midnight.",
+   "pzh": "現在是半夜十二點。",
+   "paudio": "flyers/p/midnight",
+   "pfalse": "It's midday.",
+   "pfaudio": "flyers/q/midnight"
+  },
+  "w213": {
+   "word": "minute",
+   "en": "Wait a minute! I'm putting on my shoes.",
+   "hl": "minute",
+   "zh": "等一下！我正在穿鞋子。",
+   "audio": "flyers/s/minute"
+  },
+  "w214": {
+   "word": "month",
+   "en": "My birthday is next month.",
+   "hl": "month",
+   "zh": "我的生日在下個月。",
+   "audio": "flyers/s/month"
+  },
+  "w215": {
+   "word": "p.m.",
+   "en": "The shop closes at six p.m.",
+   "hl": "p.m.",
+   "zh": "這家店晚上六點關門。",
+   "audio": "flyers/s/p_m",
+   "pic": "It's eight p.m.",
+   "pzh": "現在是晚上八點。",
+   "paudio": "flyers/p/p_m",
+   "pfalse": "It's eight a.m.",
+   "pfaudio": "flyers/q/p_m"
+  },
+  "w216": {
+   "word": "past",
+   "en": "It's twenty past three.",
+   "hl": "past",
+   "zh": "現在是三點二十分。",
+   "audio": "flyers/s/past"
+  },
+  "w217": {
+   "word": "quarter",
+   "en": "It's a quarter to nine. Let's go!",
+   "hl": "quarter",
+   "zh": "現在是八點四十五分，我們走吧！",
+   "audio": "flyers/s/quarter"
+  },
+  "w218": {
+   "word": "spring",
+   "en": "Flowers grow in spring.",
+   "hl": "spring",
+   "zh": "春天花兒會開。",
+   "audio": "flyers/s/spring",
+   "pic": "There's a butterfly on the flowers.",
+   "pzh": "花上有一隻蝴蝶。",
+   "paudio": "flyers/p/spring",
+   "pfalse": "There's a bird on the flowers.",
+   "pfaudio": "flyers/q/spring"
+  },
+  "w219": {
+   "word": "summer",
+   "en": "We go to the beach every summer.",
+   "hl": "summer",
+   "zh": "我們每年夏天都去海灘。",
+   "audio": "flyers/s/summer",
+   "pic": "There's a watermelon on the beach.",
+   "pzh": "海灘上有一顆西瓜。",
+   "paudio": "flyers/p/summer",
+   "pfalse": "There's a pizza on the beach.",
+   "pfaudio": "flyers/q/summer"
+  },
+  "w220": {
+   "word": "time",
+   "en": "What time is it?",
+   "hl": "time",
+   "zh": "現在幾點？",
+   "audio": "flyers/s/time",
+   "pic": "It's twelve o'clock.",
+   "pzh": "現在是十二點。",
+   "paudio": "flyers/p/time",
+   "pfalse": "It's six o'clock.",
+   "pfaudio": "flyers/q/time"
+  },
+  "w221": {
+   "word": "tomorrow",
+   "en": "We're going to the zoo tomorrow.",
+   "hl": "tomorrow",
+   "zh": "我們明天要去動物園。",
+   "audio": "flyers/s/tomorrow"
+  },
+  "w222": {
+   "word": "tonight",
+   "en": "There's a good film on TV tonight.",
+   "hl": "tonight",
+   "zh": "今晚電視上有一部好電影。",
+   "audio": "flyers/s/tonight",
+   "pic": "There's a moon over the house.",
+   "pzh": "房子上方有月亮。",
+   "paudio": "flyers/p/tonight",
+   "pfalse": "There's a sun over the house.",
+   "pfaudio": "flyers/q/tonight"
+  },
+  "w223": {
+   "word": "winter",
+   "en": "It snows a lot here in winter.",
+   "hl": "winter",
+   "zh": "這裡冬天常下雪。",
+   "audio": "flyers/s/winter",
+   "pic": "There's snow on the tree.",
+   "pzh": "樹上有雪。",
+   "paudio": "flyers/p/winter",
+   "pfalse": "There are flowers on the tree.",
+   "pfaudio": "flyers/q/winter"
+  },
+  "w224": {
+   "word": "January",
+   "en": "January is the first month of the year.",
+   "hl": "January",
+   "zh": "一月是一年的第一個月。",
+   "audio": "flyers/s/january",
+   "pic": "It's January.",
+   "pzh": "現在是一月。",
+   "paudio": "flyers/p/january",
+   "pfalse": "It's June.",
+   "pfaudio": "flyers/q/january"
+  },
+  "w225": {
+   "word": "February",
+   "en": "February is the shortest month.",
+   "hl": "February",
+   "zh": "二月是最短的月份。",
+   "audio": "flyers/s/february",
+   "pic": "It's February.",
+   "pzh": "現在是二月。",
+   "paudio": "flyers/p/february",
+   "pfalse": "It's November.",
+   "pfaudio": "flyers/q/february"
+  },
+  "w226": {
+   "word": "March",
+   "en": "My cousin's birthday is in March.",
+   "hl": "March",
+   "zh": "我表妹的生日在三月。",
+   "audio": "flyers/s/march",
+   "pic": "It's March.",
+   "pzh": "現在是三月。",
+   "paudio": "flyers/p/march",
+   "pfalse": "It's May.",
+   "pfaudio": "flyers/q/march"
+  },
+  "w227": {
+   "word": "April",
+   "en": "It often rains in April.",
+   "hl": "April",
+   "zh": "四月常常下雨。",
+   "audio": "flyers/s/april",
+   "pic": "It's April.",
+   "pzh": "現在是四月。",
+   "paudio": "flyers/p/april",
+   "pfalse": "It's August.",
+   "pfaudio": "flyers/q/april"
+  },
+  "w228": {
+   "word": "June",
+   "en": "School finishes in June.",
+   "hl": "June",
+   "zh": "學校在六月結束。",
+   "audio": "flyers/s/june",
+   "pic": "It's June.",
+   "pzh": "現在是六月。",
+   "paudio": "flyers/p/june",
+   "pfalse": "It's January.",
+   "pfaudio": "flyers/q/june"
+  },
+  "w229": {
+   "word": "July",
+   "en": "We went camping in July.",
+   "hl": "July",
+   "zh": "我們七月去露營。",
+   "audio": "flyers/s/july",
+   "pic": "It's July.",
+   "pzh": "現在是七月。",
+   "paudio": "flyers/p/july",
+   "pfalse": "It's October.",
+   "pfaudio": "flyers/q/july"
+  },
+  "w230": {
+   "word": "August",
+   "en": "It's very hot in August.",
+   "hl": "August",
+   "zh": "八月非常熱。",
+   "audio": "flyers/s/august",
+   "pic": "It's August.",
+   "pzh": "現在是八月。",
+   "paudio": "flyers/p/august",
+   "pfalse": "It's April.",
+   "pfaudio": "flyers/q/august"
+  },
+  "w231": {
+   "word": "September",
+   "en": "The new school year starts in September.",
+   "hl": "September",
+   "zh": "新學年在九月開始。",
+   "audio": "flyers/s/september",
+   "pic": "It's September.",
+   "pzh": "現在是九月。",
+   "paudio": "flyers/p/september",
+   "pfalse": "It's December.",
+   "pfaudio": "flyers/q/september"
+  },
+  "w232": {
+   "word": "October",
+   "en": "We wear costumes at the end of October.",
+   "hl": "October",
+   "zh": "十月底我們會穿上戲服。",
+   "audio": "flyers/s/october",
+   "pic": "It's October.",
+   "pzh": "現在是十月。",
+   "paudio": "flyers/p/october",
+   "pfalse": "It's July.",
+   "pfaudio": "flyers/q/october"
+  },
+  "w233": {
+   "word": "November",
+   "en": "November is cold and foggy here.",
+   "hl": "November",
+   "zh": "這裡的十一月又冷又多霧。",
+   "audio": "flyers/s/november",
+   "pic": "It's November.",
+   "pzh": "現在是十一月。",
+   "paudio": "flyers/p/november",
+   "pfalse": "It's February.",
+   "pfaudio": "flyers/q/november"
+  },
+  "w234": {
+   "word": "December",
+   "en": "December is the last month of the year.",
+   "hl": "December",
+   "zh": "十二月是一年的最後一個月。",
+   "audio": "flyers/s/december",
+   "pic": "It's December.",
+   "pzh": "現在是十二月。",
+   "paudio": "flyers/p/december",
+   "pfalse": "It's September.",
+   "pfaudio": "flyers/q/december"
+  },
+  "w235": {
+   "word": "ambulance",
+   "en": "The ambulance took him to the hospital.",
+   "hl": "ambulance",
+   "zh": "救護車把他送到醫院。",
+   "audio": "flyers/s/ambulance",
+   "pic": "The ambulance is white and red.",
+   "pzh": "救護車是白色和紅色的。",
+   "paudio": "flyers/p/ambulance",
+   "pfalse": "The ambulance is black and yellow.",
+   "pfaudio": "flyers/q/ambulance"
+  },
+  "w236": {
+   "word": "bicycle",
+   "en": "I ride my bicycle to school.",
+   "hl": "bicycle",
+   "zh": "我騎腳踏車上學。",
+   "audio": "flyers/s/bicycle",
+   "pic": "This is a bicycle.",
+   "pzh": "這是一台腳踏車。",
+   "paudio": "flyers/p/bicycle"
+  },
+  "w237": {
+   "word": "fire engine (fire truck)",
+   "en": "The fire engine is big and red.",
+   "hl": "fire engine",
+   "zh": "消防車又大又紅。",
+   "audio": "flyers/s/fire_engine",
+   "pic": "The fire engine is red.",
+   "pzh": "消防車是紅色的。",
+   "paudio": "flyers/p/fire_engine",
+   "pfalse": "The fire engine is blue.",
+   "pfaudio": "flyers/q/fire_engine"
+  },
+  "w238": {
+   "word": "journey",
+   "en": "The journey to Grandma's house takes three hours.",
+   "hl": "journey",
+   "zh": "去奶奶家的路程要三個小時。",
+   "audio": "flyers/s/journey"
+  },
+  "w239": {
+   "word": "lift (ride)",
+   "en": "Can you give me a lift to the station?",
+   "hl": "lift",
+   "zh": "你可以載我去車站嗎？",
+   "audio": "flyers/s/lift"
+  },
+  "w240": {
+   "word": "motorway",
+   "en": "Cars go very fast on the motorway.",
+   "hl": "motorway",
+   "zh": "車子在高速公路上開得很快。",
+   "audio": "flyers/s/motorway"
+  },
+  "w241": {
+   "word": "passenger",
+   "en": "There are fifty passengers on the bus.",
+   "hl": "passengers",
+   "zh": "公車上有五十位乘客。",
+   "audio": "flyers/s/passenger",
+   "pic": "There are three passengers on the bus.",
+   "pzh": "公車上有三位乘客。",
+   "paudio": "flyers/p/passenger",
+   "pfalse": "There are five passengers on the bus.",
+   "pfaudio": "flyers/q/passenger"
+  },
+  "w242": {
+   "word": "platform",
+   "en": "The train to London leaves from platform two.",
+   "hl": "platform",
+   "zh": "往倫敦的火車從第二月台出發。",
+   "audio": "flyers/s/platform",
+   "pic": "Two people are waiting on the platform.",
+   "pzh": "有兩個人在月台上等車。",
+   "paudio": "flyers/p/platform",
+   "pfalse": "Four people are waiting on the platform.",
+   "pfaudio": "flyers/q/platform"
+  },
+  "w243": {
+   "word": "racing",
+   "en": "He wants to drive a racing car.",
+   "hl": "racing",
+   "zh": "他想開賽車。",
+   "audio": "flyers/s/racing",
+   "pic": "This racing car is red.",
+   "pzh": "這輛賽車是紅色的。",
+   "paudio": "flyers/p/racing",
+   "pfalse": "This racing car is blue.",
+   "pfaudio": "flyers/q/racing"
+  },
+  "w244": {
+   "word": "railway",
+   "en": "The railway goes along the river.",
+   "hl": "railway",
+   "zh": "鐵路沿著河流延伸。",
+   "audio": "flyers/s/railway",
+   "pic": "This is a railway.",
+   "pzh": "這是一條鐵路。",
+   "paudio": "flyers/p/railway"
+  },
+  "w245": {
+   "word": "rocket",
+   "en": "The rocket is flying to the moon.",
+   "hl": "rocket",
+   "zh": "火箭正飛向月球。",
+   "audio": "flyers/s/rocket",
+   "pic": "The rocket is flying.",
+   "pzh": "火箭正在飛。",
+   "paudio": "flyers/p/rocket"
+  },
+  "w246": {
+   "word": "spaceship",
+   "en": "There are two astronauts in the spaceship.",
+   "hl": "spaceship",
+   "zh": "太空船裡有兩位太空人。",
+   "audio": "flyers/s/spaceship",
+   "pic": "This is a spaceship.",
+   "pzh": "這是一艘太空船。",
+   "paudio": "flyers/p/spaceship"
+  },
+  "w247": {
+   "word": "taxi",
+   "en": "We took a taxi to the airport.",
+   "hl": "taxi",
+   "zh": "我們搭計程車去機場。",
+   "audio": "flyers/s/taxi",
+   "pic": "The taxi is yellow.",
+   "pzh": "這輛計程車是黃色的。",
+   "paudio": "flyers/p/taxi",
+   "pfalse": "The taxi is red.",
+   "pfaudio": "flyers/q/taxi"
+  },
+  "w248": {
+   "word": "tour",
+   "en": "We went on a tour of the old castle.",
+   "hl": "tour",
+   "zh": "我們參觀了那座古城堡。",
+   "audio": "flyers/s/tour"
+  },
+  "w249": {
+   "word": "traffic",
+   "en": "There's a lot of traffic in the city today.",
+   "hl": "traffic",
+   "zh": "今天城裡的交通很擁擠。",
+   "audio": "flyers/s/traffic",
+   "pic": "The traffic lights are red, yellow and green.",
+   "pzh": "紅綠燈有紅色、黃色和綠色。",
+   "paudio": "flyers/p/traffic"
+  },
+  "w250": {
+   "word": "wheel",
+   "en": "My bike has got a broken wheel.",
+   "hl": "wheel",
+   "zh": "我的腳踏車有一個輪子壞了。",
+   "audio": "flyers/s/wheel",
+   "pic": "This is a wheel.",
+   "pzh": "這是一個輪子。",
+   "paudio": "flyers/p/wheel"
+  },
+  "w251": {
+   "word": "fog",
+   "en": "I can't see the hills because of the fog.",
+   "hl": "fog",
+   "zh": "因為起霧，我看不到山丘。",
+   "audio": "flyers/s/fog"
+  },
+  "w252": {
+   "word": "foggy",
+   "en": "It's foggy this morning, so drive slowly.",
+   "hl": "foggy",
+   "zh": "今天早上起霧，所以開慢一點。",
+   "audio": "flyers/s/foggy"
+  },
+  "w253": {
+   "word": "storm",
+   "en": "There was a big storm last night.",
+   "hl": "storm",
+   "zh": "昨晚有一場大暴風雨。",
+   "audio": "flyers/s/storm",
+   "pic": "There's a storm.",
+   "pzh": "現在有暴風雨。",
+   "paudio": "flyers/p/storm",
+   "pfalse": "It's sunny.",
+   "pfaudio": "flyers/q/storm"
+  },
+  "w254": {
+   "word": "actor",
+   "en": "My favourite actor is in this film.",
+   "hl": "actor",
+   "zh": "我最喜歡的演員有演這部電影。",
+   "audio": "flyers/s/actor"
+  },
+  "w255": {
+   "word": "artist",
+   "en": "The artist is painting a picture of the sea.",
+   "hl": "artist",
+   "zh": "畫家正在畫一幅海的畫。",
+   "audio": "flyers/s/artist",
+   "pic": "The artist is wearing a black hat.",
+   "pzh": "畫家戴著一頂黑色的帽子。",
+   "paudio": "flyers/p/artist",
+   "pfalse": "The artist is wearing a red hat.",
+   "pfaudio": "flyers/q/artist"
+  },
+  "w256": {
+   "word": "astronaut",
+   "en": "The astronaut is walking on the moon.",
+   "hl": "astronaut",
+   "zh": "太空人正在月球上走路。",
+   "audio": "flyers/s/astronaut",
+   "pic": "This is an astronaut.",
+   "pzh": "這是一位太空人。",
+   "paudio": "flyers/p/astronaut"
+  },
+  "w257": {
+   "word": "business",
+   "en": "Dad has got a small business in town.",
+   "hl": "business",
+   "zh": "爸爸在鎮上開了一間小公司。",
+   "audio": "flyers/s/business"
+  },
+  "w258": {
+   "word": "businessman/woman",
+   "en": "The businessman is talking on the phone.",
+   "hl": "businessman",
+   "zh": "那位商人正在講電話。",
+   "audio": "flyers/s/businessman_woman"
+  },
+  "w259": {
+   "word": "designer",
+   "en": "She's a designer. She makes clothes.",
+   "hl": "designer",
+   "zh": "她是設計師，她做衣服。",
+   "audio": "flyers/s/designer"
+  },
+  "w260": {
+   "word": "engineer",
+   "en": "The engineer is building a new bridge.",
+   "hl": "engineer",
+   "zh": "工程師正在建一座新橋。",
+   "audio": "flyers/s/engineer",
+   "pic": "The engineer is wearing a yellow hat.",
+   "pzh": "工程師戴著一頂黃色的帽子。",
+   "paudio": "flyers/p/engineer",
+   "pfalse": "The engineer is wearing a blue hat.",
+   "pfaudio": "flyers/q/engineer"
+  },
+  "w261": {
+   "word": "fire fighter",
+   "en": "The fire fighter is putting out the fire.",
+   "hl": "fire fighter",
+   "zh": "消防員正在滅火。",
+   "audio": "flyers/s/fire_fighter",
+   "pic": "The fire fighter is wearing a red hat.",
+   "pzh": "消防員戴著一頂紅色的帽子。",
+   "paudio": "flyers/p/fire_fighter",
+   "pfalse": "The fire fighter is wearing a green hat.",
+   "pfaudio": "flyers/q/fire_fighter"
+  },
+  "w262": {
+   "word": "job",
+   "en": "What job do you want to do when you're older?",
+   "hl": "job",
+   "zh": "你長大以後想做什麼工作？",
+   "audio": "flyers/s/job"
+  },
+  "w263": {
+   "word": "journalist",
+   "en": "The journalist is writing a story for the newspaper.",
+   "hl": "journalist",
+   "zh": "記者正在為報紙寫報導。",
+   "audio": "flyers/s/journalist",
+   "pic": "This journalist has got glasses.",
+   "pzh": "這位記者戴著眼鏡。",
+   "paudio": "flyers/p/journalist",
+   "pfalse": "This journalist has got a hat.",
+   "pfaudio": "flyers/q/journalist"
+  },
+  "w264": {
+   "word": "manager",
+   "en": "The manager of the hotel is very friendly.",
+   "hl": "manager",
+   "zh": "這家旅館的經理非常親切。",
+   "audio": "flyers/s/manager"
+  },
+  "w265": {
+   "word": "mechanic",
+   "en": "The mechanic is repairing our car.",
+   "hl": "mechanic",
+   "zh": "技工正在修我們的車。",
+   "audio": "flyers/s/mechanic",
+   "pic": "The mechanic is wearing a blue hat.",
+   "pzh": "技工戴著一頂藍色的帽子。",
+   "paudio": "flyers/p/mechanic",
+   "pfalse": "The mechanic is wearing a red hat.",
+   "pfaudio": "flyers/q/mechanic"
+  },
+  "w266": {
+   "word": "meeting",
+   "en": "Dad has got a meeting at ten o'clock.",
+   "hl": "meeting",
+   "zh": "爸爸十點要開會。",
+   "audio": "flyers/s/meeting",
+   "pic": "Three people are sitting at the table.",
+   "pzh": "有三個人坐在桌子旁。",
+   "paudio": "flyers/p/meeting",
+   "pfalse": "Five people are sitting at the table.",
+   "pfaudio": "flyers/q/meeting"
+  },
+  "w267": {
+   "word": "news",
+   "en": "Grandpa watches the news every evening.",
+   "hl": "news",
+   "zh": "爺爺每天晚上看新聞。",
+   "audio": "flyers/s/news"
+  },
+  "w268": {
+   "word": "newspaper",
+   "en": "There's a photo of our school in the newspaper.",
+   "hl": "newspaper",
+   "zh": "報紙上有一張我們學校的照片。",
+   "audio": "flyers/s/newspaper",
+   "pic": "This is a newspaper.",
+   "pzh": "這是一份報紙。",
+   "paudio": "flyers/p/newspaper"
+  },
+  "w269": {
+   "word": "office",
+   "en": "My aunt works in an office in the city.",
+   "hl": "office",
+   "zh": "我阿姨在城裡的辦公室工作。",
+   "audio": "flyers/s/office",
+   "pic": "There's a computer on the desk.",
+   "pzh": "桌上有一台電腦。",
+   "paudio": "flyers/p/office",
+   "pfalse": "There's a cat on the desk.",
+   "pfaudio": "flyers/q/office"
+  },
+  "w270": {
+   "word": "photographer",
+   "en": "The photographer took a photo of our class.",
+   "hl": "photographer",
+   "zh": "攝影師幫我們班拍了一張照片。",
+   "audio": "flyers/s/photographer",
+   "pic": "The photographer has got a camera.",
+   "pzh": "攝影師拿著一台相機。",
+   "paudio": "flyers/p/photographer",
+   "pfalse": "The photographer has got a guitar.",
+   "pfaudio": "flyers/q/photographer"
+  },
+  "w271": {
+   "word": "pilot",
+   "en": "The pilot is flying the plane.",
+   "hl": "pilot",
+   "zh": "飛行員正在開飛機。",
+   "audio": "flyers/s/pilot",
+   "pic": "The pilot is wearing a black hat.",
+   "pzh": "飛行員戴著一頂黑色的帽子。",
+   "paudio": "flyers/p/pilot",
+   "pfalse": "The pilot is wearing a white hat.",
+   "pfaudio": "flyers/q/pilot"
+  },
+  "w272": {
+   "word": "police officer",
+   "en": "The police officer helped the old woman across the road.",
+   "hl": "police officer",
+   "zh": "警察扶那位老太太過馬路。",
+   "audio": "flyers/s/police_officer",
+   "pic": "The police officer is wearing a blue hat.",
+   "pzh": "警察戴著一頂藍色的帽子。",
+   "paudio": "flyers/p/police_officer",
+   "pfalse": "The police officer is wearing a red hat.",
+   "pfaudio": "flyers/q/police_officer"
+  },
+  "w273": {
+   "word": "queen",
+   "en": "The queen is waving to the people.",
+   "hl": "queen",
+   "zh": "女王正在向大家揮手。",
+   "audio": "flyers/s/queen",
+   "pic": "The queen is wearing a gold crown.",
+   "pzh": "女王戴著一頂金色的皇冠。",
+   "paudio": "flyers/p/queen",
+   "pfalse": "The queen is wearing a silver crown.",
+   "pfaudio": "flyers/q/queen"
+  },
+  "w274": {
+   "word": "singer",
+   "en": "The singer is singing a lovely song.",
+   "hl": "singer",
+   "zh": "歌手正在唱一首好聽的歌。",
+   "audio": "flyers/s/singer",
+   "pic": "The singer has got red hair.",
+   "pzh": "這位歌手有紅色的頭髮。",
+   "paudio": "flyers/p/singer",
+   "pfalse": "The singer has got black hair.",
+   "pfaudio": "flyers/q/singer"
+  },
+  "w275": {
+   "word": "waiter",
+   "en": "The waiter brought us our pizza.",
+   "hl": "waiter",
+   "zh": "服務生把我們的披薩送來了。",
+   "audio": "flyers/s/waiter",
+   "pic": "The waiter is carrying a plate.",
+   "pzh": "服務生端著一個盤子。",
+   "paudio": "flyers/p/waiter",
+   "pfalse": "The waiter is carrying a box.",
+   "pfaudio": "flyers/q/waiter"
+  },
+  "w276": {
+   "word": "air",
+   "en": "Open the window and let some air in.",
+   "hl": "air",
+   "zh": "打開窗戶讓空氣進來。",
+   "audio": "flyers/s/air"
+  },
+  "w277": {
+   "word": "cave",
+   "en": "We found a big cave in the mountain.",
+   "hl": "cave",
+   "zh": "我們在山裡發現一個大洞穴。",
+   "audio": "flyers/s/cave"
+  },
+  "w278": {
+   "word": "desert",
+   "en": "It's very hot and dry in the desert.",
+   "hl": "desert",
+   "zh": "沙漠裡又熱又乾。",
+   "audio": "flyers/s/desert",
+   "pic": "It's hot and sunny in the desert.",
+   "pzh": "沙漠裡又熱又晴朗。",
+   "paudio": "flyers/p/desert"
+  },
+  "w279": {
+   "word": "Earth",
+   "en": "The Earth goes around the sun.",
+   "hl": "Earth",
+   "zh": "地球繞著太陽轉。",
+   "audio": "flyers/s/earth",
+   "pic": "This is the Earth.",
+   "pzh": "這是地球。",
+   "paudio": "flyers/p/earth"
+  },
+  "w280": {
+   "word": "environment",
+   "en": "We should look after the environment.",
+   "hl": "environment",
+   "zh": "我們應該愛護環境。",
+   "audio": "flyers/s/environment"
+  },
+  "w281": {
+   "word": "exit",
+   "en": "Where's the exit? I want to go out.",
+   "hl": "exit",
+   "zh": "出口在哪裡？我想出去。",
+   "audio": "flyers/s/exit"
+  },
+  "w282": {
+   "word": "fire",
+   "en": "We sat around the fire and sang songs.",
+   "hl": "fire",
+   "zh": "我們圍坐在火堆旁唱歌。",
+   "audio": "flyers/s/fire",
+   "pic": "This is a fire.",
+   "pzh": "這是一團火。",
+   "paudio": "flyers/p/fire"
+  },
+  "w283": {
+   "word": "future",
+   "en": "In the future, I want to travel to space.",
+   "hl": "future",
+   "zh": "將來我想去太空旅行。",
+   "audio": "flyers/s/future"
+  },
+  "w284": {
+   "word": "hill",
+   "en": "We walked up the hill and had a picnic.",
+   "hl": "hill",
+   "zh": "我們走上山丘去野餐。",
+   "audio": "flyers/s/hill",
+   "pic": "There's a tree on the hill.",
+   "pzh": "山丘上有一棵樹。",
+   "paudio": "flyers/p/hill",
+   "pfalse": "There's a house on the hill.",
+   "pfaudio": "flyers/q/hill"
+  },
+  "w285": {
+   "word": "land",
+   "en": "The plane is going to land in five minutes.",
+   "hl": "land",
+   "zh": "飛機再五分鐘就要降落了。",
+   "audio": "flyers/s/land"
+  },
+  "w286": {
+   "word": "ocean",
+   "en": "Whales live in the ocean.",
+   "hl": "ocean",
+   "zh": "鯨魚住在海洋裡。",
+   "audio": "flyers/s/ocean",
+   "pic": "This is the ocean.",
+   "pzh": "這是海洋。",
+   "paudio": "flyers/p/ocean"
+  },
+  "w287": {
+   "word": "planet",
+   "en": "Earth is the planet we live on.",
+   "hl": "planet",
+   "zh": "地球是我們居住的行星。",
+   "audio": "flyers/s/planet",
+   "pic": "This planet has got a ring.",
+   "pzh": "這顆行星有一圈光環。",
+   "paudio": "flyers/p/planet"
+  },
+  "w288": {
+   "word": "pond",
+   "en": "There are frogs and fish in the pond.",
+   "hl": "pond",
+   "zh": "池塘裡有青蛙和魚。",
+   "audio": "flyers/s/pond"
+  },
+  "w289": {
+   "word": "space",
+   "en": "Astronauts travel into space in a rocket.",
+   "hl": "space",
+   "zh": "太空人搭火箭進入太空。",
+   "audio": "flyers/s/space",
+   "pic": "There are lots of stars in space.",
+   "pzh": "太空中有很多星星。",
+   "paudio": "flyers/p/space"
+  },
+  "w290": {
+   "word": "stone",
+   "en": "He threw a stone into the river.",
+   "hl": "stone",
+   "zh": "他把一顆石頭丟進河裡。",
+   "audio": "flyers/s/stone",
+   "pic": "This stone is grey.",
+   "pzh": "這顆石頭是灰色的。",
+   "paudio": "flyers/p/stone",
+   "pfalse": "This stone is pink.",
+   "pfaudio": "flyers/q/stone"
+  },
+  "w291": {
+   "word": "stream",
+   "en": "We crossed the stream on big stones.",
+   "hl": "stream",
+   "zh": "我們踩著大石頭走過小溪。",
+   "audio": "flyers/s/stream",
+   "pic": "There are stones in the stream.",
+   "pzh": "小溪裡有石頭。",
+   "paudio": "flyers/p/stream",
+   "pfalse": "There are fish in the stream.",
+   "pfaudio": "flyers/q/stream"
+  },
+  "w292": {
+   "word": "view",
+   "en": "There's a wonderful view of the sea from my window.",
+   "hl": "view",
+   "zh": "從我的窗戶可以看到很棒的海景。",
+   "audio": "flyers/s/view"
+  },
+  "w293": {
+   "word": "wood",
+   "en": "This table is made of wood.",
+   "hl": "wood",
+   "zh": "這張桌子是木頭做的。",
+   "audio": "flyers/s/wood",
+   "pic": "This is wood.",
+   "pzh": "這是木頭。",
+   "paudio": "flyers/p/wood"
+  },
+  "w294": {
+   "word": "alone",
+   "en": "My grandma lives alone in a small house.",
+   "hl": "alone",
+   "zh": "我奶奶一個人住在一棟小房子裡。",
+   "audio": "flyers/s/alone"
+  },
+  "w295": {
+   "word": "amazing",
+   "en": "The circus was amazing!",
+   "hl": "amazing",
+   "zh": "馬戲團表演太精彩了！",
+   "audio": "flyers/s/amazing"
+  },
+  "w296": {
+   "word": "bored",
+   "en": "I'm bored. Let's play a game.",
+   "hl": "bored",
+   "zh": "我好無聊，我們來玩遊戲吧。",
+   "audio": "flyers/s/bored"
+  },
+  "w297": {
+   "word": "broken",
+   "en": "Oh no! My glasses are broken.",
+   "hl": "broken",
+   "zh": "糟糕！我的眼鏡壞了。",
+   "audio": "flyers/s/broken"
+  },
+  "w298": {
+   "word": "cheap",
+   "en": "These pencils are very cheap.",
+   "hl": "cheap",
+   "zh": "這些鉛筆很便宜。",
+   "audio": "flyers/s/cheap"
+  },
+  "w299": {
+   "word": "dark",
+   "en": "It's dark outside. Turn on the light.",
+   "hl": "dark",
+   "zh": "外面很暗，把燈打開。",
+   "audio": "flyers/s/dark"
+  },
+  "w300": {
+   "word": "deep",
+   "en": "The river is very deep here, so don't swim.",
+   "hl": "deep",
+   "zh": "這裡的河很深，所以不要游泳。",
+   "audio": "flyers/s/deep"
+  },
+  "w301": {
+   "word": "delicious",
+   "en": "This chocolate cake is delicious!",
+   "hl": "delicious",
+   "zh": "這個巧克力蛋糕好好吃！",
+   "audio": "flyers/s/delicious"
+  },
+  "w302": {
+   "word": "empty",
+   "en": "The fridge is empty. Let's go shopping.",
+   "hl": "empty",
+   "zh": "冰箱空了，我們去買東西吧。",
+   "audio": "flyers/s/empty"
+  },
+  "w303": {
+   "word": "enormous",
+   "en": "An elephant is an enormous animal.",
+   "hl": "enormous",
+   "zh": "大象是一種非常巨大的動物。",
+   "audio": "flyers/s/enormous"
+  },
+  "w304": {
+   "word": "enough",
+   "en": "Have we got enough chairs for all our friends?",
+   "hl": "enough",
+   "zh": "我們的椅子夠所有朋友坐嗎？",
+   "audio": "flyers/s/enough"
+  },
+  "w305": {
+   "word": "excellent",
+   "en": "Excellent work! All your answers are right.",
+   "hl": "Excellent",
+   "zh": "做得太好了！你全部都答對了。",
+   "audio": "flyers/s/excellent"
+  },
+  "w306": {
+   "word": "excited",
+   "en": "I'm so excited about our holiday!",
+   "hl": "excited",
+   "zh": "我對我們的假期好興奮！",
+   "audio": "flyers/s/excited"
+  },
+  "w307": {
+   "word": "expensive",
+   "en": "This watch is very expensive.",
+   "hl": "expensive",
+   "zh": "這支手錶非常貴。",
+   "audio": "flyers/s/expensive"
+  },
+  "w308": {
+   "word": "far",
+   "en": "Is the station far from here?",
+   "hl": "far",
+   "zh": "車站離這裡遠嗎？",
+   "audio": "flyers/s/far"
+  },
+  "w309": {
+   "word": "fast",
+   "en": "Horses can run very fast.",
+   "hl": "fast",
+   "zh": "馬可以跑得非常快。",
+   "audio": "flyers/s/fast"
+  },
+  "w310": {
+   "word": "friendly",
+   "en": "The people next door are very friendly.",
+   "hl": "friendly",
+   "zh": "隔壁的人非常友善。",
+   "audio": "flyers/s/friendly"
+  },
+  "w311": {
+   "word": "frightening",
+   "en": "The film was frightening, so I closed my eyes.",
+   "hl": "frightening",
+   "zh": "這部電影很可怕，所以我把眼睛閉上了。",
+   "audio": "flyers/s/frightening"
+  },
+  "w312": {
+   "word": "full",
+   "en": "The bus is full. We have to wait for the next one.",
+   "hl": "full",
+   "zh": "公車滿了，我們得等下一班。",
+   "audio": "flyers/s/full"
+  },
+  "w313": {
+   "word": "hard",
+   "en": "This maths homework is very hard.",
+   "hl": "hard",
+   "zh": "這份數學作業好難。",
+   "audio": "flyers/s/hard"
+  },
+  "w314": {
+   "word": "heavy",
+   "en": "This box is too heavy for me to lift.",
+   "hl": "heavy",
+   "zh": "這個箱子太重了，我抬不起來。",
+   "audio": "flyers/s/heavy"
+  },
+  "w315": {
+   "word": "high",
+   "en": "That mountain is very high.",
+   "hl": "high",
+   "zh": "那座山非常高。",
+   "audio": "flyers/s/high"
+  },
+  "w316": {
+   "word": "horrible",
+   "en": "The medicine tastes horrible!",
+   "hl": "horrible",
+   "zh": "這個藥好難吃！",
+   "audio": "flyers/s/horrible"
+  },
+  "w317": {
+   "word": "important",
+   "en": "It's important to drink lots of water.",
+   "hl": "important",
+   "zh": "多喝水很重要。",
+   "audio": "flyers/s/important"
+  },
+  "w318": {
+   "word": "interested",
+   "en": "I'm interested in dinosaurs.",
+   "hl": "interested",
+   "zh": "我對恐龍很有興趣。",
+   "audio": "flyers/s/interested"
+  },
+  "w319": {
+   "word": "interesting",
+   "en": "This book about space is very interesting.",
+   "hl": "interesting",
+   "zh": "這本關於太空的書很有趣。",
+   "audio": "flyers/s/interesting"
+  },
+  "w320": {
+   "word": "kind",
+   "en": "It was kind of you to help me.",
+   "hl": "kind",
+   "zh": "謝謝你好心幫我。",
+   "audio": "flyers/s/kind"
+  },
+  "w321": {
+   "word": "large",
+   "en": "Can I have a large orange juice, please?",
+   "hl": "large",
+   "zh": "請給我一杯大杯柳橙汁。",
+   "audio": "flyers/s/large"
+  },
+  "w322": {
+   "word": "lazy",
+   "en": "My cat is lazy. It sleeps all day.",
+   "hl": "lazy",
+   "zh": "我的貓很懶，牠整天都在睡覺。",
+   "audio": "flyers/s/lazy"
+  },
+  "w323": {
+   "word": "light",
+   "en": "My bag is light because it's empty.",
+   "hl": "light",
+   "zh": "我的包包很輕，因為裡面是空的。",
+   "audio": "flyers/s/light"
+  },
+  "w324": {
+   "word": "lovely",
+   "en": "What a lovely dress!",
+   "hl": "lovely",
+   "zh": "多麼漂亮的洋裝啊！",
+   "audio": "flyers/s/lovely"
+  },
+  "w325": {
+   "word": "low",
+   "en": "The bridge is very low, so the bus can't go under it.",
+   "hl": "low",
+   "zh": "這座橋很低，所以公車過不去。",
+   "audio": "flyers/s/low"
+  },
+  "w326": {
+   "word": "lucky",
+   "en": "I won a prize! I'm so lucky!",
+   "hl": "lucky",
+   "zh": "我得獎了！我好幸運！",
+   "audio": "flyers/s/lucky"
+  },
+  "w327": {
+   "word": "missing",
+   "en": "One of my socks is missing.",
+   "hl": "missing",
+   "zh": "我的一隻襪子不見了。",
+   "audio": "flyers/s/missing"
+  },
+  "w328": {
+   "word": "next",
+   "en": "We're going on holiday next week.",
+   "hl": "next",
+   "zh": "我們下星期要去度假。",
+   "audio": "flyers/s/next"
+  },
+  "w329": {
+   "word": "noisy",
+   "en": "The classroom is very noisy today.",
+   "hl": "noisy",
+   "zh": "今天教室裡非常吵。",
+   "audio": "flyers/s/noisy"
+  },
+  "w330": {
+   "word": "pleased",
+   "en": "My teacher was pleased with my homework.",
+   "hl": "pleased",
+   "zh": "老師對我的作業很滿意。",
+   "audio": "flyers/s/pleased"
+  },
+  "w331": {
+   "word": "poor",
+   "en": "The poor dog was cold and hungry.",
+   "hl": "poor",
+   "zh": "那隻可憐的狗又冷又餓。",
+   "audio": "flyers/s/poor"
+  },
+  "w332": {
+   "word": "popular",
+   "en": "Football is a very popular sport.",
+   "hl": "popular",
+   "zh": "足球是非常受歡迎的運動。",
+   "audio": "flyers/s/popular"
+  },
+  "w333": {
+   "word": "ready",
+   "en": "Are you ready? Let's go!",
+   "hl": "ready",
+   "zh": "你準備好了嗎？我們走吧！",
+   "audio": "flyers/s/ready"
+  },
+  "w334": {
+   "word": "rich",
+   "en": "The rich man has got three big houses.",
+   "hl": "rich",
+   "zh": "那個有錢人有三棟大房子。",
+   "audio": "flyers/s/rich"
+  },
+  "w335": {
+   "word": "same",
+   "en": "Holly and I are wearing the same dress!",
+   "hl": "same",
+   "zh": "荷莉和我穿著一樣的洋裝！",
+   "audio": "flyers/s/same"
+  },
+  "w336": {
+   "word": "several",
+   "en": "I've got several friends in my new school.",
+   "hl": "several",
+   "zh": "我在新學校交了好幾個朋友。",
+   "audio": "flyers/s/several"
+  },
+  "w337": {
+   "word": "soft",
+   "en": "My cat's fur is very soft.",
+   "hl": "soft",
+   "zh": "我的貓的毛很軟。",
+   "audio": "flyers/s/soft"
+  },
+  "w338": {
+   "word": "sore",
+   "en": "I've got a sore foot because my shoes are too small.",
+   "hl": "sore",
+   "zh": "我的腳很痛，因為鞋子太小了。",
+   "audio": "flyers/s/sore"
+  },
+  "w339": {
+   "word": "special",
+   "en": "Today is a special day. It's my birthday!",
+   "hl": "special",
+   "zh": "今天是特別的日子，是我的生日！",
+   "audio": "flyers/s/special"
+  },
+  "w340": {
+   "word": "strange",
+   "en": "There's a strange smell in the kitchen.",
+   "hl": "strange",
+   "zh": "廚房裡有一股奇怪的味道。",
+   "audio": "flyers/s/strange"
+  },
+  "w341": {
+   "word": "sure",
+   "en": "Are you sure the shop is open?",
+   "hl": "sure",
+   "zh": "你確定那家店有開嗎？",
+   "audio": "flyers/s/sure"
+  },
+  "w342": {
+   "word": "tidy",
+   "en": "My bedroom is always tidy.",
+   "hl": "tidy",
+   "zh": "我的房間總是很整齊。",
+   "audio": "flyers/s/tidy"
+  },
+  "w343": {
+   "word": "unfriendly",
+   "en": "The new cat was unfriendly at first.",
+   "hl": "unfriendly",
+   "zh": "新來的貓一開始不太友善。",
+   "audio": "flyers/s/unfriendly"
+  },
+  "w344": {
+   "word": "unhappy",
+   "en": "He was unhappy because he lost his toy.",
+   "hl": "unhappy",
+   "zh": "他很不開心，因為他把玩具弄丟了。",
+   "audio": "flyers/s/unhappy"
+  },
+  "w345": {
+   "word": "unkind",
+   "en": "It's unkind to laugh at other people.",
+   "hl": "unkind",
+   "zh": "嘲笑別人是不友善的。",
+   "audio": "flyers/s/unkind"
+  },
+  "w346": {
+   "word": "untidy",
+   "en": "Your room is very untidy. Please clean it.",
+   "hl": "untidy",
+   "zh": "你的房間好亂，請整理一下。",
+   "audio": "flyers/s/untidy"
+  },
+  "w347": {
+   "word": "unusual",
+   "en": "It's unusual to see snow here in spring.",
+   "hl": "unusual",
+   "zh": "春天在這裡看到雪很不尋常。",
+   "audio": "flyers/s/unusual"
+  },
+  "w348": {
+   "word": "warm",
+   "en": "Put on a warm coat. It's cold outside.",
+   "hl": "warm",
+   "zh": "穿上保暖的外套，外面很冷。",
+   "audio": "flyers/s/warm"
+  },
+  "w349": {
+   "word": "wonderful",
+   "en": "We had a wonderful time at the beach.",
+   "hl": "wonderful",
+   "zh": "我們在海灘玩得非常開心。",
+   "audio": "flyers/s/wonderful"
+  },
+  "w350": {
+   "word": "worried",
+   "en": "Mum is worried because my brother is late.",
+   "hl": "worried",
+   "zh": "媽媽很擔心，因為弟弟還沒回來。",
+   "audio": "flyers/s/worried"
+  },
+  "w351": {
+   "word": "act",
+   "en": "I want to act in the school play.",
+   "hl": "act",
+   "zh": "我想在學校的戲劇裡演戲。",
+   "audio": "flyers/s/act"
+  },
+  "w352": {
+   "word": "agree",
+   "en": "I agree with you. Let's go to the beach!",
+   "hl": "agree",
+   "zh": "我同意你，我們去海灘吧！",
+   "audio": "flyers/s/agree"
+  },
+  "w353": {
+   "word": "appear",
+   "en": "A rabbit suddenly appeared from behind the tree.",
+   "hl": "appeared",
+   "zh": "一隻兔子突然從樹後面出現。",
+   "audio": "flyers/s/appear"
+  },
+  "w354": {
+   "word": "arrive",
+   "en": "Our train arrives at five o'clock.",
+   "hl": "arrives",
+   "zh": "我們的火車五點抵達。",
+   "audio": "flyers/s/arrive"
+  },
+  "w355": {
+   "word": "begin",
+   "en": "The film begins at seven.",
+   "hl": "begins",
+   "zh": "電影七點開始。",
+   "audio": "flyers/s/begin"
+  },
+  "w356": {
+   "word": "believe",
+   "en": "I can't believe it! We won!",
+   "hl": "believe",
+   "zh": "真不敢相信！我們贏了！",
+   "audio": "flyers/s/believe"
+  },
+  "w357": {
+   "word": "borrow",
+   "en": "Can I borrow your pencil, please?",
+   "hl": "borrow",
+   "zh": "請問我可以借你的鉛筆嗎？",
+   "audio": "flyers/s/borrow"
+  },
+  "w358": {
+   "word": "break",
+   "en": "Be careful! Don't break the glass.",
+   "hl": "break",
+   "zh": "小心！別把杯子打破了。",
+   "audio": "flyers/s/break"
+  },
+  "w359": {
+   "word": "burn",
+   "en": "Don't touch the oven. It will burn you.",
+   "hl": "burn",
+   "zh": "不要碰烤箱，會燙傷你。",
+   "audio": "flyers/s/burn"
+  },
+  "w360": {
+   "word": "camp",
+   "en": "We're going to camp next to the lake.",
+   "hl": "camp",
+   "zh": "我們要在湖邊露營。",
+   "audio": "flyers/s/camp"
+  },
+  "w361": {
+   "word": "chat",
+   "en": "I like to chat with my friends after school.",
+   "hl": "chat",
+   "zh": "我喜歡放學後和朋友聊天。",
+   "audio": "flyers/s/chat"
+  },
+  "w362": {
+   "word": "cut",
+   "en": "Can you cut the cake into eight pieces?",
+   "hl": "cut",
+   "zh": "你可以把蛋糕切成八塊嗎？",
+   "audio": "flyers/s/cut_w362"
+  },
+  "w363": {
+   "word": "cycle",
+   "en": "We cycle to the park on Sundays.",
+   "hl": "cycle",
+   "zh": "我們星期天騎腳踏車去公園。",
+   "audio": "flyers/s/cycle"
+  },
+  "w364": {
+   "word": "decide",
+   "en": "I can't decide which ice cream to choose.",
+   "hl": "decide",
+   "zh": "我無法決定要選哪一種冰淇淋。",
+   "audio": "flyers/s/decide"
+  },
+  "w365": {
+   "word": "design",
+   "en": "She wants to design clothes when she's older.",
+   "hl": "design",
+   "zh": "她長大以後想設計衣服。",
+   "audio": "flyers/s/design"
+  },
+  "w366": {
+   "word": "disappear",
+   "en": "The sun disappeared behind the clouds.",
+   "hl": "disappeared",
+   "zh": "太陽躲到雲後面不見了。",
+   "audio": "flyers/s/disappear"
+  },
+  "w367": {
+   "word": "end",
+   "en": "The party ends at nine o'clock.",
+   "hl": "ends",
+   "zh": "派對九點結束。",
+   "audio": "flyers/s/end"
+  },
+  "w368": {
+   "word": "enter",
+   "en": "Please take off your shoes before you enter the house.",
+   "hl": "enter",
+   "zh": "進屋前請先脫鞋。",
+   "audio": "flyers/s/enter"
+  },
+  "w369": {
+   "word": "explain",
+   "en": "Can you explain this maths homework to me?",
+   "hl": "explain",
+   "zh": "你可以跟我解釋這份數學作業嗎？",
+   "audio": "flyers/s/explain"
+  },
+  "w370": {
+   "word": "explore",
+   "en": "Let's explore the old castle!",
+   "hl": "explore",
+   "zh": "我們去探索那座古城堡吧！",
+   "audio": "flyers/s/explore"
+  },
+  "w371": {
+   "word": "fall over",
+   "en": "My little brother fell over and hurt his knee.",
+   "hl": "fell over",
+   "zh": "我弟弟跌倒，撞傷了膝蓋。",
+   "audio": "flyers/s/fall_over_w371"
+  },
+  "w372": {
+   "word": "feel",
+   "en": "I feel tired today.",
+   "hl": "feel",
+   "zh": "我今天覺得很累。",
+   "audio": "flyers/s/feel"
+  },
+  "w373": {
+   "word": "fetch",
+   "en": "Can you fetch my glasses from the kitchen?",
+   "hl": "fetch",
+   "zh": "你可以去廚房幫我拿眼鏡嗎？",
+   "audio": "flyers/s/fetch"
+  },
+  "w374": {
+   "word": "find out",
+   "en": "Let's find out what time the shop opens.",
+   "hl": "find out",
+   "zh": "我們去查查看那家店幾點開門。",
+   "audio": "flyers/s/find_out"
+  },
+  "w375": {
+   "word": "finish",
+   "en": "Finish your homework before you watch TV.",
+   "hl": "Finish",
+   "zh": "看電視之前先把功課做完。",
+   "audio": "flyers/s/finish"
+  },
+  "w376": {
+   "word": "follow",
+   "en": "Follow me! I know the way.",
+   "hl": "Follow",
+   "zh": "跟著我！我知道路。",
+   "audio": "flyers/s/follow"
+  },
+  "w377": {
+   "word": "forget",
+   "en": "Don't forget your umbrella!",
+   "hl": "forget",
+   "zh": "別忘了你的雨傘！",
+   "audio": "flyers/s/forget"
+  },
+  "w378": {
+   "word": "happen",
+   "en": "What happened to your arm?",
+   "hl": "happened",
+   "zh": "你的手臂怎麼了？",
+   "audio": "flyers/s/happen"
+  },
+  "w379": {
+   "word": "hate",
+   "en": "I hate cold weather.",
+   "hl": "hate",
+   "zh": "我討厭寒冷的天氣。",
+   "audio": "flyers/s/hate"
+  },
+  "w380": {
+   "word": "hear",
+   "en": "Can you hear the birds singing?",
+   "hl": "hear",
+   "zh": "你聽得到鳥在唱歌嗎？",
+   "audio": "flyers/s/hear"
+  },
+  "w381": {
+   "word": "hope",
+   "en": "I hope it's sunny tomorrow.",
+   "hl": "hope",
+   "zh": "我希望明天是晴天。",
+   "audio": "flyers/s/hope"
+  },
+  "w382": {
+   "word": "hurry",
+   "en": "Hurry! The bus is coming.",
+   "hl": "Hurry",
+   "zh": "快點！公車來了。",
+   "audio": "flyers/s/hurry"
+  },
+  "w383": {
+   "word": "improve",
+   "en": "My English is improving every day.",
+   "hl": "improving",
+   "zh": "我的英文每天都在進步。",
+   "audio": "flyers/s/improve"
+  },
+  "w384": {
+   "word": "invent",
+   "en": "I want to invent a robot that can cook.",
+   "hl": "invent",
+   "zh": "我想發明一個會煮飯的機器人。",
+   "audio": "flyers/s/invent"
+  },
+  "w385": {
+   "word": "keep",
+   "en": "You can keep this book. It's a present.",
+   "hl": "keep",
+   "zh": "這本書你可以留著，是送你的禮物。",
+   "audio": "flyers/s/keep"
+  },
+  "w386": {
+   "word": "land",
+   "en": "The plane landed at the airport.",
+   "hl": "landed",
+   "zh": "飛機在機場降落了。",
+   "audio": "flyers/s/land_w386"
+  },
+  "w387": {
+   "word": "leave",
+   "en": "We leave for school at eight o'clock.",
+   "hl": "leave",
+   "zh": "我們八點出門上學。",
+   "audio": "flyers/s/leave"
+  },
+  "w388": {
+   "word": "let",
+   "en": "Let me help you with that bag.",
+   "hl": "Let",
+   "zh": "讓我幫你拿那個袋子。",
+   "audio": "flyers/s/let"
+  },
+  "w389": {
+   "word": "lie",
+   "en": "The cat likes to lie in the sun.",
+   "hl": "lie",
+   "zh": "貓喜歡躺在陽光下。",
+   "audio": "flyers/s/lie"
+  },
+  "w390": {
+   "word": "lift",
+   "en": "Can you help me lift this box?",
+   "hl": "lift",
+   "zh": "你可以幫我抬這個箱子嗎？",
+   "audio": "flyers/s/lift_w390"
+  },
+  "w391": {
+   "word": "look after",
+   "en": "I look after my little sister when Mum is busy.",
+   "hl": "look after",
+   "zh": "媽媽忙的時候我會照顧妹妹。",
+   "audio": "flyers/s/look_after"
+  },
+  "w392": {
+   "word": "look like",
+   "en": "You look like your dad.",
+   "hl": "look like",
+   "zh": "你長得像你爸爸。",
+   "audio": "flyers/s/look_like"
+  },
+  "w393": {
+   "word": "make sure",
+   "en": "Make sure you close the door.",
+   "hl": "Make sure",
+   "zh": "一定要把門關好。",
+   "audio": "flyers/s/make_sure"
+  },
+  "w394": {
+   "word": "mind",
+   "en": "Do you mind if I open the window?",
+   "hl": "mind",
+   "zh": "你介意我打開窗戶嗎？",
+   "audio": "flyers/s/mind"
+  },
+  "w395": {
+   "word": "mix",
+   "en": "Mix the flour and the eggs together.",
+   "hl": "Mix",
+   "zh": "把麵粉和蛋攪拌在一起。",
+   "audio": "flyers/s/mix"
+  },
+  "w396": {
+   "word": "post",
+   "en": "I'm going to post this letter to Grandma.",
+   "hl": "post",
+   "zh": "我要把這封信寄給奶奶。",
+   "audio": "flyers/s/post"
+  },
+  "w397": {
+   "word": "prefer",
+   "en": "I prefer apples to bananas.",
+   "hl": "prefer",
+   "zh": "比起香蕉，我比較喜歡蘋果。",
+   "audio": "flyers/s/prefer"
+  },
+  "w398": {
+   "word": "prepare",
+   "en": "Dad is preparing dinner in the kitchen.",
+   "hl": "preparing",
+   "zh": "爸爸正在廚房準備晚餐。",
+   "audio": "flyers/s/prepare"
+  },
+  "w399": {
+   "word": "pull",
+   "en": "Pull the door to open it.",
+   "hl": "Pull",
+   "zh": "把門拉開。",
+   "audio": "flyers/s/pull"
+  },
+  "w400": {
+   "word": "push",
+   "en": "Can you push me on the swing?",
+   "hl": "push",
+   "zh": "你可以推我盪鞦韆嗎？",
+   "audio": "flyers/s/push"
+  },
+  "w401": {
+   "word": "remember",
+   "en": "I can't remember his phone number.",
+   "hl": "remember",
+   "zh": "我記不得他的電話號碼。",
+   "audio": "flyers/s/remember"
+  },
+  "w402": {
+   "word": "repair",
+   "en": "Can you repair my bike?",
+   "hl": "repair",
+   "zh": "你可以修我的腳踏車嗎？",
+   "audio": "flyers/s/repair"
+  },
+  "w403": {
+   "word": "repeat",
+   "en": "Listen and repeat after me.",
+   "hl": "repeat",
+   "zh": "仔細聽，然後跟著我唸。",
+   "audio": "flyers/s/repeat"
+  },
+  "w404": {
+   "word": "save",
+   "en": "The fire fighter saved the cat from the tree.",
+   "hl": "saved",
+   "zh": "消防員把貓從樹上救了下來。",
+   "audio": "flyers/s/save"
+  },
+  "w405": {
+   "word": "sell",
+   "en": "That shop sells toys and games.",
+   "hl": "sells",
+   "zh": "那家店賣玩具和遊戲。",
+   "audio": "flyers/s/sell"
+  },
+  "w406": {
+   "word": "speak",
+   "en": "Can you speak English?",
+   "hl": "speak",
+   "zh": "你會說英文嗎？",
+   "audio": "flyers/s/speak"
+  },
+  "w407": {
+   "word": "spend",
+   "en": "We spend our summer holidays at the beach.",
+   "hl": "spend",
+   "zh": "我們在海灘度過暑假。",
+   "audio": "flyers/s/spend"
+  },
+  "w408": {
+   "word": "stay",
+   "en": "We stayed at Grandma's house for a week.",
+   "hl": "stayed",
+   "zh": "我們在奶奶家住了一個星期。",
+   "audio": "flyers/s/stay"
+  },
+  "w409": {
+   "word": "study",
+   "en": "I study English at school.",
+   "hl": "study",
+   "zh": "我在學校學英文。",
+   "audio": "flyers/s/study_w409"
+  },
+  "w410": {
+   "word": "take",
+   "en": "Take your coat. It's cold.",
+   "hl": "Take",
+   "zh": "帶上你的外套，天氣很冷。",
+   "audio": "flyers/s/take"
+  },
+  "w411": {
+   "word": "thank",
+   "en": "I want to thank you for the lovely present.",
+   "hl": "thank",
+   "zh": "我要謝謝你送的可愛禮物。",
+   "audio": "flyers/s/thank"
+  },
+  "w412": {
+   "word": "touch",
+   "en": "Please don't touch the paintings.",
+   "hl": "touch",
+   "zh": "請不要觸摸畫作。",
+   "audio": "flyers/s/touch"
+  },
+  "w413": {
+   "word": "turn",
+   "en": "Turn right at the bank.",
+   "hl": "Turn",
+   "zh": "在銀行那裡右轉。",
+   "audio": "flyers/s/turn"
+  },
+  "w414": {
+   "word": "turn off",
+   "en": "Turn off the light when you leave the room.",
+   "hl": "Turn off",
+   "zh": "離開房間時把燈關掉。",
+   "audio": "flyers/s/turn_off"
+  },
+  "w415": {
+   "word": "turn on",
+   "en": "Can you turn on the TV, please?",
+   "hl": "turn on",
+   "zh": "請你打開電視好嗎？",
+   "audio": "flyers/s/turn_on"
+  },
+  "w416": {
+   "word": "use",
+   "en": "Can I use your computer?",
+   "hl": "use",
+   "zh": "我可以用你的電腦嗎？",
+   "audio": "flyers/s/use"
+  },
+  "w417": {
+   "word": "visit",
+   "en": "We visit our grandparents every Sunday.",
+   "hl": "visit",
+   "zh": "我們每個星期天去看爺爺奶奶。",
+   "audio": "flyers/s/visit"
+  },
+  "w418": {
+   "word": "whisper",
+   "en": "She whispered the answer in my ear.",
+   "hl": "whispered",
+   "zh": "她在我耳邊悄悄說出答案。",
+   "audio": "flyers/s/whisper"
+  },
+  "w419": {
+   "word": "whistle",
+   "en": "The teacher whistled and the race started.",
+   "hl": "whistled",
+   "zh": "老師吹哨，賽跑開始了。",
+   "audio": "flyers/s/whistle"
+  },
+  "w420": {
+   "word": "win",
+   "en": "I hope our team wins the match.",
+   "hl": "wins",
+   "zh": "我希望我們隊贏得比賽。",
+   "audio": "flyers/s/win"
+  },
+  "w421": {
+   "word": "wish",
+   "en": "I wish I could fly like a bird.",
+   "hl": "wish",
+   "zh": "真希望我能像鳥一樣飛。",
+   "audio": "flyers/s/wish"
+  },
+  "w422": {
+   "word": "across",
+   "en": "We swam across the river.",
+   "hl": "across",
+   "zh": "我們游過了那條河。",
+   "audio": "flyers/s/across"
+  },
+  "w423": {
+   "word": "actually",
+   "en": "I thought it was hard, but actually it was easy.",
+   "hl": "actually",
+   "zh": "我以為很難，但其實很簡單。",
+   "audio": "flyers/s/actually"
+  },
+  "w424": {
+   "word": "after",
+   "en": "We went to the park after lunch.",
+   "hl": "after",
+   "zh": "我們午餐後去了公園。",
+   "audio": "flyers/s/after"
+  },
+  "w425": {
+   "word": "already",
+   "en": "I've already finished my homework.",
+   "hl": "already",
+   "zh": "我已經寫完功課了。",
+   "audio": "flyers/s/already"
+  },
+  "w426": {
+   "word": "also",
+   "en": "I like football, and I also like tennis.",
+   "hl": "also",
+   "zh": "我喜歡足球，也喜歡網球。",
+   "audio": "flyers/s/also"
+  },
+  "w427": {
+   "word": "anyone",
+   "en": "Has anyone seen my keys?",
+   "hl": "anyone",
+   "zh": "有人看到我的鑰匙嗎？",
+   "audio": "flyers/s/anyone"
+  },
+  "w428": {
+   "word": "anything",
+   "en": "Is there anything to eat?",
+   "hl": "anything",
+   "zh": "有什麼東西可以吃嗎？",
+   "audio": "flyers/s/anything"
+  },
+  "w429": {
+   "word": "anywhere",
+   "en": "I can't find my pen anywhere.",
+   "hl": "anywhere",
+   "zh": "我到處都找不到我的筆。",
+   "audio": "flyers/s/anywhere"
+  },
+  "w430": {
+   "word": "as",
+   "en": "She works as a nurse at the hospital.",
+   "hl": "as",
+   "zh": "她在醫院當護士。",
+   "audio": "flyers/s/as"
+  },
+  "w431": {
+   "word": "as … as",
+   "en": "My brother is as tall as my dad.",
+   "hl": "as tall as",
+   "zh": "我哥哥和我爸爸一樣高。",
+   "audio": "flyers/s/as_as"
+  },
+  "w432": {
+   "word": "at the moment",
+   "en": "I'm reading a great book at the moment.",
+   "hl": "at the moment",
+   "zh": "我現在正在看一本很棒的書。",
+   "audio": "flyers/s/at_the_moment"
+  },
+  "w433": {
+   "word": "away",
+   "en": "Go away! I'm busy.",
+   "hl": "away",
+   "zh": "走開！我正在忙。",
+   "audio": "flyers/s/away"
+  },
+  "w434": {
+   "word": "before",
+   "en": "Wash your hands before dinner.",
+   "hl": "before",
+   "zh": "吃晚餐前要洗手。",
+   "audio": "flyers/s/before"
+  },
+  "w435": {
+   "word": "by myself",
+   "en": "I made this cake by myself.",
+   "hl": "by myself",
+   "zh": "這個蛋糕是我自己做的。",
+   "audio": "flyers/s/by_myself"
+  },
+  "w436": {
+   "word": "by yourself",
+   "en": "Can you do your homework by yourself?",
+   "hl": "by yourself",
+   "zh": "你可以自己做功課嗎？",
+   "audio": "flyers/s/by_yourself"
+  },
+  "w437": {
+   "word": "during",
+   "en": "It rained during the night.",
+   "hl": "during",
+   "zh": "夜裡下了雨。",
+   "audio": "flyers/s/during"
+  },
+  "w438": {
+   "word": "each",
+   "en": "Each student has got a dictionary.",
+   "hl": "Each",
+   "zh": "每個學生都有一本字典。",
+   "audio": "flyers/s/each"
+  },
+  "w439": {
+   "word": "else",
+   "en": "Do you want anything else?",
+   "hl": "else",
+   "zh": "你還想要別的東西嗎？",
+   "audio": "flyers/s/else"
+  },
+  "w440": {
+   "word": "ever",
+   "en": "Have you ever seen a whale?",
+   "hl": "ever",
+   "zh": "你曾經看過鯨魚嗎？",
+   "audio": "flyers/s/ever"
+  },
+  "w441": {
+   "word": "everywhere",
+   "en": "There are toys everywhere in my brother's room.",
+   "hl": "everywhere",
+   "zh": "我弟弟的房間到處都是玩具。",
+   "audio": "flyers/s/everywhere"
+  },
+  "w442": {
+   "word": "a few",
+   "en": "I've got a few friends in this town.",
+   "hl": "a few",
+   "zh": "我在這個鎮上有幾個朋友。",
+   "audio": "flyers/s/a_few"
+  },
+  "w443": {
+   "word": "for (time)",
+   "en": "We waited for two hours.",
+   "hl": "for",
+   "zh": "我們等了兩個小時。",
+   "audio": "flyers/s/for"
+  },
+  "w444": {
+   "word": "how long",
+   "en": "How long have you lived here?",
+   "hl": "How long",
+   "zh": "你在這裡住多久了？",
+   "audio": "flyers/s/how_long_w444"
+  },
+  "w445": {
+   "word": "if",
+   "en": "If it rains, we'll stay at home.",
+   "hl": "If",
+   "zh": "如果下雨，我們就待在家裡。",
+   "audio": "flyers/s/if"
+  },
+  "w446": {
+   "word": "instead",
+   "en": "There's no milk, so let's have juice instead.",
+   "hl": "instead",
+   "zh": "沒有牛奶了，我們改喝果汁吧。",
+   "audio": "flyers/s/instead"
+  },
+  "w447": {
+   "word": "just",
+   "en": "I've just eaten my lunch.",
+   "hl": "just",
+   "zh": "我剛剛吃完午餐。",
+   "audio": "flyers/s/just"
+  },
+  "w448": {
+   "word": "a little",
+   "en": "I can speak a little English.",
+   "hl": "a little",
+   "zh": "我會說一點點英文。",
+   "audio": "flyers/s/a_little"
+  },
+  "w449": {
+   "word": "may",
+   "en": "May I sit here, please?",
+   "hl": "May",
+   "zh": "請問我可以坐這裡嗎？",
+   "audio": "flyers/s/may"
+  },
+  "w450": {
+   "word": "might",
+   "en": "Take an umbrella. It might rain.",
+   "hl": "might",
+   "zh": "帶把雨傘，可能會下雨。",
+   "audio": "flyers/s/might"
+  },
+  "w451": {
+   "word": "much",
+   "en": "I don't have much time.",
+   "hl": "much",
+   "zh": "我沒有很多時間。",
+   "audio": "flyers/s/much"
+  },
+  "w452": {
+   "word": "no-one",
+   "en": "No-one was at home when I called.",
+   "hl": "No-one",
+   "zh": "我打電話的時候沒有人在家。",
+   "audio": "flyers/s/no_one"
+  },
+  "w453": {
+   "word": "nowhere",
+   "en": "There's nowhere to sit on the bus.",
+   "hl": "nowhere",
+   "zh": "公車上沒有地方可以坐。",
+   "audio": "flyers/s/nowhere"
+  },
+  "w454": {
+   "word": "of course",
+   "en": "Can I come with you? Of course!",
+   "hl": "Of course",
+   "zh": "我可以跟你去嗎？當然可以！",
+   "audio": "flyers/s/of_course"
+  },
+  "w455": {
+   "word": "once",
+   "en": "I go swimming once a week.",
+   "hl": "once",
+   "zh": "我一個星期去游泳一次。",
+   "audio": "flyers/s/once"
+  },
+  "w456": {
+   "word": "other",
+   "en": "This shoe is here, but where's the other one?",
+   "hl": "other",
+   "zh": "這隻鞋子在這裡，另一隻在哪裡？",
+   "audio": "flyers/s/other"
+  },
+  "w457": {
+   "word": "over",
+   "en": "The plane flew over our house.",
+   "hl": "over",
+   "zh": "飛機從我們家上空飛過。",
+   "audio": "flyers/s/over"
+  },
+  "w458": {
+   "word": "past (prep)",
+   "en": "Walk past the bank and turn left.",
+   "hl": "past",
+   "zh": "走過銀行後左轉。",
+   "audio": "flyers/s/past_w458"
+  },
+  "w459": {
+   "word": "perhaps",
+   "en": "Perhaps it will snow tomorrow.",
+   "hl": "Perhaps",
+   "zh": "也許明天會下雪。",
+   "audio": "flyers/s/perhaps"
+  },
+  "w460": {
+   "word": "quite",
+   "en": "The film was quite good.",
+   "hl": "quite",
+   "zh": "這部電影還不錯。",
+   "audio": "flyers/s/quite"
+  },
+  "w461": {
+   "word": "should",
+   "en": "You should go to bed early.",
+   "hl": "should",
+   "zh": "你應該早點睡覺。",
+   "audio": "flyers/s/should"
+  },
+  "w462": {
+   "word": "since",
+   "en": "I've lived here since last summer.",
+   "hl": "since",
+   "zh": "我從去年夏天就住在這裡。",
+   "audio": "flyers/s/since"
+  },
+  "w463": {
+   "word": "so",
+   "en": "It was raining, so we stayed at home.",
+   "hl": "so",
+   "zh": "下雨了，所以我們待在家裡。",
+   "audio": "flyers/s/so"
+  },
+  "w464": {
+   "word": "somewhere",
+   "en": "I left my bag somewhere in the park.",
+   "hl": "somewhere",
+   "zh": "我把包包忘在公園的某個地方了。",
+   "audio": "flyers/s/somewhere"
+  },
+  "w465": {
+   "word": "soon",
+   "en": "See you soon!",
+   "hl": "soon",
+   "zh": "待會見！",
+   "audio": "flyers/s/soon"
+  },
+  "w466": {
+   "word": "still",
+   "en": "It's still raining.",
+   "hl": "still",
+   "zh": "還在下雨。",
+   "audio": "flyers/s/still"
+  },
+  "w467": {
+   "word": "such",
+   "en": "It was such a lovely day!",
+   "hl": "such",
+   "zh": "真是美好的一天！",
+   "audio": "flyers/s/such"
+  },
+  "w468": {
+   "word": "suddenly",
+   "en": "Suddenly, the lights went out.",
+   "hl": "Suddenly",
+   "zh": "突然間，燈全熄了。",
+   "audio": "flyers/s/suddenly"
+  },
+  "w469": {
+   "word": "through",
+   "en": "We walked through the forest.",
+   "hl": "through",
+   "zh": "我們走過森林。",
+   "audio": "flyers/s/through"
+  },
+  "w470": {
+   "word": "together",
+   "en": "Let's play together.",
+   "hl": "together",
+   "zh": "我們一起玩吧。",
+   "audio": "flyers/s/together"
+  },
+  "w471": {
+   "word": "twice",
+   "en": "I brush my teeth twice a day.",
+   "hl": "twice",
+   "zh": "我一天刷兩次牙。",
+   "audio": "flyers/s/twice"
+  },
+  "w472": {
+   "word": "until",
+   "en": "Wait here until I come back.",
+   "hl": "until",
+   "zh": "在這裡等到我回來。",
+   "audio": "flyers/s/until"
+  },
+  "w473": {
+   "word": "usually",
+   "en": "I usually walk to school.",
+   "hl": "usually",
+   "zh": "我通常走路上學。",
+   "audio": "flyers/s/usually"
+  },
+  "w474": {
+   "word": "while",
+   "en": "Mum was cooking while I was doing my homework.",
+   "hl": "while",
+   "zh": "我在寫功課時，媽媽正在煮飯。",
+   "audio": "flyers/s/while"
+  },
+  "w475": {
+   "word": "will",
+   "en": "I will call you tomorrow.",
+   "hl": "will",
+   "zh": "我明天會打電話給你。",
+   "audio": "flyers/s/will"
+  },
+  "w476": {
+   "word": "without",
+   "en": "I can't see without my glasses.",
+   "hl": "without",
+   "zh": "沒有眼鏡我就看不見。",
+   "audio": "flyers/s/without"
+  },
+  "w477": {
+   "word": "yet",
+   "en": "Have you finished your homework yet?",
+   "hl": "yet",
+   "zh": "你功課寫完了沒？",
+   "audio": "flyers/s/yet"
+  }
+ }
+}
