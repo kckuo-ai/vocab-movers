@@ -257,6 +257,10 @@ input{font-family:inherit;}
 .tfMode b{display:block;font-size:17px;}
 .tfMode small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px;}
 .tfModeIco{font-size:30px;}
+.tfCount{display:flex;flex-direction:column;align-items:center;margin-top:10px;}
+.tfCount span{font-family:inherit;font-size:64px;font-weight:900;line-height:1;color:var(--accent);animation:pop .45s ease;}
+.tfCount small{font-size:14px;font-weight:800;color:var(--sub);margin-top:6px;}
+.tfBtn:disabled{opacity:.45;}
 .tfHidden{font-size:17px;font-weight:800;color:var(--sub);margin-top:16px;}
 .tfFbFix{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:16px;font-weight:700;}
 .tfFbFix>span:first-child{flex:1;min-width:0;}
@@ -2748,10 +2752,13 @@ function sentHtml(s) {
    if the file can't play. */
 let sentAudioEl = null;
 function stopSentence() {
+  tfCancelCountdown();
   if (sentAudioEl) { releaseAudio(sentAudioEl); sentAudioEl = null; }
 }
 // kind "pic" plays the picture caption used in 對或錯; otherwise the example sentence
-function playSentence(id, slow, kind) {
+// reuseEl: an <audio> element already unlocked inside an earlier tap (used after
+// the 3-2-1 countdown, which ends outside any tap)
+function playSentence(id, slow, kind, reuseEl) {
   const s = SENT[id];
   if (!s) return;
   const usePic = kind === "pic" && s.pic, useFalse = kind === "pfalse" && s.pfalse;
@@ -2760,9 +2767,13 @@ function playSentence(id, slow, kind) {
   stopAutoAudio();
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
   try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
-  stopSentence();
+  if (!reuseEl) tfCancelCountdown();
+  if (sentAudioEl && sentAudioEl !== reuseEl) releaseAudio(sentAudioEl);
+  sentAudioEl = null;
   const rate = slow ? 0.7 : 1;
-  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${useFalse ? s.pfaudio : usePic ? s.paudio : s.audio}.mp3`);
+  const src = `audio/${ACCENT === "uk" ? "uk" : "us"}/${useFalse ? s.pfaudio : usePic ? s.paudio : s.audio}.mp3`;
+  const el = reuseEl || new Audio(src);
+  if (reuseEl) { try { el.pause(); } catch (e) {} el.src = src; }
   sentAudioEl = el;
   let fellBack = false;
   const fallback = () => {
@@ -2868,7 +2879,60 @@ function startTf(listen) {
   const words = buildWeightedQueue(pool, TF_LEN);
   STATE.tf = { phase: "playing", listen: !!listen, queue: words.map(tfMakeItem), idx: 0, answer: null, correct: 0, answered: 0, again: {} };
   render();
-  if (STATE.tf.listen) tfPlayQuestion(); // inside the tap that started the round
+  // listening mode: a 3-2-1 countdown (with a short beep each second) before the
+  // round's first sentence only; every later question plays straight away
+  if (STATE.tf.listen) tfStartCountdown();
+}
+/* ---------- 3-2-1 countdown before the first sentence of a listening round ----------
+   iPhone only lets sound start inside a tap, and the countdown ends 3 seconds
+   later. So, inside the tap: the three beeps are scheduled on a Web Audio clock
+   (resumed in the tap), and an <audio> element is unlocked with a silent clip;
+   when the countdown ends the sentence plays on that same element. */
+let tfAudioCtx = null;
+let tfCountdownTimer = null;
+function tfBeeps(count) {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!tfAudioCtx) tfAudioCtx = new AC();
+    const ctx = tfAudioCtx;
+    if (ctx.state === "suspended") ctx.resume();
+    const t0 = ctx.currentTime + 0.05;
+    for (let i = 0; i < count; i++) {
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 880;
+      const at = t0 + i;
+      gain.gain.setValueAtTime(0.0001, at);
+      gain.gain.exponentialRampToValueAtTime(0.18, at + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.14);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(at); osc.stop(at + 0.16);
+    }
+  } catch (e) {}
+}
+function tfCancelCountdown() {
+  if (tfCountdownTimer) { clearInterval(tfCountdownTimer); tfCountdownTimer = null; }
+  if (STATE.tf && STATE.tf.countdown) { STATE.tf.countdown = 0; try { if (tfAudioCtx) tfAudioCtx.suspend(); } catch (e) {} }
+}
+function tfStartCountdown() {
+  const t = STATE.tf;
+  tfCancelCountdown();
+  try { if (tfAudioCtx && tfAudioCtx.state === "suspended") tfAudioCtx.resume(); } catch (e) {}
+  let el = null;
+  try { el = new Audio(); el.src = SILENT_WAV; const p = el.play(); if (p && p.catch) p.catch(() => {}); } catch (e) { el = null; }
+  tfBeeps(3);
+  t.countdown = 3;
+  render();
+  tfCountdownTimer = setInterval(() => {
+    if (STATE.tf !== t || t.phase !== "playing" || STATE.tab !== "tf") { tfCancelCountdown(); return; }
+    t.countdown -= 1;
+    if (t.countdown > 0) { render(); return; }
+    clearInterval(tfCountdownTimer); tfCountdownTimer = null;
+    render();
+    const it = t.queue[t.idx];
+    if (it) playSentence(it.word.id, false, it.kind, el);
+  }, 1000);
 }
 function tfPlayQuestion(slow) {
   const it = STATE.tf.queue[STATE.tf.idx];
@@ -2876,7 +2940,7 @@ function tfPlayQuestion(slow) {
 }
 function answerTf(saysTrue) {
   const t = STATE.tf;
-  if (t.answer) return;
+  if (t.answer || t.countdown) return;
   const it = t.queue[t.idx];
   const right = saysTrue === it.truth;
   t.answer = right ? "right" : "wrong";
@@ -2962,10 +3026,12 @@ function renderTf() {
       <div class="tfPic">${wordImgHtml(it.pic.en, 120, "", it.pic.pos)}
         ${answered ? `<div class="tfStamp ${it.truth ? "yes" : "no"}">${it.truth ? "✓" : "✗"}</div>` : ""}
       </div>
-      ${t.listen && !answered
+      ${t.countdown
+        ? `<div class="tfCount" aria-live="assertive"><span>${t.countdown}</span><small>準備聽…</small></div>`
+        : t.listen && !answered
         ? `<div class="tfHidden">🎧 仔細聽，句子跟圖一樣嗎？</div>`
         : `<div class="tfSent">${picHtml(it.word, s, qText)}</div>`}
-      <div class="tfListen">${sentBtnsHtml(it.word.id, t.listen && !answered ? 56 : 44, "", "", it.kind)}</div>
+      ${t.countdown ? "" : `<div class="tfListen">${sentBtnsHtml(it.word.id, t.listen && !answered ? 56 : 44, "", "", it.kind)}</div>`}
     </div>
     ${answered ? `
       <div class="tfFeedback ${t.answer}">
@@ -2983,8 +3049,8 @@ function renderTf() {
       <div class="tfMore"><div class="tfMoreLbl">再學一句（例句）</div>${sentBoxHtml(it.word, { cls: "inRow", size: 36 })}</div>`
     : `
       <div class="tfBtns">
-        <button class="tfBtn yes" onclick="answerTf(true)">✓ 對</button>
-        <button class="tfBtn no" onclick="answerTf(false)">✗ 不對</button>
+        <button class="tfBtn yes" ${t.countdown ? "disabled" : ""} onclick="answerTf(true)">✓ 對</button>
+        <button class="tfBtn no" ${t.countdown ? "disabled" : ""} onclick="answerTf(false)">✗ 不對</button>
       </div>`}
   </div>`;
 }
