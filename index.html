@@ -251,6 +251,15 @@ input{font-family:inherit;}
 .tfFbWord img{width:36px;height:36px;}
 .tfFbZh{font-size:13px;color:var(--sub);margin-top:8px;}
 .tfMore{margin-top:16px;}
+.tfModes{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
+.tfMode{display:flex;align-items:center;gap:14px;text-align:left;background:#fff;border:2px solid var(--border);border-radius:18px;padding:14px 16px;min-height:64px;color:var(--ink);}
+.tfMode.on{border-color:var(--accent);}
+.tfMode b{display:block;font-size:17px;}
+.tfMode small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px;}
+.tfModeIco{font-size:30px;}
+.tfHidden{font-size:17px;font-weight:800;color:var(--sub);margin-top:16px;}
+.tfFbFix{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:16px;font-weight:700;}
+.tfFbFix>span:first-child{flex:1;min-width:0;}
 .tfMoreLbl{font-size:12px;font-weight:800;color:var(--sub);margin:0 2px 6px;}
 .tfMore .sentBox.inRow{margin:0;}
 ::-webkit-scrollbar{width:6px;height:6px;}
@@ -1537,7 +1546,7 @@ let STATE = {
   study: { mode: "cat", cat: "all", letter: "A", queue: [], idx: 0, flipped: false },
   quiz: { mode: "cat", cat: "all", letter: "A", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
   spell: { mode: "cat", cat: "all", letter: "A", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
-  tf: { phase: "setup", queue: [], idx: 0, answer: null, correct: 0, answered: 0, again: {} },
+  tf: { phase: "setup", listen: false, queue: [], idx: 0, answer: null, correct: 0, answered: 0, again: {} },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -2745,15 +2754,15 @@ function stopSentence() {
 function playSentence(id, slow, kind) {
   const s = SENT[id];
   if (!s) return;
-  const usePic = kind === "pic" && s.pic;
-  const text = usePic ? s.pic : s.en;
+  const usePic = kind === "pic" && s.pic, useFalse = kind === "pfalse" && s.pfalse;
+  const text = useFalse ? s.pfalse : usePic ? s.pic : s.en;
   warmAudioSession();
   stopAutoAudio();
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
   try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
   stopSentence();
   const rate = slow ? 0.7 : 1;
-  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${usePic ? s.paudio : s.audio}.mp3`);
+  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${useFalse ? s.pfaudio : usePic ? s.paudio : s.audio}.mp3`);
   sentAudioEl = el;
   let fellBack = false;
   const fallback = () => {
@@ -2776,7 +2785,7 @@ function playSentence(id, slow, kind) {
   } catch (e) { fallback(); }
 }
 function sentBtnsHtml(id, size, tone, bg, kind) {
-  const k = kind === "pic" ? ", 'pic'" : "";
+  const k = kind ? `, '${kind}'` : "";
   size = size || 40; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   const small = Math.round(size * 0.8);
   return `<span class="sentBtns" onclick="event.stopPropagation();">
@@ -2842,15 +2851,28 @@ function tfPickDistractor(w) {
   if (pool.length < 3) pool = WORDS.filter(ok);
   return pool[Math.floor(Math.random() * pool.length)];
 }
+// a "false" item either shows another word's picture, or keeps this picture
+// and changes one detail in the sentence (colour, number, action...)
 function tfMakeItem(w) {
-  const truth = Math.random() < 0.5;
-  return { word: w, truth, pic: truth ? w : tfPickDistractor(w) };
+  const sw = sentFor(w);
+  if (Math.random() < 0.5) return { word: w, truth: true, pic: w, kind: "pic" };
+  if (sw.pfalse && Math.random() < 0.5) return { word: w, truth: false, pic: w, kind: "pfalse" };
+  return { word: w, truth: false, pic: tfPickDistractor(w), kind: "pic" };
 }
-function startTf() {
+const TF_LISTEN_KEY = "yle-tf-listen-v1";
+function tfListenPref() { try { return localStorage.getItem(TF_LISTEN_KEY) === "on"; } catch (e) { return false; } }
+function startTf(listen) {
+  if (listen === undefined) listen = STATE.tf.listen;
+  try { localStorage.setItem(TF_LISTEN_KEY, listen ? "on" : "off"); } catch (e) {}
   const pool = WORDS.filter(tfEligible);
   const words = buildWeightedQueue(pool, TF_LEN);
-  STATE.tf = { phase: "playing", queue: words.map(tfMakeItem), idx: 0, answer: null, correct: 0, answered: 0, again: {} };
+  STATE.tf = { phase: "playing", listen: !!listen, queue: words.map(tfMakeItem), idx: 0, answer: null, correct: 0, answered: 0, again: {} };
   render();
+  if (STATE.tf.listen) tfPlayQuestion(); // inside the tap that started the round
+}
+function tfPlayQuestion(slow) {
+  const it = STATE.tf.queue[STATE.tf.idx];
+  if (it) playSentence(it.word.id, !!slow, it.kind);
 }
 function answerTf(saysTrue) {
   const t = STATE.tf;
@@ -2876,7 +2898,10 @@ function answerTf(saysTrue) {
   recordActivity(1);
   render();
   if (right) celebrate(praiseFor(0));
-  playSentence(it.word.id, false, "pic"); // inside the tap, so iPhone allows it
+  // inside the tap, so iPhone allows it: read mode hears the sentence it just read;
+  // a changed-detail item lets everyone hear the correct sentence
+  if (it.kind === "pfalse") playSentence(it.word.id, false, "pic");
+  else if (!t.listen) tfPlayQuestion();
 }
 function nextTf() {
   const t = STATE.tf;
@@ -2884,17 +2909,19 @@ function nextTf() {
   if (t.idx + 1 >= t.queue.length) t.phase = "done";
   else { t.idx += 1; t.answer = null; }
   render();
+  if (t.phase === "playing" && t.listen) tfPlayQuestion();
 }
 // the caption with the word underlined (first case-insensitive match)
-function picHtml(w, s) {
+function picHtml(w, s, text) {
+  text = text || s.pic;
   const base = w.en.split(/\s*\/\s*|\s*\(/)[0].replace(/\(.*\)/, "").trim();
   const forms = [s.hl, base, base + "s", base + "es"].filter(Boolean);
-  const low = s.pic.toLowerCase();
+  const low = text.toLowerCase();
   for (const f of forms) {
     const at = low.indexOf(f.toLowerCase());
-    if (at >= 0) return escapeHtml(s.pic.slice(0, at)) + `<b class="hl">${escapeHtml(s.pic.slice(at, at + f.length))}</b>` + escapeHtml(s.pic.slice(at + f.length));
+    if (at >= 0) return escapeHtml(text.slice(0, at)) + `<b class="hl">${escapeHtml(text.slice(at, at + f.length))}</b>` + escapeHtml(text.slice(at + f.length));
   }
-  return escapeHtml(s.pic);
+  return escapeHtml(text);
 }
 function renderTf() {
   const t = STATE.tf;
@@ -2905,9 +2932,12 @@ function renderTf() {
       <div class="introCard">
         <div style="font-size:38px;">🖼️✅</div>
         <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">看圖，讀句子</div>
-        <div style="font-size:14px;color:var(--sub);line-height:1.6;">句子說的跟圖一樣嗎？<br>一樣就按 <b style="color:#06A77D;">✓ 對</b>，不一樣就按 <b style="color:#D63B5F;">✗ 不對</b>。<br>不會唸的句子可以按 ▶ 聽聽看。</div>
+        <div style="font-size:14px;color:var(--sub);line-height:1.6;">句子說的跟圖一樣嗎？要看清楚顏色、數量和動作喔！<br>一樣就按 <b style="color:#06A77D;">✓ 對</b>，不一樣就按 <b style="color:#D63B5F;">✗ 不對</b>。</div>
       </div>
-      <button class="bigCta" style="margin-top:16px;" onclick="startTf()">開始（${TF_LEN} 題）→</button>
+      <div class="tfModes">
+        <button class="tfMode ${!tfListenPref() ? "on" : ""}" onclick="startTf(false)"><span class="tfModeIco">📖</span><span><b>讀句子</b><small>看文字，也可以按 ▶ 聽</small></span></button>
+        <button class="tfMode ${tfListenPref() ? "on" : ""}" onclick="startTf(true)"><span class="tfModeIco">🎧</span><span><b>聽句子</b><small>文字藏起來，練聽力</small></span></button>
+      </div>
     </div>`;
   }
   if (t.phase === "done") {
@@ -2918,11 +2948,12 @@ function renderTf() {
       <div class="sumStars">${"⭐".repeat(stars)}${"☆".repeat(3 - stars)}</div>
       <div style="font-weight:800;font-size:18px;">${stars === 3 ? "太厲害了！" : stars === 2 ? "做得很好！" : "多玩幾次會越來越厲害！"}</div>
       <div style="font-size:13px;color:var(--sub);margin-top:6px;">答對 ${t.correct} 題（共 ${t.answered} 題）</div>
-      <div class="ctaRow" style="margin-top:16px;"><button class="cta" style="background:var(--accent);" onclick="startTf()">🔁 再玩一次</button></div>
+      <div class="ctaRow" style="margin-top:16px;"><button class="cta" style="background:var(--accent);" onclick="startTf()">🔁 再玩一次</button><button class="cta" style="background:#8592A6;" onclick="STATE.tf.phase='setup';render();">換模式</button></div>
     </div></div>`;
   }
   const it = t.queue[t.idx];
   const s = sentFor(it.word);
+  const qText = it.kind === "pfalse" ? s.pfalse : s.pic;
   const answered = !!t.answer;
   const total = t.queue.length;
   return `<div class="pad">
@@ -2931,17 +2962,22 @@ function renderTf() {
       <div class="tfPic">${wordImgHtml(it.pic.en, 120, "", it.pic.pos)}
         ${answered ? `<div class="tfStamp ${it.truth ? "yes" : "no"}">${it.truth ? "✓" : "✗"}</div>` : ""}
       </div>
-      <div class="tfSent">${picHtml(it.word, s)}</div>
-      <div class="tfListen">${sentBtnsHtml(it.word.id, 44, "", "", "pic")}</div>
+      ${t.listen && !answered
+        ? `<div class="tfHidden">🎧 仔細聽，句子跟圖一樣嗎？</div>`
+        : `<div class="tfSent">${picHtml(it.word, s, qText)}</div>`}
+      <div class="tfListen">${sentBtnsHtml(it.word.id, t.listen && !answered ? 56 : 44, "", "", it.kind)}</div>
     </div>
     ${answered ? `
       <div class="tfFeedback ${t.answer}">
         <div class="tfFbTitle">${t.answer === "right" ? "答對了！🎉" : "再看一次喔 💪"}</div>
         ${it.truth
-          ? `<div class="tfFbBody">圖裡就是 <b>${escapeHtml(it.word.en)}</b>（${escapeHtml(it.word.zh)}），所以是「對」。</div>`
+          ? `<div class="tfFbBody">句子跟圖一樣，所以是「對」。</div><div class="tfFbZh">${escapeHtml(s.pzh || "")}</div>`
+          : it.kind === "pfalse"
+          ? `<div class="tfFbBody">句子裡有一個地方跟圖不一樣，圖裡其實是：</div>
+             <div class="tfFbFix"><span>${picHtml(it.word, s, s.pic)}</span>${sentBtnsHtml(it.word.id, 34, "", "", "pic")}</div>
+             <div class="tfFbZh">${escapeHtml(s.pzh || "")}</div>`
           : `<div class="tfFbBody">圖裡是 <b>${escapeHtml(it.pic.en)}</b>（${escapeHtml(it.pic.zh)}），句子說的是：</div>
              <div class="tfFbWord">${wordImgHtml(it.word.en, 44, "", it.word.pos)}<span><b>${escapeHtml(it.word.en)}</b> ${escapeHtml(it.word.zh)}</span></div>`}
-        <div class="tfFbZh">${escapeHtml(s.pzh || "")}</div>
       </div>
       <button class="bigCta" style="margin-top:12px;" onclick="nextTf()">${t.idx + 1 >= total ? "看結果 →" : "下一題 →"}</button>
       <div class="tfMore"><div class="tfMoreLbl">再學一句（例句）</div>${sentBoxHtml(it.word, { cls: "inRow", size: 36 })}</div>`

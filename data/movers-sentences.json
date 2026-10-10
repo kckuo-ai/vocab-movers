@@ -1,5 +1,5 @@
 {
- "version": 2,
+ "version": 3,
  "level": "movers",
  "note": "Example sentences written for this project; vocabulary limited to the Cambridge Pre A1 Starters and A1 Movers wordlists. Audio: Kokoro-82M (Apache-2.0), voices bm_lewis (UK) / af_heart (US).",
  "sentences": {
@@ -9,9 +9,11 @@
    "hl": "bat",
    "zh": "蝙蝠白天睡覺，晚上飛出來。",
    "audio": "s/bat",
-   "pic": "This is a bat.",
-   "pzh": "這是一隻蝙蝠。",
-   "paudio": "p/bat"
+   "pic": "The bat is brown.",
+   "pzh": "蝙蝠是棕色的。",
+   "paudio": "p/bat",
+   "pfalse": "The bat is green.",
+   "pfaudio": "q/bat"
   },
   "w1": {
    "word": "cage",
@@ -19,9 +21,11 @@
    "hl": "cage",
    "zh": "大籠子裡有兩隻鳥。",
    "audio": "s/cage",
-   "pic": "There's a bird in the cage.",
-   "pzh": "籠子裡有一隻鳥。",
-   "paudio": "p/cage"
+   "pic": "There's a small green bird in the cage.",
+   "pzh": "籠子裡有一隻綠色的小鳥。",
+   "paudio": "p/cage",
+   "pfalse": "There are two birds in the cage.",
+   "pfaudio": "q/cage"
   },
   "w2": {
    "word": "dolphin",
@@ -29,9 +33,11 @@
    "hl": "dolphin",
    "zh": "海豚正跳出海面。",
    "audio": "s/dolphin",
-   "pic": "This is a dolphin.",
-   "pzh": "這是一隻海豚。",
-   "paudio": "p/dolphin"
+   "pic": "The blue dolphin is jumping.",
+   "pzh": "藍色的海豚正在跳躍。",
+   "paudio": "p/dolphin",
+   "pfalse": "The orange dolphin is jumping.",
+   "pfaudio": "q/dolphin"
   },
   "w3": {
    "word": "fly",
@@ -39,9 +45,11 @@
    "hl": "fly",
    "zh": "一隻蒼蠅停在我的三明治上！",
    "audio": "s/fly",
-   "pic": "This is a fly.",
-   "pzh": "這是一隻蒼蠅。",
-   "paudio": "p/fly"
+   "pic": "The fly has got big red eyes.",
+   "pzh": "蒼蠅有一雙紅色的大眼睛。",
+   "paudio": "p/fly",
+   "pfalse": "The fly has got big blue eyes.",
+   "pfaudio": "q/fly"
   },
   "w4": {
    "word": "kangaroo",
@@ -49,9 +57,11 @@
    "hl": "kangaroo",
    "zh": "袋鼠在田野裡跳來跳去。",
    "audio": "s/kangaroo",
-   "pic": "This is a kangaroo.",
-   "pzh": "這是一隻袋鼠。",
-   "paudio": "p/kangaroo"
+   "pic": "The kangaroo is jumping.",
+   "pzh": "袋鼠正在跳。",
+   "paudio": "p/kangaroo",
+   "pfalse": "The kangaroo is sleeping.",
+   "pfaudio": "q/kangaroo"
   },
   "w5": {
    "word": "kitten",
@@ -59,9 +69,11 @@
    "hl": "kitten",
    "zh": "小貓在玩球。",
    "audio": "s/kitten",
-   "pic": "This is a kitten.",
-   "pzh": "這是一隻小貓。",
-   "paudio": "p/kitten"
+   "pic": "The orange kitten is smiling.",
+   "pzh": "橘色的小貓在微笑。",
+   "paudio": "p/kitten",
+   "pfalse": "The black kitten is smiling.",
+   "pfaudio": "q/kitten"
   },
   "w6": {
    "word": "lion",
@@ -69,9 +81,11 @@
    "hl": "lion",
    "zh": "獅子在樹下睡覺。",
    "audio": "s/lion",
-   "pic": "This is a lion.",
-   "pzh": "這是一隻獅子。",
-   "paudio": "p/lion"
+   "pic": "The lion is looking at you.",
+   "pzh": "獅子正看著你。",
+   "paudio": "p/lion",
+   "pfalse": "The lion is sleeping.",
+   "pfaudio": "q/lion"
   },
   "w7": {
    "word": "panda",
@@ -79,9 +93,11 @@
    "hl": "panda",
    "zh": "貓熊是黑白色的。",
    "audio": "s/panda",
-   "pic": "This is a panda.",
-   "pzh": "這是一隻貓熊。",
-   "paudio": "p/panda"
+   "pic": "The panda is black and white.",
+   "pzh": "貓熊是黑白色的。",
+   "paudio": "p/panda",
+   "pfalse": "The panda is brown and white.",
+   "pfaudio": "q/panda"
   },
   "w8": {
    "word": "parrot",
@@ -89,9 +105,11 @@
    "hl": "parrot",
    "zh": "我的鸚鵡會說哈囉！",
    "audio": "s/parrot",
-   "pic": "This is a parrot.",
-   "pzh": "這是一隻鸚鵡。",
-   "paudio": "p/parrot"
+   "pic": "The parrot is green and red.",
+   "pzh": "鸚鵡是綠色和紅色的。",
+   "paudio": "p/parrot",
+   "pfalse": "The parrot is blue and yellow.",
+   "pfaudio": "q/parrot"
   },
   "w9": {
    "word": "penguin",
@@ -99,9 +117,11 @@
    "hl": "penguin",
    "zh": "企鵝會游泳，但不會飛。",
    "audio": "s/penguin",
-   "pic": "This is a penguin.",
-   "pzh": "這是一隻企鵝。",
-   "paudio": "p/penguin"
+   "pic": "The penguin is standing.",
+   "pzh": "企鵝正站著。",
+   "paudio": "p/penguin",
+   "pfalse": "The penguin is swimming.",
+   "pfaudio": "q/penguin"
   },
   "w10": {
    "word": "puppy",
@@ -109,9 +129,11 @@
    "hl": "puppy",
    "zh": "小狗躲在床底下。",
    "audio": "s/puppy",
-   "pic": "This is a puppy.",
-   "pzh": "這是一隻小狗。",
-   "paudio": "p/puppy"
+   "pic": "The puppy has got brown ears.",
+   "pzh": "小狗有棕色的耳朵。",
+   "paudio": "p/puppy",
+   "pfalse": "The puppy has got black ears.",
+   "pfaudio": "q/puppy"
   },
   "w11": {
    "word": "rabbit",
@@ -119,9 +141,11 @@
    "hl": "rabbit",
    "zh": "兔子有長長的耳朵。",
    "audio": "s/rabbit",
-   "pic": "This is a rabbit.",
-   "pzh": "這是一隻兔子。",
-   "paudio": "p/rabbit"
+   "pic": "The rabbit has got long ears.",
+   "pzh": "兔子有長長的耳朵。",
+   "paudio": "p/rabbit",
+   "pfalse": "The rabbit has got short ears.",
+   "pfaudio": "q/rabbit"
   },
   "w12": {
    "word": "shark",
@@ -129,9 +153,11 @@
    "hl": "shark",
    "zh": "鯊魚有很多牙齒。",
    "audio": "s/shark",
-   "pic": "This is a shark.",
-   "pzh": "這是一隻鯊魚。",
-   "paudio": "p/shark"
+   "pic": "The grey shark has got its mouth open.",
+   "pzh": "灰色的鯊魚張著嘴巴。",
+   "paudio": "p/shark",
+   "pfalse": "The grey shark has got its mouth closed.",
+   "pfaudio": "q/shark"
   },
   "w13": {
    "word": "snail",
@@ -139,9 +165,11 @@
    "hl": "snail",
    "zh": "蝸牛非常慢。",
    "audio": "s/snail",
-   "pic": "This is a snail.",
-   "pzh": "這是一隻蝸牛。",
-   "paudio": "p/snail"
+   "pic": "The snail has got a brown shell.",
+   "pzh": "蝸牛有一個棕色的殼。",
+   "paudio": "p/snail",
+   "pfalse": "The snail has got a blue shell.",
+   "pfaudio": "q/snail"
   },
   "w14": {
    "word": "whale",
@@ -149,9 +177,11 @@
    "hl": "whale",
    "zh": "鯨魚比公車還大！",
    "audio": "s/whale",
-   "pic": "This is a whale.",
-   "pzh": "這是一隻鯨魚。",
-   "paudio": "p/whale"
+   "pic": "The big whale is blue.",
+   "pzh": "這隻大鯨魚是藍色的。",
+   "paudio": "p/whale",
+   "pfalse": "The big whale is yellow.",
+   "pfaudio": "q/whale"
   },
   "w15": {
    "word": "back",
@@ -166,9 +196,11 @@
    "hl": "beard",
    "zh": "我爺爺有長長的白鬍子。",
    "audio": "s/beard",
-   "pic": "This man has got a beard.",
-   "pzh": "這個男人留著鬍子。",
-   "paudio": "p/beard"
+   "pic": "The man has got a brown beard.",
+   "pzh": "這個男人留著棕色的鬍子。",
+   "paudio": "p/beard",
+   "pfalse": "The man has got a white beard.",
+   "pfaudio": "q/beard"
   },
   "w17": {
    "word": "blond(e)",
@@ -178,7 +210,9 @@
    "audio": "s/blond_e",
    "pic": "This person has got blonde hair.",
    "pzh": "這個人有一頭金髮。",
-   "paudio": "p/blond_e"
+   "paudio": "p/blond_e",
+   "pfalse": "This person has got black hair.",
+   "pfaudio": "q/blond_e"
   },
   "w18": {
    "word": "curly",
@@ -186,9 +220,11 @@
    "hl": "curly",
    "zh": "班有一頭短短的捲髮。",
    "audio": "s/curly",
-   "pic": "This woman has got curly hair.",
-   "pzh": "這個女人有一頭捲髮。",
-   "paudio": "p/curly"
+   "pic": "The woman has got curly brown hair.",
+   "pzh": "這個女人有一頭棕色的捲髮。",
+   "paudio": "p/curly",
+   "pfalse": "The woman has got straight brown hair.",
+   "pfaudio": "q/curly"
   },
   "w19": {
    "word": "fair",
@@ -238,9 +274,11 @@
    "hl": "stomach-ache",
    "zh": "我吃了十個蛋糕，現在肚子痛！",
    "audio": "s/stomach_ache",
-   "pic": "He has got a stomach-ache.",
-   "pzh": "他肚子痛。",
-   "paudio": "p/stomach_ache"
+   "pic": "The boy has got a stomach-ache.",
+   "pzh": "男孩肚子痛。",
+   "paudio": "p/stomach_ache",
+   "pfalse": "The boy has got a headache.",
+   "pfaudio": "q/stomach_ache"
   },
   "w26": {
    "word": "thin",
@@ -255,9 +293,11 @@
    "hl": "teeth",
    "zh": "睡覺前要刷牙。",
    "audio": "s/tooth_teeth",
-   "pic": "This is a tooth.",
-   "pzh": "這是一顆牙齒。",
-   "paudio": "p/tooth_teeth"
+   "pic": "This is a white tooth.",
+   "pzh": "這是一顆白色的牙齒。",
+   "paudio": "p/tooth_teeth",
+   "pfalse": "This is a yellow tooth.",
+   "pfaudio": "q/tooth_teeth"
   },
   "w28": {
    "word": "toothache",
@@ -265,9 +305,11 @@
    "hl": "toothache",
    "zh": "湯姆牙痛，他需要去看牙醫。",
    "audio": "s/toothache",
-   "pic": "He has got a toothache.",
-   "pzh": "他牙痛。",
-   "paudio": "p/toothache"
+   "pic": "The boy has got a toothache.",
+   "pzh": "男孩牙痛。",
+   "paudio": "p/toothache",
+   "pfalse": "The boy has got an earache.",
+   "pfaudio": "q/toothache"
   },
   "w29": {
    "word": "headache",
@@ -275,9 +317,11 @@
    "hl": "headache",
    "zh": "音樂好大聲，我頭痛了！",
    "audio": "s/headache",
-   "pic": "He has got a headache.",
+   "pic": "He's got a headache.",
    "pzh": "他頭痛。",
-   "paudio": "p/headache"
+   "paudio": "p/headache",
+   "pfalse": "He's got a toothache.",
+   "pfaudio": "q/headache"
   },
   "w30": {
    "word": "earache",
@@ -285,9 +329,11 @@
    "hl": "earache",
    "zh": "金今天不能游泳，因為她耳朵痛。",
    "audio": "s/earache",
-   "pic": "He has got an earache.",
-   "pzh": "他耳朵痛。",
-   "paudio": "p/earache"
+   "pic": "The boy has got an earache.",
+   "pzh": "男孩耳朵痛。",
+   "paudio": "p/earache",
+   "pfalse": "The boy has got a stomach-ache.",
+   "pfaudio": "q/earache"
   },
   "w31": {
    "word": "coat",
@@ -295,9 +341,11 @@
    "hl": "coat",
    "zh": "天氣很冷，穿上你的外套。",
    "audio": "s/coat",
-   "pic": "This is a coat.",
-   "pzh": "這是一件外套。",
-   "paudio": "p/coat"
+   "pic": "This is a long brown coat.",
+   "pzh": "這是一件棕色的長外套。",
+   "paudio": "p/coat",
+   "pfalse": "This is a short green coat.",
+   "pfaudio": "q/coat"
   },
   "w32": {
    "word": "helmet",
@@ -305,9 +353,11 @@
    "hl": "helmet",
    "zh": "騎腳踏車時一定要戴安全帽。",
    "audio": "s/helmet",
-   "pic": "This is a helmet.",
-   "pzh": "這是一頂安全帽。",
-   "paudio": "p/helmet"
+   "pic": "The helmet is red.",
+   "pzh": "安全帽是紅色的。",
+   "paudio": "p/helmet",
+   "pfalse": "The helmet is blue.",
+   "pfaudio": "q/helmet"
   },
   "w33": {
    "word": "scarf",
@@ -315,9 +365,11 @@
    "hl": "scarf",
    "zh": "奶奶幫我做了一條長長的紅圍巾。",
    "audio": "s/scarf",
-   "pic": "This is a scarf.",
-   "pzh": "這是一條圍巾。",
-   "paudio": "p/scarf"
+   "pic": "This is a red scarf.",
+   "pzh": "這是一條紅色的圍巾。",
+   "paudio": "p/scarf",
+   "pfalse": "This is a yellow scarf.",
+   "pfaudio": "q/scarf"
   },
   "w34": {
    "word": "sweater",
@@ -325,9 +377,11 @@
    "hl": "sweater",
    "zh": "這件毛衣我穿太大了。",
    "audio": "s/sweater",
-   "pic": "This is a sweater.",
-   "pzh": "這是一件毛衣。",
-   "paudio": "p/sweater"
+   "pic": "The sweater is red.",
+   "pzh": "毛衣是紅色的。",
+   "paudio": "p/sweater",
+   "pfalse": "The sweater is green.",
+   "pfaudio": "q/sweater"
   },
   "w35": {
    "word": "swimsuit",
@@ -335,9 +389,11 @@
    "hl": "swimsuit",
    "zh": "我去游泳池需要帶泳衣。",
    "audio": "s/swimsuit",
-   "pic": "This is a swimsuit.",
-   "pzh": "這是一件泳衣。",
-   "paudio": "p/swimsuit"
+   "pic": "The swimsuit is blue and green.",
+   "pzh": "泳衣是藍色和綠色的。",
+   "paudio": "p/swimsuit",
+   "pfalse": "The swimsuit is red and pink.",
+   "pfaudio": "q/swimsuit"
   },
   "w36": {
    "word": "aunt",
@@ -410,7 +466,9 @@
    "audio": "s/bottle",
    "pic": "This is a bottle of water.",
    "pzh": "這是一瓶水。",
-   "paudio": "p/bottle"
+   "paudio": "p/bottle",
+   "pfalse": "This is a bottle of milk.",
+   "pfaudio": "q/bottle"
   },
   "w46": {
    "word": "bowl",
@@ -418,9 +476,11 @@
    "hl": "bowl",
    "zh": "我可以來一碗湯嗎？",
    "audio": "s/bowl",
-   "pic": "This is a bowl.",
-   "pzh": "這是一個碗。",
-   "paudio": "p/bowl"
+   "pic": "The bowl is blue.",
+   "pzh": "碗是藍色的。",
+   "paudio": "p/bowl",
+   "pfalse": "The bowl is orange.",
+   "pfaudio": "q/bowl"
   },
   "w47": {
    "word": "cheese",
@@ -428,9 +488,11 @@
    "hl": "cheese",
    "zh": "老鼠超愛起司！",
    "audio": "s/cheese",
-   "pic": "This is some cheese.",
-   "pzh": "這是一塊起司。",
-   "paudio": "p/cheese"
+   "pic": "The cheese is yellow.",
+   "pzh": "起司是黃色的。",
+   "paudio": "p/cheese",
+   "pfalse": "The cheese is blue.",
+   "pfaudio": "q/cheese"
   },
   "w48": {
    "word": "coffee",
@@ -438,9 +500,11 @@
    "hl": "coffee",
    "zh": "爸媽早上會喝咖啡。",
    "audio": "s/coffee",
-   "pic": "This is a cup of coffee.",
-   "pzh": "這是一杯咖啡。",
-   "paudio": "p/coffee"
+   "pic": "This coffee is hot.",
+   "pzh": "這杯咖啡是熱的。",
+   "paudio": "p/coffee",
+   "pfalse": "This coffee is cold.",
+   "pfaudio": "q/coffee"
   },
   "w49": {
    "word": "cup",
@@ -448,9 +512,11 @@
    "hl": "cup",
    "zh": "小心！杯子很燙。",
    "audio": "s/cup",
-   "pic": "This is a cup.",
-   "pzh": "這是一個杯子。",
-   "paudio": "p/cup"
+   "pic": "The cup is white.",
+   "pzh": "杯子是白色的。",
+   "paudio": "p/cup",
+   "pfalse": "The cup is black.",
+   "pfaudio": "q/cup"
   },
   "w50": {
    "word": "glass",
@@ -458,9 +524,11 @@
    "hl": "glass",
    "zh": "我可以喝一杯牛奶嗎？",
    "audio": "s/glass",
-   "pic": "This is a glass.",
-   "pzh": "這是一個玻璃杯。",
-   "paudio": "p/glass"
+   "pic": "This glass is tall.",
+   "pzh": "這個玻璃杯高高的。",
+   "paudio": "p/glass",
+   "pfalse": "This glass is short.",
+   "pfaudio": "q/glass"
   },
   "w51": {
    "word": "hungry",
@@ -468,9 +536,11 @@
    "hl": "hungry",
    "zh": "我好餓，午餐吃什麼？",
    "audio": "s/hungry",
-   "pic": "He is hungry.",
-   "pzh": "他肚子餓了。",
-   "paudio": "p/hungry"
+   "pic": "The boy is hungry. He wants a burger.",
+   "pzh": "男孩肚子餓了，他想吃漢堡。",
+   "paudio": "p/hungry",
+   "pfalse": "The boy is hungry. He wants a cake.",
+   "pfaudio": "q/hungry"
   },
   "w52": {
    "word": "milkshake",
@@ -478,9 +548,11 @@
    "hl": "milkshake",
    "zh": "這杯巧克力奶昔真好喝！",
    "audio": "s/milkshake",
-   "pic": "This is a milkshake.",
-   "pzh": "這是一杯奶昔。",
-   "paudio": "p/milkshake"
+   "pic": "This is a pink milkshake.",
+   "pzh": "這是一杯粉紅色的奶昔。",
+   "paudio": "p/milkshake",
+   "pfalse": "This is a brown milkshake.",
+   "pfaudio": "q/milkshake"
   },
   "w53": {
    "word": "noodles",
@@ -488,9 +560,11 @@
    "hl": "noodles",
    "zh": "莉莉和朋友在吃麵。",
    "audio": "s/noodles",
-   "pic": "These are noodles.",
-   "pzh": "這是麵。",
-   "paudio": "p/noodles"
+   "pic": "There's an egg in the noodles.",
+   "pzh": "麵裡有一顆蛋。",
+   "paudio": "p/noodles",
+   "pfalse": "There's a fish in the noodles.",
+   "pfaudio": "q/noodles"
   },
   "w54": {
    "word": "pancake",
@@ -498,9 +572,11 @@
    "hl": "pancakes",
    "zh": "我們星期天早餐吃鬆餅。",
    "audio": "s/pancake",
-   "pic": "These are pancakes.",
-   "pzh": "這是鬆餅。",
-   "paudio": "p/pancake"
+   "pic": "There are lots of pancakes.",
+   "pzh": "有好多片鬆餅。",
+   "paudio": "p/pancake",
+   "pfalse": "There's only one pancake.",
+   "pfaudio": "q/pancake"
   },
   "w55": {
    "word": "pasta",
@@ -508,9 +584,11 @@
    "hl": "pasta",
    "zh": "媽媽在煮義大利麵當晚餐。",
    "audio": "s/pasta",
-   "pic": "This is pasta.",
-   "pzh": "這是義大利麵。",
-   "paudio": "p/pasta"
+   "pic": "The pasta has got red sauce on it.",
+   "pzh": "義大利麵上有紅色的醬汁。",
+   "paudio": "p/pasta",
+   "pfalse": "The pasta has got green sauce on it.",
+   "pfaudio": "q/pasta"
   },
   "w56": {
    "word": "picnic",
@@ -525,9 +603,11 @@
    "hl": "plate",
    "zh": "把三明治放在盤子上。",
    "audio": "s/plate",
-   "pic": "This is a plate.",
-   "pzh": "這是一個盤子。",
-   "paudio": "p/plate"
+   "pic": "The plate is white.",
+   "pzh": "盤子是白色的。",
+   "paudio": "p/plate",
+   "pfalse": "The plate is red.",
+   "pfaudio": "q/plate"
   },
   "w58": {
    "word": "salad",
@@ -535,9 +615,11 @@
    "hl": "salad",
    "zh": "我的沙拉裡有一顆番茄。",
    "audio": "s/salad",
-   "pic": "This is a salad.",
-   "pzh": "這是一盤沙拉。",
-   "paudio": "p/salad"
+   "pic": "There are tomatoes in the salad.",
+   "pzh": "沙拉裡有番茄。",
+   "paudio": "p/salad",
+   "pfalse": "There are bananas in the salad.",
+   "pfaudio": "q/salad"
   },
   "w59": {
    "word": "sandwich",
@@ -545,9 +627,11 @@
    "hl": "sandwich",
    "zh": "傑克在吃起司三明治。",
    "audio": "s/sandwich",
-   "pic": "This is a sandwich.",
-   "pzh": "這是一個三明治。",
-   "paudio": "p/sandwich"
+   "pic": "There's tomato in the sandwich.",
+   "pzh": "三明治裡有番茄。",
+   "paudio": "p/sandwich",
+   "pfalse": "There's chocolate in the sandwich.",
+   "pfaudio": "q/sandwich"
   },
   "w60": {
    "word": "sauce",
@@ -555,9 +639,11 @@
    "hl": "sauce",
    "zh": "你的薯條要加番茄醬嗎？",
    "audio": "s/sauce",
-   "pic": "This is a bottle of sauce.",
-   "pzh": "這是一瓶醬汁。",
-   "paudio": "p/sauce"
+   "pic": "This is a bottle of red sauce.",
+   "pzh": "這是一瓶紅色的醬汁。",
+   "paudio": "p/sauce",
+   "pfalse": "This is a bottle of green sauce.",
+   "pfaudio": "q/sauce"
   },
   "w61": {
    "word": "soup",
@@ -565,9 +651,11 @@
    "hl": "soup",
    "zh": "這碗湯太燙了！",
    "audio": "s/soup",
-   "pic": "This is some soup.",
-   "pzh": "這是一鍋湯。",
-   "paudio": "p/soup"
+   "pic": "This soup is hot.",
+   "pzh": "這鍋湯是熱的。",
+   "paudio": "p/soup",
+   "pfalse": "This soup is cold.",
+   "pfaudio": "q/soup"
   },
   "w62": {
    "word": "tea",
@@ -575,9 +663,11 @@
    "hl": "tea",
    "zh": "奶奶喜歡加牛奶的茶。",
    "audio": "s/tea",
-   "pic": "This is a cup of tea.",
-   "pzh": "這是一杯茶。",
-   "paudio": "p/tea"
+   "pic": "This tea is hot.",
+   "pzh": "這杯茶是熱的。",
+   "paudio": "p/tea",
+   "pfalse": "This tea is cold.",
+   "pfaudio": "q/tea"
   },
   "w63": {
    "word": "thirsty",
@@ -585,9 +675,11 @@
    "hl": "thirsty",
    "zh": "我好渴，可以給我一點水嗎？",
    "audio": "s/thirsty",
-   "pic": "He is thirsty.",
-   "pzh": "他口渴了。",
-   "paudio": "p/thirsty"
+   "pic": "The boy is thirsty.",
+   "pzh": "男孩口渴了。",
+   "paudio": "p/thirsty",
+   "pfalse": "The boy is laughing.",
+   "pfaudio": "q/thirsty"
   },
   "w64": {
    "word": "vegetable",
@@ -595,9 +687,11 @@
    "hl": "vegetables",
    "zh": "把你的蔬菜吃完！",
    "audio": "s/vegetable",
-   "pic": "This is a vegetable.",
-   "pzh": "這是一種蔬菜。",
-   "paudio": "p/vegetable"
+   "pic": "This vegetable is green.",
+   "pzh": "這種蔬菜是綠色的。",
+   "paudio": "p/vegetable",
+   "pfalse": "This vegetable is orange.",
+   "pfaudio": "q/vegetable"
   },
   "w65": {
    "word": "address",
@@ -629,9 +723,11 @@
    "hl": "blanket",
    "zh": "貓在我的毯子上睡覺。",
    "audio": "s/blanket",
-   "pic": "This is a blanket.",
-   "pzh": "這是一條毯子。",
-   "paudio": "p/blanket"
+   "pic": "The blanket is blue.",
+   "pzh": "毯子是藍色的。",
+   "paudio": "p/blanket",
+   "pfalse": "The blanket is pink.",
+   "pfaudio": "q/blanket"
   },
   "w69": {
    "word": "downstairs",
@@ -648,7 +744,9 @@
    "audio": "s/upstairs",
    "pic": "The boy is going upstairs.",
    "pzh": "男孩正在上樓。",
-   "paudio": "p/upstairs"
+   "paudio": "p/upstairs",
+   "pfalse": "The boy is going downstairs.",
+   "pfaudio": "q/upstairs"
   },
   "w71": {
    "word": "dream",
@@ -663,9 +761,11 @@
    "hl": "lift",
    "zh": "我們搭電梯到十樓吧。",
    "audio": "s/elevator_lift",
-   "pic": "This is a lift.",
-   "pzh": "這是電梯。",
-   "paudio": "p/elevator_lift"
+   "pic": "There are three people in the lift.",
+   "pzh": "電梯裡有三個人。",
+   "paudio": "p/elevator_lift",
+   "pfalse": "There are five people in the lift.",
+   "pfaudio": "q/elevator_lift"
   },
   "w73": {
    "word": "floor",
@@ -694,9 +794,11 @@
    "hl": "roof",
    "zh": "屋頂上有一隻貓！",
    "audio": "s/roof",
-   "pic": "Look at the roof!",
-   "pzh": "看那個屋頂！",
-   "paudio": "p/roof"
+   "pic": "The house has got a red roof.",
+   "pzh": "這棟房子有紅色的屋頂。",
+   "paudio": "p/roof",
+   "pfalse": "The house has got a blue roof.",
+   "pfaudio": "q/roof"
   },
   "w77": {
    "word": "seat",
@@ -704,9 +806,11 @@
    "hl": "seat",
    "zh": "請坐在你的座位上。",
    "audio": "s/seat",
-   "pic": "This is a seat.",
-   "pzh": "這是一個座位。",
-   "paudio": "p/seat"
+   "pic": "The seat is blue.",
+   "pzh": "座位是藍色的。",
+   "paudio": "p/seat",
+   "pfalse": "The seat is red.",
+   "pfaudio": "q/seat"
   },
   "w78": {
    "word": "shower",
@@ -714,9 +818,11 @@
    "hl": "shower",
    "zh": "踢完足球後我會沖澡。",
    "audio": "s/shower",
-   "pic": "This is a shower.",
-   "pzh": "這是蓮蓬頭。",
-   "paudio": "p/shower"
+   "pic": "The shower is on.",
+   "pzh": "蓮蓬頭開著。",
+   "paudio": "p/shower",
+   "pfalse": "The shower is off.",
+   "pfaudio": "q/shower"
   },
   "w79": {
    "word": "stair(s)",
@@ -731,9 +837,11 @@
    "hl": "toothbrush",
    "zh": "我的牙刷是藍色的。",
    "audio": "s/toothbrush",
-   "pic": "This is a toothbrush.",
-   "pzh": "這是一支牙刷。",
-   "paudio": "p/toothbrush"
+   "pic": "The toothbrush is orange.",
+   "pzh": "牙刷是橘色的。",
+   "paudio": "p/toothbrush",
+   "pfalse": "The toothbrush is purple.",
+   "pfaudio": "q/toothbrush"
   },
   "w81": {
    "word": "toothpaste",
@@ -751,9 +859,11 @@
    "hl": "towel",
    "zh": "這是毛巾，把手擦乾。",
    "audio": "s/towel",
-   "pic": "This is a towel.",
-   "pzh": "這是一條毛巾。",
-   "paudio": "p/towel"
+   "pic": "The towel is blue.",
+   "pzh": "毛巾是藍色的。",
+   "paudio": "p/towel",
+   "pfalse": "The towel is yellow.",
+   "pfaudio": "q/towel"
   },
   "w83": {
    "word": "wash",
@@ -768,9 +878,11 @@
    "hl": "bus station",
    "zh": "公車總站在市場旁邊。",
    "audio": "s/bus_station",
-   "pic": "This is a bus station.",
-   "pzh": "這是公車總站。",
-   "paudio": "p/bus_station"
+   "pic": "There are three buses at the bus station.",
+   "pzh": "公車總站有三台公車。",
+   "paudio": "p/bus_station",
+   "pfalse": "There are two buses at the bus station.",
+   "pfaudio": "q/bus_station"
   },
   "w85": {
    "word": "bus stop",
@@ -819,9 +931,11 @@
    "hl": "circus",
    "zh": "我們在馬戲團看到獅子和大象。",
    "audio": "s/circus",
-   "pic": "This is a circus.",
-   "pzh": "這是馬戲團。",
-   "paudio": "p/circus"
+   "pic": "This is a red and white circus.",
+   "pzh": "這是紅白相間的馬戲團。",
+   "paudio": "p/circus",
+   "pfalse": "This is a blue and green circus.",
+   "pfaudio": "q/circus"
   },
   "w91": {
    "word": "city",
@@ -829,8 +943,8 @@
    "hl": "city",
    "zh": "城市裡有很多汽車和公車。",
    "audio": "s/city",
-   "pic": "This is a city.",
-   "pzh": "這是一座城市。",
+   "pic": "This is a big city.",
+   "pzh": "這是一座大城市。",
    "paudio": "p/city"
   },
   "w92": {
@@ -846,9 +960,11 @@
    "hl": "countryside",
    "zh": "爺爺和他的牛住在鄉下。",
    "audio": "s/countryside",
-   "pic": "This is the countryside.",
-   "pzh": "這是鄉下。",
-   "paudio": "p/countryside"
+   "pic": "There's a river in the countryside.",
+   "pzh": "鄉下有一條河。",
+   "paudio": "p/countryside",
+   "pfalse": "There's a train in the countryside.",
+   "pfaudio": "q/countryside"
   },
   "w94": {
    "word": "farm",
@@ -880,9 +996,11 @@
    "hl": "hospital",
    "zh": "我們要帶花去醫院看奶奶。",
    "audio": "s/hospital",
-   "pic": "This is a hospital.",
-   "pzh": "這是一間醫院。",
-   "paudio": "p/hospital"
+   "pic": "The hospital has got a red cross on it.",
+   "pzh": "醫院上面有一個紅色十字。",
+   "paudio": "p/hospital",
+   "pfalse": "The hospital has got a green cross on it.",
+   "pfaudio": "q/hospital"
   },
   "w98": {
    "word": "island",
@@ -890,9 +1008,11 @@
    "hl": "island",
    "zh": "海盜們在一座小島上找到了寶藏。",
    "audio": "s/island",
-   "pic": "This is an island.",
-   "pzh": "這是一座小島。",
-   "paudio": "p/island"
+   "pic": "There's a tree on the island.",
+   "pzh": "島上有一棵樹。",
+   "paudio": "p/island",
+   "pfalse": "There are lots of houses on the island.",
+   "pfaudio": "q/island"
   },
   "w99": {
    "word": "jungle",
@@ -907,9 +1027,11 @@
    "hl": "lake",
    "zh": "我們可以看到湖上的鴨子。",
    "audio": "s/lake",
-   "pic": "This is a lake.",
-   "pzh": "這是一座湖。",
-   "paudio": "p/lake"
+   "pic": "There are mountains behind the lake.",
+   "pzh": "湖的後面有山。",
+   "paudio": "p/lake",
+   "pfalse": "There are houses behind the lake.",
+   "pfaudio": "q/lake"
   },
   "w101": {
    "word": "library",
@@ -917,9 +1039,11 @@
    "hl": "library",
    "zh": "我星期五會去圖書館借書。",
    "audio": "s/library",
-   "pic": "This is a library.",
-   "pzh": "這是一間圖書館。",
-   "paudio": "p/library"
+   "pic": "There are lots of books in the library.",
+   "pzh": "圖書館裡有很多書。",
+   "paudio": "p/library",
+   "pfalse": "There are lots of toys in the library.",
+   "pfaudio": "q/library"
   },
   "w102": {
    "word": "market",
@@ -927,9 +1051,11 @@
    "hl": "market",
    "zh": "我媽媽在市場買水果。",
    "audio": "s/market",
-   "pic": "This is a market.",
-   "pzh": "這是一個市場。",
-   "paudio": "p/market"
+   "pic": "You can buy fruit at this market.",
+   "pzh": "在這個市場可以買到水果。",
+   "paudio": "p/market",
+   "pfalse": "You can buy shoes at this market.",
+   "pfaudio": "q/market"
   },
   "w103": {
    "word": "mountain",
@@ -937,9 +1063,11 @@
    "hl": "mountain",
    "zh": "山上有雪。",
    "audio": "s/mountain",
-   "pic": "This is a mountain.",
-   "pzh": "這是一座山。",
-   "paudio": "p/mountain"
+   "pic": "This is a big brown mountain.",
+   "pzh": "這是一座棕色的大山。",
+   "paudio": "p/mountain",
+   "pfalse": "This is a small green mountain.",
+   "pfaudio": "q/mountain"
   },
   "w104": {
    "word": "pool",
@@ -957,8 +1085,8 @@
    "hl": "river",
    "zh": "魚在河裡游。",
    "audio": "s/river",
-   "pic": "This is a river.",
-   "pzh": "這是一條河。",
+   "pic": "This river is long.",
+   "pzh": "這條河很長。",
    "paudio": "p/river"
   },
   "w106": {
@@ -967,9 +1095,11 @@
    "hl": "road",
    "zh": "過馬路時要小心。",
    "audio": "s/road",
-   "pic": "This is a road.",
-   "pzh": "這是一條馬路。",
-   "paudio": "p/road"
+   "pic": "The road is long and grey.",
+   "pzh": "這條馬路又長又灰。",
+   "paudio": "p/road",
+   "pfalse": "The road is short and red.",
+   "pfaudio": "q/road"
   },
   "w107": {
    "word": "shopping centre",
@@ -994,9 +1124,11 @@
    "hl": "station",
    "zh": "我們在車站等火車。",
    "audio": "s/station",
-   "pic": "This is a station.",
-   "pzh": "這是車站。",
-   "paudio": "p/station"
+   "pic": "There's a yellow train at the station.",
+   "pzh": "車站裡有一列黃色的火車。",
+   "paudio": "p/station",
+   "pfalse": "There's a red train at the station.",
+   "pfaudio": "q/station"
   },
   "w110": {
    "word": "supermarket",
@@ -1018,9 +1150,11 @@
    "hl": "town",
    "zh": "我的表哥住在一個小鎮。",
    "audio": "s/town",
-   "pic": "This is a town.",
-   "pzh": "這是一個小鎮。",
-   "paudio": "p/town"
+   "pic": "There are three houses in this town.",
+   "pzh": "這個小鎮有三棟房子。",
+   "paudio": "p/town",
+   "pfalse": "There are six houses in this town.",
+   "pfaudio": "q/town"
   },
   "w113": {
    "word": "village",
@@ -1028,8 +1162,8 @@
    "hl": "village",
    "zh": "這個村子只有十棟房子。",
    "audio": "s/village",
-   "pic": "This is a village.",
-   "pzh": "這是一個村莊。",
+   "pic": "This village has got trees and houses.",
+   "pzh": "這個村莊有樹和房子。",
    "paudio": "p/village"
   },
   "w114": {
@@ -1048,9 +1182,11 @@
    "hl": "comic book",
    "zh": "彼得在看一本好笑的漫畫書。",
    "audio": "s/comic_book",
-   "pic": "This is a comic book.",
-   "pzh": "這是一本漫畫書。",
-   "paudio": "p/comic_book"
+   "pic": "There's a cat in this comic book.",
+   "pzh": "這本漫畫書裡有一隻貓。",
+   "paudio": "p/comic_book",
+   "pfalse": "There's a dog in this comic book.",
+   "pfaudio": "q/comic_book"
   },
   "w116": {
    "word": "e-book",
@@ -1075,9 +1211,11 @@
    "hl": "laptop",
    "zh": "爸爸在用筆電工作。",
    "audio": "s/laptop",
-   "pic": "This is a laptop.",
-   "pzh": "這是一台筆電。",
-   "paudio": "p/laptop"
+   "pic": "The laptop is open.",
+   "pzh": "筆電是打開的。",
+   "paudio": "p/laptop",
+   "pfalse": "The laptop is closed.",
+   "pfaudio": "q/laptop"
   },
   "w119": {
    "word": "website",
@@ -1129,9 +1267,11 @@
    "hl": "cook",
    "zh": "我爸爸很會做菜。",
    "audio": "s/cook",
-   "pic": "This person is a cook.",
-   "pzh": "這個人是一位廚師。",
-   "paudio": "p/cook"
+   "pic": "This cook has got a white hat.",
+   "pzh": "這位廚師戴著白色的帽子。",
+   "paudio": "p/cook",
+   "pfalse": "This cook has got a black hat.",
+   "pfaudio": "q/cook"
   },
   "w125": {
    "word": "dentist",
@@ -1163,9 +1303,11 @@
    "hl": "farmer",
    "zh": "農夫有很多牛和雞。",
    "audio": "s/farmer",
-   "pic": "This is a farmer.",
-   "pzh": "這是一位農夫。",
-   "paudio": "p/farmer"
+   "pic": "The farmer has got a yellow hat.",
+   "pzh": "農夫戴著黃色的帽子。",
+   "paudio": "p/farmer",
+   "pfalse": "The farmer has got a red hat.",
+   "pfaudio": "q/farmer"
   },
   "w129": {
    "word": "film star",
@@ -1173,9 +1315,11 @@
    "hl": "film star",
    "zh": "那位電影明星非常有名。",
    "audio": "s/film_star",
-   "pic": "This is a film star.",
-   "pzh": "這是一位電影明星。",
-   "paudio": "p/film_star"
+   "pic": "The film star is wearing a red dress.",
+   "pzh": "電影明星穿著紅色的洋裝。",
+   "paudio": "p/film_star",
+   "pfalse": "The film star is wearing a blue dress.",
+   "pfaudio": "q/film_star"
   },
   "w130": {
    "word": "nurse",
@@ -1183,9 +1327,11 @@
    "hl": "nurse",
    "zh": "護理師正在幫助一個生病的女孩。",
    "audio": "s/nurse",
-   "pic": "This is a nurse.",
-   "pzh": "這是一位護理師。",
-   "paudio": "p/nurse"
+   "pic": "The nurse has got long hair.",
+   "pzh": "護理師留著長頭髮。",
+   "paudio": "p/nurse",
+   "pfalse": "The nurse has got short hair.",
+   "pfaudio": "q/nurse"
   },
   "w131": {
    "word": "pirate",
@@ -1200,9 +1346,11 @@
    "hl": "player",
    "zh": "他是我們學校最厲害的足球選手。",
    "audio": "s/player",
-   "pic": "This is a basketball player.",
-   "pzh": "這是一位籃球選手。",
-   "paudio": "p/player"
+   "pic": "He is playing basketball.",
+   "pzh": "他正在打籃球。",
+   "paudio": "p/player",
+   "pfalse": "He is playing tennis.",
+   "pfaudio": "q/player"
   },
   "w133": {
    "word": "pop star",
@@ -1210,9 +1358,11 @@
    "hl": "pop star",
    "zh": "茱莉亞想當流行歌手。",
    "audio": "s/pop_star",
-   "pic": "This is a pop star.",
-   "pzh": "這是一位流行歌手。",
-   "paudio": "p/pop_star"
+   "pic": "The pop star is singing.",
+   "pzh": "流行歌手正在唱歌。",
+   "paudio": "p/pop_star",
+   "pfalse": "The pop star is sleeping.",
+   "pfaudio": "q/pop_star"
   },
   "w134": {
    "word": "band (music)",
@@ -1220,9 +1370,11 @@
    "hl": "band",
    "zh": "我哥哥在樂團裡彈吉他。",
    "audio": "s/band_music",
-   "pic": "This is a band.",
-   "pzh": "這是一個樂團。",
-   "paudio": "p/band_music"
+   "pic": "There are three people in the band.",
+   "pzh": "樂團裡有三個人。",
+   "paudio": "p/band_music",
+   "pfalse": "There are five people in the band.",
+   "pfaudio": "q/band_music"
   },
   "w135": {
    "word": "dance",
@@ -1230,9 +1382,11 @@
    "hl": "dance",
    "zh": "我們隨著音樂跳舞吧！",
    "audio": "s/dance",
-   "pic": "She is dancing.",
-   "pzh": "她正在跳舞。",
-   "paudio": "p/dance"
+   "pic": "The woman is dancing in a red dress.",
+   "pzh": "女人穿著紅色洋裝跳舞。",
+   "paudio": "p/dance",
+   "pfalse": "The woman is dancing in a green dress.",
+   "pfaudio": "q/dance"
   },
   "w136": {
    "word": "goal",
@@ -1240,9 +1394,11 @@
    "hl": "goal",
    "zh": "查理一腳把球踢進，得了一分！",
    "audio": "s/goal",
-   "pic": "This is a goal.",
-   "pzh": "這是一個球門。",
-   "paudio": "p/goal"
+   "pic": "The goal is red and white.",
+   "pzh": "球門是紅白色的。",
+   "paudio": "p/goal",
+   "pfalse": "The goal is blue and yellow.",
+   "pfaudio": "q/goal"
   },
   "w137": {
    "word": "holiday",
@@ -1257,9 +1413,11 @@
    "hl": "ice skates",
    "zh": "這雙溜冰鞋我穿太小了。",
    "audio": "s/ice_skates",
-   "pic": "These are ice skates.",
-   "pzh": "這是一雙溜冰鞋。",
-   "paudio": "p/ice_skates"
+   "pic": "These are white ice skates.",
+   "pzh": "這是白色的溜冰鞋。",
+   "paudio": "p/ice_skates",
+   "pfalse": "These are black ice skates.",
+   "pfaudio": "q/ice_skates"
   },
   "w139": {
    "word": "ice skating",
@@ -1274,9 +1432,11 @@
    "hl": "kick",
    "zh": "用力踢一下球！",
    "audio": "s/kick",
-   "pic": "He is kicking a ball.",
-   "pzh": "他正在踢球。",
-   "paudio": "p/kick"
+   "pic": "He is kicking a football.",
+   "pzh": "他正在踢足球。",
+   "paudio": "p/kick",
+   "pfalse": "He is catching a football.",
+   "pfaudio": "q/kick"
   },
   "w141": {
    "word": "party",
@@ -1291,9 +1451,11 @@
    "hl": "present",
    "zh": "我有一份禮物要給你！",
    "audio": "s/present",
-   "pic": "This is a present.",
-   "pzh": "這是一份禮物。",
-   "paudio": "p/present"
+   "pic": "The present is yellow and red.",
+   "pzh": "禮物是黃色和紅色的。",
+   "paudio": "p/present",
+   "pfalse": "The present is blue and green.",
+   "pfaudio": "q/present"
   },
   "w143": {
    "word": "roller skates",
@@ -1301,9 +1463,11 @@
    "hl": "roller skates",
    "zh": "柔伊的輪式溜冰鞋是粉紅色的。",
    "audio": "s/roller_skates",
-   "pic": "These are roller skates.",
-   "pzh": "這是一雙輪式溜冰鞋。",
-   "paudio": "p/roller_skates"
+   "pic": "These roller skates are blue.",
+   "pzh": "這雙輪式溜冰鞋是藍色的。",
+   "paudio": "p/roller_skates",
+   "pfalse": "These roller skates are pink.",
+   "pfaudio": "q/roller_skates"
   },
   "w144": {
    "word": "roller skating",
@@ -1318,9 +1482,11 @@
    "hl": "sail",
    "zh": "我叔叔會駕駛一艘大帆船。",
    "audio": "s/sail",
-   "pic": "The boat has got a big sail.",
-   "pzh": "這艘船有一面大帆。",
-   "paudio": "p/sail"
+   "pic": "The boat has got a red and white sail.",
+   "pzh": "這艘船有一面紅白相間的帆。",
+   "paudio": "p/sail",
+   "pfalse": "The boat has got a green sail.",
+   "pfaudio": "q/sail"
   },
   "w146": {
    "word": "score",
@@ -1330,7 +1496,9 @@
    "audio": "s/score",
    "pic": "The score is two to one.",
    "pzh": "比數是二比一。",
-   "paudio": "p/score"
+   "paudio": "p/score",
+   "pfalse": "The score is three to one.",
+   "pfaudio": "q/score"
   },
   "w147": {
    "word": "skate",
@@ -1354,7 +1522,9 @@
    "audio": "s/swim",
    "pic": "He is swimming.",
    "pzh": "他正在游泳。",
-   "paudio": "p/swim"
+   "paudio": "p/swim",
+   "pfalse": "He is running.",
+   "pfaudio": "q/swim"
   },
   "w150": {
    "word": "ticket",
@@ -1362,9 +1532,11 @@
    "hl": "ticket",
    "zh": "這是你的火車票。",
    "audio": "s/ticket",
-   "pic": "This is a ticket.",
-   "pzh": "這是一張票。",
-   "paudio": "p/ticket"
+   "pic": "The ticket is red.",
+   "pzh": "票是紅色的。",
+   "paudio": "p/ticket",
+   "pfalse": "The ticket is blue.",
+   "pfaudio": "q/ticket"
   },
   "w151": {
    "word": "trip",
@@ -1389,9 +1561,11 @@
    "hl": "cloud",
    "zh": "那朵雲看起來像一隻兔子！",
    "audio": "s/cloud",
-   "pic": "This is a cloud.",
-   "pzh": "這是一朵雲。",
-   "paudio": "p/cloud"
+   "pic": "There's one white cloud.",
+   "pzh": "有一朵白雲。",
+   "paudio": "p/cloud",
+   "pfalse": "There are three white clouds.",
+   "pfaudio": "q/cloud"
   },
   "w154": {
    "word": "cloudy",
@@ -1408,7 +1582,9 @@
    "audio": "s/rain",
    "pic": "It's raining.",
    "pzh": "正在下雨。",
-   "paudio": "p/rain"
+   "paudio": "p/rain",
+   "pfalse": "It's snowing.",
+   "pfaudio": "q/rain"
   },
   "w156": {
    "word": "rainbow",
@@ -1416,8 +1592,8 @@
    "hl": "rainbow",
    "zh": "看！天上有一道彩虹！",
    "audio": "s/rainbow",
-   "pic": "This is a rainbow.",
-   "pzh": "這是一道彩虹。",
+   "pic": "Look at the rainbow!",
+   "pzh": "看那道彩虹！",
    "paudio": "p/rainbow"
   },
   "w157": {
@@ -1435,7 +1611,9 @@
    "audio": "s/snow",
    "pic": "It's snowing.",
    "pzh": "正在下雪。",
-   "paudio": "p/snow"
+   "paudio": "p/snow",
+   "pfalse": "It's raining.",
+   "pfaudio": "q/snow"
   },
   "w159": {
    "word": "sunny",
@@ -1443,9 +1621,11 @@
    "hl": "sunny",
    "zh": "今天出太陽，我們去海邊吧！",
    "audio": "s/sunny",
-   "pic": "It's sunny.",
-   "pzh": "今天出太陽。",
-   "paudio": "p/sunny"
+   "pic": "It's sunny and hot.",
+   "pzh": "今天出太陽，很熱。",
+   "paudio": "p/sunny",
+   "pfalse": "It's cold and windy.",
+   "pfaudio": "q/sunny"
   },
   "w160": {
    "word": "weather",
@@ -1469,7 +1649,9 @@
    "audio": "s/windy",
    "pic": "It's windy.",
    "pzh": "今天風很大。",
-   "paudio": "p/windy"
+   "paudio": "p/windy",
+   "pfalse": "It's sunny.",
+   "pfaudio": "q/windy"
   },
   "w163": {
    "word": "wet",
@@ -1486,7 +1668,9 @@
    "audio": "s/monday",
    "pic": "It's Monday.",
    "pzh": "今天是星期一。",
-   "paudio": "p/monday"
+   "paudio": "p/monday",
+   "pfalse": "It's Friday.",
+   "pfaudio": "q/monday"
   },
   "w165": {
    "word": "Tuesday",
@@ -1496,7 +1680,9 @@
    "audio": "s/tuesday",
    "pic": "It's Tuesday.",
    "pzh": "今天是星期二。",
-   "paudio": "p/tuesday"
+   "paudio": "p/tuesday",
+   "pfalse": "It's Thursday.",
+   "pfaudio": "q/tuesday"
   },
   "w166": {
    "word": "Wednesday",
@@ -1506,7 +1692,9 @@
    "audio": "s/wednesday",
    "pic": "It's Wednesday.",
    "pzh": "今天是星期三。",
-   "paudio": "p/wednesday"
+   "paudio": "p/wednesday",
+   "pfalse": "It's Monday.",
+   "pfaudio": "q/wednesday"
   },
   "w167": {
    "word": "Thursday",
@@ -1516,7 +1704,9 @@
    "audio": "s/thursday",
    "pic": "It's Thursday.",
    "pzh": "今天是星期四。",
-   "paudio": "p/thursday"
+   "paudio": "p/thursday",
+   "pfalse": "It's Tuesday.",
+   "pfaudio": "q/thursday"
   },
   "w168": {
    "word": "Friday",
@@ -1526,7 +1716,9 @@
    "audio": "s/friday",
    "pic": "It's Friday.",
    "pzh": "今天是星期五。",
-   "paudio": "p/friday"
+   "paudio": "p/friday",
+   "pfalse": "It's Sunday.",
+   "pfaudio": "q/friday"
   },
   "w169": {
    "word": "Saturday",
@@ -1536,7 +1728,9 @@
    "audio": "s/saturday",
    "pic": "It's Saturday.",
    "pzh": "今天是星期六。",
-   "paudio": "p/saturday"
+   "paudio": "p/saturday",
+   "pfalse": "It's Wednesday.",
+   "pfaudio": "q/saturday"
   },
   "w170": {
    "word": "Sunday",
@@ -1546,7 +1740,9 @@
    "audio": "s/sunday",
    "pic": "It's Sunday.",
    "pzh": "今天是星期天。",
-   "paudio": "p/sunday"
+   "paudio": "p/sunday",
+   "pfalse": "It's Saturday.",
+   "pfaudio": "q/sunday"
   },
   "w171": {
    "word": "o'clock",
@@ -1556,7 +1752,9 @@
    "audio": "s/o_clock",
    "pic": "It's three o'clock.",
    "pzh": "現在三點鐘。",
-   "paudio": "p/o_clock"
+   "paudio": "p/o_clock",
+   "pfalse": "It's nine o'clock.",
+   "pfaudio": "q/o_clock"
   },
   "w172": {
    "word": "often",
@@ -1606,9 +1804,11 @@
    "hl": "grass",
    "zh": "不要坐在濕濕的草地上！",
    "audio": "s/grass",
-   "pic": "This is grass.",
-   "pzh": "這是草地。",
-   "paudio": "p/grass"
+   "pic": "The grass is green.",
+   "pzh": "草是綠色的。",
+   "paudio": "p/grass",
+   "pfalse": "The grass is pink.",
+   "pfaudio": "q/grass"
   },
   "w179": {
    "word": "ground",
@@ -1623,9 +1823,11 @@
    "hl": "leaves",
    "zh": "這棵樹的葉子是紅色和黃色的。",
    "audio": "s/leaf_leaves",
-   "pic": "These are leaves.",
-   "pzh": "這些是葉子。",
-   "paudio": "p/leaf_leaves"
+   "pic": "There are two green leaves.",
+   "pzh": "有兩片綠色的葉子。",
+   "paudio": "p/leaf_leaves",
+   "pfalse": "There are five green leaves.",
+   "pfaudio": "q/leaf_leaves"
   },
   "w181": {
    "word": "moon",
@@ -1633,9 +1835,11 @@
    "hl": "moon",
    "zh": "看月亮！又大又圓。",
    "audio": "s/moon",
-   "pic": "This is the moon.",
-   "pzh": "這是月亮。",
-   "paudio": "p/moon"
+   "pic": "The moon is yellow.",
+   "pzh": "月亮是黃色的。",
+   "paudio": "p/moon",
+   "pfalse": "The moon is blue.",
+   "pfaudio": "q/moon"
   },
   "w182": {
    "word": "rock",
@@ -1643,9 +1847,11 @@
    "hl": "rock",
    "zh": "一隻蜥蜴坐在石頭上。",
    "audio": "s/rock",
-   "pic": "This is a rock.",
-   "pzh": "這是一塊石頭。",
-   "paudio": "p/rock"
+   "pic": "This is a big grey rock.",
+   "pzh": "這是一塊灰色的大石頭。",
+   "paudio": "p/rock",
+   "pfalse": "This is a big pink rock.",
+   "pfaudio": "q/rock"
   },
   "w183": {
    "word": "star",
@@ -1653,9 +1859,11 @@
    "hl": "stars",
    "zh": "晚上我可以看到很多星星。",
    "audio": "s/star",
-   "pic": "This is a star.",
-   "pzh": "這是一顆星星。",
-   "paudio": "p/star"
+   "pic": "The star is yellow.",
+   "pzh": "星星是黃色的。",
+   "paudio": "p/star",
+   "pfalse": "The star is green.",
+   "pfaudio": "q/star"
   },
   "w184": {
    "word": "treasure",
@@ -1663,9 +1871,11 @@
    "hl": "treasure",
    "zh": "海盜正在找寶藏。",
    "audio": "s/treasure",
-   "pic": "This is treasure.",
-   "pzh": "這是寶藏。",
-   "paudio": "p/treasure"
+   "pic": "There's treasure in the box.",
+   "pzh": "箱子裡有寶藏。",
+   "paudio": "p/treasure",
+   "pfalse": "There's a cat in the box.",
+   "pfaudio": "q/treasure"
   },
   "w185": {
    "word": "world",
