@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "level": "movers",
  "note": "Example sentences written for this project; vocabulary limited to the Cambridge Pre A1 Starters and A1 Movers wordlists. Audio: Kokoro-82M (Apache-2.0), voices bm_lewis (UK) / af_heart (US).",
  "sentences": {
@@ -8,105 +8,150 @@
    "en": "The bat sleeps in the day and flies at night.",
    "hl": "bat",
    "zh": "蝙蝠白天睡覺，晚上飛出來。",
-   "audio": "s/bat"
+   "audio": "s/bat",
+   "pic": "This is a bat.",
+   "pzh": "這是一隻蝙蝠。",
+   "paudio": "p/bat"
   },
   "w1": {
    "word": "cage",
    "en": "There are two birds in the big cage.",
    "hl": "cage",
    "zh": "大籠子裡有兩隻鳥。",
-   "audio": "s/cage"
+   "audio": "s/cage",
+   "pic": "There's a bird in the cage.",
+   "pzh": "籠子裡有一隻鳥。",
+   "paudio": "p/cage"
   },
   "w2": {
    "word": "dolphin",
    "en": "The dolphin is jumping out of the sea.",
    "hl": "dolphin",
    "zh": "海豚正跳出海面。",
-   "audio": "s/dolphin"
+   "audio": "s/dolphin",
+   "pic": "This is a dolphin.",
+   "pzh": "這是一隻海豚。",
+   "paudio": "p/dolphin"
   },
   "w3": {
    "word": "fly",
    "en": "A fly is sitting on my sandwich!",
    "hl": "fly",
    "zh": "一隻蒼蠅停在我的三明治上！",
-   "audio": "s/fly"
+   "audio": "s/fly",
+   "pic": "This is a fly.",
+   "pzh": "這是一隻蒼蠅。",
+   "paudio": "p/fly"
   },
   "w4": {
    "word": "kangaroo",
    "en": "The kangaroo is hopping in the field.",
    "hl": "kangaroo",
    "zh": "袋鼠在田野裡跳來跳去。",
-   "audio": "s/kangaroo"
+   "audio": "s/kangaroo",
+   "pic": "This is a kangaroo.",
+   "pzh": "這是一隻袋鼠。",
+   "paudio": "p/kangaroo"
   },
   "w5": {
    "word": "kitten",
    "en": "The little kitten is playing with a ball.",
    "hl": "kitten",
    "zh": "小貓在玩球。",
-   "audio": "s/kitten"
+   "audio": "s/kitten",
+   "pic": "This is a kitten.",
+   "pzh": "這是一隻小貓。",
+   "paudio": "p/kitten"
   },
   "w6": {
    "word": "lion",
    "en": "The lion is sleeping under a tree.",
    "hl": "lion",
    "zh": "獅子在樹下睡覺。",
-   "audio": "s/lion"
+   "audio": "s/lion",
+   "pic": "This is a lion.",
+   "pzh": "這是一隻獅子。",
+   "paudio": "p/lion"
   },
   "w7": {
    "word": "panda",
    "en": "The panda is black and white.",
    "hl": "panda",
    "zh": "貓熊是黑白色的。",
-   "audio": "s/panda"
+   "audio": "s/panda",
+   "pic": "This is a panda.",
+   "pzh": "這是一隻貓熊。",
+   "paudio": "p/panda"
   },
   "w8": {
    "word": "parrot",
    "en": "My parrot can say hello!",
    "hl": "parrot",
    "zh": "我的鸚鵡會說哈囉！",
-   "audio": "s/parrot"
+   "audio": "s/parrot",
+   "pic": "This is a parrot.",
+   "pzh": "這是一隻鸚鵡。",
+   "paudio": "p/parrot"
   },
   "w9": {
    "word": "penguin",
    "en": "The penguin can swim, but it can't fly.",
    "hl": "penguin",
    "zh": "企鵝會游泳，但不會飛。",
-   "audio": "s/penguin"
+   "audio": "s/penguin",
+   "pic": "This is a penguin.",
+   "pzh": "這是一隻企鵝。",
+   "paudio": "p/penguin"
   },
   "w10": {
    "word": "puppy",
    "en": "The puppy is hiding under the bed.",
    "hl": "puppy",
    "zh": "小狗躲在床底下。",
-   "audio": "s/puppy"
+   "audio": "s/puppy",
+   "pic": "This is a puppy.",
+   "pzh": "這是一隻小狗。",
+   "paudio": "p/puppy"
   },
   "w11": {
    "word": "rabbit",
    "en": "The rabbit has got long ears.",
    "hl": "rabbit",
    "zh": "兔子有長長的耳朵。",
-   "audio": "s/rabbit"
+   "audio": "s/rabbit",
+   "pic": "This is a rabbit.",
+   "pzh": "這是一隻兔子。",
+   "paudio": "p/rabbit"
   },
   "w12": {
    "word": "shark",
    "en": "The shark has got lots of teeth.",
    "hl": "shark",
    "zh": "鯊魚有很多牙齒。",
-   "audio": "s/shark"
+   "audio": "s/shark",
+   "pic": "This is a shark.",
+   "pzh": "這是一隻鯊魚。",
+   "paudio": "p/shark"
   },
   "w13": {
    "word": "snail",
    "en": "The snail is very slow.",
    "hl": "snail",
    "zh": "蝸牛非常慢。",
-   "audio": "s/snail"
+   "audio": "s/snail",
+   "pic": "This is a snail.",
+   "pzh": "這是一隻蝸牛。",
+   "paudio": "p/snail"
   },
   "w14": {
    "word": "whale",
    "en": "A whale is bigger than a bus!",
    "hl": "whale",
    "zh": "鯨魚比公車還大！",
-   "audio": "s/whale"
+   "audio": "s/whale",
+   "pic": "This is a whale.",
+   "pzh": "這是一隻鯨魚。",
+   "paudio": "p/whale"
   },
   "w15": {
    "word": "back",
@@ -120,21 +165,30 @@
    "en": "My grandpa has got a long white beard.",
    "hl": "beard",
    "zh": "我爺爺有長長的白鬍子。",
-   "audio": "s/beard"
+   "audio": "s/beard",
+   "pic": "This man has got a beard.",
+   "pzh": "這個男人留著鬍子。",
+   "paudio": "p/beard"
   },
   "w17": {
    "word": "blond(e)",
    "en": "Lucy has got long blonde hair.",
    "hl": "blonde",
    "zh": "露西有一頭金色長髮。",
-   "audio": "s/blond_e"
+   "audio": "s/blond_e",
+   "pic": "This person has got blonde hair.",
+   "pzh": "這個人有一頭金髮。",
+   "paudio": "p/blond_e"
   },
   "w18": {
    "word": "curly",
    "en": "Ben has got short curly hair.",
    "hl": "curly",
    "zh": "班有一頭短短的捲髮。",
-   "audio": "s/curly"
+   "audio": "s/curly",
+   "pic": "This woman has got curly hair.",
+   "pzh": "這個女人有一頭捲髮。",
+   "paudio": "p/curly"
   },
   "w19": {
    "word": "fair",
@@ -183,7 +237,10 @@
    "en": "I ate ten cakes and now I've got a stomach-ache!",
    "hl": "stomach-ache",
    "zh": "我吃了十個蛋糕，現在肚子痛！",
-   "audio": "s/stomach_ache"
+   "audio": "s/stomach_ache",
+   "pic": "He has got a stomach-ache.",
+   "pzh": "他肚子痛。",
+   "paudio": "p/stomach_ache"
   },
   "w26": {
    "word": "thin",
@@ -197,63 +254,90 @@
    "en": "Clean your teeth before you go to bed.",
    "hl": "teeth",
    "zh": "睡覺前要刷牙。",
-   "audio": "s/tooth_teeth"
+   "audio": "s/tooth_teeth",
+   "pic": "This is a tooth.",
+   "pzh": "這是一顆牙齒。",
+   "paudio": "p/tooth_teeth"
   },
   "w28": {
    "word": "toothache",
    "en": "Tom has got a toothache. He needs to see the dentist.",
    "hl": "toothache",
    "zh": "湯姆牙痛，他需要去看牙醫。",
-   "audio": "s/toothache"
+   "audio": "s/toothache",
+   "pic": "He has got a toothache.",
+   "pzh": "他牙痛。",
+   "paudio": "p/toothache"
   },
   "w29": {
    "word": "headache",
    "en": "The music is very loud. I've got a headache!",
    "hl": "headache",
    "zh": "音樂好大聲，我頭痛了！",
-   "audio": "s/headache"
+   "audio": "s/headache",
+   "pic": "He has got a headache.",
+   "pzh": "他頭痛。",
+   "paudio": "p/headache"
   },
   "w30": {
    "word": "earache",
    "en": "Kim can't swim today because she's got an earache.",
    "hl": "earache",
    "zh": "金今天不能游泳，因為她耳朵痛。",
-   "audio": "s/earache"
+   "audio": "s/earache",
+   "pic": "He has got an earache.",
+   "pzh": "他耳朵痛。",
+   "paudio": "p/earache"
   },
   "w31": {
    "word": "coat",
    "en": "Put on your coat because it's cold.",
    "hl": "coat",
    "zh": "天氣很冷，穿上你的外套。",
-   "audio": "s/coat"
+   "audio": "s/coat",
+   "pic": "This is a coat.",
+   "pzh": "這是一件外套。",
+   "paudio": "p/coat"
   },
   "w32": {
    "word": "helmet",
    "en": "Always wear a helmet when you ride your bike.",
    "hl": "helmet",
    "zh": "騎腳踏車時一定要戴安全帽。",
-   "audio": "s/helmet"
+   "audio": "s/helmet",
+   "pic": "This is a helmet.",
+   "pzh": "這是一頂安全帽。",
+   "paudio": "p/helmet"
   },
   "w33": {
    "word": "scarf",
    "en": "Grandma made a long red scarf for me.",
    "hl": "scarf",
    "zh": "奶奶幫我做了一條長長的紅圍巾。",
-   "audio": "s/scarf"
+   "audio": "s/scarf",
+   "pic": "This is a scarf.",
+   "pzh": "這是一條圍巾。",
+   "paudio": "p/scarf"
   },
   "w34": {
    "word": "sweater",
    "en": "This sweater is too big for me.",
    "hl": "sweater",
    "zh": "這件毛衣我穿太大了。",
-   "audio": "s/sweater"
+   "audio": "s/sweater",
+   "pic": "This is a sweater.",
+   "pzh": "這是一件毛衣。",
+   "paudio": "p/sweater"
   },
   "w35": {
    "word": "swimsuit",
    "en": "I need my swimsuit for the swimming pool.",
    "hl": "swimsuit",
    "zh": "我去游泳池需要帶泳衣。",
-   "audio": "s/swimsuit"
+   "audio": "s/swimsuit",
+   "pic": "This is a swimsuit.",
+   "pzh": "這是一件泳衣。",
+   "paudio": "p/swimsuit"
   },
   "w36": {
    "word": "aunt",
@@ -323,77 +407,110 @@
    "en": "There's a bottle of water in my bag.",
    "hl": "bottle",
    "zh": "我的包包裡有一瓶水。",
-   "audio": "s/bottle"
+   "audio": "s/bottle",
+   "pic": "This is a bottle of water.",
+   "pzh": "這是一瓶水。",
+   "paudio": "p/bottle"
   },
   "w46": {
    "word": "bowl",
    "en": "Can I have a bowl of soup, please?",
    "hl": "bowl",
    "zh": "我可以來一碗湯嗎？",
-   "audio": "s/bowl"
+   "audio": "s/bowl",
+   "pic": "This is a bowl.",
+   "pzh": "這是一個碗。",
+   "paudio": "p/bowl"
   },
   "w47": {
    "word": "cheese",
    "en": "Mice love cheese!",
    "hl": "cheese",
    "zh": "老鼠超愛起司！",
-   "audio": "s/cheese"
+   "audio": "s/cheese",
+   "pic": "This is some cheese.",
+   "pzh": "這是一塊起司。",
+   "paudio": "p/cheese"
   },
   "w48": {
    "word": "coffee",
    "en": "Mum and Dad drink coffee in the morning.",
    "hl": "coffee",
    "zh": "爸媽早上會喝咖啡。",
-   "audio": "s/coffee"
+   "audio": "s/coffee",
+   "pic": "This is a cup of coffee.",
+   "pzh": "這是一杯咖啡。",
+   "paudio": "p/coffee"
   },
   "w49": {
    "word": "cup",
    "en": "Be careful! The cup is hot.",
    "hl": "cup",
    "zh": "小心！杯子很燙。",
-   "audio": "s/cup"
+   "audio": "s/cup",
+   "pic": "This is a cup.",
+   "pzh": "這是一個杯子。",
+   "paudio": "p/cup"
   },
   "w50": {
    "word": "glass",
    "en": "Can I have a glass of milk, please?",
    "hl": "glass",
    "zh": "我可以喝一杯牛奶嗎？",
-   "audio": "s/glass"
+   "audio": "s/glass",
+   "pic": "This is a glass.",
+   "pzh": "這是一個玻璃杯。",
+   "paudio": "p/glass"
   },
   "w51": {
    "word": "hungry",
    "en": "I'm hungry. What's for lunch?",
    "hl": "hungry",
    "zh": "我好餓，午餐吃什麼？",
-   "audio": "s/hungry"
+   "audio": "s/hungry",
+   "pic": "He is hungry.",
+   "pzh": "他肚子餓了。",
+   "paudio": "p/hungry"
   },
   "w52": {
    "word": "milkshake",
    "en": "This chocolate milkshake is really nice!",
    "hl": "milkshake",
    "zh": "這杯巧克力奶昔真好喝！",
-   "audio": "s/milkshake"
+   "audio": "s/milkshake",
+   "pic": "This is a milkshake.",
+   "pzh": "這是一杯奶昔。",
+   "paudio": "p/milkshake"
   },
   "w53": {
    "word": "noodles",
    "en": "Lily is eating noodles with her friends.",
    "hl": "noodles",
    "zh": "莉莉和朋友在吃麵。",
-   "audio": "s/noodles"
+   "audio": "s/noodles",
+   "pic": "These are noodles.",
+   "pzh": "這是麵。",
+   "paudio": "p/noodles"
   },
   "w54": {
    "word": "pancake",
    "en": "We have pancakes for breakfast on Sundays.",
    "hl": "pancakes",
    "zh": "我們星期天早餐吃鬆餅。",
-   "audio": "s/pancake"
+   "audio": "s/pancake",
+   "pic": "These are pancakes.",
+   "pzh": "這是鬆餅。",
+   "paudio": "p/pancake"
   },
   "w55": {
    "word": "pasta",
    "en": "Mum is cooking pasta for dinner.",
    "hl": "pasta",
    "zh": "媽媽在煮義大利麵當晚餐。",
-   "audio": "s/pasta"
+   "audio": "s/pasta",
+   "pic": "This is pasta.",
+   "pzh": "這是義大利麵。",
+   "paudio": "p/pasta"
   },
   "w56": {
    "word": "picnic",
@@ -407,56 +524,80 @@
    "en": "Put the sandwiches on the plate.",
    "hl": "plate",
    "zh": "把三明治放在盤子上。",
-   "audio": "s/plate"
+   "audio": "s/plate",
+   "pic": "This is a plate.",
+   "pzh": "這是一個盤子。",
+   "paudio": "p/plate"
   },
   "w58": {
    "word": "salad",
    "en": "There's a tomato in my salad.",
    "hl": "salad",
    "zh": "我的沙拉裡有一顆番茄。",
-   "audio": "s/salad"
+   "audio": "s/salad",
+   "pic": "This is a salad.",
+   "pzh": "這是一盤沙拉。",
+   "paudio": "p/salad"
   },
   "w59": {
    "word": "sandwich",
    "en": "Jack is eating a cheese sandwich.",
    "hl": "sandwich",
    "zh": "傑克在吃起司三明治。",
-   "audio": "s/sandwich"
+   "audio": "s/sandwich",
+   "pic": "This is a sandwich.",
+   "pzh": "這是一個三明治。",
+   "paudio": "p/sandwich"
   },
   "w60": {
    "word": "sauce",
    "en": "Do you want tomato sauce on your chips?",
    "hl": "sauce",
    "zh": "你的薯條要加番茄醬嗎？",
-   "audio": "s/sauce"
+   "audio": "s/sauce",
+   "pic": "This is a bottle of sauce.",
+   "pzh": "這是一瓶醬汁。",
+   "paudio": "p/sauce"
   },
   "w61": {
    "word": "soup",
    "en": "This soup is too hot!",
    "hl": "soup",
    "zh": "這碗湯太燙了！",
-   "audio": "s/soup"
+   "audio": "s/soup",
+   "pic": "This is some soup.",
+   "pzh": "這是一鍋湯。",
+   "paudio": "p/soup"
   },
   "w62": {
    "word": "tea",
    "en": "Grandma likes tea with milk.",
    "hl": "tea",
    "zh": "奶奶喜歡加牛奶的茶。",
-   "audio": "s/tea"
+   "audio": "s/tea",
+   "pic": "This is a cup of tea.",
+   "pzh": "這是一杯茶。",
+   "paudio": "p/tea"
   },
   "w63": {
    "word": "thirsty",
    "en": "I'm thirsty. Can I have some water, please?",
    "hl": "thirsty",
    "zh": "我好渴，可以給我一點水嗎？",
-   "audio": "s/thirsty"
+   "audio": "s/thirsty",
+   "pic": "He is thirsty.",
+   "pzh": "他口渴了。",
+   "paudio": "p/thirsty"
   },
   "w64": {
    "word": "vegetable",
    "en": "Eat your vegetables!",
    "hl": "vegetables",
    "zh": "把你的蔬菜吃完！",
-   "audio": "s/vegetable"
+   "audio": "s/vegetable",
+   "pic": "This is a vegetable.",
+   "pzh": "這是一種蔬菜。",
+   "paudio": "p/vegetable"
   },
   "w65": {
    "word": "address",
@@ -470,7 +611,10 @@
    "en": "There are lots of flowers on our balcony.",
    "hl": "balcony",
    "zh": "我們的陽台上有很多花。",
-   "audio": "s/balcony"
+   "audio": "s/balcony",
+   "pic": "This is a balcony.",
+   "pzh": "這是一個陽台。",
+   "paudio": "p/balcony"
   },
   "w67": {
    "word": "basement",
@@ -484,7 +628,10 @@
    "en": "The cat is sleeping on my blanket.",
    "hl": "blanket",
    "zh": "貓在我的毯子上睡覺。",
-   "audio": "s/blanket"
+   "audio": "s/blanket",
+   "pic": "This is a blanket.",
+   "pzh": "這是一條毯子。",
+   "paudio": "p/blanket"
   },
   "w69": {
    "word": "downstairs",
@@ -498,7 +645,10 @@
    "en": "My bedroom is upstairs.",
    "hl": "upstairs",
    "zh": "我的臥室在樓上。",
-   "audio": "s/upstairs"
+   "audio": "s/upstairs",
+   "pic": "The boy is going upstairs.",
+   "pzh": "男孩正在上樓。",
+   "paudio": "p/upstairs"
   },
   "w71": {
    "word": "dream",
@@ -512,7 +662,10 @@
    "en": "Let's take the lift to the tenth floor.",
    "hl": "lift",
    "zh": "我們搭電梯到十樓吧。",
-   "audio": "s/elevator_lift"
+   "audio": "s/elevator_lift",
+   "pic": "This is a lift.",
+   "pzh": "這是電梯。",
+   "paudio": "p/elevator_lift"
   },
   "w73": {
    "word": "floor",
@@ -540,21 +693,30 @@
    "en": "There's a cat on the roof!",
    "hl": "roof",
    "zh": "屋頂上有一隻貓！",
-   "audio": "s/roof"
+   "audio": "s/roof",
+   "pic": "Look at the roof!",
+   "pzh": "看那個屋頂！",
+   "paudio": "p/roof"
   },
   "w77": {
    "word": "seat",
    "en": "Please sit in your seat.",
    "hl": "seat",
    "zh": "請坐在你的座位上。",
-   "audio": "s/seat"
+   "audio": "s/seat",
+   "pic": "This is a seat.",
+   "pzh": "這是一個座位。",
+   "paudio": "p/seat"
   },
   "w78": {
    "word": "shower",
    "en": "I have a shower after football.",
    "hl": "shower",
    "zh": "踢完足球後我會沖澡。",
-   "audio": "s/shower"
+   "audio": "s/shower",
+   "pic": "This is a shower.",
+   "pzh": "這是蓮蓬頭。",
+   "paudio": "p/shower"
   },
   "w79": {
    "word": "stair(s)",
@@ -568,21 +730,30 @@
    "en": "My toothbrush is blue.",
    "hl": "toothbrush",
    "zh": "我的牙刷是藍色的。",
-   "audio": "s/toothbrush"
+   "audio": "s/toothbrush",
+   "pic": "This is a toothbrush.",
+   "pzh": "這是一支牙刷。",
+   "paudio": "p/toothbrush"
   },
   "w81": {
    "word": "toothpaste",
    "en": "Put some toothpaste on your toothbrush.",
    "hl": "toothpaste",
    "zh": "在牙刷上擠一點牙膏。",
-   "audio": "s/toothpaste"
+   "audio": "s/toothpaste",
+   "pic": "This is toothpaste.",
+   "pzh": "這是牙膏。",
+   "paudio": "p/toothpaste"
   },
   "w82": {
    "word": "towel",
    "en": "Here's a towel. Dry your hands.",
    "hl": "towel",
    "zh": "這是毛巾，把手擦乾。",
-   "audio": "s/towel"
+   "audio": "s/towel",
+   "pic": "This is a towel.",
+   "pzh": "這是一條毛巾。",
+   "paudio": "p/towel"
   },
   "w83": {
    "word": "wash",
@@ -596,21 +767,30 @@
    "en": "The bus station is next to the market.",
    "hl": "bus station",
    "zh": "公車總站在市場旁邊。",
-   "audio": "s/bus_station"
+   "audio": "s/bus_station",
+   "pic": "This is a bus station.",
+   "pzh": "這是公車總站。",
+   "paudio": "p/bus_station"
   },
   "w85": {
    "word": "bus stop",
    "en": "We're waiting at the bus stop.",
    "hl": "bus stop",
    "zh": "我們正在公車站等車。",
-   "audio": "s/bus_stop"
+   "audio": "s/bus_stop",
+   "pic": "This is a bus stop.",
+   "pzh": "這是公車站牌。",
+   "paudio": "p/bus_stop"
   },
   "w86": {
    "word": "café",
    "en": "Let's have a milkshake at the café.",
    "hl": "café",
    "zh": "我們去咖啡館喝奶昔吧。",
-   "audio": "s/cafe"
+   "audio": "s/cafe",
+   "pic": "This is a café.",
+   "pzh": "這是一家咖啡館。",
+   "paudio": "p/cafe"
   },
   "w87": {
    "word": "car park",
@@ -638,14 +818,20 @@
    "en": "We saw a lion and an elephant at the circus.",
    "hl": "circus",
    "zh": "我們在馬戲團看到獅子和大象。",
-   "audio": "s/circus"
+   "audio": "s/circus",
+   "pic": "This is a circus.",
+   "pzh": "這是馬戲團。",
+   "paudio": "p/circus"
   },
   "w91": {
    "word": "city",
    "en": "There are lots of cars and buses in the city.",
    "hl": "city",
    "zh": "城市裡有很多汽車和公車。",
-   "audio": "s/city"
+   "audio": "s/city",
+   "pic": "This is a city.",
+   "pzh": "這是一座城市。",
+   "paudio": "p/city"
   },
   "w92": {
    "word": "city / town centre",
@@ -659,7 +845,10 @@
    "en": "Grandpa lives in the countryside with his cows.",
    "hl": "countryside",
    "zh": "爺爺和他的牛住在鄉下。",
-   "audio": "s/countryside"
+   "audio": "s/countryside",
+   "pic": "This is the countryside.",
+   "pzh": "這是鄉下。",
+   "paudio": "p/countryside"
   },
   "w94": {
    "word": "farm",
@@ -680,21 +869,30 @@
    "en": "Let's go to the funfair on Saturday!",
    "hl": "funfair",
    "zh": "我們星期六去遊樂園吧！",
-   "audio": "s/funfair"
+   "audio": "s/funfair",
+   "pic": "This is a funfair.",
+   "pzh": "這是遊樂園。",
+   "paudio": "p/funfair"
   },
   "w97": {
    "word": "hospital",
    "en": "We're taking flowers to Grandma in hospital.",
    "hl": "hospital",
    "zh": "我們要帶花去醫院看奶奶。",
-   "audio": "s/hospital"
+   "audio": "s/hospital",
+   "pic": "This is a hospital.",
+   "pzh": "這是一間醫院。",
+   "paudio": "p/hospital"
   },
   "w98": {
    "word": "island",
    "en": "The pirates found treasure on a small island.",
    "hl": "island",
    "zh": "海盜們在一座小島上找到了寶藏。",
-   "audio": "s/island"
+   "audio": "s/island",
+   "pic": "This is an island.",
+   "pzh": "這是一座小島。",
+   "paudio": "p/island"
   },
   "w99": {
    "word": "jungle",
@@ -708,49 +906,70 @@
    "en": "We can see ducks on the lake.",
    "hl": "lake",
    "zh": "我們可以看到湖上的鴨子。",
-   "audio": "s/lake"
+   "audio": "s/lake",
+   "pic": "This is a lake.",
+   "pzh": "這是一座湖。",
+   "paudio": "p/lake"
   },
   "w101": {
    "word": "library",
    "en": "I get books from the library on Fridays.",
    "hl": "library",
    "zh": "我星期五會去圖書館借書。",
-   "audio": "s/library"
+   "audio": "s/library",
+   "pic": "This is a library.",
+   "pzh": "這是一間圖書館。",
+   "paudio": "p/library"
   },
   "w102": {
    "word": "market",
    "en": "My mum buys fruit at the market.",
    "hl": "market",
    "zh": "我媽媽在市場買水果。",
-   "audio": "s/market"
+   "audio": "s/market",
+   "pic": "This is a market.",
+   "pzh": "這是一個市場。",
+   "paudio": "p/market"
   },
   "w103": {
    "word": "mountain",
    "en": "There's snow on the mountain.",
    "hl": "mountain",
    "zh": "山上有雪。",
-   "audio": "s/mountain"
+   "audio": "s/mountain",
+   "pic": "This is a mountain.",
+   "pzh": "這是一座山。",
+   "paudio": "p/mountain"
   },
   "w104": {
    "word": "pool",
    "en": "The children are swimming in the pool.",
    "hl": "pool",
    "zh": "孩子們在游泳池游泳。",
-   "audio": "s/pool"
+   "audio": "s/pool",
+   "pic": "This is a pool.",
+   "pzh": "這是一座游泳池。",
+   "paudio": "p/pool"
   },
   "w105": {
    "word": "river",
    "en": "The fish are swimming in the river.",
    "hl": "river",
    "zh": "魚在河裡游。",
-   "audio": "s/river"
+   "audio": "s/river",
+   "pic": "This is a river.",
+   "pzh": "這是一條河。",
+   "paudio": "p/river"
   },
   "w106": {
    "word": "road",
    "en": "Be careful when you cross the road.",
    "hl": "road",
    "zh": "過馬路時要小心。",
-   "audio": "s/road"
+   "audio": "s/road",
+   "pic": "This is a road.",
+   "pzh": "這是一條馬路。",
+   "paudio": "p/road"
   },
   "w107": {
    "word": "shopping centre",
@@ -764,14 +983,20 @@
    "en": "I play badminton at the sports centre.",
    "hl": "sports centre",
    "zh": "我在運動中心打羽毛球。",
-   "audio": "s/sports_centre"
+   "audio": "s/sports_centre",
+   "pic": "This is a sports centre.",
+   "pzh": "這是運動中心。",
+   "paudio": "p/sports_centre"
   },
   "w109": {
    "word": "station",
    "en": "We're waiting for the train at the station.",
    "hl": "station",
    "zh": "我們在車站等火車。",
-   "audio": "s/station"
+   "audio": "s/station",
+   "pic": "This is a station.",
+   "pzh": "這是車站。",
+   "paudio": "p/station"
   },
   "w110": {
    "word": "supermarket",
@@ -792,35 +1017,50 @@
    "en": "My cousin lives in a small town.",
    "hl": "town",
    "zh": "我的表哥住在一個小鎮。",
-   "audio": "s/town"
+   "audio": "s/town",
+   "pic": "This is a town.",
+   "pzh": "這是一個小鎮。",
+   "paudio": "p/town"
   },
   "w113": {
    "word": "village",
    "en": "There are only ten houses in this village.",
    "hl": "village",
    "zh": "這個村子只有十棟房子。",
-   "audio": "s/village"
+   "audio": "s/village",
+   "pic": "This is a village.",
+   "pzh": "這是一個村莊。",
+   "paudio": "p/village"
   },
   "w114": {
    "word": "waterfall",
    "en": "Look at that huge waterfall!",
    "hl": "waterfall",
    "zh": "看那座好大的瀑布！",
-   "audio": "s/waterfall"
+   "audio": "s/waterfall",
+   "pic": "This is a waterfall.",
+   "pzh": "這是一座瀑布。",
+   "paudio": "p/waterfall"
   },
   "w115": {
    "word": "comic book",
    "en": "Peter is reading a funny comic book.",
    "hl": "comic book",
    "zh": "彼得在看一本好笑的漫畫書。",
-   "audio": "s/comic_book"
+   "audio": "s/comic_book",
+   "pic": "This is a comic book.",
+   "pzh": "這是一本漫畫書。",
+   "paudio": "p/comic_book"
   },
   "w116": {
    "word": "e-book",
    "en": "I can read e-books on my laptop.",
    "hl": "e-books",
    "zh": "我可以用筆電看電子書。",
-   "audio": "s/e_book"
+   "audio": "s/e_book",
+   "pic": "This is an e-book.",
+   "pzh": "這是一本電子書。",
+   "paudio": "p/e_book"
   },
   "w117": {
    "word": "homework",
@@ -834,14 +1074,20 @@
    "en": "Dad is working on his laptop.",
    "hl": "laptop",
    "zh": "爸爸在用筆電工作。",
-   "audio": "s/laptop"
+   "audio": "s/laptop",
+   "pic": "This is a laptop.",
+   "pzh": "這是一台筆電。",
+   "paudio": "p/laptop"
   },
   "w119": {
    "word": "website",
    "en": "This website has got lots of fun games.",
    "hl": "website",
    "zh": "這個網站有很多好玩的遊戲。",
-   "audio": "s/website"
+   "audio": "s/website",
+   "pic": "This is a website.",
+   "pzh": "這是一個網站。",
+   "paudio": "p/website"
   },
   "w120": {
    "word": "practice / practise",
@@ -855,14 +1101,20 @@
    "en": "Let's listen to my new CD.",
    "hl": "CD",
    "zh": "我們來聽我的新 CD 吧。",
-   "audio": "s/cd"
+   "audio": "s/cd",
+   "pic": "This is a CD.",
+   "pzh": "這是一片 CD。",
+   "paudio": "p/cd"
   },
   "w122": {
    "word": "DVD",
    "en": "We watched a DVD about dolphins.",
    "hl": "DVD",
    "zh": "我們看了一片關於海豚的 DVD。",
-   "audio": "s/dvd"
+   "audio": "s/dvd",
+   "pic": "This is a DVD.",
+   "pzh": "這是一片 DVD。",
+   "paudio": "p/dvd"
   },
   "w123": {
    "word": "text",
@@ -876,7 +1128,10 @@
    "en": "My dad is a very good cook.",
    "hl": "cook",
    "zh": "我爸爸很會做菜。",
-   "audio": "s/cook"
+   "audio": "s/cook",
+   "pic": "This person is a cook.",
+   "pzh": "這個人是一位廚師。",
+   "paudio": "p/cook"
   },
   "w125": {
    "word": "dentist",
@@ -890,7 +1145,10 @@
    "en": "The doctor says I need to sleep.",
    "hl": "doctor",
    "zh": "醫生說我需要睡覺。",
-   "audio": "s/doctor"
+   "audio": "s/doctor",
+   "pic": "This is a doctor.",
+   "pzh": "這是一位醫生。",
+   "paudio": "p/doctor"
   },
   "w127": {
    "word": "driver",
@@ -904,21 +1162,30 @@
    "en": "The farmer has got lots of cows and chickens.",
    "hl": "farmer",
    "zh": "農夫有很多牛和雞。",
-   "audio": "s/farmer"
+   "audio": "s/farmer",
+   "pic": "This is a farmer.",
+   "pzh": "這是一位農夫。",
+   "paudio": "p/farmer"
   },
   "w129": {
    "word": "film star",
    "en": "That film star is very famous.",
    "hl": "film star",
    "zh": "那位電影明星非常有名。",
-   "audio": "s/film_star"
+   "audio": "s/film_star",
+   "pic": "This is a film star.",
+   "pzh": "這是一位電影明星。",
+   "paudio": "p/film_star"
   },
   "w130": {
    "word": "nurse",
    "en": "The nurse is helping a sick girl.",
    "hl": "nurse",
    "zh": "護理師正在幫助一個生病的女孩。",
-   "audio": "s/nurse"
+   "audio": "s/nurse",
+   "pic": "This is a nurse.",
+   "pzh": "這是一位護理師。",
+   "paudio": "p/nurse"
   },
   "w131": {
    "word": "pirate",
@@ -932,35 +1199,50 @@
    "en": "He's the best football player in our school.",
    "hl": "player",
    "zh": "他是我們學校最厲害的足球選手。",
-   "audio": "s/player"
+   "audio": "s/player",
+   "pic": "This is a basketball player.",
+   "pzh": "這是一位籃球選手。",
+   "paudio": "p/player"
   },
   "w133": {
    "word": "pop star",
    "en": "Julia wants to be a pop star.",
    "hl": "pop star",
    "zh": "茱莉亞想當流行歌手。",
-   "audio": "s/pop_star"
+   "audio": "s/pop_star",
+   "pic": "This is a pop star.",
+   "pzh": "這是一位流行歌手。",
+   "paudio": "p/pop_star"
   },
   "w134": {
    "word": "band (music)",
    "en": "My brother plays the guitar in a band.",
    "hl": "band",
    "zh": "我哥哥在樂團裡彈吉他。",
-   "audio": "s/band_music"
+   "audio": "s/band_music",
+   "pic": "This is a band.",
+   "pzh": "這是一個樂團。",
+   "paudio": "p/band_music"
   },
   "w135": {
    "word": "dance",
    "en": "Let's dance to the music!",
    "hl": "dance",
    "zh": "我們隨著音樂跳舞吧！",
-   "audio": "s/dance"
+   "audio": "s/dance",
+   "pic": "She is dancing.",
+   "pzh": "她正在跳舞。",
+   "paudio": "p/dance"
   },
   "w136": {
    "word": "goal",
    "en": "Charlie kicked the ball and scored a goal!",
    "hl": "goal",
    "zh": "查理一腳把球踢進，得了一分！",
-   "audio": "s/goal"
+   "audio": "s/goal",
+   "pic": "This is a goal.",
+   "pzh": "這是一個球門。",
+   "paudio": "p/goal"
   },
   "w137": {
    "word": "holiday",
@@ -974,7 +1256,10 @@
    "en": "These ice skates are too small for me.",
    "hl": "ice skates",
    "zh": "這雙溜冰鞋我穿太小了。",
-   "audio": "s/ice_skates"
+   "audio": "s/ice_skates",
+   "pic": "These are ice skates.",
+   "pzh": "這是一雙溜冰鞋。",
+   "paudio": "p/ice_skates"
   },
   "w139": {
    "word": "ice skating",
@@ -988,7 +1273,10 @@
    "en": "Give the ball a big kick!",
    "hl": "kick",
    "zh": "用力踢一下球！",
-   "audio": "s/kick"
+   "audio": "s/kick",
+   "pic": "He is kicking a ball.",
+   "pzh": "他正在踢球。",
+   "paudio": "p/kick"
   },
   "w141": {
    "word": "party",
@@ -1002,14 +1290,20 @@
    "en": "I've got a present for you!",
    "hl": "present",
    "zh": "我有一份禮物要給你！",
-   "audio": "s/present"
+   "audio": "s/present",
+   "pic": "This is a present.",
+   "pzh": "這是一份禮物。",
+   "paudio": "p/present"
   },
   "w143": {
    "word": "roller skates",
    "en": "Zoe's roller skates are pink.",
    "hl": "roller skates",
    "zh": "柔伊的輪式溜冰鞋是粉紅色的。",
-   "audio": "s/roller_skates"
+   "audio": "s/roller_skates",
+   "pic": "These are roller skates.",
+   "pzh": "這是一雙輪式溜冰鞋。",
+   "paudio": "p/roller_skates"
   },
   "w144": {
    "word": "roller skating",
@@ -1023,14 +1317,20 @@
    "en": "My uncle can sail a big boat.",
    "hl": "sail",
    "zh": "我叔叔會駕駛一艘大帆船。",
-   "audio": "s/sail"
+   "audio": "s/sail",
+   "pic": "The boat has got a big sail.",
+   "pzh": "這艘船有一面大帆。",
+   "paudio": "p/sail"
   },
   "w146": {
    "word": "score",
    "en": "Can you score a goal?",
    "hl": "score",
    "zh": "你能進一球嗎？",
-   "audio": "s/score"
+   "audio": "s/score",
+   "pic": "The score is two to one.",
+   "pzh": "比數是二比一。",
+   "paudio": "p/score"
   },
   "w147": {
    "word": "skate",
@@ -1051,14 +1351,20 @@
    "en": "Let's go for a swim in the sea.",
    "hl": "swim",
    "zh": "我們去海裡游個泳吧。",
-   "audio": "s/swim"
+   "audio": "s/swim",
+   "pic": "He is swimming.",
+   "pzh": "他正在游泳。",
+   "paudio": "p/swim"
   },
   "w150": {
    "word": "ticket",
    "en": "Here's your ticket for the train.",
    "hl": "ticket",
    "zh": "這是你的火車票。",
-   "audio": "s/ticket"
+   "audio": "s/ticket",
+   "pic": "This is a ticket.",
+   "pzh": "這是一張票。",
+   "paudio": "p/ticket"
   },
   "w151": {
    "word": "trip",
@@ -1072,14 +1378,20 @@
    "en": "Let's make a funny video!",
    "hl": "video",
    "zh": "我們來拍一支好笑的影片吧！",
-   "audio": "s/video"
+   "audio": "s/video",
+   "pic": "This is a video camera.",
+   "pzh": "這是一台攝影機。",
+   "paudio": "p/video"
   },
   "w153": {
    "word": "cloud",
    "en": "That cloud looks like a rabbit!",
    "hl": "cloud",
    "zh": "那朵雲看起來像一隻兔子！",
-   "audio": "s/cloud"
+   "audio": "s/cloud",
+   "pic": "This is a cloud.",
+   "pzh": "這是一朵雲。",
+   "paudio": "p/cloud"
   },
   "w154": {
    "word": "cloudy",
@@ -1093,14 +1405,20 @@
    "en": "Take your coat. It's going to rain.",
    "hl": "rain",
    "zh": "帶外套吧，快要下雨了。",
-   "audio": "s/rain"
+   "audio": "s/rain",
+   "pic": "It's raining.",
+   "pzh": "正在下雨。",
+   "paudio": "p/rain"
   },
   "w156": {
    "word": "rainbow",
    "en": "Look! There's a rainbow in the sky!",
    "hl": "rainbow",
    "zh": "看！天上有一道彩虹！",
-   "audio": "s/rainbow"
+   "audio": "s/rainbow",
+   "pic": "This is a rainbow.",
+   "pzh": "這是一道彩虹。",
+   "paudio": "p/rainbow"
   },
   "w157": {
    "word": "sky",
@@ -1114,14 +1432,20 @@
    "en": "Let's play in the snow!",
    "hl": "snow",
    "zh": "我們去玩雪吧！",
-   "audio": "s/snow"
+   "audio": "s/snow",
+   "pic": "It's snowing.",
+   "pzh": "正在下雪。",
+   "paudio": "p/snow"
   },
   "w159": {
    "word": "sunny",
    "en": "It's sunny. Let's go to the beach!",
    "hl": "sunny",
    "zh": "今天出太陽，我們去海邊吧！",
-   "audio": "s/sunny"
+   "audio": "s/sunny",
+   "pic": "It's sunny.",
+   "pzh": "今天出太陽。",
+   "paudio": "p/sunny"
   },
   "w160": {
    "word": "weather",
@@ -1142,7 +1466,10 @@
    "en": "It's windy. Let's fly our kites!",
    "hl": "windy",
    "zh": "今天風很大，我們去放風箏吧！",
-   "audio": "s/windy"
+   "audio": "s/windy",
+   "pic": "It's windy.",
+   "pzh": "今天風很大。",
+   "paudio": "p/windy"
   },
   "w163": {
    "word": "wet",
@@ -1156,56 +1483,80 @@
    "en": "We have English on Monday.",
    "hl": "Monday",
    "zh": "我們星期一有英文課。",
-   "audio": "s/monday"
+   "audio": "s/monday",
+   "pic": "It's Monday.",
+   "pzh": "今天是星期一。",
+   "paudio": "p/monday"
   },
   "w165": {
    "word": "Tuesday",
    "en": "On Tuesday I play tennis with Dad.",
    "hl": "Tuesday",
    "zh": "星期二我和爸爸打網球。",
-   "audio": "s/tuesday"
+   "audio": "s/tuesday",
+   "pic": "It's Tuesday.",
+   "pzh": "今天是星期二。",
+   "paudio": "p/tuesday"
   },
   "w166": {
    "word": "Wednesday",
    "en": "Grandma comes to our house on Wednesday.",
    "hl": "Wednesday",
    "zh": "奶奶星期三會來我們家。",
-   "audio": "s/wednesday"
+   "audio": "s/wednesday",
+   "pic": "It's Wednesday.",
+   "pzh": "今天是星期三。",
+   "paudio": "p/wednesday"
   },
   "w167": {
    "word": "Thursday",
    "en": "Our school trip is on Thursday.",
    "hl": "Thursday",
    "zh": "我們的校外教學在星期四。",
-   "audio": "s/thursday"
+   "audio": "s/thursday",
+   "pic": "It's Thursday.",
+   "pzh": "今天是星期四。",
+   "paudio": "p/thursday"
   },
   "w168": {
    "word": "Friday",
    "en": "I go swimming on Friday.",
    "hl": "Friday",
    "zh": "我星期五去游泳。",
-   "audio": "s/friday"
+   "audio": "s/friday",
+   "pic": "It's Friday.",
+   "pzh": "今天是星期五。",
+   "paudio": "p/friday"
   },
   "w169": {
    "word": "Saturday",
    "en": "On Saturday we go to the market.",
    "hl": "Saturday",
    "zh": "星期六我們去市場。",
-   "audio": "s/saturday"
+   "audio": "s/saturday",
+   "pic": "It's Saturday.",
+   "pzh": "今天是星期六。",
+   "paudio": "p/saturday"
   },
   "w170": {
    "word": "Sunday",
    "en": "My family has a big lunch on Sunday.",
    "hl": "Sunday",
    "zh": "星期天我們全家吃一頓豐盛的午餐。",
-   "audio": "s/sunday"
+   "audio": "s/sunday",
+   "pic": "It's Sunday.",
+   "pzh": "今天是星期天。",
+   "paudio": "p/sunday"
   },
   "w171": {
    "word": "o'clock",
    "en": "School starts at nine o'clock.",
    "hl": "o'clock",
    "zh": "學校九點開始上課。",
-   "audio": "s/o_clock"
+   "audio": "s/o_clock",
+   "pic": "It's three o'clock.",
+   "pzh": "現在三點鐘。",
+   "paudio": "p/o_clock"
   },
   "w172": {
    "word": "often",
@@ -1254,7 +1605,10 @@
    "en": "Don't sit on the wet grass!",
    "hl": "grass",
    "zh": "不要坐在濕濕的草地上！",
-   "audio": "s/grass"
+   "audio": "s/grass",
+   "pic": "This is grass.",
+   "pzh": "這是草地。",
+   "paudio": "p/grass"
   },
   "w179": {
    "word": "ground",
@@ -1268,42 +1622,60 @@
    "en": "The leaves on this tree are red and yellow.",
    "hl": "leaves",
    "zh": "這棵樹的葉子是紅色和黃色的。",
-   "audio": "s/leaf_leaves"
+   "audio": "s/leaf_leaves",
+   "pic": "These are leaves.",
+   "pzh": "這些是葉子。",
+   "paudio": "p/leaf_leaves"
   },
   "w181": {
    "word": "moon",
    "en": "Look at the moon! It's big and round.",
    "hl": "moon",
    "zh": "看月亮！又大又圓。",
-   "audio": "s/moon"
+   "audio": "s/moon",
+   "pic": "This is the moon.",
+   "pzh": "這是月亮。",
+   "paudio": "p/moon"
   },
   "w182": {
    "word": "rock",
    "en": "A lizard is sitting on a rock.",
    "hl": "rock",
    "zh": "一隻蜥蜴坐在石頭上。",
-   "audio": "s/rock"
+   "audio": "s/rock",
+   "pic": "This is a rock.",
+   "pzh": "這是一塊石頭。",
+   "paudio": "p/rock"
   },
   "w183": {
    "word": "star",
    "en": "At night I can see lots of stars.",
    "hl": "stars",
    "zh": "晚上我可以看到很多星星。",
-   "audio": "s/star"
+   "audio": "s/star",
+   "pic": "This is a star.",
+   "pzh": "這是一顆星星。",
+   "paudio": "p/star"
   },
   "w184": {
    "word": "treasure",
    "en": "The pirate is looking for treasure.",
    "hl": "treasure",
    "zh": "海盜正在找寶藏。",
-   "audio": "s/treasure"
+   "audio": "s/treasure",
+   "pic": "This is treasure.",
+   "pzh": "這是寶藏。",
+   "paudio": "p/treasure"
   },
   "w185": {
    "word": "world",
    "en": "The whale is the biggest animal in the world.",
    "hl": "world",
    "zh": "鯨魚是世界上最大的動物。",
-   "audio": "s/world"
+   "audio": "s/world",
+   "pic": "This is the world.",
+   "pzh": "這是世界。",
+   "paudio": "p/world"
   },
   "w186": {
    "word": "afraid",

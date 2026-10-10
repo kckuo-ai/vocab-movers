@@ -242,14 +242,17 @@ input{font-family:inherit;}
 .tfBtn.yes{background:#06D6A0;}
 .tfBtn.no{background:#EF476F;}
 .tfBtn:active{transform:scale(.95);}
-.tfFeedback{margin-top:14px;border-radius:16px;padding:14px 16px;text-align:left;}
+.tfFeedback{margin-top:12px;border-radius:16px;padding:12px 14px;text-align:left;}
 .tfFeedback.right{background:#E9F7EF;}
 .tfFeedback.wrong{background:#FFF4DA;}
 .tfFbTitle{font-weight:900;font-size:18px;}
 .tfFbBody{font-size:14.5px;margin-top:6px;line-height:1.5;}
 .tfFbWord{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:16px;}
-.tfFbWord img{width:44px;height:44px;}
+.tfFbWord img{width:36px;height:36px;}
 .tfFbZh{font-size:13px;color:var(--sub);margin-top:8px;}
+.tfMore{margin-top:16px;}
+.tfMoreLbl{font-size:12px;font-weight:800;color:var(--sub);margin:0 2px 6px;}
+.tfMore .sentBox.inRow{margin:0;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -2738,16 +2741,19 @@ let sentAudioEl = null;
 function stopSentence() {
   if (sentAudioEl) { releaseAudio(sentAudioEl); sentAudioEl = null; }
 }
-function playSentence(id, slow) {
+// kind "pic" plays the picture caption used in 對或錯; otherwise the example sentence
+function playSentence(id, slow, kind) {
   const s = SENT[id];
   if (!s) return;
+  const usePic = kind === "pic" && s.pic;
+  const text = usePic ? s.pic : s.en;
   warmAudioSession();
   stopAutoAudio();
   if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
   try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
   stopSentence();
   const rate = slow ? 0.7 : 1;
-  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${s.audio}.mp3`);
+  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${usePic ? s.paudio : s.audio}.mp3`);
   sentAudioEl = el;
   let fellBack = false;
   const fallback = () => {
@@ -2755,7 +2761,7 @@ function playSentence(id, slow) {
     fellBack = true;
     dbg(`例句音檔無法播放，改用系統語音`);
     try {
-      const u = new SpeechSynthesisUtterance(s.en);
+      const u = new SpeechSynthesisUtterance(text);
       u.lang = ACCENT === "uk" ? "en-GB" : "en-US";
       u.rate = slow ? 0.6 : 0.9;
       const v = getSelectedVoice(); if (v) u.voice = v;
@@ -2769,12 +2775,13 @@ function playSentence(id, slow) {
     if (p && p.catch) p.catch((err) => { if (err && err.name !== "AbortError") fallback(); });
   } catch (e) { fallback(); }
 }
-function sentBtnsHtml(id, size, tone, bg) {
+function sentBtnsHtml(id, size, tone, bg, kind) {
+  const k = kind === "pic" ? ", 'pic'" : "";
   size = size || 40; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
   const small = Math.round(size * 0.8);
   return `<span class="sentBtns" onclick="event.stopPropagation();">
-    <button class="speakBtn" style="width:${small}px;height:${small}px;background:${bg};color:${tone};" onclick="event.stopPropagation();playSentence('${id}', true)" aria-label="慢速播放例句">${slowLabelHtml(small)}</button>
-    <button class="speakBtn" style="${playBtnStyle(size, tone, bg)}" onclick="event.stopPropagation();playSentence('${id}')" aria-label="播放例句">${playIconSvg(Math.round(size * 0.46))}</button>
+    <button class="speakBtn" style="width:${small}px;height:${small}px;background:${bg};color:${tone};" onclick="event.stopPropagation();playSentence('${id}', true${k})" aria-label="慢速播放例句">${slowLabelHtml(small)}</button>
+    <button class="speakBtn" style="${playBtnStyle(size, tone, bg)}" onclick="event.stopPropagation();playSentence('${id}', false${k})" aria-label="播放例句">${playIconSvg(Math.round(size * 0.46))}</button>
   </span>`;
 }
 // sentence box used on the back of a flashcard and in the word list
@@ -2794,9 +2801,10 @@ function sentBoxHtml(w, opts) {
 /* ============================================================
    對或錯 (picture + sentence: true or false?)
    Like Starters/Movers Reading & Writing: look at the picture, read the
-   sentence, decide if they match. The sentence is always the word's own
-   (correct) sentence; for a "false" item the picture is a different word
-   from the same group. Wrong answers come back once later in the round.
+   sentence, decide if they match. The sentence is the word's picture caption
+   ("pic" in the data), which says only what the picture shows; for a "false"
+   item the picture is a different word's. The example sentence is shown
+   after answering. Wrong answers come back once later in the round.
    ============================================================ */
 const TF_LEN = 10;
 // picture categories that are concrete enough to judge "same / not the same"
@@ -2807,8 +2815,9 @@ const TF_CONFUSABLE = [
   ["shop", "market", "supermarket", "shopping centre"],
   ["pool", "swimming pool", "lake", "river", "waterfall"],
   ["forest", "jungle"], ["field", "grass", "ground", "countryside", "farm"],
-  ["station", "bus station", "bus stop"], ["cup", "glass", "bottle"], ["plate", "bowl"],
-  ["cloud", "cloudy", "rain", "sky", "weather"], ["wind", "windy"], ["sunny", "sky"],
+  ["station", "bus station", "bus stop"], ["cup", "glass", "bottle", "coffee", "tea", "sauce", "milkshake"], ["plate", "bowl", "soup"],
+  ["salad", "vegetable"], ["doctor", "nurse"], ["CD", "DVD"], ["town", "village", "countryside", "city"],
+  ["cloud", "cloudy", "rain", "snow", "sky", "weather"], ["wind", "windy"], ["sunny", "sky"],
   ["week", "weekend"], ["sweater", "coat"], ["film star", "pop star"], ["café", "cinema"],
   ["ice skates", "ice skating", "skate", "roller skates", "roller skating"],
 ];
@@ -2821,12 +2830,12 @@ function tfConfusable(a, b) {
 }
 function tfEligible(w) {
   const s = sentFor(w);
-  return !!(s && wordImgUrl(w.en, w.pos) && TF_CATS.includes(w.cat));
+  return !!(s && s.pic && wordImgUrl(w.en, w.pos));
 }
 function tfPickDistractor(w) {
   const mine = wordImgUrl(w.en, w.pos);
-  const sent = sentFor(w).en.toLowerCase();
-  const ok = (x) => x.id !== w.id && TF_CATS.includes(x.cat) && wordImgUrl(x.en, x.pos) && wordImgUrl(x.en, x.pos) !== mine
+  const sent = sentFor(w).pic.toLowerCase();
+  const ok = (x) => x.id !== w.id && tfEligible(x) && wordImgUrl(x.en, x.pos) !== mine
     && !tfConfusable(w, x)
     && !tfTokens(x.en).some((t) => sent.includes(t)); // the sentence must not also mention the picture
   let pool = WORDS.filter((x) => ok(x) && x.cat === w.cat);
@@ -2867,7 +2876,7 @@ function answerTf(saysTrue) {
   recordActivity(1);
   render();
   if (right) celebrate(praiseFor(0));
-  playSentence(it.word.id); // inside the tap, so iPhone allows it
+  playSentence(it.word.id, false, "pic"); // inside the tap, so iPhone allows it
 }
 function nextTf() {
   const t = STATE.tf;
@@ -2875,6 +2884,17 @@ function nextTf() {
   if (t.idx + 1 >= t.queue.length) t.phase = "done";
   else { t.idx += 1; t.answer = null; }
   render();
+}
+// the caption with the word underlined (first case-insensitive match)
+function picHtml(w, s) {
+  const base = w.en.split(/\s*\/\s*|\s*\(/)[0].replace(/\(.*\)/, "").trim();
+  const forms = [s.hl, base, base + "s", base + "es"].filter(Boolean);
+  const low = s.pic.toLowerCase();
+  for (const f of forms) {
+    const at = low.indexOf(f.toLowerCase());
+    if (at >= 0) return escapeHtml(s.pic.slice(0, at)) + `<b class="hl">${escapeHtml(s.pic.slice(at, at + f.length))}</b>` + escapeHtml(s.pic.slice(at + f.length));
+  }
+  return escapeHtml(s.pic);
 }
 function renderTf() {
   const t = STATE.tf;
@@ -2911,8 +2931,8 @@ function renderTf() {
       <div class="tfPic">${wordImgHtml(it.pic.en, 120, "", it.pic.pos)}
         ${answered ? `<div class="tfStamp ${it.truth ? "yes" : "no"}">${it.truth ? "✓" : "✗"}</div>` : ""}
       </div>
-      <div class="tfSent">${sentHtml(s)}</div>
-      <div class="tfListen">${sentBtnsHtml(it.word.id, 44)}</div>
+      <div class="tfSent">${picHtml(it.word, s)}</div>
+      <div class="tfListen">${sentBtnsHtml(it.word.id, 44, "", "", "pic")}</div>
     </div>
     ${answered ? `
       <div class="tfFeedback ${t.answer}">
@@ -2921,9 +2941,10 @@ function renderTf() {
           ? `<div class="tfFbBody">圖裡就是 <b>${escapeHtml(it.word.en)}</b>（${escapeHtml(it.word.zh)}），所以是「對」。</div>`
           : `<div class="tfFbBody">圖裡是 <b>${escapeHtml(it.pic.en)}</b>（${escapeHtml(it.pic.zh)}），句子說的是：</div>
              <div class="tfFbWord">${wordImgHtml(it.word.en, 44, "", it.word.pos)}<span><b>${escapeHtml(it.word.en)}</b> ${escapeHtml(it.word.zh)}</span></div>`}
-        <div class="tfFbZh">${escapeHtml(s.zh)}</div>
+        <div class="tfFbZh">${escapeHtml(s.pzh || "")}</div>
       </div>
-      <button class="bigCta" style="margin-top:12px;" onclick="nextTf()">${t.idx + 1 >= total ? "看結果 →" : "下一題 →"}</button>`
+      <button class="bigCta" style="margin-top:12px;" onclick="nextTf()">${t.idx + 1 >= total ? "看結果 →" : "下一題 →"}</button>
+      <div class="tfMore"><div class="tfMoreLbl">再學一句（例句）</div>${sentBoxHtml(it.word, { cls: "inRow", size: 36 })}</div>`
     : `
       <div class="tfBtns">
         <button class="tfBtn yes" onclick="answerTf(true)">✓ 對</button>
