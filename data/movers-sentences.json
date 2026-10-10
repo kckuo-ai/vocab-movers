@@ -61,9 +61,9 @@
   },
   "w8": {
    "word": "parrot",
-   "en": "The green parrot can talk!",
+   "en": "My parrot can say hello!",
    "hl": "parrot",
-   "zh": "那隻綠色的鸚鵡會說話！",
+   "zh": "我的鸚鵡會說哈囉！",
    "audio": "s/parrot"
   },
   "w9": {
@@ -138,9 +138,9 @@
   },
   "w19": {
    "word": "fair",
-   "en": "Anna's hair is fair, but her brother's hair is black.",
+   "en": "Anna has got fair hair.",
    "hl": "fair",
-   "zh": "安娜的頭髮是淺色的，但她哥哥的頭髮是黑色的。",
+   "zh": "安娜有一頭淺色的頭髮。",
    "audio": "s/fair"
   },
   "w20": {
@@ -222,9 +222,9 @@
   },
   "w31": {
    "word": "coat",
-   "en": "It's cold. Put on your coat!",
+   "en": "Put on your coat because it's cold.",
    "hl": "coat",
-   "zh": "天氣很冷，穿上你的外套！",
+   "zh": "天氣很冷，穿上你的外套。",
    "audio": "s/coat"
   },
   "w32": {
@@ -677,16 +677,16 @@
   },
   "w96": {
    "word": "funfair",
-   "en": "Let's go to the funfair! It's exciting!",
+   "en": "Let's go to the funfair on Saturday!",
    "hl": "funfair",
-   "zh": "我們去遊樂園吧！很刺激！",
+   "zh": "我們星期六去遊樂園吧！",
    "audio": "s/funfair"
   },
   "w97": {
    "word": "hospital",
-   "en": "Grandma is in hospital. Let's take her some flowers.",
+   "en": "We're taking flowers to Grandma in hospital.",
    "hl": "hospital",
-   "zh": "奶奶住院了，我們帶些花給她吧。",
+   "zh": "我們要帶花去醫院看奶奶。",
    "audio": "s/hospital"
   },
   "w98": {
@@ -719,9 +719,9 @@
   },
   "w102": {
    "word": "market",
-   "en": "Mum buys fruit at the market.",
+   "en": "My mum buys fruit at the market.",
    "hl": "market",
-   "zh": "媽媽在市場買水果。",
+   "zh": "我媽媽在市場買水果。",
    "audio": "s/market"
   },
   "w103": {

@@ -11,7 +11,7 @@ Cambridge YLE（Starters / Movers / Flyers）、A2 Key（KET）、B1 Preliminary
 
 ## 例句（Movers 試做）
 
-`data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，並用於「對或錯」遊戲（看圖讀句子，判斷是否相符）。整句發音在 `audio/uk/s`、`audio/us/s`，同樣用 Kokoro-82M（Lewis／Heart，語速 0.9）產生，並以 Whisper small.en 逐句檢查。
+`data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，並用於「對或錯」遊戲（看圖讀句子，判斷是否相符）。整句發音在 `audio/uk/s`、`audio/us/s`，用 Kokoro-82M 產生：英式為 Emma（`bf_emma`），美式為 Heart（`af_heart`），語速 0.95；發音標註用 Kokoro 官方的 misaki（Apache-2.0，依詞性分辨 lives 這類同形字），過長的停頓會縮短，再以 Whisper small.en 逐句檢查。
 
 ## 單字來源
 
