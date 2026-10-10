@@ -29,3 +29,4 @@ KET、PET 單字取自 Cambridge English 官方《A2 Key and A2 Key for Schools 
 `img/c_*.svg` 是為本專案另外繪製的圖（介系詞、星期、月份、時鐘、方位、身體部位、人名的漫畫人物、公車站等），與專案一同提供。
 部分 `c_*.svg`（浴室、臥室、書店、書櫃、叉子、乾淨的盤子、棒球棒等）是把 Noto Emoji 的零件與手繪圖形組合而成，Noto 部分同樣依 Apache License 2.0 使用。
 `img/m_*.svg` 是 KET、PET 中描述感受、個性、角色或動作的字所用的日式漫畫風格人物圖，為本專案繪製；人物手上拿的物品取自 Noto Emoji。
+`img/t_*.svg` 是寶箱貼紙（5 套共 40 張）的日式漫畫風格圖，為本專案繪製，由 `tools/stickers/` 的程式產生（`python3 tools/stickers/build.py`）。
