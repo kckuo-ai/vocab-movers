@@ -209,6 +209,47 @@ input{font-family:inherit;}
 .weakItem img{width:30px;height:30px;flex-shrink:0;}
 .hl{color:var(--accent);font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
 .rowPic{width:30px;height:30px;flex-shrink:0;}
+/* ---------- example sentences ---------- */
+.flipInner.hasSent{height:344px;}
+.sentBox{display:flex;align-items:center;gap:10px;background:#F6F8FC;border-radius:14px;padding:10px 10px 10px 12px;text-align:left;width:100%;margin-top:10px;cursor:default;}
+.sentBox.inRow{margin:0 0 12px;background:#fff;border:1.5px solid var(--border);}
+.sentText{flex:1;min-width:0;}
+.sentEn{font-size:16px;font-weight:700;line-height:1.4;color:var(--ink);}
+.sentZh{font-size:12.5px;color:var(--sub);margin-top:3px;line-height:1.4;}
+.sentBtns{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;}
+.flashcard.back.withSent{justify-content:flex-start;padding-top:44px;}
+.flashcard.back.withSent .fcPicSm,.flashcard.back.withSent .fcPicSm img{width:46px;height:46px;}
+.flashcard.back.withSent .fcEn{font-size:24px;margin-top:2px;}
+.flashcard.back.withSent .fcZh{font-size:17px;margin-top:4px;}
+/* ---------- 對或錯 game ---------- */
+.tfCard{background:#fff;border-radius:22px;padding:18px 16px 16px;text-align:center;box-shadow:0 10px 24px rgba(35,48,71,.10);}
+.tfPic{position:relative;width:150px;height:150px;margin:0 auto;border-radius:50%;background:#F6F8FC;display:flex;align-items:center;justify-content:center;}
+.tfPic img{width:120px;height:120px;pointer-events:none;}
+.tfStamp{position:absolute;right:-6px;top:-6px;width:46px;height:46px;border-radius:50%;color:#fff;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.18);}
+.tfStamp.yes{background:#06D6A0;}
+.tfStamp.no{background:#EF476F;}
+.tfCard.done{padding:12px 14px;display:flex;align-items:center;gap:12px;text-align:left;}
+.tfCard.done .tfPic{width:84px;height:84px;flex-shrink:0;margin:0;}
+.tfCard.done .tfPic img{width:66px;height:66px;}
+.tfCard.done .tfStamp{width:32px;height:32px;font-size:18px;right:-8px;top:-8px;}
+.tfCard.done .tfSent{font-size:17px;margin-top:0;flex:1;}
+.tfCard.done .tfListen{margin-top:0;}
+.tfCard.done .tfListen .sentBtns{flex-direction:column;gap:6px;}
+.tfSent{font-size:21px;font-weight:800;line-height:1.45;color:var(--ink);margin-top:14px;}
+.tfListen{margin-top:12px;display:flex;justify-content:center;}
+.tfBtns{display:flex;gap:12px;margin-top:16px;}
+.tfBtn{flex:1;min-height:64px;border-radius:18px;font-size:22px;font-weight:900;color:#fff;border:none;box-shadow:0 6px 14px rgba(35,48,71,.14);}
+.tfBtn.yes{background:#06D6A0;}
+.tfBtn.no{background:#EF476F;}
+.tfBtn:active{transform:scale(.95);}
+.tfFeedback{margin-top:14px;border-radius:16px;padding:14px 16px;text-align:left;}
+.tfFeedback.right{background:#E9F7EF;}
+.tfFeedback.wrong{background:#FFF4DA;}
+.tfFbTitle{font-weight:900;font-size:18px;}
+.tfFbBody{font-size:14.5px;margin-top:6px;line-height:1.5;}
+.tfFbWord{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:16px;}
+.tfFbWord img{width:44px;height:44px;}
+.tfFbZh{font-size:13px;color:var(--sub);margin-top:8px;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-thumb{background:#d7dce3;border-radius:4px;}
 </style>
@@ -1493,6 +1534,7 @@ let STATE = {
   study: { mode: "cat", cat: "all", letter: "A", queue: [], idx: 0, flipped: false },
   quiz: { mode: "cat", cat: "all", letter: "A", phase: "setup", questions: [], qi: 0, score: 0, streak: 0, picked: null, correctCount: 0 },
   spell: { mode: "cat", cat: "all", letter: "A", phase: "setup", queue: [], idx: 0, input: "", feedback: null, hintLevel: 0, revealedPositions: [], score: 0, streak: 0, correctCount: 0 },
+  tf: { phase: "setup", queue: [], idx: 0, answer: null, correct: 0, answered: 0, again: {} },
 };
 if (!STATE.daily.history) STATE.daily.history = {};
 lset(DKEY, STATE.daily);
@@ -1562,7 +1604,7 @@ function computeStats() {
   };
 }
 
-function setTab(tab) { STATE.tab = tab; render(); if (tab === "study") autoPlayStudy(); }
+function setTab(tab) { if (tab !== STATE.tab) stopSentence(); STATE.tab = tab; render(); if (tab === "study") autoPlayStudy(); }
 
 /* ============================================================
    render: header + tabbar
@@ -1571,6 +1613,7 @@ const TITLES = {
   home: ["單字護照", "追蹤你的 Movers 學習進度"],
   browse: ["單字瀏覽", "搜尋、篩選、標記熟悉度"],
   study: ["學習卡", "翻卡複習並自評熟悉度"],
+  tf: ["對或錯", "看圖讀句子，判斷對不對"],
   spell: ["拼字", "聽發音，拼出正確單字"],
   quiz: ["小測驗", "選出正確意思，累積分數"],
 };
@@ -1588,6 +1631,7 @@ function tabBarHtml() {
     { key: "home", label: "首頁", emoji: "🏡" },
     { key: "browse", label: "單字表", emoji: "📖" },
     { key: "study", label: "學習卡", emoji: "🃏" },
+    { key: "tf", label: "對或錯", emoji: "✅" },
     { key: "spell", label: "拼字", emoji: "✏️" },
     { key: "quiz", label: "測驗", emoji: "🎯" },
   ];
@@ -2019,6 +2063,7 @@ function browseListHtml() {
         <div style="font-size:18px;">${li.emoji}</div>
       </div>
       <div id="rowBody-${w.id}" class="rowBody" style="display:none;">
+        ${sentBoxHtml(w, { cls: "inRow", size: 36 })}
         <div style="font-size:12px;font-weight:700;color:#8592A6;margin-bottom:6px;">設定熟悉度</div>
         <div class="levelBtnRow">
           ${LEVELS.filter((l) => l.level > 0).map((l) => `<button class="levelBtn" style="background:${lv===l.level?l.color:"#F3F5FA"};color:${lv===l.level?"#fff":"#4A5568"};" onclick="onRateWord('${w.id}', ${l.level})">${l.emoji} ${l.label}</button>`).join("")}
@@ -2272,7 +2317,7 @@ function renderStudy() {
     const lv = (STATE.progress[word.id] || {}).level || 0;
     const rateRowHtml = LEVELS.filter((l) => l.level > 0).map((l) => `<button class="rateBtn" style="background:${l.color};" onclick="rateStudyCard(${l.level})"><div style="font-size:20px;">${l.emoji}</div><div style="font-size:10.5px;font-weight:800;margin-top:2px;">${l.label}</div></button>`).join("");
     inner += `<div class="cardWrap cardEnter" id="cardWrap"><div class="swipeTag yes">會了 👍</div><div class="swipeTag no">再練練 💪</div>
-      <div id="fcInner" class="flipInner ${s.flipped ? "flipped" : ""}" onclick="flipStudyCard()">
+      <div id="fcInner" class="flipInner ${s.flipped ? "flipped" : ""} ${sentFor(word) ? "hasSent" : ""}" onclick="flipStudyCard()">
         <div class="flashcard front" style="background:linear-gradient(150deg, ${c.color}, ${c.color}CC);">
           <div class="fcTab">${c.emoji} ${c.label}</div>
           <div class="fcPos">${word.pos}</div>
@@ -2280,13 +2325,13 @@ function renderStudy() {
           <div class="fcEn" style="${wordImgUrl(word.en, word.pos) ? "font-size:28px;margin-top:10px;" : ""}">${word.en}</div>
           <div class="fcHint">點一下翻面</div>
         </div>
-        <div class="flashcard back">
+        <div class="flashcard back ${sentFor(word) ? "withSent" : ""}">
           <div class="fcTab" style="color:${c.color};background:${c.color}18;">${c.emoji} ${c.label}</div>
           <div class="fcPos" style="color:#8592A6;">${word.pos}</div>
           ${wordImgUrl(word.en, word.pos) ? `<div class="fcPicSm">${wordImgHtml(word.en, 58, "", word.pos)}</div>` : ""}
           <div class="fcEn" style="color:#233047;font-size:26px;">${word.en}</div>
           <div class="fcZh">${word.zh}</div>
-          <div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>
+          ${sentFor(word) ? sentBoxHtml(word, { size: 40, tone: c.color, bg: c.color + "18" }) : `<div style="font-size:12px;color:#8592A6;margin-top:10px;">目前熟悉度：${levelInfo(lv).emoji} ${levelInfo(lv).label}</div>`}
         </div>
       </div>
       <div class="cardCtrls" onclick="event.stopPropagation();">${slowBtnHtml(word.en, 38, c.color, "#fff")}${speakBtnHtml(word.en, 56, c.color, "#fff")}</div>
@@ -2646,10 +2691,252 @@ function renderSpell() {
   </div>`;
 }
 
+/* ============================================================
+   EXAMPLE SENTENCES (data/movers-sentences.json)
+   One sentence per word, vocabulary limited to Starters + Movers.
+   Loaded at start-up; if the file can't be loaded, every sentence
+   feature simply stays hidden and the rest of the app works as before.
+   ============================================================ */
+const SENT_URL = "data/movers-sentences.json";
+let SENT = {};          // word id -> { word, en, hl, zh, audio }
+let SENT_STATE = "loading"; // "loading" | "ready" | "failed"
+function sentFor(w) { return w ? SENT[w.id] || null : null; }
+function loadSentences() {
+  fetch(SENT_URL, { cache: "no-cache" }).then((r) => {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }).then((doc) => {
+    const items = (doc && doc.sentences) || {};
+    const byWord = {};
+    Object.keys(items).forEach((k) => { byWord[items[k].word] = items[k]; });
+    const map = {};
+    WORDS.forEach((w) => {
+      // match by id, but trust the word text if the list order ever changes
+      const s = items[w.id] && items[w.id].word === w.en ? items[w.id] : byWord[w.en];
+      if (s && s.en) map[w.id] = s;
+    });
+    SENT = map;
+    SENT_STATE = "ready";
+    if (["study", "browse", "tf"].includes(STATE.tab)) render();
+  }).catch((e) => {
+    SENT_STATE = "failed";
+    dbg(`例句載入失敗: ${e && e.message}`);
+    if (STATE.tab === "tf") render();
+  });
+}
+// the sentence with the target word underlined (case-insensitive, first match)
+function sentHtml(s) {
+  const at = s.en.indexOf(s.hl);
+  if (at < 0 || !s.hl) return escapeHtml(s.en);
+  return escapeHtml(s.en.slice(0, at)) + `<b class="hl">${escapeHtml(s.hl)}</b>` + escapeHtml(s.en.slice(at + s.hl.length));
+}
+/* ---------- sentence audio ----------
+   Pre-generated MP3 (audio/uk/s/*.mp3, audio/us/s/*.mp3). Always started
+   from inside a tap (iOS requirement). The device voice is only a fallback
+   if the file can't play. */
+let sentAudioEl = null;
+function stopSentence() {
+  if (sentAudioEl) { releaseAudio(sentAudioEl); sentAudioEl = null; }
+}
+function playSentence(id, slow) {
+  const s = SENT[id];
+  if (!s) return;
+  warmAudioSession();
+  stopAutoAudio();
+  if (currentAudioEl) { try { currentAudioEl.pause(); } catch (e) {} }
+  try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
+  stopSentence();
+  const rate = slow ? 0.7 : 1;
+  const el = new Audio(`audio/${ACCENT === "uk" ? "uk" : "us"}/${s.audio}.mp3`);
+  sentAudioEl = el;
+  let fellBack = false;
+  const fallback = () => {
+    if (fellBack || sentAudioEl !== el) return;
+    fellBack = true;
+    dbg(`例句音檔無法播放，改用系統語音`);
+    try {
+      const u = new SpeechSynthesisUtterance(s.en);
+      u.lang = ACCENT === "uk" ? "en-GB" : "en-US";
+      u.rate = slow ? 0.6 : 0.9;
+      const v = getSelectedVoice(); if (v) u.voice = v;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  };
+  el.addEventListener("error", fallback);
+  try {
+    el.defaultPlaybackRate = rate; el.playbackRate = rate;
+    const p = el.play();
+    if (p && p.catch) p.catch((err) => { if (err && err.name !== "AbortError") fallback(); });
+  } catch (e) { fallback(); }
+}
+function sentBtnsHtml(id, size, tone, bg) {
+  size = size || 40; tone = tone || "#4361EE"; bg = bg || "#EEF1FB";
+  const small = Math.round(size * 0.8);
+  return `<span class="sentBtns" onclick="event.stopPropagation();">
+    <button class="speakBtn" style="width:${small}px;height:${small}px;background:${bg};color:${tone};" onclick="event.stopPropagation();playSentence('${id}', true)" aria-label="慢速播放例句">${slowLabelHtml(small)}</button>
+    <button class="speakBtn" style="${playBtnStyle(size, tone, bg)}" onclick="event.stopPropagation();playSentence('${id}')" aria-label="播放例句">${playIconSvg(Math.round(size * 0.46))}</button>
+  </span>`;
+}
+// sentence box used on the back of a flashcard and in the word list
+function sentBoxHtml(w, opts) {
+  const s = sentFor(w);
+  if (!s) return "";
+  opts = opts || {};
+  return `<div class="sentBox ${opts.cls || ""}" onclick="event.stopPropagation();">
+    <div class="sentText">
+      <div class="sentEn">${sentHtml(s)}</div>
+      <div class="sentZh">${escapeHtml(s.zh)}</div>
+    </div>
+    ${sentBtnsHtml(w.id, opts.size || 40, opts.tone, opts.bg)}
+  </div>`;
+}
+
+/* ============================================================
+   對或錯 (picture + sentence: true or false?)
+   Like Starters/Movers Reading & Writing: look at the picture, read the
+   sentence, decide if they match. The sentence is always the word's own
+   (correct) sentence; for a "false" item the picture is a different word
+   from the same group. Wrong answers come back once later in the round.
+   ============================================================ */
+const TF_LEN = 10;
+// picture categories that are concrete enough to judge "same / not the same"
+const TF_CATS = ["animals", "body", "clothes", "food", "home", "places", "school", "jobs", "sports", "weather", "time", "nature"];
+// words that look alike in a small picture never stand in for each other
+const TF_CONFUSABLE = [
+  ["city", "city / town centre", "town", "village", "centre"],
+  ["shop", "market", "supermarket", "shopping centre"],
+  ["pool", "swimming pool", "lake", "river", "waterfall"],
+  ["forest", "jungle"], ["field", "grass", "ground", "countryside", "farm"],
+  ["station", "bus station", "bus stop"], ["cup", "glass", "bottle"], ["plate", "bowl"],
+  ["cloud", "cloudy", "rain", "sky", "weather"], ["wind", "windy"], ["sunny", "sky"],
+  ["week", "weekend"], ["sweater", "coat"], ["film star", "pop star"], ["café", "cinema"],
+  ["ice skates", "ice skating", "skate", "roller skates", "roller skating"],
+];
+function tfTokens(en) { return en.toLowerCase().split(/[^a-z]+/).filter((t) => t.length > 2); }
+function tfConfusable(a, b) {
+  if (TF_CONFUSABLE.some((g) => g.includes(a.en) && g.includes(b.en))) return true;
+  const ta = tfTokens(a.en), tb = tfTokens(b.en);
+  // tooth / toothache, rain / rainbow, bus stop / bus station ...
+  return ta.some((x) => tb.some((y) => x.includes(y) || y.includes(x)));
+}
+function tfEligible(w) {
+  const s = sentFor(w);
+  return !!(s && wordImgUrl(w.en, w.pos) && TF_CATS.includes(w.cat));
+}
+function tfPickDistractor(w) {
+  const mine = wordImgUrl(w.en, w.pos);
+  const sent = sentFor(w).en.toLowerCase();
+  const ok = (x) => x.id !== w.id && TF_CATS.includes(x.cat) && wordImgUrl(x.en, x.pos) && wordImgUrl(x.en, x.pos) !== mine
+    && !tfConfusable(w, x)
+    && !tfTokens(x.en).some((t) => sent.includes(t)); // the sentence must not also mention the picture
+  let pool = WORDS.filter((x) => ok(x) && x.cat === w.cat);
+  if (pool.length < 3) pool = WORDS.filter(ok);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+function tfMakeItem(w) {
+  const truth = Math.random() < 0.5;
+  return { word: w, truth, pic: truth ? w : tfPickDistractor(w) };
+}
+function startTf() {
+  const pool = WORDS.filter(tfEligible);
+  const words = buildWeightedQueue(pool, TF_LEN);
+  STATE.tf = { phase: "playing", queue: words.map(tfMakeItem), idx: 0, answer: null, correct: 0, answered: 0, again: {} };
+  render();
+}
+function answerTf(saysTrue) {
+  const t = STATE.tf;
+  if (t.answer) return;
+  const it = t.queue[t.idx];
+  const right = saysTrue === it.truth;
+  t.answer = right ? "right" : "wrong";
+  t.answered += 1;
+  const cur = STATE.progress[it.word.id] || {};
+  const lv = cur.level || 0;
+  if (right) {
+    t.correct += 1;
+    // a two-choice question is a light signal: it can lift a word up to 熟悉 but not to 精通
+    updateWord(it.word.id, { level: lv >= 3 ? lv : lv + 1, correct: (cur.correct || 0) + 1 });
+  } else {
+    updateWord(it.word.id, { level: Math.max(1, lv - 1), wrong: (cur.wrong || 0) + 1 });
+    // ask the same word once more near the end of the round, with a fresh picture
+    if (!t.again[it.word.id]) {
+      t.again[it.word.id] = true;
+      t.queue.push(tfMakeItem(it.word));
+    }
+  }
+  recordActivity(1);
+  render();
+  if (right) celebrate(praiseFor(0));
+  playSentence(it.word.id); // inside the tap, so iPhone allows it
+}
+function nextTf() {
+  const t = STATE.tf;
+  stopSentence();
+  if (t.idx + 1 >= t.queue.length) t.phase = "done";
+  else { t.idx += 1; t.answer = null; }
+  render();
+}
+function renderTf() {
+  const t = STATE.tf;
+  if (SENT_STATE === "loading") return `<div class="pad"><div class="introCard">讀取例句中…</div></div>`;
+  if (SENT_STATE === "failed") return `<div class="pad"><div class="introCard"><div style="font-size:34px;">📶</div><div style="font-weight:800;margin-top:6px;">例句暫時讀不到</div><div style="font-size:13px;color:var(--sub);margin-top:6px;line-height:1.5;">請確認網路連線後重新整理頁面。其他練習都可以照常使用。</div></div></div>`;
+  if (t.phase === "setup") {
+    return `<div class="pad">
+      <div class="introCard">
+        <div style="font-size:38px;">🖼️✅</div>
+        <div style="font-weight:800;font-size:18px;margin:8px 0 4px;">看圖，讀句子</div>
+        <div style="font-size:14px;color:var(--sub);line-height:1.6;">句子說的跟圖一樣嗎？<br>一樣就按 <b style="color:#06A77D;">✓ 對</b>，不一樣就按 <b style="color:#D63B5F;">✗ 不對</b>。<br>不會唸的句子可以按 ▶ 聽聽看。</div>
+      </div>
+      <button class="bigCta" style="margin-top:16px;" onclick="startTf()">開始（${TF_LEN} 題）→</button>
+    </div>`;
+  }
+  if (t.phase === "done") {
+    const pct = t.answered ? t.correct / t.answered : 0;
+    const stars = pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : 1;
+    return `<div class="pad"><div class="sumCard">
+      <div style="font-size:40px;">${stars === 3 ? "🏆" : stars === 2 ? "👍" : "💪"}</div>
+      <div class="sumStars">${"⭐".repeat(stars)}${"☆".repeat(3 - stars)}</div>
+      <div style="font-weight:800;font-size:18px;">${stars === 3 ? "太厲害了！" : stars === 2 ? "做得很好！" : "多玩幾次會越來越厲害！"}</div>
+      <div style="font-size:13px;color:var(--sub);margin-top:6px;">答對 ${t.correct} 題（共 ${t.answered} 題）</div>
+      <div class="ctaRow" style="margin-top:16px;"><button class="cta" style="background:var(--accent);" onclick="startTf()">🔁 再玩一次</button></div>
+    </div></div>`;
+  }
+  const it = t.queue[t.idx];
+  const s = sentFor(it.word);
+  const answered = !!t.answer;
+  const total = t.queue.length;
+  return `<div class="pad">
+    <div class="sessBar"><div class="sessTrack"><div class="sessFill" style="width:${Math.round((t.idx + (answered ? 1 : 0)) / total * 100)}%"></div></div><div class="sessTxt">第 ${t.idx + 1} / ${total} 題</div></div>
+    <div class="tfCard ${answered ? "done " + (t.answer === "right" ? "pop" : "shake") : "cardEnter"}">
+      <div class="tfPic">${wordImgHtml(it.pic.en, 120, "", it.pic.pos)}
+        ${answered ? `<div class="tfStamp ${it.truth ? "yes" : "no"}">${it.truth ? "✓" : "✗"}</div>` : ""}
+      </div>
+      <div class="tfSent">${sentHtml(s)}</div>
+      <div class="tfListen">${sentBtnsHtml(it.word.id, 44)}</div>
+    </div>
+    ${answered ? `
+      <div class="tfFeedback ${t.answer}">
+        <div class="tfFbTitle">${t.answer === "right" ? "答對了！🎉" : "再看一次喔 💪"}</div>
+        ${it.truth
+          ? `<div class="tfFbBody">圖裡就是 <b>${escapeHtml(it.word.en)}</b>（${escapeHtml(it.word.zh)}），所以是「對」。</div>`
+          : `<div class="tfFbBody">圖裡是 <b>${escapeHtml(it.pic.en)}</b>（${escapeHtml(it.pic.zh)}），句子說的是：</div>
+             <div class="tfFbWord">${wordImgHtml(it.word.en, 44, "", it.word.pos)}<span><b>${escapeHtml(it.word.en)}</b> ${escapeHtml(it.word.zh)}</span></div>`}
+        <div class="tfFbZh">${escapeHtml(s.zh)}</div>
+      </div>
+      <button class="bigCta" style="margin-top:12px;" onclick="nextTf()">${t.idx + 1 >= total ? "看結果 →" : "下一題 →"}</button>`
+    : `
+      <div class="tfBtns">
+        <button class="tfBtn yes" onclick="answerTf(true)">✓ 對</button>
+        <button class="tfBtn no" onclick="answerTf(false)">✗ 不對</button>
+      </div>`}
+  </div>`;
+}
+
 function bodyHtml() {
   if (STATE.tab === "home") return renderHome();
   if (STATE.tab === "browse") return renderBrowse();
   if (STATE.tab === "study") return renderStudy();
+  if (STATE.tab === "tf") return renderTf();
   if (STATE.tab === "spell") return renderSpell();
   if (STATE.tab === "quiz") return renderQuiz();
   return "";
@@ -2680,6 +2967,7 @@ if ("speechSynthesis" in window) {
 }
 
 render();
+loadSentences();
 dbg(`除錯模式 ${navigator.userAgent.replace(/^Mozilla\/5.0 /, "")}`);
 dbg(`錄音索引：${recIndexSummary()}`);
 if (SOUND_SOURCE === "real") setTimeout(buildRecordingIndex, 1500);

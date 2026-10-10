@@ -1,0 +1,2261 @@
+{
+ "version": 1,
+ "level": "movers",
+ "note": "Example sentences written for this project; vocabulary limited to the Cambridge Pre A1 Starters and A1 Movers wordlists. Audio: Kokoro-82M (Apache-2.0), voices bm_lewis (UK) / af_heart (US).",
+ "sentences": {
+  "w0": {
+   "word": "bat",
+   "en": "The bat sleeps in the day and flies at night.",
+   "hl": "bat",
+   "zh": "蝙蝠白天睡覺，晚上飛出來。",
+   "audio": "s/bat"
+  },
+  "w1": {
+   "word": "cage",
+   "en": "There are two birds in the big cage.",
+   "hl": "cage",
+   "zh": "大籠子裡有兩隻鳥。",
+   "audio": "s/cage"
+  },
+  "w2": {
+   "word": "dolphin",
+   "en": "The dolphin is jumping out of the sea.",
+   "hl": "dolphin",
+   "zh": "海豚正跳出海面。",
+   "audio": "s/dolphin"
+  },
+  "w3": {
+   "word": "fly",
+   "en": "A fly is sitting on my sandwich!",
+   "hl": "fly",
+   "zh": "一隻蒼蠅停在我的三明治上！",
+   "audio": "s/fly"
+  },
+  "w4": {
+   "word": "kangaroo",
+   "en": "The kangaroo is hopping in the field.",
+   "hl": "kangaroo",
+   "zh": "袋鼠在田野裡跳來跳去。",
+   "audio": "s/kangaroo"
+  },
+  "w5": {
+   "word": "kitten",
+   "en": "The little kitten is playing with a ball.",
+   "hl": "kitten",
+   "zh": "小貓在玩球。",
+   "audio": "s/kitten"
+  },
+  "w6": {
+   "word": "lion",
+   "en": "The lion is sleeping under a tree.",
+   "hl": "lion",
+   "zh": "獅子在樹下睡覺。",
+   "audio": "s/lion"
+  },
+  "w7": {
+   "word": "panda",
+   "en": "The panda is black and white.",
+   "hl": "panda",
+   "zh": "貓熊是黑白色的。",
+   "audio": "s/panda"
+  },
+  "w8": {
+   "word": "parrot",
+   "en": "The green parrot can talk!",
+   "hl": "parrot",
+   "zh": "那隻綠色的鸚鵡會說話！",
+   "audio": "s/parrot"
+  },
+  "w9": {
+   "word": "penguin",
+   "en": "The penguin can swim, but it can't fly.",
+   "hl": "penguin",
+   "zh": "企鵝會游泳，但不會飛。",
+   "audio": "s/penguin"
+  },
+  "w10": {
+   "word": "puppy",
+   "en": "The puppy is hiding under the bed.",
+   "hl": "puppy",
+   "zh": "小狗躲在床底下。",
+   "audio": "s/puppy"
+  },
+  "w11": {
+   "word": "rabbit",
+   "en": "The rabbit has got long ears.",
+   "hl": "rabbit",
+   "zh": "兔子有長長的耳朵。",
+   "audio": "s/rabbit"
+  },
+  "w12": {
+   "word": "shark",
+   "en": "The shark has got lots of teeth.",
+   "hl": "shark",
+   "zh": "鯊魚有很多牙齒。",
+   "audio": "s/shark"
+  },
+  "w13": {
+   "word": "snail",
+   "en": "The snail is very slow.",
+   "hl": "snail",
+   "zh": "蝸牛非常慢。",
+   "audio": "s/snail"
+  },
+  "w14": {
+   "word": "whale",
+   "en": "A whale is bigger than a bus!",
+   "hl": "whale",
+   "zh": "鯨魚比公車還大！",
+   "audio": "s/whale"
+  },
+  "w15": {
+   "word": "back",
+   "en": "Sam is carrying a bag on his back.",
+   "hl": "back",
+   "zh": "山姆把包包背在背上。",
+   "audio": "s/back"
+  },
+  "w16": {
+   "word": "beard",
+   "en": "My grandpa has got a long white beard.",
+   "hl": "beard",
+   "zh": "我爺爺有長長的白鬍子。",
+   "audio": "s/beard"
+  },
+  "w17": {
+   "word": "blond(e)",
+   "en": "Lucy has got long blonde hair.",
+   "hl": "blonde",
+   "zh": "露西有一頭金色長髮。",
+   "audio": "s/blond_e"
+  },
+  "w18": {
+   "word": "curly",
+   "en": "Ben has got short curly hair.",
+   "hl": "curly",
+   "zh": "班有一頭短短的捲髮。",
+   "audio": "s/curly"
+  },
+  "w19": {
+   "word": "fair",
+   "en": "Anna's hair is fair, but her brother's hair is black.",
+   "hl": "fair",
+   "zh": "安娜的頭髮是淺色的，但她哥哥的頭髮是黑色的。",
+   "audio": "s/fair"
+  },
+  "w20": {
+   "word": "fat",
+   "en": "The fat cat is sleeping on the sofa.",
+   "hl": "fat",
+   "zh": "胖胖的貓在沙發上睡覺。",
+   "audio": "s/fat"
+  },
+  "w21": {
+   "word": "moustache",
+   "en": "The pirate has got a funny moustache.",
+   "hl": "moustache",
+   "zh": "海盜有一撇好笑的八字鬍。",
+   "audio": "s/moustache"
+  },
+  "w22": {
+   "word": "neck",
+   "en": "The giraffe has got a very long neck.",
+   "hl": "neck",
+   "zh": "長頸鹿的脖子非常長。",
+   "audio": "s/neck"
+  },
+  "w23": {
+   "word": "shoulder",
+   "en": "The parrot is sitting on the pirate's shoulder.",
+   "hl": "shoulder",
+   "zh": "鸚鵡站在海盜的肩膀上。",
+   "audio": "s/shoulder"
+  },
+  "w24": {
+   "word": "stomach",
+   "en": "Put your hand on your stomach.",
+   "hl": "stomach",
+   "zh": "把你的手放在肚子上。",
+   "audio": "s/stomach"
+  },
+  "w25": {
+   "word": "stomach-ache",
+   "en": "I ate ten cakes and now I've got a stomach-ache!",
+   "hl": "stomach-ache",
+   "zh": "我吃了十個蛋糕，現在肚子痛！",
+   "audio": "s/stomach_ache"
+  },
+  "w26": {
+   "word": "thin",
+   "en": "The tall man is very thin.",
+   "hl": "thin",
+   "zh": "那個高個子男人很瘦。",
+   "audio": "s/thin"
+  },
+  "w27": {
+   "word": "tooth / teeth",
+   "en": "Clean your teeth before you go to bed.",
+   "hl": "teeth",
+   "zh": "睡覺前要刷牙。",
+   "audio": "s/tooth_teeth"
+  },
+  "w28": {
+   "word": "toothache",
+   "en": "Tom has got a toothache. He needs to see the dentist.",
+   "hl": "toothache",
+   "zh": "湯姆牙痛，他需要去看牙醫。",
+   "audio": "s/toothache"
+  },
+  "w29": {
+   "word": "headache",
+   "en": "The music is very loud. I've got a headache!",
+   "hl": "headache",
+   "zh": "音樂好大聲，我頭痛了！",
+   "audio": "s/headache"
+  },
+  "w30": {
+   "word": "earache",
+   "en": "Kim can't swim today because she's got an earache.",
+   "hl": "earache",
+   "zh": "金今天不能游泳，因為她耳朵痛。",
+   "audio": "s/earache"
+  },
+  "w31": {
+   "word": "coat",
+   "en": "It's cold. Put on your coat!",
+   "hl": "coat",
+   "zh": "天氣很冷，穿上你的外套！",
+   "audio": "s/coat"
+  },
+  "w32": {
+   "word": "helmet",
+   "en": "Always wear a helmet when you ride your bike.",
+   "hl": "helmet",
+   "zh": "騎腳踏車時一定要戴安全帽。",
+   "audio": "s/helmet"
+  },
+  "w33": {
+   "word": "scarf",
+   "en": "Grandma made a long red scarf for me.",
+   "hl": "scarf",
+   "zh": "奶奶幫我做了一條長長的紅圍巾。",
+   "audio": "s/scarf"
+  },
+  "w34": {
+   "word": "sweater",
+   "en": "This sweater is too big for me.",
+   "hl": "sweater",
+   "zh": "這件毛衣我穿太大了。",
+   "audio": "s/sweater"
+  },
+  "w35": {
+   "word": "swimsuit",
+   "en": "I need my swimsuit for the swimming pool.",
+   "hl": "swimsuit",
+   "zh": "我去游泳池需要帶泳衣。",
+   "audio": "s/swimsuit"
+  },
+  "w36": {
+   "word": "aunt",
+   "en": "My aunt lives in a big city.",
+   "hl": "aunt",
+   "zh": "我阿姨住在一個大城市。",
+   "audio": "s/aunt"
+  },
+  "w37": {
+   "word": "daughter",
+   "en": "Mr Brown has got two sons and one daughter.",
+   "hl": "daughter",
+   "zh": "布朗先生有兩個兒子和一個女兒。",
+   "audio": "s/daughter"
+  },
+  "w38": {
+   "word": "granddaughter",
+   "en": "Grandma is reading a story to her granddaughter.",
+   "hl": "granddaughter",
+   "zh": "奶奶在念故事給她的孫女聽。",
+   "audio": "s/granddaughter"
+  },
+  "w39": {
+   "word": "grandparent",
+   "en": "My grandparents live on a farm.",
+   "hl": "grandparents",
+   "zh": "我的祖父母住在農場。",
+   "audio": "s/grandparent"
+  },
+  "w40": {
+   "word": "grandson",
+   "en": "Grandpa is playing football with his grandson.",
+   "hl": "grandson",
+   "zh": "爺爺在和他的孫子踢足球。",
+   "audio": "s/grandson"
+  },
+  "w41": {
+   "word": "grown-up",
+   "en": "Ask a grown-up to help you.",
+   "hl": "grown-up",
+   "zh": "請一位大人幫你。",
+   "audio": "s/grown_up"
+  },
+  "w42": {
+   "word": "parent",
+   "en": "My parents are taking me to the circus.",
+   "hl": "parents",
+   "zh": "我爸媽要帶我去看馬戲團。",
+   "audio": "s/parent"
+  },
+  "w43": {
+   "word": "son",
+   "en": "Mrs Green's son is a doctor.",
+   "hl": "son",
+   "zh": "格林太太的兒子是醫生。",
+   "audio": "s/son"
+  },
+  "w44": {
+   "word": "uncle",
+   "en": "My uncle can play the guitar.",
+   "hl": "uncle",
+   "zh": "我叔叔會彈吉他。",
+   "audio": "s/uncle"
+  },
+  "w45": {
+   "word": "bottle",
+   "en": "There's a bottle of water in my bag.",
+   "hl": "bottle",
+   "zh": "我的包包裡有一瓶水。",
+   "audio": "s/bottle"
+  },
+  "w46": {
+   "word": "bowl",
+   "en": "Can I have a bowl of soup, please?",
+   "hl": "bowl",
+   "zh": "我可以來一碗湯嗎？",
+   "audio": "s/bowl"
+  },
+  "w47": {
+   "word": "cheese",
+   "en": "Mice love cheese!",
+   "hl": "cheese",
+   "zh": "老鼠超愛起司！",
+   "audio": "s/cheese"
+  },
+  "w48": {
+   "word": "coffee",
+   "en": "Mum and Dad drink coffee in the morning.",
+   "hl": "coffee",
+   "zh": "爸媽早上會喝咖啡。",
+   "audio": "s/coffee"
+  },
+  "w49": {
+   "word": "cup",
+   "en": "Be careful! The cup is hot.",
+   "hl": "cup",
+   "zh": "小心！杯子很燙。",
+   "audio": "s/cup"
+  },
+  "w50": {
+   "word": "glass",
+   "en": "Can I have a glass of milk, please?",
+   "hl": "glass",
+   "zh": "我可以喝一杯牛奶嗎？",
+   "audio": "s/glass"
+  },
+  "w51": {
+   "word": "hungry",
+   "en": "I'm hungry. What's for lunch?",
+   "hl": "hungry",
+   "zh": "我好餓，午餐吃什麼？",
+   "audio": "s/hungry"
+  },
+  "w52": {
+   "word": "milkshake",
+   "en": "This chocolate milkshake is really nice!",
+   "hl": "milkshake",
+   "zh": "這杯巧克力奶昔真好喝！",
+   "audio": "s/milkshake"
+  },
+  "w53": {
+   "word": "noodles",
+   "en": "Lily is eating noodles with her friends.",
+   "hl": "noodles",
+   "zh": "莉莉和朋友在吃麵。",
+   "audio": "s/noodles"
+  },
+  "w54": {
+   "word": "pancake",
+   "en": "We have pancakes for breakfast on Sundays.",
+   "hl": "pancakes",
+   "zh": "我們星期天早餐吃鬆餅。",
+   "audio": "s/pancake"
+  },
+  "w55": {
+   "word": "pasta",
+   "en": "Mum is cooking pasta for dinner.",
+   "hl": "pasta",
+   "zh": "媽媽在煮義大利麵當晚餐。",
+   "audio": "s/pasta"
+  },
+  "w56": {
+   "word": "picnic",
+   "en": "Let's have a picnic in the park!",
+   "hl": "picnic",
+   "zh": "我們去公園野餐吧！",
+   "audio": "s/picnic"
+  },
+  "w57": {
+   "word": "plate",
+   "en": "Put the sandwiches on the plate.",
+   "hl": "plate",
+   "zh": "把三明治放在盤子上。",
+   "audio": "s/plate"
+  },
+  "w58": {
+   "word": "salad",
+   "en": "There's a tomato in my salad.",
+   "hl": "salad",
+   "zh": "我的沙拉裡有一顆番茄。",
+   "audio": "s/salad"
+  },
+  "w59": {
+   "word": "sandwich",
+   "en": "Jack is eating a cheese sandwich.",
+   "hl": "sandwich",
+   "zh": "傑克在吃起司三明治。",
+   "audio": "s/sandwich"
+  },
+  "w60": {
+   "word": "sauce",
+   "en": "Do you want tomato sauce on your chips?",
+   "hl": "sauce",
+   "zh": "你的薯條要加番茄醬嗎？",
+   "audio": "s/sauce"
+  },
+  "w61": {
+   "word": "soup",
+   "en": "This soup is too hot!",
+   "hl": "soup",
+   "zh": "這碗湯太燙了！",
+   "audio": "s/soup"
+  },
+  "w62": {
+   "word": "tea",
+   "en": "Grandma likes tea with milk.",
+   "hl": "tea",
+   "zh": "奶奶喜歡加牛奶的茶。",
+   "audio": "s/tea"
+  },
+  "w63": {
+   "word": "thirsty",
+   "en": "I'm thirsty. Can I have some water, please?",
+   "hl": "thirsty",
+   "zh": "我好渴，可以給我一點水嗎？",
+   "audio": "s/thirsty"
+  },
+  "w64": {
+   "word": "vegetable",
+   "en": "Eat your vegetables!",
+   "hl": "vegetables",
+   "zh": "把你的蔬菜吃完！",
+   "audio": "s/vegetable"
+  },
+  "w65": {
+   "word": "address",
+   "en": "Please write your address here.",
+   "hl": "address",
+   "zh": "請在這裡寫下你的地址。",
+   "audio": "s/address"
+  },
+  "w66": {
+   "word": "balcony",
+   "en": "There are lots of flowers on our balcony.",
+   "hl": "balcony",
+   "zh": "我們的陽台上有很多花。",
+   "audio": "s/balcony"
+  },
+  "w67": {
+   "word": "basement",
+   "en": "Our old bikes are in the basement.",
+   "hl": "basement",
+   "zh": "我們的舊腳踏車在地下室。",
+   "audio": "s/basement"
+  },
+  "w68": {
+   "word": "blanket",
+   "en": "The cat is sleeping on my blanket.",
+   "hl": "blanket",
+   "zh": "貓在我的毯子上睡覺。",
+   "audio": "s/blanket"
+  },
+  "w69": {
+   "word": "downstairs",
+   "en": "The kitchen is downstairs.",
+   "hl": "downstairs",
+   "zh": "廚房在樓下。",
+   "audio": "s/downstairs"
+  },
+  "w70": {
+   "word": "upstairs",
+   "en": "My bedroom is upstairs.",
+   "hl": "upstairs",
+   "zh": "我的臥室在樓上。",
+   "audio": "s/upstairs"
+  },
+  "w71": {
+   "word": "dream",
+   "en": "Last night I had a dream about a flying elephant!",
+   "hl": "dream",
+   "zh": "昨晚我夢到一隻會飛的大象！",
+   "audio": "s/dream"
+  },
+  "w72": {
+   "word": "elevator (lift)",
+   "en": "Let's take the lift to the tenth floor.",
+   "hl": "lift",
+   "zh": "我們搭電梯到十樓吧。",
+   "audio": "s/elevator_lift"
+  },
+  "w73": {
+   "word": "floor",
+   "en": "My friend lives on the third floor.",
+   "hl": "floor",
+   "zh": "我朋友住在三樓。",
+   "audio": "s/floor"
+  },
+  "w74": {
+   "word": "internet",
+   "en": "I can find lots of games on the internet.",
+   "hl": "internet",
+   "zh": "我可以在網路上找到很多遊戲。",
+   "audio": "s/internet"
+  },
+  "w75": {
+   "word": "message",
+   "en": "Mum sent me a message on her phone.",
+   "hl": "message",
+   "zh": "媽媽用手機傳了一則訊息給我。",
+   "audio": "s/message"
+  },
+  "w76": {
+   "word": "roof",
+   "en": "There's a cat on the roof!",
+   "hl": "roof",
+   "zh": "屋頂上有一隻貓！",
+   "audio": "s/roof"
+  },
+  "w77": {
+   "word": "seat",
+   "en": "Please sit in your seat.",
+   "hl": "seat",
+   "zh": "請坐在你的座位上。",
+   "audio": "s/seat"
+  },
+  "w78": {
+   "word": "shower",
+   "en": "I have a shower after football.",
+   "hl": "shower",
+   "zh": "踢完足球後我會沖澡。",
+   "audio": "s/shower"
+  },
+  "w79": {
+   "word": "stair(s)",
+   "en": "Don't run on the stairs!",
+   "hl": "stairs",
+   "zh": "不要在樓梯上跑！",
+   "audio": "s/stair_s"
+  },
+  "w80": {
+   "word": "toothbrush",
+   "en": "My toothbrush is blue.",
+   "hl": "toothbrush",
+   "zh": "我的牙刷是藍色的。",
+   "audio": "s/toothbrush"
+  },
+  "w81": {
+   "word": "toothpaste",
+   "en": "Put some toothpaste on your toothbrush.",
+   "hl": "toothpaste",
+   "zh": "在牙刷上擠一點牙膏。",
+   "audio": "s/toothpaste"
+  },
+  "w82": {
+   "word": "towel",
+   "en": "Here's a towel. Dry your hands.",
+   "hl": "towel",
+   "zh": "這是毛巾，把手擦乾。",
+   "audio": "s/towel"
+  },
+  "w83": {
+   "word": "wash",
+   "en": "Wash your hands before lunch.",
+   "hl": "Wash",
+   "zh": "午餐前要洗手。",
+   "audio": "s/wash"
+  },
+  "w84": {
+   "word": "bus station",
+   "en": "The bus station is next to the market.",
+   "hl": "bus station",
+   "zh": "公車總站在市場旁邊。",
+   "audio": "s/bus_station"
+  },
+  "w85": {
+   "word": "bus stop",
+   "en": "We're waiting at the bus stop.",
+   "hl": "bus stop",
+   "zh": "我們正在公車站等車。",
+   "audio": "s/bus_stop"
+  },
+  "w86": {
+   "word": "café",
+   "en": "Let's have a milkshake at the café.",
+   "hl": "café",
+   "zh": "我們去咖啡館喝奶昔吧。",
+   "audio": "s/cafe"
+  },
+  "w87": {
+   "word": "car park",
+   "en": "Dad's car is in the car park.",
+   "hl": "car park",
+   "zh": "爸爸的車在停車場。",
+   "audio": "s/car_park"
+  },
+  "w88": {
+   "word": "centre",
+   "en": "Put the flowers in the centre of the table.",
+   "hl": "centre",
+   "zh": "把花放在桌子的正中間。",
+   "audio": "s/centre"
+  },
+  "w89": {
+   "word": "cinema",
+   "en": "Let's go to the cinema on Saturday.",
+   "hl": "cinema",
+   "zh": "我們星期六去看電影吧。",
+   "audio": "s/cinema"
+  },
+  "w90": {
+   "word": "circus",
+   "en": "We saw a lion and an elephant at the circus.",
+   "hl": "circus",
+   "zh": "我們在馬戲團看到獅子和大象。",
+   "audio": "s/circus"
+  },
+  "w91": {
+   "word": "city",
+   "en": "There are lots of cars and buses in the city.",
+   "hl": "city",
+   "zh": "城市裡有很多汽車和公車。",
+   "audio": "s/city"
+  },
+  "w92": {
+   "word": "city / town centre",
+   "en": "There are lots of shops in the town centre.",
+   "hl": "town centre",
+   "zh": "市中心有很多商店。",
+   "audio": "s/city_town_centre"
+  },
+  "w93": {
+   "word": "countryside",
+   "en": "Grandpa lives in the countryside with his cows.",
+   "hl": "countryside",
+   "zh": "爺爺和他的牛住在鄉下。",
+   "audio": "s/countryside"
+  },
+  "w94": {
+   "word": "farm",
+   "en": "There are sheep and goats on the farm.",
+   "hl": "farm",
+   "zh": "農場上有綿羊和山羊。",
+   "audio": "s/farm"
+  },
+  "w95": {
+   "word": "forest",
+   "en": "A bear lives in this forest.",
+   "hl": "forest",
+   "zh": "這座森林裡住著一隻熊。",
+   "audio": "s/forest"
+  },
+  "w96": {
+   "word": "funfair",
+   "en": "Let's go to the funfair! It's exciting!",
+   "hl": "funfair",
+   "zh": "我們去遊樂園吧！很刺激！",
+   "audio": "s/funfair"
+  },
+  "w97": {
+   "word": "hospital",
+   "en": "Grandma is in hospital. Let's take her some flowers.",
+   "hl": "hospital",
+   "zh": "奶奶住院了，我們帶些花給她吧。",
+   "audio": "s/hospital"
+  },
+  "w98": {
+   "word": "island",
+   "en": "The pirates found treasure on a small island.",
+   "hl": "island",
+   "zh": "海盜們在一座小島上找到了寶藏。",
+   "audio": "s/island"
+  },
+  "w99": {
+   "word": "jungle",
+   "en": "Monkeys and parrots live in the jungle.",
+   "hl": "jungle",
+   "zh": "猴子和鸚鵡住在叢林裡。",
+   "audio": "s/jungle"
+  },
+  "w100": {
+   "word": "lake",
+   "en": "We can see ducks on the lake.",
+   "hl": "lake",
+   "zh": "我們可以看到湖上的鴨子。",
+   "audio": "s/lake"
+  },
+  "w101": {
+   "word": "library",
+   "en": "I get books from the library on Fridays.",
+   "hl": "library",
+   "zh": "我星期五會去圖書館借書。",
+   "audio": "s/library"
+  },
+  "w102": {
+   "word": "market",
+   "en": "Mum buys fruit at the market.",
+   "hl": "market",
+   "zh": "媽媽在市場買水果。",
+   "audio": "s/market"
+  },
+  "w103": {
+   "word": "mountain",
+   "en": "There's snow on the mountain.",
+   "hl": "mountain",
+   "zh": "山上有雪。",
+   "audio": "s/mountain"
+  },
+  "w104": {
+   "word": "pool",
+   "en": "The children are swimming in the pool.",
+   "hl": "pool",
+   "zh": "孩子們在游泳池游泳。",
+   "audio": "s/pool"
+  },
+  "w105": {
+   "word": "river",
+   "en": "The fish are swimming in the river.",
+   "hl": "river",
+   "zh": "魚在河裡游。",
+   "audio": "s/river"
+  },
+  "w106": {
+   "word": "road",
+   "en": "Be careful when you cross the road.",
+   "hl": "road",
+   "zh": "過馬路時要小心。",
+   "audio": "s/road"
+  },
+  "w107": {
+   "word": "shopping centre",
+   "en": "There's a cinema in the shopping centre.",
+   "hl": "shopping centre",
+   "zh": "購物中心裡有一家電影院。",
+   "audio": "s/shopping_centre"
+  },
+  "w108": {
+   "word": "sports centre",
+   "en": "I play badminton at the sports centre.",
+   "hl": "sports centre",
+   "zh": "我在運動中心打羽毛球。",
+   "audio": "s/sports_centre"
+  },
+  "w109": {
+   "word": "station",
+   "en": "We're waiting for the train at the station.",
+   "hl": "station",
+   "zh": "我們在車站等火車。",
+   "audio": "s/station"
+  },
+  "w110": {
+   "word": "supermarket",
+   "en": "We buy milk and bread at the supermarket.",
+   "hl": "supermarket",
+   "zh": "我們在超市買牛奶和麵包。",
+   "audio": "s/supermarket"
+  },
+  "w111": {
+   "word": "swimming pool",
+   "en": "Is there a swimming pool near your house?",
+   "hl": "swimming pool",
+   "zh": "你家附近有游泳池嗎？",
+   "audio": "s/swimming_pool"
+  },
+  "w112": {
+   "word": "town",
+   "en": "My cousin lives in a small town.",
+   "hl": "town",
+   "zh": "我的表哥住在一個小鎮。",
+   "audio": "s/town"
+  },
+  "w113": {
+   "word": "village",
+   "en": "There are only ten houses in this village.",
+   "hl": "village",
+   "zh": "這個村子只有十棟房子。",
+   "audio": "s/village"
+  },
+  "w114": {
+   "word": "waterfall",
+   "en": "Look at that huge waterfall!",
+   "hl": "waterfall",
+   "zh": "看那座好大的瀑布！",
+   "audio": "s/waterfall"
+  },
+  "w115": {
+   "word": "comic book",
+   "en": "Peter is reading a funny comic book.",
+   "hl": "comic book",
+   "zh": "彼得在看一本好笑的漫畫書。",
+   "audio": "s/comic_book"
+  },
+  "w116": {
+   "word": "e-book",
+   "en": "I can read e-books on my laptop.",
+   "hl": "e-books",
+   "zh": "我可以用筆電看電子書。",
+   "audio": "s/e_book"
+  },
+  "w117": {
+   "word": "homework",
+   "en": "I do my homework after school.",
+   "hl": "homework",
+   "zh": "我放學後寫功課。",
+   "audio": "s/homework"
+  },
+  "w118": {
+   "word": "laptop",
+   "en": "Dad is working on his laptop.",
+   "hl": "laptop",
+   "zh": "爸爸在用筆電工作。",
+   "audio": "s/laptop"
+  },
+  "w119": {
+   "word": "website",
+   "en": "This website has got lots of fun games.",
+   "hl": "website",
+   "zh": "這個網站有很多好玩的遊戲。",
+   "audio": "s/website"
+  },
+  "w120": {
+   "word": "practice / practise",
+   "en": "I practise the piano after dinner.",
+   "hl": "practise",
+   "zh": "我晚餐後練習彈鋼琴。",
+   "audio": "s/practice_practise"
+  },
+  "w121": {
+   "word": "CD",
+   "en": "Let's listen to my new CD.",
+   "hl": "CD",
+   "zh": "我們來聽我的新 CD 吧。",
+   "audio": "s/cd"
+  },
+  "w122": {
+   "word": "DVD",
+   "en": "We watched a DVD about dolphins.",
+   "hl": "DVD",
+   "zh": "我們看了一片關於海豚的 DVD。",
+   "audio": "s/dvd"
+  },
+  "w123": {
+   "word": "text",
+   "en": "Can you text me when you get home?",
+   "hl": "text",
+   "zh": "你到家後可以傳簡訊給我嗎？",
+   "audio": "s/text"
+  },
+  "w124": {
+   "word": "cook",
+   "en": "My dad is a very good cook.",
+   "hl": "cook",
+   "zh": "我爸爸很會做菜。",
+   "audio": "s/cook"
+  },
+  "w125": {
+   "word": "dentist",
+   "en": "The dentist looks at my teeth.",
+   "hl": "dentist",
+   "zh": "牙醫幫我檢查牙齒。",
+   "audio": "s/dentist"
+  },
+  "w126": {
+   "word": "doctor",
+   "en": "The doctor says I need to sleep.",
+   "hl": "doctor",
+   "zh": "醫生說我需要睡覺。",
+   "audio": "s/doctor"
+  },
+  "w127": {
+   "word": "driver",
+   "en": "The bus driver is wearing a blue hat.",
+   "hl": "driver",
+   "zh": "公車司機戴著一頂藍帽子。",
+   "audio": "s/driver"
+  },
+  "w128": {
+   "word": "farmer",
+   "en": "The farmer has got lots of cows and chickens.",
+   "hl": "farmer",
+   "zh": "農夫有很多牛和雞。",
+   "audio": "s/farmer"
+  },
+  "w129": {
+   "word": "film star",
+   "en": "That film star is very famous.",
+   "hl": "film star",
+   "zh": "那位電影明星非常有名。",
+   "audio": "s/film_star"
+  },
+  "w130": {
+   "word": "nurse",
+   "en": "The nurse is helping a sick girl.",
+   "hl": "nurse",
+   "zh": "護理師正在幫助一個生病的女孩。",
+   "audio": "s/nurse"
+  },
+  "w131": {
+   "word": "pirate",
+   "en": "The pirate has got a parrot and a big ship.",
+   "hl": "pirate",
+   "zh": "海盜有一隻鸚鵡和一艘大船。",
+   "audio": "s/pirate"
+  },
+  "w132": {
+   "word": "player",
+   "en": "He's the best football player in our school.",
+   "hl": "player",
+   "zh": "他是我們學校最厲害的足球選手。",
+   "audio": "s/player"
+  },
+  "w133": {
+   "word": "pop star",
+   "en": "Julia wants to be a pop star.",
+   "hl": "pop star",
+   "zh": "茱莉亞想當流行歌手。",
+   "audio": "s/pop_star"
+  },
+  "w134": {
+   "word": "band (music)",
+   "en": "My brother plays the guitar in a band.",
+   "hl": "band",
+   "zh": "我哥哥在樂團裡彈吉他。",
+   "audio": "s/band_music"
+  },
+  "w135": {
+   "word": "dance",
+   "en": "Let's dance to the music!",
+   "hl": "dance",
+   "zh": "我們隨著音樂跳舞吧！",
+   "audio": "s/dance"
+  },
+  "w136": {
+   "word": "goal",
+   "en": "Charlie kicked the ball and scored a goal!",
+   "hl": "goal",
+   "zh": "查理一腳把球踢進，得了一分！",
+   "audio": "s/goal"
+  },
+  "w137": {
+   "word": "holiday",
+   "en": "We're going to the beach for our holiday.",
+   "hl": "holiday",
+   "zh": "我們要去海邊度假。",
+   "audio": "s/holiday"
+  },
+  "w138": {
+   "word": "ice skates",
+   "en": "These ice skates are too small for me.",
+   "hl": "ice skates",
+   "zh": "這雙溜冰鞋我穿太小了。",
+   "audio": "s/ice_skates"
+  },
+  "w139": {
+   "word": "ice skating",
+   "en": "Ice skating is difficult, but it's fun!",
+   "hl": "Ice skating",
+   "zh": "溜冰很難，但很好玩！",
+   "audio": "s/ice_skating"
+  },
+  "w140": {
+   "word": "kick",
+   "en": "Give the ball a big kick!",
+   "hl": "kick",
+   "zh": "用力踢一下球！",
+   "audio": "s/kick"
+  },
+  "w141": {
+   "word": "party",
+   "en": "Can you come to my birthday party?",
+   "hl": "party",
+   "zh": "你可以來我的生日派對嗎？",
+   "audio": "s/party"
+  },
+  "w142": {
+   "word": "present",
+   "en": "I've got a present for you!",
+   "hl": "present",
+   "zh": "我有一份禮物要給你！",
+   "audio": "s/present"
+  },
+  "w143": {
+   "word": "roller skates",
+   "en": "Zoe's roller skates are pink.",
+   "hl": "roller skates",
+   "zh": "柔伊的輪式溜冰鞋是粉紅色的。",
+   "audio": "s/roller_skates"
+  },
+  "w144": {
+   "word": "roller skating",
+   "en": "Let's go roller skating in the park.",
+   "hl": "roller skating",
+   "zh": "我們去公園溜輪鞋吧。",
+   "audio": "s/roller_skating"
+  },
+  "w145": {
+   "word": "sail",
+   "en": "My uncle can sail a big boat.",
+   "hl": "sail",
+   "zh": "我叔叔會駕駛一艘大帆船。",
+   "audio": "s/sail"
+  },
+  "w146": {
+   "word": "score",
+   "en": "Can you score a goal?",
+   "hl": "score",
+   "zh": "你能進一球嗎？",
+   "audio": "s/score"
+  },
+  "w147": {
+   "word": "skate",
+   "en": "Vicky is learning to skate.",
+   "hl": "skate",
+   "zh": "維琪正在學溜冰。",
+   "audio": "s/skate"
+  },
+  "w148": {
+   "word": "skip",
+   "en": "Let's skip in the playground!",
+   "hl": "skip",
+   "zh": "我們在遊樂場跳繩吧！",
+   "audio": "s/skip"
+  },
+  "w149": {
+   "word": "swim",
+   "en": "Let's go for a swim in the sea.",
+   "hl": "swim",
+   "zh": "我們去海裡游個泳吧。",
+   "audio": "s/swim"
+  },
+  "w150": {
+   "word": "ticket",
+   "en": "Here's your ticket for the train.",
+   "hl": "ticket",
+   "zh": "這是你的火車票。",
+   "audio": "s/ticket"
+  },
+  "w151": {
+   "word": "trip",
+   "en": "Our class is going on a trip to the zoo.",
+   "hl": "trip",
+   "zh": "我們班要去動物園校外教學。",
+   "audio": "s/trip"
+  },
+  "w152": {
+   "word": "video",
+   "en": "Let's make a funny video!",
+   "hl": "video",
+   "zh": "我們來拍一支好笑的影片吧！",
+   "audio": "s/video"
+  },
+  "w153": {
+   "word": "cloud",
+   "en": "That cloud looks like a rabbit!",
+   "hl": "cloud",
+   "zh": "那朵雲看起來像一隻兔子！",
+   "audio": "s/cloud"
+  },
+  "w154": {
+   "word": "cloudy",
+   "en": "The sky is grey and cloudy.",
+   "hl": "cloudy",
+   "zh": "天空灰灰的，雲很多。",
+   "audio": "s/cloudy"
+  },
+  "w155": {
+   "word": "rain",
+   "en": "Take your coat. It's going to rain.",
+   "hl": "rain",
+   "zh": "帶外套吧，快要下雨了。",
+   "audio": "s/rain"
+  },
+  "w156": {
+   "word": "rainbow",
+   "en": "Look! There's a rainbow in the sky!",
+   "hl": "rainbow",
+   "zh": "看！天上有一道彩虹！",
+   "audio": "s/rainbow"
+  },
+  "w157": {
+   "word": "sky",
+   "en": "The sky is blue today.",
+   "hl": "sky",
+   "zh": "今天的天空好藍。",
+   "audio": "s/sky"
+  },
+  "w158": {
+   "word": "snow",
+   "en": "Let's play in the snow!",
+   "hl": "snow",
+   "zh": "我們去玩雪吧！",
+   "audio": "s/snow"
+  },
+  "w159": {
+   "word": "sunny",
+   "en": "It's sunny. Let's go to the beach!",
+   "hl": "sunny",
+   "zh": "今天出太陽，我們去海邊吧！",
+   "audio": "s/sunny"
+  },
+  "w160": {
+   "word": "weather",
+   "en": "What's the weather like today?",
+   "hl": "weather",
+   "zh": "今天天氣怎麼樣？",
+   "audio": "s/weather"
+  },
+  "w161": {
+   "word": "wind",
+   "en": "The wind is very strong today.",
+   "hl": "wind",
+   "zh": "今天的風很強。",
+   "audio": "s/wind"
+  },
+  "w162": {
+   "word": "windy",
+   "en": "It's windy. Let's fly our kites!",
+   "hl": "windy",
+   "zh": "今天風很大，我們去放風箏吧！",
+   "audio": "s/windy"
+  },
+  "w163": {
+   "word": "wet",
+   "en": "My shoes are wet because I walked in the rain.",
+   "hl": "wet",
+   "zh": "我的鞋子濕了，因為我在雨中走路。",
+   "audio": "s/wet"
+  },
+  "w164": {
+   "word": "Monday",
+   "en": "We have English on Monday.",
+   "hl": "Monday",
+   "zh": "我們星期一有英文課。",
+   "audio": "s/monday"
+  },
+  "w165": {
+   "word": "Tuesday",
+   "en": "On Tuesday I play tennis with Dad.",
+   "hl": "Tuesday",
+   "zh": "星期二我和爸爸打網球。",
+   "audio": "s/tuesday"
+  },
+  "w166": {
+   "word": "Wednesday",
+   "en": "Grandma comes to our house on Wednesday.",
+   "hl": "Wednesday",
+   "zh": "奶奶星期三會來我們家。",
+   "audio": "s/wednesday"
+  },
+  "w167": {
+   "word": "Thursday",
+   "en": "Our school trip is on Thursday.",
+   "hl": "Thursday",
+   "zh": "我們的校外教學在星期四。",
+   "audio": "s/thursday"
+  },
+  "w168": {
+   "word": "Friday",
+   "en": "I go swimming on Friday.",
+   "hl": "Friday",
+   "zh": "我星期五去游泳。",
+   "audio": "s/friday"
+  },
+  "w169": {
+   "word": "Saturday",
+   "en": "On Saturday we go to the market.",
+   "hl": "Saturday",
+   "zh": "星期六我們去市場。",
+   "audio": "s/saturday"
+  },
+  "w170": {
+   "word": "Sunday",
+   "en": "My family has a big lunch on Sunday.",
+   "hl": "Sunday",
+   "zh": "星期天我們全家吃一頓豐盛的午餐。",
+   "audio": "s/sunday"
+  },
+  "w171": {
+   "word": "o'clock",
+   "en": "School starts at nine o'clock.",
+   "hl": "o'clock",
+   "zh": "學校九點開始上課。",
+   "audio": "s/o_clock"
+  },
+  "w172": {
+   "word": "often",
+   "en": "We often have fish for dinner.",
+   "hl": "often",
+   "zh": "我們晚餐常常吃魚。",
+   "audio": "s/often"
+  },
+  "w173": {
+   "word": "sometimes",
+   "en": "Sometimes I walk to school.",
+   "hl": "Sometimes",
+   "zh": "我有時候走路上學。",
+   "audio": "s/sometimes"
+  },
+  "w174": {
+   "word": "week",
+   "en": "There are seven days in a week.",
+   "hl": "week",
+   "zh": "一個星期有七天。",
+   "audio": "s/week"
+  },
+  "w175": {
+   "word": "weekend",
+   "en": "What do you do at the weekend?",
+   "hl": "weekend",
+   "zh": "你週末都做什麼？",
+   "audio": "s/weekend"
+  },
+  "w176": {
+   "word": "yesterday",
+   "en": "Yesterday we went to the zoo.",
+   "hl": "Yesterday",
+   "zh": "昨天我們去了動物園。",
+   "audio": "s/yesterday"
+  },
+  "w177": {
+   "word": "field",
+   "en": "The cows are eating grass in the field.",
+   "hl": "field",
+   "zh": "牛在田野裡吃草。",
+   "audio": "s/field"
+  },
+  "w178": {
+   "word": "grass",
+   "en": "Don't sit on the wet grass!",
+   "hl": "grass",
+   "zh": "不要坐在濕濕的草地上！",
+   "audio": "s/grass"
+  },
+  "w179": {
+   "word": "ground",
+   "en": "The apples fell on the ground.",
+   "hl": "ground",
+   "zh": "蘋果掉到地上。",
+   "audio": "s/ground"
+  },
+  "w180": {
+   "word": "leaf / leaves",
+   "en": "The leaves on this tree are red and yellow.",
+   "hl": "leaves",
+   "zh": "這棵樹的葉子是紅色和黃色的。",
+   "audio": "s/leaf_leaves"
+  },
+  "w181": {
+   "word": "moon",
+   "en": "Look at the moon! It's big and round.",
+   "hl": "moon",
+   "zh": "看月亮！又大又圓。",
+   "audio": "s/moon"
+  },
+  "w182": {
+   "word": "rock",
+   "en": "A lizard is sitting on a rock.",
+   "hl": "rock",
+   "zh": "一隻蜥蜴坐在石頭上。",
+   "audio": "s/rock"
+  },
+  "w183": {
+   "word": "star",
+   "en": "At night I can see lots of stars.",
+   "hl": "stars",
+   "zh": "晚上我可以看到很多星星。",
+   "audio": "s/star"
+  },
+  "w184": {
+   "word": "treasure",
+   "en": "The pirate is looking for treasure.",
+   "hl": "treasure",
+   "zh": "海盜正在找寶藏。",
+   "audio": "s/treasure"
+  },
+  "w185": {
+   "word": "world",
+   "en": "The whale is the biggest animal in the world.",
+   "hl": "world",
+   "zh": "鯨魚是世界上最大的動物。",
+   "audio": "s/world"
+  },
+  "w186": {
+   "word": "afraid",
+   "en": "My little sister is afraid of spiders.",
+   "hl": "afraid",
+   "zh": "我妹妹很怕蜘蛛。",
+   "audio": "s/afraid"
+  },
+  "w187": {
+   "word": "boring",
+   "en": "This game is boring. Let's play another one.",
+   "hl": "boring",
+   "zh": "這個遊戲好無聊，我們玩別的吧。",
+   "audio": "s/boring"
+  },
+  "w188": {
+   "word": "brave",
+   "en": "The brave boy climbed the tall tree.",
+   "hl": "brave",
+   "zh": "那個勇敢的男孩爬上了高高的樹。",
+   "audio": "s/brave"
+  },
+  "w189": {
+   "word": "brilliant",
+   "en": "Your drawing is brilliant!",
+   "hl": "brilliant",
+   "zh": "你的畫太棒了！",
+   "audio": "s/brilliant"
+  },
+  "w190": {
+   "word": "busy",
+   "en": "Mum is very busy today.",
+   "hl": "busy",
+   "zh": "媽媽今天很忙。",
+   "audio": "s/busy"
+  },
+  "w191": {
+   "word": "careful",
+   "en": "Be careful! The floor is wet.",
+   "hl": "careful",
+   "zh": "小心！地板是濕的。",
+   "audio": "s/careful"
+  },
+  "w192": {
+   "word": "clever",
+   "en": "The clever monkey opened the box.",
+   "hl": "clever",
+   "zh": "聰明的猴子打開了箱子。",
+   "audio": "s/clever"
+  },
+  "w193": {
+   "word": "dangerous",
+   "en": "Sharks can be dangerous.",
+   "hl": "dangerous",
+   "zh": "鯊魚可能很危險。",
+   "audio": "s/dangerous"
+  },
+  "w194": {
+   "word": "different",
+   "en": "These two cats are different colours.",
+   "hl": "different",
+   "zh": "這兩隻貓的顏色不一樣。",
+   "audio": "s/different"
+  },
+  "w195": {
+   "word": "difficult",
+   "en": "This question is difficult.",
+   "hl": "difficult",
+   "zh": "這個問題很難。",
+   "audio": "s/difficult"
+  },
+  "w196": {
+   "word": "easy",
+   "en": "This question is easy. The answer is ten.",
+   "hl": "easy",
+   "zh": "這個問題很簡單，答案是十。",
+   "audio": "s/easy"
+  },
+  "w197": {
+   "word": "exciting",
+   "en": "The funfair is really exciting!",
+   "hl": "exciting",
+   "zh": "遊樂園真的好刺激！",
+   "audio": "s/exciting"
+  },
+  "w198": {
+   "word": "famous",
+   "en": "Daisy wants to be famous.",
+   "hl": "famous",
+   "zh": "黛西想要出名。",
+   "audio": "s/famous"
+  },
+  "w199": {
+   "word": "fine",
+   "en": "How are you? I'm fine, thank you.",
+   "hl": "fine",
+   "zh": "你好嗎？我很好，謝謝。",
+   "audio": "s/fine"
+  },
+  "w200": {
+   "word": "frightened",
+   "en": "The kitten is frightened of the big dog.",
+   "hl": "frightened",
+   "zh": "小貓很怕那隻大狗。",
+   "audio": "s/frightened"
+  },
+  "w201": {
+   "word": "hot",
+   "en": "It's very hot today. Let's go swimming!",
+   "hl": "hot",
+   "zh": "今天好熱，我們去游泳吧！",
+   "audio": "s/hot"
+  },
+  "w202": {
+   "word": "huge",
+   "en": "Wow, that burger is huge!",
+   "hl": "huge",
+   "zh": "哇，那個漢堡好大！",
+   "audio": "s/huge"
+  },
+  "w203": {
+   "word": "ill",
+   "en": "Paul can't come to school because he's ill.",
+   "hl": "ill",
+   "zh": "保羅不能來上學，因為他生病了。",
+   "audio": "s/ill"
+  },
+  "w204": {
+   "word": "last",
+   "en": "Z is the last letter of the alphabet.",
+   "hl": "last",
+   "zh": "Z 是字母表的最後一個字母。",
+   "audio": "s/last"
+  },
+  "w205": {
+   "word": "little",
+   "en": "The little mouse is hiding in the box.",
+   "hl": "little",
+   "zh": "小老鼠躲在箱子裡。",
+   "audio": "s/little"
+  },
+  "w206": {
+   "word": "loud",
+   "en": "The music at the party is too loud!",
+   "hl": "loud",
+   "zh": "派對上的音樂太大聲了！",
+   "audio": "s/loud"
+  },
+  "w207": {
+   "word": "naughty",
+   "en": "The naughty puppy ate my shoe!",
+   "hl": "naughty",
+   "zh": "那隻調皮的小狗吃了我的鞋子！",
+   "audio": "s/naughty"
+  },
+  "w208": {
+   "word": "pretty",
+   "en": "What a pretty dress!",
+   "hl": "pretty",
+   "zh": "好漂亮的洋裝！",
+   "audio": "s/pretty"
+  },
+  "w209": {
+   "word": "quick",
+   "en": "Be quick! The bus is here!",
+   "hl": "quick",
+   "zh": "快一點！公車來了！",
+   "audio": "s/quick"
+  },
+  "w210": {
+   "word": "quiet",
+   "en": "Please be quiet in the library.",
+   "hl": "quiet",
+   "zh": "在圖書館請保持安靜。",
+   "audio": "s/quiet"
+  },
+  "w211": {
+   "word": "round",
+   "en": "A ball is round, and a box is square.",
+   "hl": "round",
+   "zh": "球是圓的，盒子是方的。",
+   "audio": "s/round"
+  },
+  "w212": {
+   "word": "safe",
+   "en": "It isn't safe to play on the road.",
+   "hl": "safe",
+   "zh": "在馬路上玩不安全。",
+   "audio": "s/safe"
+  },
+  "w213": {
+   "word": "sick",
+   "en": "I ate too many sweets and now I'm sick!",
+   "hl": "sick",
+   "zh": "我吃了太多糖果，現在不舒服！",
+   "audio": "s/sick"
+  },
+  "w214": {
+   "word": "slow",
+   "en": "The snail is slow, but the rabbit is quick.",
+   "hl": "slow",
+   "zh": "蝸牛很慢，兔子卻很快。",
+   "audio": "s/slow"
+  },
+  "w215": {
+   "word": "square",
+   "en": "My new clock is square.",
+   "hl": "square",
+   "zh": "我的新時鐘是方形的。",
+   "audio": "s/square"
+  },
+  "w216": {
+   "word": "straight",
+   "en": "Eva has got long straight hair.",
+   "hl": "straight",
+   "zh": "伊娃有一頭長長的直髮。",
+   "audio": "s/straight"
+  },
+  "w217": {
+   "word": "strong",
+   "en": "My dad is very strong. He can carry me!",
+   "hl": "strong",
+   "zh": "我爸爸很強壯，他可以抱起我！",
+   "audio": "s/strong"
+  },
+  "w218": {
+   "word": "surprised",
+   "en": "I was surprised when I saw the present.",
+   "hl": "surprised",
+   "zh": "看到禮物時我很驚訝。",
+   "audio": "s/surprised"
+  },
+  "w219": {
+   "word": "sweet",
+   "en": "This cake is very sweet.",
+   "hl": "sweet",
+   "zh": "這個蛋糕很甜。",
+   "audio": "s/sweet"
+  },
+  "w220": {
+   "word": "tall",
+   "en": "My brother is very tall.",
+   "hl": "tall",
+   "zh": "我哥哥很高。",
+   "audio": "s/tall"
+  },
+  "w221": {
+   "word": "terrible",
+   "en": "The weather was terrible yesterday.",
+   "hl": "terrible",
+   "zh": "昨天天氣很糟。",
+   "audio": "s/terrible"
+  },
+  "w222": {
+   "word": "tired",
+   "en": "I'm tired. I want to go to bed.",
+   "hl": "tired",
+   "zh": "我好累，我想去睡覺。",
+   "audio": "s/tired"
+  },
+  "w223": {
+   "word": "weak",
+   "en": "The baby bird is very weak.",
+   "hl": "weak",
+   "zh": "這隻小鳥非常虛弱。",
+   "audio": "s/weak"
+  },
+  "w224": {
+   "word": "worse",
+   "en": "My cold is worse today.",
+   "hl": "worse",
+   "zh": "我的感冒今天更嚴重了。",
+   "audio": "s/worse"
+  },
+  "w225": {
+   "word": "worst",
+   "en": "This is the worst soup in the world!",
+   "hl": "worst",
+   "zh": "這是世界上最難喝的湯！",
+   "audio": "s/worst"
+  },
+  "w226": {
+   "word": "wrong",
+   "en": "Sorry, that's the wrong answer.",
+   "hl": "wrong",
+   "zh": "抱歉，那是錯誤的答案。",
+   "audio": "s/wrong"
+  },
+  "w227": {
+   "word": "be called",
+   "en": "My cat is called Mr Fish!",
+   "hl": "is called",
+   "zh": "我的貓叫做「魚先生」！",
+   "audio": "s/be_called"
+  },
+  "w228": {
+   "word": "bring",
+   "en": "Can you bring me a glass of water?",
+   "hl": "bring",
+   "zh": "你可以拿一杯水給我嗎？",
+   "audio": "s/bring"
+  },
+  "w229": {
+   "word": "build",
+   "en": "Let's build a house for the kitten!",
+   "hl": "build",
+   "zh": "我們幫小貓蓋一間房子吧！",
+   "audio": "s/build"
+  },
+  "w230": {
+   "word": "buy",
+   "en": "Mum, can you buy me an ice cream?",
+   "hl": "buy",
+   "zh": "媽媽，可以買冰淇淋給我嗎？",
+   "audio": "s/buy"
+  },
+  "w231": {
+   "word": "call",
+   "en": "I call my grandma on Sundays.",
+   "hl": "call",
+   "zh": "我每個星期天都打電話給奶奶。",
+   "audio": "s/call"
+  },
+  "w232": {
+   "word": "carry",
+   "en": "Can you help me carry this box?",
+   "hl": "carry",
+   "zh": "你可以幫我搬這個箱子嗎？",
+   "audio": "s/carry"
+  },
+  "w233": {
+   "word": "catch (a bus)",
+   "en": "We catch the bus to school.",
+   "hl": "catch",
+   "zh": "我們搭公車上學。",
+   "audio": "s/catch_a_bus"
+  },
+  "w234": {
+   "word": "change",
+   "en": "Change your shoes before you go out.",
+   "hl": "Change",
+   "zh": "出門前換鞋子。",
+   "audio": "s/change"
+  },
+  "w235": {
+   "word": "climb",
+   "en": "The monkey can climb trees.",
+   "hl": "climb",
+   "zh": "猴子會爬樹。",
+   "audio": "s/climb"
+  },
+  "w236": {
+   "word": "cry",
+   "en": "The baby is crying because she's hungry.",
+   "hl": "crying",
+   "zh": "小寶寶在哭，因為她肚子餓了。",
+   "audio": "s/cry"
+  },
+  "w237": {
+   "word": "drop",
+   "en": "Don't drop the eggs!",
+   "hl": "drop",
+   "zh": "不要把蛋摔掉！",
+   "audio": "s/drop"
+  },
+  "w238": {
+   "word": "dry",
+   "en": "Dry your hair with a towel.",
+   "hl": "Dry",
+   "zh": "用毛巾把頭髮擦乾。",
+   "audio": "s/dry"
+  },
+  "w239": {
+   "word": "feed",
+   "en": "Can I feed the ducks?",
+   "hl": "feed",
+   "zh": "我可以餵鴨子嗎？",
+   "audio": "s/feed"
+  },
+  "w240": {
+   "word": "fish",
+   "en": "Grandpa likes to fish in the lake.",
+   "hl": "fish",
+   "zh": "爺爺喜歡在湖邊釣魚。",
+   "audio": "s/fish"
+  },
+  "w241": {
+   "word": "fix",
+   "en": "Dad can fix my bike.",
+   "hl": "fix",
+   "zh": "爸爸會修我的腳踏車。",
+   "audio": "s/fix"
+  },
+  "w242": {
+   "word": "get dressed",
+   "en": "I get dressed after breakfast.",
+   "hl": "get dressed",
+   "zh": "我吃完早餐後換衣服。",
+   "audio": "s/get_dressed"
+  },
+  "w243": {
+   "word": "get off",
+   "en": "We get off the bus at the park.",
+   "hl": "get off",
+   "zh": "我們在公園下公車。",
+   "audio": "s/get_off"
+  },
+  "w244": {
+   "word": "get on",
+   "en": "Let's get on the bus.",
+   "hl": "get on",
+   "zh": "我們上公車吧。",
+   "audio": "s/get_on"
+  },
+  "w245": {
+   "word": "get undressed",
+   "en": "I get undressed and have a shower.",
+   "hl": "get undressed",
+   "zh": "我脫掉衣服，然後洗澡。",
+   "audio": "s/get_undressed"
+  },
+  "w246": {
+   "word": "get up",
+   "en": "I get up at seven o'clock.",
+   "hl": "get up",
+   "zh": "我七點起床。",
+   "audio": "s/get_up"
+  },
+  "w247": {
+   "word": "go shopping",
+   "en": "Let's go shopping for a new T-shirt.",
+   "hl": "go shopping",
+   "zh": "我們去買一件新 T 恤吧。",
+   "audio": "s/go_shopping"
+  },
+  "w248": {
+   "word": "grow",
+   "en": "Plants need water to grow.",
+   "hl": "grow",
+   "zh": "植物需要水才能長大。",
+   "audio": "s/grow"
+  },
+  "w249": {
+   "word": "have to",
+   "en": "I have to do my homework now.",
+   "hl": "have to",
+   "zh": "我現在得寫功課。",
+   "audio": "s/have_to"
+  },
+  "w250": {
+   "word": "help",
+   "en": "Can you help me, please?",
+   "hl": "help",
+   "zh": "你可以幫我嗎？",
+   "audio": "s/help"
+  },
+  "w251": {
+   "word": "hide",
+   "en": "Let's hide behind the sofa!",
+   "hl": "hide",
+   "zh": "我們躲到沙發後面吧！",
+   "audio": "s/hide"
+  },
+  "w252": {
+   "word": "hop",
+   "en": "Can you hop on one leg?",
+   "hl": "hop",
+   "zh": "你可以單腳跳嗎？",
+   "audio": "s/hop"
+  },
+  "w253": {
+   "word": "hurt",
+   "en": "I fell off my bike and hurt my leg.",
+   "hl": "hurt",
+   "zh": "我從腳踏車上摔下來，弄傷了腿。",
+   "audio": "s/hurt"
+  },
+  "w254": {
+   "word": "invite",
+   "en": "I want to invite my friends to my party.",
+   "hl": "invite",
+   "zh": "我想邀請朋友來我的派對。",
+   "audio": "s/invite"
+  },
+  "w255": {
+   "word": "laugh",
+   "en": "Grandpa's silly songs make me laugh.",
+   "hl": "laugh",
+   "zh": "爺爺的搞笑歌讓我哈哈大笑。",
+   "audio": "s/laugh"
+  },
+  "w256": {
+   "word": "look for",
+   "en": "I'm looking for my red sock.",
+   "hl": "looking for",
+   "zh": "我在找我的紅襪子。",
+   "audio": "s/look_for"
+  },
+  "w257": {
+   "word": "lose",
+   "en": "Don't lose your ticket!",
+   "hl": "lose",
+   "zh": "不要弄丟你的票！",
+   "audio": "s/lose"
+  },
+  "w258": {
+   "word": "mean",
+   "en": "What does this word mean?",
+   "hl": "mean",
+   "zh": "這個字是什麼意思？",
+   "audio": "s/mean"
+  },
+  "w259": {
+   "word": "move",
+   "en": "Don't move! There's a bee on your head!",
+   "hl": "move",
+   "zh": "不要動！你頭上有一隻蜜蜂！",
+   "audio": "s/move"
+  },
+  "w260": {
+   "word": "need",
+   "en": "I need a pencil and a ruler.",
+   "hl": "need",
+   "zh": "我需要一枝鉛筆和一把尺。",
+   "audio": "s/need"
+  },
+  "w261": {
+   "word": "plant",
+   "en": "Let's plant some flowers in the garden.",
+   "hl": "plant",
+   "zh": "我們在花園裡種一些花吧。",
+   "audio": "s/plant"
+  },
+  "w262": {
+   "word": "put on",
+   "en": "Put on your hat. It's sunny.",
+   "hl": "Put on",
+   "zh": "戴上帽子，今天太陽很大。",
+   "audio": "s/put_on"
+  },
+  "w263": {
+   "word": "send",
+   "en": "Send me a photo of your new puppy!",
+   "hl": "Send",
+   "zh": "傳一張你新小狗的照片給我！",
+   "audio": "s/send"
+  },
+  "w264": {
+   "word": "shop",
+   "en": "We shop at the supermarket on Saturdays.",
+   "hl": "shop",
+   "zh": "我們星期六去超市買東西。",
+   "audio": "s/shop"
+  },
+  "w265": {
+   "word": "shout",
+   "en": "Don't shout! The baby is sleeping.",
+   "hl": "shout",
+   "zh": "別大叫！小寶寶在睡覺。",
+   "audio": "s/shout"
+  },
+  "w266": {
+   "word": "take",
+   "en": "Take your coat. It's cold outside.",
+   "hl": "Take",
+   "zh": "帶上外套，外面很冷。",
+   "audio": "s/take"
+  },
+  "w267": {
+   "word": "take off",
+   "en": "Take off your shoes, please.",
+   "hl": "Take off",
+   "zh": "請脫掉你的鞋子。",
+   "audio": "s/take_off"
+  },
+  "w268": {
+   "word": "teach",
+   "en": "Can you teach me to swim?",
+   "hl": "teach",
+   "zh": "你可以教我游泳嗎？",
+   "audio": "s/teach"
+  },
+  "w269": {
+   "word": "think",
+   "en": "I think it's going to rain.",
+   "hl": "think",
+   "zh": "我覺得快要下雨了。",
+   "audio": "s/think"
+  },
+  "w270": {
+   "word": "travel",
+   "en": "I want to travel around the world!",
+   "hl": "travel",
+   "zh": "我想環遊世界！",
+   "audio": "s/travel"
+  },
+  "w271": {
+   "word": "wait",
+   "en": "Wait for me! I'm coming!",
+   "hl": "Wait",
+   "zh": "等等我！我來了！",
+   "audio": "s/wait"
+  },
+  "w272": {
+   "word": "wake up",
+   "en": "Wake up! It's eight o'clock!",
+   "hl": "Wake up",
+   "zh": "起床！已經八點了！",
+   "audio": "s/wake_up"
+  },
+  "w273": {
+   "word": "walk",
+   "en": "Let's walk to the park.",
+   "hl": "walk",
+   "zh": "我們走路去公園吧。",
+   "audio": "s/walk"
+  },
+  "w274": {
+   "word": "water",
+   "en": "Can you water the flowers, please?",
+   "hl": "water",
+   "zh": "你可以幫忙澆花嗎？",
+   "audio": "s/water"
+  },
+  "w275": {
+   "word": "work",
+   "en": "My mum works in a hospital.",
+   "hl": "works",
+   "zh": "我媽媽在醫院工作。",
+   "audio": "s/work"
+  },
+  "w276": {
+   "word": "Jack",
+   "en": "Jack is good at football.",
+   "hl": "Jack",
+   "zh": "傑克很會踢足球。",
+   "audio": "s/jack"
+  },
+  "w277": {
+   "word": "Jane",
+   "en": "Jane is reading a book in the library.",
+   "hl": "Jane",
+   "zh": "珍在圖書館看書。",
+   "audio": "s/jane"
+  },
+  "w278": {
+   "word": "Jim",
+   "en": "Jim's favourite food is pancakes.",
+   "hl": "Jim",
+   "zh": "吉姆最喜歡的食物是鬆餅。",
+   "audio": "s/jim"
+  },
+  "w279": {
+   "word": "Julia",
+   "en": "Julia lives on the fifth floor.",
+   "hl": "Julia",
+   "zh": "茱莉亞住在五樓。",
+   "audio": "s/julia"
+  },
+  "w280": {
+   "word": "Fred",
+   "en": "Fred has got a funny moustache.",
+   "hl": "Fred",
+   "zh": "佛萊德有一撇好笑的八字鬍。",
+   "audio": "s/fred"
+  },
+  "w281": {
+   "word": "Lily",
+   "en": "Lily is skipping in the playground.",
+   "hl": "Lily",
+   "zh": "莉莉在遊樂場跳繩。",
+   "audio": "s/lily"
+  },
+  "w282": {
+   "word": "Mary",
+   "en": "Mary is Jim's sister.",
+   "hl": "Mary",
+   "zh": "瑪莉是吉姆的姐姐。",
+   "audio": "s/mary"
+  },
+  "w283": {
+   "word": "Paul",
+   "en": "Paul is the tallest boy in the class.",
+   "hl": "Paul",
+   "zh": "保羅是班上最高的男生。",
+   "audio": "s/paul"
+  },
+  "w284": {
+   "word": "Peter",
+   "en": "Peter wants to be a pirate!",
+   "hl": "Peter",
+   "zh": "彼得想當海盜！",
+   "audio": "s/peter"
+  },
+  "w285": {
+   "word": "Sally",
+   "en": "Sally is drawing a rainbow.",
+   "hl": "Sally",
+   "zh": "莎莉在畫彩虹。",
+   "audio": "s/sally"
+  },
+  "w286": {
+   "word": "Vicky",
+   "en": "Vicky can ride a horse.",
+   "hl": "Vicky",
+   "zh": "維琪會騎馬。",
+   "audio": "s/vicky"
+  },
+  "w287": {
+   "word": "Zoe",
+   "en": "Zoe sings in a band.",
+   "hl": "Zoe",
+   "zh": "柔伊在樂團裡唱歌。",
+   "audio": "s/zoe"
+  },
+  "w288": {
+   "word": "Daisy",
+   "en": "Daisy has got curly hair.",
+   "hl": "Daisy",
+   "zh": "黛西有一頭捲髮。",
+   "audio": "s/daisy"
+  },
+  "w289": {
+   "word": "Clare",
+   "en": "Clare is flying a kite in the park.",
+   "hl": "Clare",
+   "zh": "克萊兒在公園放風箏。",
+   "audio": "s/clare"
+  },
+  "w290": {
+   "word": "Charlie",
+   "en": "Charlie is Daisy's brother.",
+   "hl": "Charlie",
+   "zh": "查理是黛西的哥哥。",
+   "audio": "s/charlie"
+  },
+  "w291": {
+   "word": "above",
+   "en": "There's a bird above the house.",
+   "hl": "above",
+   "zh": "房子上方有一隻鳥。",
+   "audio": "s/above"
+  },
+  "w292": {
+   "word": "after",
+   "en": "We play football after school.",
+   "hl": "after",
+   "zh": "我們放學後踢足球。",
+   "audio": "s/after"
+  },
+  "w293": {
+   "word": "along",
+   "en": "We walked along the river.",
+   "hl": "along",
+   "zh": "我們沿著河邊走。",
+   "audio": "s/along"
+  },
+  "w294": {
+   "word": "always",
+   "en": "I always wash my hands before dinner.",
+   "hl": "always",
+   "zh": "我晚餐前一定會洗手。",
+   "audio": "s/always"
+  },
+  "w295": {
+   "word": "another",
+   "en": "Can I have another pancake, please?",
+   "hl": "another",
+   "zh": "我可以再吃一片鬆餅嗎？",
+   "audio": "s/another"
+  },
+  "w296": {
+   "word": "any",
+   "en": "Have you got any sweets?",
+   "hl": "any",
+   "zh": "你有糖果嗎？",
+   "audio": "s/any"
+  },
+  "w297": {
+   "word": "around",
+   "en": "The dog is running around the tree.",
+   "hl": "around",
+   "zh": "狗正繞著樹跑。",
+   "audio": "s/around"
+  },
+  "w298": {
+   "word": "because",
+   "en": "I'm happy because it's my birthday!",
+   "hl": "because",
+   "zh": "我很開心，因為今天是我的生日！",
+   "audio": "s/because"
+  },
+  "w299": {
+   "word": "before",
+   "en": "I read a story before I go to sleep.",
+   "hl": "before",
+   "zh": "我睡前會讀一個故事。",
+   "audio": "s/before"
+  },
+  "w300": {
+   "word": "below",
+   "en": "The fish are swimming below the boat.",
+   "hl": "below",
+   "zh": "魚在船的下方游。",
+   "audio": "s/below"
+  },
+  "w301": {
+   "word": "best",
+   "en": "Ben is my best friend.",
+   "hl": "best",
+   "zh": "班是我最好的朋友。",
+   "audio": "s/best"
+  },
+  "w302": {
+   "word": "better",
+   "en": "Your drawing is better than mine.",
+   "hl": "better",
+   "zh": "你的畫比我的好。",
+   "audio": "s/better"
+  },
+  "w303": {
+   "word": "both",
+   "en": "Both my sisters like dancing.",
+   "hl": "Both",
+   "zh": "我的兩個姐姐都喜歡跳舞。",
+   "audio": "s/both"
+  },
+  "w304": {
+   "word": "by",
+   "en": "There's a café by the lake.",
+   "hl": "by",
+   "zh": "湖邊有一家咖啡館。",
+   "audio": "s/by"
+  },
+  "w305": {
+   "word": "down",
+   "en": "The cat is coming down the tree.",
+   "hl": "down",
+   "zh": "貓正從樹上下來。",
+   "audio": "s/down"
+  },
+  "w306": {
+   "word": "into",
+   "en": "The frog jumped into the water.",
+   "hl": "into",
+   "zh": "青蛙跳進水裡。",
+   "audio": "s/into"
+  },
+  "w307": {
+   "word": "near",
+   "en": "My school is near my house.",
+   "hl": "near",
+   "zh": "我的學校在我家附近。",
+   "audio": "s/near"
+  },
+  "w308": {
+   "word": "off",
+   "en": "The cat jumped off the table.",
+   "hl": "off",
+   "zh": "貓從桌上跳下來。",
+   "audio": "s/off"
+  },
+  "w309": {
+   "word": "only",
+   "en": "I've only got one sock!",
+   "hl": "only",
+   "zh": "我只有一隻襪子！",
+   "audio": "s/only"
+  },
+  "w310": {
+   "word": "opposite",
+   "en": "The library is opposite the park.",
+   "hl": "opposite",
+   "zh": "圖書館在公園對面。",
+   "audio": "s/opposite"
+  },
+  "w311": {
+   "word": "out",
+   "en": "Let's go out and play!",
+   "hl": "out",
+   "zh": "我們出去玩吧！",
+   "audio": "s/out"
+  },
+  "w312": {
+   "word": "out of",
+   "en": "A rabbit jumped out of the box!",
+   "hl": "out of",
+   "zh": "一隻兔子從箱子裡跳出來！",
+   "audio": "s/out_of"
+  },
+  "w313": {
+   "word": "outside",
+   "en": "The children are playing outside in the snow.",
+   "hl": "outside",
+   "zh": "孩子們在外面玩雪。",
+   "audio": "s/outside"
+  },
+  "w314": {
+   "word": "than",
+   "en": "An elephant is bigger than a horse.",
+   "hl": "than",
+   "zh": "大象比馬大。",
+   "audio": "s/than"
+  },
+  "w315": {
+   "word": "then",
+   "en": "First wash your hands, then eat your lunch.",
+   "hl": "then",
+   "zh": "先洗手，然後吃午餐。",
+   "audio": "s/then"
+  },
+  "w316": {
+   "word": "up",
+   "en": "The monkey climbed up the tree.",
+   "hl": "up",
+   "zh": "猴子爬上了樹。",
+   "audio": "s/up"
+  },
+  "w317": {
+   "word": "when",
+   "en": "When is your birthday?",
+   "hl": "When",
+   "zh": "你的生日是什麼時候？",
+   "audio": "s/when"
+  },
+  "w318": {
+   "word": "where",
+   "en": "Where are my glasses?",
+   "hl": "Where",
+   "zh": "我的眼鏡在哪裡？",
+   "audio": "s/where"
+  },
+  "w319": {
+   "word": "which",
+   "en": "Which T-shirt do you like?",
+   "hl": "Which",
+   "zh": "你喜歡哪一件 T 恤？",
+   "audio": "s/which"
+  },
+  "w320": {
+   "word": "who",
+   "en": "Who is that man with the beard?",
+   "hl": "Who",
+   "zh": "那個留鬍子的男人是誰？",
+   "audio": "s/who"
+  },
+  "w321": {
+   "word": "why",
+   "en": "Why are you laughing?",
+   "hl": "Why",
+   "zh": "你為什麼在笑？",
+   "audio": "s/why"
+  }
+ }
+}

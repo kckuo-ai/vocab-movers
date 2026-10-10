@@ -9,6 +9,10 @@ Cambridge YLE（Starters / Movers / Flyers）、A2 Key（KET）、B1 Preliminary
 - PET（B1 Preliminary）：`pet-vocab.html`
 - 自然發音：`phonics.html`
 
+## 例句（Movers 試做）
+
+`data/movers-sentences.json` 收錄 Movers 每個單字一句例句（附中文翻譯），由本專案撰寫，句中只使用 Cambridge Pre A1 Starters 與 A1 Movers 單字表裡的字，並沿用劍橋考試常見的人名。例句顯示在學習卡背面與單字表，並用於「對或錯」遊戲（看圖讀句子，判斷是否相符）。整句發音在 `audio/uk/s`、`audio/us/s`，同樣用 Kokoro-82M（Lewis／Heart，語速 0.9）產生，並以 Whisper small.en 逐句檢查。
+
 ## 單字來源
 
 KET、PET 單字取自 Cambridge English 官方《A2 Key and A2 Key for Schools Vocabulary List》與《B1 Preliminary and B1 Preliminary for Schools Vocabulary List》（2025 年 8 月版），分類依官方 Topic Lists，不在主題表中的字依詞性分類；中文解釋為本專案撰寫。單字表版權屬 Cambridge University Press & Assessment，本專案與 Cambridge 無關聯。
