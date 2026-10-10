@@ -6,7 +6,7 @@ current page: word list + categories, picture map, colours, titles, storage
 keys, settings links, credits. Level settings that the old page does not have
 (sentence file, 對或錯 categories / look-alike groups) come from LEVELS below.
 
-Usage:  python3 tools/levels/port_level.py flyers
+Usage:  python3 tools/levels/port_level.py flyers   (or starters)
 The old page is overwritten; git keeps the previous version.
 """
 import re, sys, pathlib
@@ -14,6 +14,8 @@ import re, sys, pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 LEVELS = {
+    # Starters already has its sentence / 對或錯 settings in its page (see port())
+    "starters": {"file": "starters-vocab.html", "prefix": "starters-vocab-"},
     "flyers": {
         "file": "flyers-vocab.html",
         "prefix": "flyers-vocab-",
@@ -91,14 +93,24 @@ def port(level):
                       (r'(?:^    <a class="appLink" href="[^"]*">[^\n]*\n)+', "level links")):
         out = swap(pat, grab(pat, old, what), out, what)
 
-    # sentences + 對或錯 settings
-    out = out.replace("EXAMPLE SENTENCES (data/movers-sentences.json)", f"EXAMPLE SENTENCES ({cfg['sentences']})")
-    out = out.replace("One sentence per word, vocabulary limited to Starters + Movers.",
-                      f"One sentence per word, vocabulary limited to {cfg['sent_scope']}.")
-    out = swap(r'^const SENT_URL = "[^"\n]*";$', f'const SENT_URL = "{cfg["sentences"]}";', out, "SENT_URL")
-    out = swap(r'^const TF_CATS = \[[^\n]*\];$', f'const TF_CATS = {js_list(cfg["tf_cats"])};', out, "TF_CATS")
-    groups = ",\n".join("  " + js_list(g) for g in cfg["tf_confusable"])
-    out = swap(r'^const TF_CONFUSABLE = \[\n.*?\n\];$', f'const TF_CONFUSABLE = [\n{groups},\n];', out, "TF_CONFUSABLE")
+    # sentences + 對或錯 settings: a page that already has them keeps its own
+    # (sentence file, 對或錯 picture categories and look-alike groups); a page
+    # getting them for the first time takes them from LEVELS
+    hdr = r'^   EXAMPLE SENTENCES \([^\n]*\)\n   One sentence per word[^\n]*$'
+    tf = r'^const TF_CATS = \[[^\n]*\];\n(?://[^\n]*\n)*const TF_CONFUSABLE = \[\n.*?\n\];$'
+    if re.search(r'^const SENT_URL = ', old, re.M):
+        out = swap(hdr, grab(hdr, old, "sentence comment"), out, "sentence comment")
+        pat = r'^const SENT_URL = "[^"\n]*";$'
+        out = swap(pat, grab(pat, old, "SENT_URL"), out, "SENT_URL")
+        out = swap(tf, grab(tf, old, "對或錯 settings"), out, "對或錯 settings")
+    else:
+        out = out.replace("EXAMPLE SENTENCES (data/movers-sentences.json)", f"EXAMPLE SENTENCES ({cfg['sentences']})")
+        out = out.replace("One sentence per word, vocabulary limited to Starters + Movers.",
+                          f"One sentence per word, vocabulary limited to {cfg['sent_scope']}.")
+        out = swap(r'^const SENT_URL = "[^"\n]*";$', f'const SENT_URL = "{cfg["sentences"]}";', out, "SENT_URL")
+        out = swap(r'^const TF_CATS = \[[^\n]*\];$', f'const TF_CATS = {js_list(cfg["tf_cats"])};', out, "TF_CATS")
+        groups = ",\n".join("  " + js_list(g) for g in cfg["tf_confusable"])
+        out = swap(r'^const TF_CONFUSABLE = \[\n.*?\n\];$', f'const TF_CONFUSABLE = [\n{groups},\n];', out, "TF_CONFUSABLE")
 
     leftover = [l for l in out.splitlines() if re.search(r'movers', l, re.I)
                 and "RAW_WORDS" not in l and '["movers-vocab", "Movers"]' not in l and 'href="index.html"' not in l]

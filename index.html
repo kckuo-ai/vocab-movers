@@ -3292,6 +3292,8 @@ let sentAudioEl = null;
 function stopSentence() {
   tfCancelCountdown();
   if (sentAudioEl) { releaseAudio(sentAudioEl); sentAudioEl = null; }
+  // a sentence read by the device voice (no MP3 yet) stops too
+  try { if (window.speechSynthesis && (speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel(); } catch (e) {}
 }
 // kind "pic" plays the picture caption used in 對或錯; otherwise the example sentence
 // reuseEl: an <audio> element already unlocked inside an earlier tap (used after
@@ -3308,6 +3310,7 @@ function playSentence(id, slow, kind, reuseEl) {
   if (!reuseEl) tfCancelCountdown();
   if (sentAudioEl && sentAudioEl !== reuseEl) releaseAudio(sentAudioEl);
   sentAudioEl = null;
+  if (s.tts) { speakSentenceTts(text, slow); return; }
   const rate = slow ? 0.7 : 1;
   const src = `audio/${ACCENT === "uk" ? "uk" : "us"}/${useFalse ? s.pfaudio : usePic ? s.paudio : s.audio}.mp3`;
   const el = reuseEl || new Audio(src);
@@ -3318,13 +3321,7 @@ function playSentence(id, slow, kind, reuseEl) {
     if (fellBack || sentAudioEl !== el) return;
     fellBack = true;
     dbg(`例句音檔無法播放，改用系統語音`);
-    try {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = ACCENT === "uk" ? "en-GB" : "en-US";
-      u.rate = slow ? 0.6 : 0.9;
-      const v = getSelectedVoice(); if (v) u.voice = v;
-      speechSynthesis.speak(u);
-    } catch (e) {}
+    speakSentenceTts(text, slow);
   };
   el.addEventListener("error", fallback);
   try {
@@ -3332,6 +3329,17 @@ function playSentence(id, slow, kind, reuseEl) {
     const p = el.play();
     if (p && p.catch) p.catch((err) => { if (err && err.name !== "AbortError") fallback(); });
   } catch (e) { fallback(); }
+}
+// device voice for a sentence (no MP3 yet, or the MP3 failed)
+function speakSentenceTts(text, slow) {
+  try {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = ACCENT === "uk" ? "en-GB" : "en-US";
+    u.rate = slow ? 0.6 : 0.9;
+    const v = getSelectedVoice(); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
 }
 function sentBtnsHtml(id, size, tone, bg, kind) {
   const k = kind ? `, '${kind}'` : "";

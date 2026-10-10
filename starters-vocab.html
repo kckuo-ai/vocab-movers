@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="img/app-icon-180.png" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="theme-color" content="#FF5E7E" />
 <title>Starters 單字護照</title>
@@ -236,6 +238,9 @@ button.stkCell{padding:3px;}
 .seg button{flex:1;padding:11px 0;border-radius:9px;font-weight:800;font-size:14.5px;color:#5B6779;}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(35,48,71,.12);}
 .segNote{font-size:12px;color:var(--sub);margin:7px 2px 0;line-height:1.5;}
+.offBtn{display:block;width:100%;min-height:48px;margin-top:8px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;font-size:15px;}
+.offBtn.ghost{background:#EEF1F7;color:var(--ink);}
+.offLink{display:block;margin:8px 2px 0;font-size:12.5px;font-weight:700;color:#B3223F;min-height:32px;}
 .appLink{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;margin-bottom:8px;}
 .appLink span{color:var(--sub);}
 .sheetLabel{font-size:13px;font-weight:800;color:var(--sub);margin:18px 2px 8px;}
@@ -2355,7 +2360,153 @@ function backupHtml() {
   </div>`;
 }
 function toggleSettings() { STATE.showSettings = !STATE.showSettings; STATE.backup = null; render(); }
-function setAccent(a) { if (ACCENT !== a) toggleAccent(); }
+function setAccent(a) { if (ACCENT !== a) { OFFLINE.have = null; toggleAccent(); } }
+/* ============================================================
+   OFFLINE USE (PWA) — 設定 → 離線使用
+   The page builds the list of files it needs (this page, its sentence
+   data, every picture, and the word + sentence sounds for the chosen accent)
+   and stores them with the Cache API; sw.js then answers from that cache when
+   there is no network. Nothing is stored until the button is pressed.
+   ============================================================ */
+const OFFLINE_CACHE = "yle-offline-v1"; // must match sw.js
+const OFFLINE_OK = "serviceWorker" in navigator && "caches" in window && (location.protocol === "https:" || location.hostname === "localhost");
+let OFFLINE = { phase: "idle", have: null, total: null, done: 0, failed: 0, bytes: 0, accent: null, usage: null };
+if (OFFLINE_OK) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch((e) => dbg(`離線功能註冊失敗: ${e && e.message}`)); });
+}
+function offlineWordAudio(acc) {
+  const set = new Set();
+  const add = (text) => {
+    const multi = spokenForms(text).length > 1;
+    const base = multi ? spokenText(text) : canonicalWord(text);
+    set.add(`audio/${acc}/${generatedSlug(base)}.mp3`);
+  };
+  WORDS.forEach((w) => { add(w.en); expandForTest([w]).forEach((x) => add(x.en)); });
+  TREASURES.forEach((e) => add(stickerInfo(e).en));
+  return set;
+}
+function offlineFiles(acc) {
+  const page = location.pathname.split("/").pop() || "index.html";
+  const files = new Set([page, "manifest.webmanifest", "img/app-icon-180.png", "img/app-icon-512.png", SENT_URL]);
+  Object.values(IMG).forEach((k) => files.add(`img/${k}.svg`));
+  TREASURES.forEach((e) => files.add(stickerInfo(e).img));
+  offlineWordAudio(acc).forEach((f) => files.add(f));
+  Object.values(SENT).forEach((x) => ["audio", "paudio", "pfaudio"].forEach((k) => { if (x[k]) files.add(`audio/${acc}/${x[k]}.mp3`); }));
+  return Array.from(files);
+}
+function offlineAbs(f) { return new URL(f, location.href).href; }
+// files the site does not have (a word with no pre-made sound uses the device voice);
+// remembered so they don't keep the status at "not complete"
+const OFFLINE_MISSING_KEY = "yle-offline-missing-v1";
+function offlineMissing() { try { return new Set(JSON.parse(localStorage.getItem(OFFLINE_MISSING_KEY) || "[]")); } catch (e) { return new Set(); } }
+function offlineSaveMissing(set) { try { localStorage.setItem(OFFLINE_MISSING_KEY, JSON.stringify(Array.from(set))); } catch (e) {} }
+async function offlineCheck() {
+  if (!OFFLINE_OK || SENT_STATE === "loading") return;
+  try {
+    const acc = ACCENT === "uk" ? "uk" : "us";
+    const cache = await caches.open(OFFLINE_CACHE);
+    const keys = new Set((await cache.keys()).map((r) => r.url));
+    const missing = offlineMissing();
+    const list = offlineFiles(acc).filter((f) => !missing.has(f));
+    OFFLINE.total = list.length;
+    OFFLINE.have = list.filter((f) => keys.has(offlineAbs(f))).length;
+    OFFLINE.accent = acc;
+    if (navigator.storage && navigator.storage.estimate) {
+      const est = await navigator.storage.estimate();
+      OFFLINE.usage = est.usage || null;
+    }
+  } catch (e) { dbg(`離線狀態讀取失敗: ${e && e.message}`); }
+  offlineRefreshUi();
+}
+async function offlineDownload(refreshAll) {
+  if (!OFFLINE_OK || OFFLINE.phase === "running") return;
+  if (SENT_STATE === "loading") { showToast("資料還在載入，請稍候再按"); return; }
+  const acc = ACCENT === "uk" ? "uk" : "us";
+  OFFLINE = { ...OFFLINE, phase: "running", done: 0, failed: 0, bytes: 0, accent: acc };
+  offlineRefreshUi();
+  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
+  try {
+    const cache = await caches.open(OFFLINE_CACHE);
+    const keys = new Set((await cache.keys()).map((r) => r.url));
+    const missing = offlineMissing();
+    const todo = offlineFiles(acc).filter((f) => (refreshAll || !keys.has(offlineAbs(f))) && !missing.has(f));
+    OFFLINE.total = todo.length;
+    let next = 0;
+    const worker = async () => {
+      while (next < todo.length && OFFLINE.phase === "running") {
+        const f = todo[next++];
+        try {
+          const res = await fetch(f, { cache: "no-cache" });
+          if (res.ok && res.status === 200) {
+            const len = Number(res.headers.get("content-length")) || 0;
+            await cache.put(offlineAbs(f), res);
+            OFFLINE.bytes += len;
+          } else if (res.status === 404) {
+            missing.add(f); // a word without a pre-made sound simply uses the device voice
+          } else {
+            OFFLINE.failed++;
+          }
+        } catch (e) { OFFLINE.failed++; }
+        OFFLINE.done++;
+        if (OFFLINE.done % 20 === 0) offlineRefreshUi();
+      }
+    };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+    offlineSaveMissing(missing);
+    const stopped = OFFLINE.phase !== "running";
+    OFFLINE.phase = stopped ? "idle" : OFFLINE.failed ? "partial" : "done";
+    if (!stopped) showToast(OFFLINE.failed ? `下載完成，但有 ${OFFLINE.failed} 個檔案失敗，可以再按一次補下載` : "✅ 已可離線使用！");
+  } catch (e) {
+    OFFLINE.phase = "error";
+    dbg(`離線下載失敗: ${e && e.message}`);
+    showToast(/quota/i.test(String(e && e.name)) ? "手機空間不足，無法下載" : "下載失敗，請確認網路後再試一次");
+  }
+  await offlineCheck();
+}
+function offlineStop() { if (OFFLINE.phase === "running") OFFLINE.phase = "idle"; }
+async function offlineClear() {
+  if (!confirm("確定要刪除這台裝置上所有等級的離線資料嗎？（練習進度不會被刪除）")) return;
+  try { await caches.delete(OFFLINE_CACHE); } catch (e) {}
+  OFFLINE = { ...OFFLINE, phase: "idle", have: 0 };
+  showToast("已刪除離線資料");
+  offlineCheck();
+}
+function fmtMB(b) { return b ? `${(b / 1048576).toFixed(b > 10485760 ? 0 : 1)} MB` : ""; }
+function offlineRefreshUi() {
+  const el = document.getElementById("offlineBox");
+  if (el) el.innerHTML = offlineInnerHtml();
+}
+function offlineInnerHtml() {
+  const o = OFFLINE;
+  const accName = (o.accent || ACCENT) === "uk" ? "英式" : "美式";
+  const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches);
+  let status, btn = "";
+  if (o.phase === "running") {
+    const pct = o.total ? Math.round((o.done / o.total) * 100) : 0;
+    status = `下載中…${o.done} / ${o.total}（${pct}%）${o.bytes ? " · " + fmtMB(o.bytes) : ""}`;
+    btn = `<div class="barTrack" style="margin:8px 0 10px;"><div class="barFill" style="width:${pct}%;background:var(--accent);"></div></div>
+      <button class="offBtn ghost" onclick="offlineStop()">暫停</button>`;
+  } else if (o.have === null) {
+    status = "檢查中…";
+  } else if (o.have >= o.total) {
+    status = `✅ 已下載，可以離線使用（${accName}發音，${o.total} 個檔案）`;
+    btn = `<button class="offBtn ghost" onclick="offlineDownload(true)">🔄 重新下載（更新內容）</button>`;
+  } else {
+    status = o.have ? `已下載 ${o.have} / ${o.total} 個檔案（${accName}發音）` : `尚未下載（${accName}發音，${o.total} 個檔案）`;
+    btn = `<button class="offBtn" onclick="offlineDownload()">⬇️ ${o.have ? "繼續下載" : "下載這個等級，離線使用"}</button>`;
+  }
+  return `<div class="segNote" style="margin-top:0;font-size:13px;color:var(--ink);font-weight:700;">${status}</div>
+    ${btn}
+    <div class="segNote">只下載目前選的口音；切換口音後要再下載一次。建議在 Wi-Fi 下載。${o.usage > 1048576 ? `這個網站目前在手機上用了 ${fmtMB(o.usage)}。` : ""}</div>
+    ${standalone ? "" : `<div class="segNote">📱 iPhone：在 Safari 按「分享」→「加入主畫面」，之後從主畫面的圖示開啟。主畫面 App 的進度和 Safari 分開，請先用下方「備份進度」匯出，再到主畫面 App 匯入。主畫面 App 要再按一次下載。</div>`}
+    ${o.have ? `<button class="offLink" onclick="offlineClear()">刪除離線資料</button>` : ""}`;
+}
+function offlineHtml() {
+  if (!OFFLINE_OK) return `<div class="sheetLabel">離線使用</div><div class="segNote">這個瀏覽器不支援離線使用。</div>`;
+  if (OFFLINE.have === null && OFFLINE.phase !== "running") setTimeout(offlineCheck, 0);
+  return `<div class="sheetLabel">離線使用（沒有網路也能練習）</div><div id="offlineBox">${offlineInnerHtml()}</div>`;
+}
+
 function settingsSheetHtml() {
   if (!STATE.showSettings) return "";
   return `<div class="sheetBg" onclick="toggleSettings()"><div class="sheet" onclick="event.stopPropagation()">
@@ -2391,6 +2542,7 @@ function settingsSheetHtml() {
     <a class="appLink" href="ket-vocab.html">🎒 KET · A2 Key <span>›</span></a>
     <a class="appLink" href="pet-vocab.html">🎓 PET · B1 Preliminary <span>›</span></a>
     <a class="appLink" href="phonics.html">🔤 自然發音 <span>›</span></a>
+    ${offlineHtml()}
     <div class="sheetLabel">備份進度</div>
     ${backupHtml()}
     <div style="margin-top:14px;">${creditsHtml()}</div>
@@ -2637,7 +2789,7 @@ if (STATE.study.queue.length === 0) STATE.study.queue = buildStudyQueue(STATE.st
 
 /* ---------- pictures (Google Noto Emoji, Apache-2.0, stored in img/) ---------- */
 const IMG = {"Ann / Anna": "c_girl_2", "Pat": "c_boy_girl", "Sam": "c_boy_girl", "English": "e_1f520", "T-shirt": "e_1f455", "add": "e_2795", "afternoon": "e_1f307", "alien": "e_1f47d", "alphabet": "e_1f524", "angry": "e_1f620", "animal": "e_1f43e", "answer": "c_answer", "apartment (flat)": "e_1f3e2", "apple": "e_1f34e", "arm": "c_arm", "armchair": "c_armchair", "ask": "e_1f64b", "baby": "e_1f476", "badminton": "e_1f3f8", "bag": "e_1f45c", "ball": "c_ball", "balloon": "e_1f388", "banana": "e_1f34c", "baseball": "e_26be", "baseball cap": "e_1f9e2", "basketball": "e_1f3c0", "bat (sports equipment)": "c_bat", "bath": "e_1f6c1", "bathroom": "c_bathroom", "beach": "e_1f3d6", "bean": "e_1fad8", "bear": "e_1f43b", "beautiful": "e_1f33a", "bed": "e_1f6cf", "bedroom": "c_bedroom", "bee": "e_1f41d", "behind": "c_behind", "between": "c_between", "big": "c_big", "bike": "e_1f6b2", "bird": "e_1f426", "birthday": "e_1f382", "black": "e_26ab", "blue": "e_1f535", "board": "c_board", "board game": "c_board_game", "boat": "e_1f6a4", "body": "c_body", "book": "e_1f4d5", "bookcase": "c_bookcase", "bookshop": "c_bookshop", "boots": "e_1f462", "bounce": "c_bounce", "box": "e_1f4e6", "boy": "e_1f466", "bread": "e_1f35e", "breakfast": "e_1f373", "brother": "c_brother", "brown": "e_1f7e4", "burger": "e_1f354", "bus": "e_1f68c", "cake": "e_1f370", "camera": "e_1f4f7", "candy (sweets)": "e_1f36c", "car": "e_1f697", "cat": "e_1f408", "catch (a ball)": "e_1f93e", "chair": "e_1fa91", "chicken": "e_1f414", "child / children": "e_1f9d2", "chips (fries)": "e_1f35f", "chocolate": "e_1f36b", "clap": "e_1f44f", "class": "c_class", "classmate": "c_classmate", "classroom": "c_classroom", "clean": "e_1f9fc", "clean|adj": "c_clean_adj", "clock": "e_1f570", "close": "c_close", "closed": "c_closed", "clothes": "c_clothes", "coconut": "e_1f965", "cold": "e_1f976", "colour": "c_colour", "computer": "c_computer", "cool": "e_1f60e", "correct": "e_2705", "cough": "e_1f637", "count": "e_1f9ee", "cousin": "e_1f9d2", "cow": "e_1f404", "crayon": "e_1f58d", "crocodile": "e_1f40a", "cross": "e_274c", "cry": "e_1f62d", "dad": "c_dad", "day": "e_1f31e", "dentist": "c_dentist", "desk": "c_desk", "dining room": "c_dining_room", "dinner": "c_dinner", "dirty": "c_dirty", "doctor": "e_1f9d1_200d_2695", "dog": "e_1f415", "doll": "e_1fa86", "donkey": "c_donkey", "door": "e_1f6aa", "draw": "c_draw", "drawing": "c_drawing", "dress": "e_1f457", "drink": "e_1f964", "drive": "e_1f697", "duck": "e_1f986", "ear": "e_1f442", "earache": "c_earache", "eat": "e_1f374", "egg": "e_1f95a", "elephant": "e_1f418", "enjoy": "e_1f604", "eraser (rubber)": "c_eraser__rubber", "evening": "e_1f306", "eye": "e_1f441", "face": "e_1f642", "fall": "c_fall", "family": "e_1f46a", "fantastic": "e_1f38a", "father": "c_dad", "favourite": "e_1f49d", "find": "e_1f50d", "fine": "e_1f44c", "fish": "e_1f41f", "fishing": "e_1f3a3", "floor": "c_floor", "flower": "e_1f338", "fly": "c_fly", "food": "c_food", "foot / feet": "e_1f9b6", "football (soccer)": "e_26bd", "friend": "e_1f9d1_200d_1f91d_200d_1f9d1", "frog": "e_1f438", "fruit": "c_fruit", "fun": "e_1f389", "funny": "e_1f923", "game": "e_1f3ae", "garden": "e_1f337", "giraffe": "e_1f992", "girl": "e_1f467", "give": "e_1f381", "glasses": "e_1f453", "go": "c_go", "go to bed": "e_1f6cc", "go to sleep": "e_1f634", "goat": "e_1f410", "good": "e_1f44d", "grandfather": "e_1f474", "grandma": "e_1f475", "grandmother": "e_1f475", "grandpa": "e_1f474", "grape": "e_1f347", "gray / grey": "c_grey", "great": "e_1f64c", "green": "e_1f7e2", "guitar": "e_1f3b8", "hair": "e_1f487", "hand": "e_270b", "handbag": "e_1f45b", "happy": "e_1f600", "hat": "e_1f452", "head": "c_head", "headache": "e_1f915", "helicopter": "e_1f681", "hippo": "e_1f99b", "hit": "e_1f94a", "hobby": "c_hobby", "hockey": "e_1f3d1", "hold": "e_1f932", "home": "e_1f3e0", "horse": "e_1f40e", "hospital": "e_1f3e5", "house": "e_1f3e1", "ice cream": "e_1f366", "ill": "e_1f912", "in": "c_in", "in front of": "c_in_front_of", "jacket": "e_1f9e5", "jeans": "e_1f456", "jellyfish": "e_1fabc", "juice": "e_1f9c3", "jump": "e_1f998", "keyboard (computer)": "e_2328", "kick": "c_kick", "kid": "e_1f9d2", "kitchen": "c_kitchen", "kite": "e_1fa81", "kiwi": "e_1f95d", "lamp": "c_lamp", "learn": "e_1f9e0", "leg": "e_1f9b5", "lemon": "e_1f34b", "lemonade": "c_lemonade", "lesson": "e_1f4da", "letter (alphabet)": "e_1f170", "like": "e_1f44d", "lime": "e_1f34b_200d_1f7e9", "listen": "e_1f3a7", "live": "e_1f3e0", "living room": "c_living_room", "lizard": "e_1f98e", "long": "c_long", "look": "e_1f440", "lorry (truck)": "e_1f69a", "love": "e_2764", "lunch": "e_1f371", "make": "e_1f6e0", "man / men": "e_1f468", "mango": "e_1f96d", "meat": "e_1f356", "meatballs": "e_1f35d", "milk": "e_1f95b", "mirror": "e_1fa9e", "monkey": "e_1f412", "monster": "e_1f47e", "morning": "e_1f305", "mother": "c_mother", "motorbike": "e_1f3cd", "mouse (computer)": "e_1f5b1", "mouse / mice": "e_1f42d", "mouth": "e_1f444", "mum": "c_mother", "music": "e_1f3b5", "new": "e_1f195", "next to": "c_next_to", "nice": "e_1f607", "night": "e_1f303", "nose": "e_1f443", "number": "e_1f522", "nurse": "e_1f469_200d_2695", "old": "e_1f3da", "on": "c_on", "onion": "e_1f9c5", "open": "e_1f513", "orange": "e_1f34a", "page": "e_1f4c4", "paint": "e_1f58c", "painting": "e_1f5bc", "paper": "c_paper", "park": "c_park", "pea": "e_1fadb", "pear": "e_1f350", "pen": "e_1f58a", "pencil": "e_270f", "person / people": "e_1f9d1", "pet": "e_1f439", "phone": "e_1f4f1", "photo": "c_photo", "piano": "e_1f3b9", "picture": "e_1f5bc", "pie": "e_1f967", "pineapple": "e_1f34d", "pink": "c_pink", "plane": "e_2708", "play": "c_play", "playground": "e_1f6dd", "point": "e_1f449", "polar bear": "e_1f43b_200d_2744", "poster": "c_poster", "potato": "e_1f954", "purple": "e_1f7e3", "question": "e_2753", "radio": "e_1f4fb", "read": "e_1f4d6", "red": "e_1f534", "rice": "e_1f35a", "ride": "e_1f3c7", "right (correct)": "e_2705", "robot": "e_1f916", "ruler": "e_1f4cf", "run": "e_1f3c3", "sad": "e_1f622", "sand": "c_sand", "sausage": "e_1f32d", "scary": "e_1f47b", "school": "e_1f3eb", "sea": "e_1f30a", "see": "e_1f52d", "sheep": "e_1f411", "shell": "e_1f41a", "ship": "e_1f6a2", "shirt": "e_1f454", "shoe": "e_1f45e", "shop (store)": "e_1f3ea", "short": "c_short", "shorts": "e_1fa73", "sick": "e_1f922", "silly": "e_1f92a", "sing": "e_1f3a4", "sister": "c_sister", "sit": "c_sit", "skateboard": "e_1f6f9", "skateboarding": "e_1f6f9", "skirt": "c_skirt", "sleep": "e_1f634", "small": "c_small", "smile": "e_1f60a", "snake": "e_1f40d", "sock": "e_1f9e6", "sofa": "e_1f6cb", "song": "e_1f3b6", "spell": "c_spell", "spider": "e_1f577", "sport": "e_1f3c5", "stand": "c_stand", "start": "e_25b6", "stomach-ache": "c_stomach_ache", "stop": "e_1f6d1", "story": "c_story", "street": "c_street", "sun": "e_2600", "swim": "e_1f3ca", "table": "c_table", "table tennis": "e_1f3d3", "tail": "c_tail", "take a photo / picture": "e_1f4f8", "talk": "c_talk", "teacher": "e_1f9d1_200d_1f3eb", "teddy (bear)": "e_1f9f8", "television / TV": "e_1f4fa", "tell": "e_1f5e3", "temperature": "e_1f321", "tennis": "e_1f3be", "tennis racket": "c_tennis_racket", "throw": "c_throw", "tick": "e_2714", "tiger": "e_1f42f", "tired": "e_1f62b", "today": "c_today", "tomato": "e_1f345", "toothache": "c_toothache", "toy": "c_toy", "train": "e_1f686", "tree": "e_1f333", "trousers": "c_trousers", "ugly": "e_1f479", "under": "c_under", "walk": "e_1f6b6", "wall": "e_1f9f1", "watch": "e_231a", "water": "e_1f4a7", "watermelon": "e_1f349", "wave": "e_1f44b", "wear": "e_1f45a", "white": "e_26aa", "window": "e_1fa9f", "woman / women": "e_1f469", "word": "c_word", "write": "e_270d", "year": "e_1f4c6", "yellow": "e_1f7e1", "yes": "e_2705", "young": "e_1f423", "zebra": "e_1f993", "zoo": "e_1f981", "Alex": "c_boy_1", "Alice": "c_girl_1", "Ben": "c_boy_2", "Bill": "c_boy_3", "Dan": "c_boy_4", "Eva": "c_girl_2", "Grace": "c_girl_3", "Hugo": "c_boy_1", "Jill": "c_girl_4", "Kim": "c_girl_1", "Lucy": "c_girl_2", "Mark": "c_boy_2", "Matt": "c_boy_3", "May": "c_girl_3", "Nick": "c_boy_4", "Sue": "c_girl_4", "Tom": "c_boy_1", "clean|v": "e_1f9fd", "cupboard": "c_cupboard", "complete": "c_complete", "colour|v": "c_colour_v", "orange|adj": "e_1f7e0"};
-// A "word|pos" key (e.g. "clean|adj") gives one part of speech its own picture.
+// A "word|pos" key (e.g. "water|v") gives one part of speech its own picture.
 function wordImgUrl(en, pos) { const k = (pos && IMG[en + "|" + pos]) || IMG[en]; return k ? `img/${k}.svg` : null; }
 function wordImgHtml(en, px, style, pos) {
   const u = wordImgUrl(en, pos);

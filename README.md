@@ -39,8 +39,9 @@ KET、PET 單字取自 Cambridge English 官方《A2 Key and A2 Key for Schools 
 
 ## 離線使用（PWA）
 
-Movers、Flyers 頁面可以在「設定 → 離線使用」下載目前等級的所有檔案（網頁、例句資料、圖片、目前口音的單字與例句發音），之後沒有網路也能練習；在 iPhone Safari 按「分享 → 加入主畫面」即可像 App 一樣從主畫面開啟（主畫面 App 的進度與 Safari 分開，請用「備份進度」搬移）。
+Starters、Movers、Flyers 頁面可以在「設定 → 離線使用」下載目前等級的所有檔案（網頁、例句資料、圖片、目前口音的單字與例句發音），之後沒有網路也能練習；在 iPhone Safari 按「分享 → 加入主畫面」即可像 App 一樣從主畫面開啟（主畫面 App 的進度與 Safari 分開，請用「備份進度」搬移）。
 
 - `sw.js`：Service Worker，只回應已下載的檔案，其他請求照常走網路，所以尚未支援離線的頁面不受影響。網頁與資料檔連網時一律取最新版；圖片與聲音先用已下載的版本，連網時在背景更新。iPhone 播放音檔時用的分段請求（Range）會回傳正確的 206 回應。
 - `manifest.webmanifest`、`img/app-icon-180.png`、`img/app-icon-512.png`：主畫面圖示與全螢幕設定。
-- 下載清單由頁面依自己的單字、圖片與例句資料自動產生，新增等級（例如 Starters 用 `tools/levels/port_level.py` 產生）後不需要另外設定。
+- 下載清單由頁面依自己的單字、圖片與例句資料自動產生，不需要另外設定。
+- Starters、Flyers 頁面都由 Movers 頁面（`index.html`）以 `python3 tools/levels/port_level.py starters`／`flyers` 產生；已經有例句的頁面會保留自己的例句檔與「對或錯」設定。改了 Movers 頁面後，重新執行這兩個指令即可同步。
