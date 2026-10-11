@@ -32,7 +32,7 @@ input{font-family:inherit;}
   box-shadow:0 8px 24px rgba(67,97,238,.25);
   position:relative;
 }
-.appSwitchGroup{position:absolute;top:16px;right:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.appSwitchGroup{position:absolute;top:calc(16px + env(safe-area-inset-top));right:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
 .appSwitch{background:rgba(255,255,255,.22);color:#fff;text-decoration:none;font-size:10.5px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap;}
 .htag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;background:rgba(255,255,255,.22);padding:4px 10px;border-radius:999px;margin-bottom:8px;}
 .htitle{font-weight:800;font-size:24px;letter-spacing:.3px;}
@@ -217,9 +217,9 @@ button.stkCell{padding:3px;}
 :root{--sub:#66748A;}
 .header::before,.header::after{display:none;}
 .owl{animation:none;}
-.header{padding:18px 20px 20px;}
+.header{padding:calc(18px + env(safe-area-inset-top)) 20px 20px;}
 .hsub{font-size:13.5px;}
-.gearBtn{position:absolute;top:16px;right:16px;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;}
+.gearBtn{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:2;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;}
 .htagRow{max-width:calc(100% - 52px);}
 .heroCard{background:#fff;border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 18px rgba(35,48,71,.06);margin-bottom:14px;}
 .miniRing{position:relative;width:78px;height:78px;flex-shrink:0;}
