@@ -1,0 +1,26 @@
+# Safety net: if a push changed pictures, sounds, data or pages without refreshing
+# offline-manifest*.json, rebuild them and commit, so offline updates stay incremental.
+name: offline manifest
+on:
+  push:
+    branches: [main]
+    paths: ["img/**", "audio/**", "data/**", "*.html", "manifest.webmanifest", "tools/offline/**"]
+permissions:
+  contents: write
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Rebuild if out of date
+        run: |
+          if ! python3 tools/offline/build_manifest.py --check; then
+            python3 tools/offline/build_manifest.py
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add offline-manifest*.json
+            git commit -m "Update offline manifest"
+            git push
+          fi

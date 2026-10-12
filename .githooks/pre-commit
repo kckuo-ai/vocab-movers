@@ -1,0 +1,8 @@
+#!/bin/sh
+# Refresh the offline fingerprints whenever pictures, sounds, data or pages change,
+# so 設定 → 離線使用 → 更新 only downloads the files that really changed.
+# Enable once per clone:  git config core.hooksPath .githooks
+if git diff --cached --name-only | grep -qE '^(img/|audio/|data/|[^/]+\.html$|manifest\.webmanifest$)'; then
+  python3 tools/offline/build_manifest.py >/dev/null || exit 1
+  git add offline-manifest.json offline-manifest-uk.json offline-manifest-us.json
+fi
