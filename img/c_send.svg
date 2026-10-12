@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+<defs><clipPath id="c"><rect x="4" y="4" width="120" height="120" rx="14"/></clipPath></defs>
+<g clip-path="url(#c)">
+<rect x="4" y="4" width="120" height="120" fill="#E3F2FD"/>
+<!-- dotted flight path from the sender -->
+<path d="M10,104 Q30,96 40,84" fill="none" stroke="#90CAF9" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round"/>
+<!-- speed lines -->
+<path d="M14,58 H34 M8,72 H30 M18,86 H36" stroke="#64B5F6" stroke-width="4" stroke-linecap="round"/>
+<!-- envelope flying up to the right -->
+<g transform="translate(-4,8) rotate(-14 76 66)">
+<rect x="40" y="42" width="74" height="50" rx="6" fill="#FFFFFF" stroke="#2A2230" stroke-width="3" stroke-linejoin="round"/>
+<path d="M42,46 L77,72 L112,46" fill="#E3F2FD" stroke="#2A2230" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M42,90 L68,66 M112,90 L86,66" stroke="#2A2230" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M77,68 C73,62 66,66 71,71 L77,76 L83,71 C88,66 81,62 77,68 Z" fill="#EF5350" stroke="#2A2230" stroke-width="1.8" stroke-linejoin="round"/>
+</g>
+<!-- arrow showing it is going away -->
+<path d="M92,26 L114,18 L108,40" fill="none" stroke="#1E88E5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M114,18 L96,34" stroke="#1E88E5" stroke-width="5" stroke-linecap="round"/>
+</g>
+</svg>
