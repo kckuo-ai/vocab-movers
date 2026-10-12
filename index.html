@@ -140,8 +140,14 @@ input{font-family:inherit;}
 .seriesWrap{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .seriesRow{background:#fff;border-radius:14px;padding:10px 10px 8px;border:1.5px solid transparent;}
 .seriesRow.active{border-color:#FFB703;}
-.seriesHead{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13.5px;margin-bottom:6px;}
-.seriesHead span:last-child{color:var(--sub);font-size:12.5px;}
+.seriesHead{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;min-height:44px;margin:-8px 0 -4px;padding:0 2px;font-weight:800;font-size:13.5px;color:var(--ink);text-align:left;}
+.seriesRow.open .seriesHead{margin-bottom:6px;}
+.seriesRow:not(.open){padding-bottom:4px;}
+.seriesCnt{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;color:var(--sub);font-size:12.5px;}
+.seriesChev{display:inline-block;transition:transform .2s ease;font-size:12px;}
+.seriesRow.open .seriesChev{transform:rotate(180deg);}
+.stkTitleRow{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.stkFoldAll{flex-shrink:0;font-size:13px;font-weight:800;color:var(--accent);min-height:44px;padding:0 4px;margin:6px 0 0;}
 .nowTag{margin-left:6px;font-size:11px;background:#FFF4DA;color:#B7791F;padding:2px 7px;border-radius:999px;}
 .medal{margin-right:6px;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#E9F7EF;font-size:13px;}
 .medal.gold{background:linear-gradient(135deg,#FFE27A,#F4B400);box-shadow:0 0 0 1.5px #E0A100;}
@@ -2531,6 +2537,23 @@ function heroCardHtml(stats, unit) {
     </div>
   </div>`;
 }
+/* ---------- sticker shelf: each series folds open / closed ----------
+   By default only the series the chest is filling is open; a tap on a
+   series header opens / closes it. Kept for this visit only (not saved). */
+function seriesOpen(se, act) {
+  const v = STATE.stkOpen && STATE.stkOpen[se.key];
+  return v === undefined ? !!(act && act.se.key === se.key) : v;
+}
+function toggleSeries(key) {
+  const act = activeSeries(treasureOwned());
+  const se = TREASURE_SERIES.find((x) => x.key === key);
+  STATE.stkOpen = { ...(STATE.stkOpen || {}), [key]: !seriesOpen(se, act) };
+  render();
+}
+function setAllSeries(open) {
+  STATE.stkOpen = Object.fromEntries(TREASURE_SERIES.map((se) => [se.key, !!open]));
+  render();
+}
 function treasureShelfHtml() {
   const owned = treasureOwned();
   const act = activeSeries(owned);
@@ -2543,17 +2566,19 @@ function treasureShelfHtml() {
     const done = n === se.items.length, sdone = sn === se.items.length;
     const isAct = act && act.se.key === se.key;
     const medal = sdone ? `<span class="medal gold">${stickerHtml(se.medal, false, 18)}</span>` : done ? `<span class="medal">${stickerHtml(se.medal, false, 18)}</span>` : "";
-    return `<div class="seriesRow${isAct ? " active" : ""}">
-      <div class="seriesHead"><span>${medal}${se.name}${isAct ? `<span class="nowTag">${act.shiny ? "✨閃亮收集中" : "收集中"}</span>` : ""}</span>
-        <span>${shinyStarted ? `✨ ${sn}/8` : `${n}/8`}</span></div>
-      <div class="stkGrid">${se.items.map((e) => {
+    const open = seriesOpen(se, act);
+    return `<div class="seriesRow${isAct ? " active" : ""}${open ? " open" : ""}">
+      <button class="seriesHead" onclick="toggleSeries('${se.key}')" aria-expanded="${open}"><span>${medal}${se.name}${isAct ? `<span class="nowTag">${act.shiny ? "✨閃亮收集中" : "收集中"}</span>` : ""}</span>
+        <span class="seriesCnt">${shinyStarted ? `✨ ${sn}/8` : `${n}/8`}<span class="seriesChev">▼</span></span></button>
+      ${open ? `<div class="stkGrid">${se.items.map((e) => {
         const has = owned.has(e), hasS = owned.has(e + "*");
         return has ? `<button class="stkCell${hasS ? " shinyCell" : ""}" onclick="openSticker('${e}', ${hasS})">${stickerHtml(e, hasS, 64)}</button>`
           : `<div class="stkCell empty">${stickerHtml(e, false, 64)}</div>`;
-      }).join("")}</div>
+      }).join("")}</div>` : ""}
     </div>`;
   }).join("");
-  return `<div class="sectionTitle">寶箱貼紙（${normalN} / ${total}${shinyStarted ? `　✨閃亮 ${shinyN} / ${total}` : ""}）</div>
+  const allOpen = TREASURE_SERIES.every((se) => seriesOpen(se, act));
+  return `<div class="stkTitleRow"><div class="sectionTitle">寶箱貼紙（${normalN} / ${total}${shinyStarted ? `　✨閃亮 ${shinyN} / ${total}` : ""}）</div><button class="stkFoldAll" onclick="setAllSeries(${!allOpen})">${allOpen ? "全部收合 ▲" : "全部展開 ▼"}</button></div>
     ${normalN === 0 ? `<div style="font-size:13px;color:var(--sub);margin:-4px 0 10px;">每天完成三個任務就能開一個寶箱，8 張集滿一套得到獎章！</div>` : ""}
     <div class="seriesWrap">${rows}</div>`;
 }
