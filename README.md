@@ -42,6 +42,7 @@ KET、PET 單字取自 Cambridge English 官方《A2 Key and A2 Key for Schools 
 Starters、Movers、Flyers 頁面可以在「設定 → 離線使用」下載目前等級的所有檔案（網頁、例句資料、圖片、目前口音的單字與例句發音），之後沒有網路也能練習；在 iPhone Safari 按「分享 → 加入主畫面」即可像 App 一樣從主畫面開啟（主畫面 App 的進度與 Safari 分開，請用「備份進度」搬移）。
 
 - `sw.js`：Service Worker，只回應已下載的檔案，其他請求照常走網路，所以尚未支援離線的頁面不受影響。網頁與資料檔連網時一律取最新版；圖片與聲音先用已下載的版本，連網時在背景更新。iPhone 播放音檔時用的分段請求（Range）會回傳正確的 206 回應。
+- 增量更新：`offline-manifest.json`（網頁、資料、圖片）與 `offline-manifest-uk.json`、`offline-manifest-us.json`（各口音發音）記錄每個檔案的指紋與大小，由 `tools/offline/build_manifest.py` 產生。頁面記住每個已下載檔案的指紋，「更新」只下載新增或內容改過的檔案，網站已刪除的檔案也會從手機移除；連網開啟已下載離線資料的頁面時會自動檢查並提示。**修改任何圖片、音檔、例句資料或網頁後，請執行 `python3 tools/offline/build_manifest.py` 再 commit**（`--check` 可檢查是否過期）。
 - `manifest.webmanifest`、`img/app-icon-180.png`、`img/app-icon-512.png`：主畫面圖示與全螢幕設定。
 - 下載清單由頁面依自己的單字、圖片與例句資料自動產生，不需要另外設定。
 - Starters、Flyers 頁面都由 Movers 頁面（`index.html`）以 `python3 tools/levels/port_level.py starters`／`flyers` 產生；已經有例句的頁面會保留自己的例句檔與「對或錯」設定。改了 Movers 頁面後，重新執行這兩個指令即可同步。

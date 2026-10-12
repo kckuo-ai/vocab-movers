@@ -12,6 +12,8 @@
      the background when online so updated files arrive on a later play
    - iPhone Safari asks for audio in byte ranges; cached audio is answered with
      a proper 206 partial response, otherwise it would not play offline
+   - requests with "?fresh=" come from the page's 離線使用 update and always go to
+     the network (the page stores the new copy itself)
 */
 const CACHE = "yle-offline-v1";
 
@@ -78,6 +80,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
   const path = url.pathname;
+  if (url.searchParams.has("fresh")) return; // update download: plain network
   const isDoc = req.mode === "navigate" || /\.(html|json|webmanifest)$/.test(path) || path.endsWith("/");
 
   if (isDoc) {

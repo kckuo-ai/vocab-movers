@@ -2208,12 +2208,19 @@ function setAccent(a) { if (ACCENT !== a) { OFFLINE.have = null; toggleAccent();
    data, every picture, and the word + sentence sounds for the chosen accent)
    and stores them with the Cache API; sw.js then answers from that cache when
    there is no network. Nothing is stored until the button is pressed.
+   Updates are incremental: offline-manifest*.json (tools/offline/build_manifest.py)
+   holds a fingerprint per file; the page remembers the fingerprint of each file it
+   stored, so "更新" only fetches files that are new or changed.
    ============================================================ */
 const OFFLINE_CACHE = "yle-offline-v1"; // must match sw.js
 const OFFLINE_OK = "serviceWorker" in navigator && "caches" in window && (location.protocol === "https:" || location.hostname === "localhost");
-let OFFLINE = { phase: "idle", have: null, total: null, done: 0, failed: 0, bytes: 0, accent: null, usage: null };
+let OFFLINE = { phase: "idle", have: null, total: null, done: 0, failed: 0, bytes: 0, accent: null, usage: null,
+  need: 0, stale: 0, todoBytes: 0, known: false };
 if (OFFLINE_OK) {
-  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch((e) => dbg(`離線功能註冊失敗: ${e && e.message}`)); });
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch((e) => dbg(`離線功能註冊失敗: ${e && e.message}`));
+    setTimeout(offlineAutoCheck, 4000);
+  });
 }
 function offlineWordAudio(acc) {
   const set = new Set();
@@ -2236,21 +2243,90 @@ function offlineFiles(acc) {
   return Array.from(files);
 }
 function offlineAbs(f) { return new URL(f, location.href).href; }
+function offlinePathOf(url) { return decodeURIComponent(new URL(url).pathname).slice(new URL(".", location.href).pathname.length); }
 // files the site does not have (a word with no pre-made sound uses the device voice);
 // remembered so they don't keep the status at "not complete"
 const OFFLINE_MISSING_KEY = "yle-offline-missing-v1";
 function offlineMissing() { try { return new Set(JSON.parse(localStorage.getItem(OFFLINE_MISSING_KEY) || "[]")); } catch (e) { return new Set(); } }
 function offlineSaveMissing(set) { try { localStorage.setItem(OFFLINE_MISSING_KEY, JSON.stringify(Array.from(set))); } catch (e) {} }
+// fingerprint of every stored file (shared by all levels, like the cache itself)
+const OFFLINE_HASH_KEY = "yle-offline-hash-v1";
+function offlineHashes() { try { return JSON.parse(localStorage.getItem(OFFLINE_HASH_KEY) || "{}") || {}; } catch (e) { return {}; } }
+function offlineSaveHashes(h) { try { localStorage.setItem(OFFLINE_HASH_KEY, JSON.stringify(h)); } catch (e) {} }
+// path -> { h, size } for pages/data/pictures + the chosen accent's sounds; null when it can't be fetched (offline)
+async function offlineManifest(acc) {
+  try {
+    const parts = await Promise.all(["offline-manifest.json", `offline-manifest-${acc}.json`].map(async (u) => {
+      const r = await fetch(`${u}?t=${Date.now()}`, { cache: "no-store" });
+      if (!r.ok) throw new Error(`${u} HTTP ${r.status}`);
+      return r.json();
+    }));
+    const map = {};
+    parts.forEach((m) => Object.entries(m.files || {}).forEach(([dir, files]) =>
+      Object.entries(files).forEach(([name, v]) => { const [h, size] = v.split(":"); map[dir + name] = { h, size: Number(size) || 0 }; })));
+    return map;
+  } catch (e) { dbg(`離線清單讀取失敗: ${e && e.message}`); return null; }
+}
+// make sure the newest sw.js controls the page, so downloads are not answered from the old copies
+async function offlineFreshWorker() {
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) return;
+    await reg.update();
+    const w = reg.installing || reg.waiting;
+    if (!w) return;
+    await Promise.race([
+      new Promise((ok) => navigator.serviceWorker.addEventListener("controllerchange", ok, { once: true })),
+      new Promise((ok) => setTimeout(ok, 5000)),
+    ]);
+  } catch (e) {}
+}
+let OFFLINE_PLAN = null; // { acc, man, need: [], stale: [] } from the last check
 async function offlineCheck() {
   if (!OFFLINE_OK || SENT_STATE === "loading") return;
   try {
     const acc = ACCENT === "uk" ? "uk" : "us";
     const cache = await caches.open(OFFLINE_CACHE);
-    const keys = new Set((await cache.keys()).map((r) => r.url));
+    const cachedUrls = (await cache.keys()).map((r) => r.url);
+    const keys = new Set(cachedUrls);
     const missing = offlineMissing();
     const list = offlineFiles(acc).filter((f) => !missing.has(f));
+    const man = navigator.onLine === false ? null : await offlineManifest(acc);
+    const hashes = offlineHashes();
+    if (man) {
+      // files stored before fingerprints existed: same size as the site's copy -> treat as up to date
+      const unknown = list.filter((f) => man[f] && keys.has(offlineAbs(f)) && !hashes[f]);
+      for (const f of unknown) {
+        try {
+          const res = await cache.match(offlineAbs(f));
+          let size = Number(res && res.headers.get("content-length")) || 0;
+          if (!size && res) size = (await res.blob()).size;
+          if (size === man[f].size) hashes[f] = man[f].h;
+        } catch (e) {}
+      }
+      // files the site no longer has (same kind as this page stores) -> free the space
+      const prefix = new URL(".", location.href).href;
+      for (const u of cachedUrls) {
+        if (!u.startsWith(prefix)) continue;
+        const p = offlinePathOf(u);
+        const ours = /^(img|data)\//.test(p) || p.startsWith(`audio/${acc}/`);
+        if (ours && !man[p]) { await cache.delete(u); delete hashes[p]; keys.delete(u); }
+      }
+      offlineSaveHashes(hashes);
+    }
+    const need = list.filter((f) => !keys.has(offlineAbs(f)));
+    // pages and data are kept fresh by sw.js on every online visit, so they never count as updates
+    const isDoc = (f) => /\.(html|json|webmanifest)$/.test(f);
+    if (man) list.forEach((f) => { if (isDoc(f) && man[f] && keys.has(offlineAbs(f))) hashes[f] = man[f].h; });
+    const stale = man ? list.filter((f) => keys.has(offlineAbs(f)) && man[f] && hashes[f] !== man[f].h) : [];
+    if (man) offlineSaveHashes(hashes);
+    OFFLINE_PLAN = { acc, man, need, stale };
     OFFLINE.total = list.length;
-    OFFLINE.have = list.filter((f) => keys.has(offlineAbs(f))).length;
+    OFFLINE.have = list.length - need.length;
+    OFFLINE.need = need.length;
+    OFFLINE.stale = stale.length;
+    OFFLINE.known = !!man;
+    OFFLINE.todoBytes = man ? need.concat(stale).reduce((s, f) => s + (man[f] ? man[f].size : 0), 0) : 0;
     OFFLINE.accent = acc;
     if (navigator.storage && navigator.storage.estimate) {
       const est = await navigator.storage.estimate();
@@ -2259,7 +2335,23 @@ async function offlineCheck() {
   } catch (e) { dbg(`離線狀態讀取失敗: ${e && e.message}`); }
   offlineRefreshUi();
 }
-async function offlineDownload(refreshAll) {
+// once per visit: if this level was saved for offline use and the site has changed, say so
+let OFFLINE_AUTO_DONE = false;
+async function offlineAutoCheck() {
+  if (OFFLINE_AUTO_DONE || !OFFLINE_OK || navigator.onLine === false) return;
+  if (SENT_STATE === "loading") { setTimeout(offlineAutoCheck, 3000); return; }
+  OFFLINE_AUTO_DONE = true;
+  try {
+    const cache = await caches.open(OFFLINE_CACHE);
+    const page = location.pathname.split("/").pop() || "index.html";
+    if (!(await cache.match(offlineAbs(page)))) return; // not saved for offline use
+    await offlineCheck();
+    const n = OFFLINE.need + OFFLINE.stale;
+    if (OFFLINE.have && n) showToast(`離線資料有 ${n} 個檔案可更新，請到「設定 → 離線使用」按更新`);
+  } catch (e) {}
+}
+// mode: undefined = only new or changed files; "all" = every file again
+async function offlineDownload(mode) {
   if (!OFFLINE_OK || OFFLINE.phase === "running") return;
   if (SENT_STATE === "loading") { showToast("資料還在載入，請稍候再按"); return; }
   const acc = ACCENT === "uk" ? "uk" : "us";
@@ -2267,20 +2359,26 @@ async function offlineDownload(refreshAll) {
   offlineRefreshUi();
   try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
   try {
+    await offlineFreshWorker();
+    if (!OFFLINE_PLAN || OFFLINE_PLAN.acc !== acc) { OFFLINE.phase = "idle"; await offlineCheck(); OFFLINE.phase = "running"; }
+    const plan = OFFLINE_PLAN;
+    const man = plan.man;
     const cache = await caches.open(OFFLINE_CACHE);
-    const keys = new Set((await cache.keys()).map((r) => r.url));
     const missing = offlineMissing();
-    const todo = offlineFiles(acc).filter((f) => (refreshAll || !keys.has(offlineAbs(f))) && !missing.has(f));
+    const hashes = offlineHashes();
+    const todo = mode === "all" ? offlineFiles(acc).filter((f) => !missing.has(f)) : plan.need.concat(plan.stale);
     OFFLINE.total = todo.length;
     let next = 0;
     const worker = async () => {
       while (next < todo.length && OFFLINE.phase === "running") {
         const f = todo[next++];
         try {
-          const res = await fetch(f, { cache: "no-cache" });
+          // "?fresh=" makes sw.js go to the network and skips any browser copy of the old version
+          const res = await fetch(`${f}?fresh=${man && man[f] ? man[f].h : Date.now()}`, { cache: "no-cache" });
           if (res.ok && res.status === 200) {
             const len = Number(res.headers.get("content-length")) || 0;
             await cache.put(offlineAbs(f), res);
+            if (man && man[f]) hashes[f] = man[f].h;
             OFFLINE.bytes += len;
           } else if (res.status === 404) {
             missing.add(f); // a word without a pre-made sound simply uses the device voice
@@ -2289,14 +2387,16 @@ async function offlineDownload(refreshAll) {
           }
         } catch (e) { OFFLINE.failed++; }
         OFFLINE.done++;
-        if (OFFLINE.done % 20 === 0) offlineRefreshUi();
+        if (OFFLINE.done % 20 === 0) { offlineRefreshUi(); offlineSaveHashes(hashes); }
       }
     };
     await Promise.all([worker(), worker(), worker(), worker()]);
     offlineSaveMissing(missing);
+    offlineSaveHashes(hashes);
     const stopped = OFFLINE.phase !== "running";
     OFFLINE.phase = stopped ? "idle" : OFFLINE.failed ? "partial" : "done";
-    if (!stopped) showToast(OFFLINE.failed ? `下載完成，但有 ${OFFLINE.failed} 個檔案失敗，可以再按一次補下載` : "✅ 已可離線使用！");
+    if (!stopped) showToast(OFFLINE.failed ? `下載完成，但有 ${OFFLINE.failed} 個檔案失敗，可以再按一次補下載`
+      : todo.length ? `✅ 已更新 ${todo.length} 個檔案，可以離線使用！` : "✅ 已是最新");
   } catch (e) {
     OFFLINE.phase = "error";
     dbg(`離線下載失敗: ${e && e.message}`);
@@ -2308,9 +2408,14 @@ function offlineStop() { if (OFFLINE.phase === "running") OFFLINE.phase = "idle"
 async function offlineClear() {
   if (!confirm("確定要刪除這台裝置上所有等級的離線資料嗎？（練習進度不會被刪除）")) return;
   try { await caches.delete(OFFLINE_CACHE); } catch (e) {}
+  offlineSaveHashes({});
   OFFLINE = { ...OFFLINE, phase: "idle", have: 0 };
   showToast("已刪除離線資料");
   offlineCheck();
+}
+function offlineRedownloadAll() {
+  if (!confirm("要把這個等級的所有檔案全部重新下載嗎？（一般只要按「更新」就好）")) return;
+  offlineDownload("all");
 }
 function fmtMB(b) { return b ? `${(b / 1048576).toFixed(b > 10485760 ? 0 : 1)} MB` : ""; }
 function offlineRefreshUi() {
@@ -2321,6 +2426,7 @@ function offlineInnerHtml() {
   const o = OFFLINE;
   const accName = (o.accent || ACCENT) === "uk" ? "英式" : "美式";
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches);
+  const size = o.todoBytes ? `，約 ${fmtMB(Math.max(o.todoBytes, 104858))}` : "";
   let status, btn = "";
   if (o.phase === "running") {
     const pct = o.total ? Math.round((o.done / o.total) * 100) : 0;
@@ -2329,18 +2435,24 @@ function offlineInnerHtml() {
       <button class="offBtn ghost" onclick="offlineStop()">暫停</button>`;
   } else if (o.have === null) {
     status = "檢查中…";
-  } else if (o.have >= o.total) {
-    status = `✅ 已下載，可以離線使用（${accName}發音，${o.total} 個檔案）`;
-    btn = `<button class="offBtn ghost" onclick="offlineDownload(true)">🔄 重新下載（更新內容）</button>`;
+  } else if (!o.have) {
+    status = `尚未下載（${accName}發音，${o.total} 個檔案${size}）`;
+    btn = `<button class="offBtn" onclick="offlineDownload()">⬇️ 下載這個等級，離線使用</button>`;
+  } else if (!o.need && !o.stale) {
+    status = o.known ? `✅ 已是最新，可以離線使用（${accName}發音，${o.total} 個檔案）`
+      : `✅ 已下載，可以離線使用（${accName}發音，${o.total} 個檔案）。連上網路後會自動檢查有沒有更新。`;
   } else {
-    status = o.have ? `已下載 ${o.have} / ${o.total} 個檔案（${accName}發音）` : `尚未下載（${accName}發音，${o.total} 個檔案）`;
-    btn = `<button class="offBtn" onclick="offlineDownload()">⬇️ ${o.have ? "繼續下載" : "下載這個等級，離線使用"}</button>`;
+    const parts = [];
+    if (o.need) parts.push(`${o.need} 個新檔案`);
+    if (o.stale) parts.push(`${o.stale} 個檔案有更新`);
+    status = `有 ${parts.join("、")}${size}（${accName}發音）`;
+    btn = `<button class="offBtn" onclick="offlineDownload()">⬆️ 更新（只下載 ${o.need + o.stale} 個檔案）</button>`;
   }
   return `<div class="segNote" style="margin-top:0;font-size:13px;color:var(--ink);font-weight:700;">${status}</div>
     ${btn}
-    <div class="segNote">只下載目前選的口音；切換口音後要再下載一次。建議在 Wi-Fi 下載。${o.usage > 1048576 ? `這個網站目前在手機上用了 ${fmtMB(o.usage)}。` : ""}</div>
+    <div class="segNote">只下載目前選的口音；切換口音後要再下載一次。建議在 Wi-Fi 下載。之後網站有更新時，只會下載改過的檔案。${o.usage > 1048576 ? `這個網站目前在手機上用了 ${fmtMB(o.usage)}。` : ""}</div>
     ${standalone ? "" : `<div class="segNote">📱 iPhone：在 Safari 按「分享」→「加入主畫面」，之後從主畫面的圖示開啟。主畫面 App 的進度和 Safari 分開，請先用下方「備份進度」匯出，再到主畫面 App 匯入。主畫面 App 要再按一次下載。</div>`}
-    ${o.have ? `<button class="offLink" onclick="offlineClear()">刪除離線資料</button>` : ""}`;
+    ${o.have && o.phase !== "running" ? `<div style="display:flex;gap:18px;flex-wrap:wrap;"><button class="offLink" style="color:var(--sub);" onclick="offlineRedownloadAll()">全部重新下載</button><button class="offLink" onclick="offlineClear()">刪除離線資料</button></div>` : ""}`;
 }
 function offlineHtml() {
   if (!OFFLINE_OK) return `<div class="sheetLabel">離線使用</div><div class="segNote">這個瀏覽器不支援離線使用。</div>`;
